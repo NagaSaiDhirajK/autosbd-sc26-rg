@@ -4,7 +4,7 @@ Status date: 2026-07-31
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stage 0 environment audit; no dependencies installed, upstream source cloned, compilation performed, or benchmark executed.
+Current phase: Stage 1 upstream reproduction is complete and Stage 2 harness implementation is next. Both upstream repositories are pinned. NVIDIA HPC SDK 26.5 builds official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified commit, and identical-input Fe₄S₄ residual, energy, and density validation passes. Earlier RIKEN builds and a CPU smoke run remain historical fallback evidence, not the primary pipeline.
 
 ## Research objective
 
@@ -31,8 +31,8 @@ Parameter names and meanings must be verified from the exact checked-out source 
 - Walkup et al., *Scaling Sample-Based Quantum Diagonalization on GPU-Accelerated Systems using OpenMP Offload*, arXiv:2601.16169: https://arxiv.org/abs/2601.16169
 - Doi et al., *GPU-Accelerated Selected Basis Diagonalization with Thrust for SQD-based Algorithms*, arXiv:2601.16637: https://arxiv.org/abs/2601.16637
 - Robledo-Moreno et al., *Chemistry Beyond the Scale of Exact Diagonalization on a Quantum-Centric Supercomputer*, arXiv:2405.05068: https://arxiv.org/abs/2405.05068
-- AMD-HPC SBD: https://github.com/AMD-HPC/amd-sbd
-- RIKEN/IBM SBD, GPU fallback pinned to tag `v1.3.0`: https://github.com/r-ccs-cms/sbd
+- AMD-HPC SBD, primary implementation pinned to official `sc26-artifacts`: https://github.com/AMD-HPC/amd-sbd
+- RIKEN/IBM SBD, secondary historical fallback pinned to tag `v1.3.0`: https://github.com/r-ccs-cms/sbd
 - Qiskit SQD addon: https://github.com/Qiskit/qiskit-addon-sqd
 - Qiskit HPC-ready SQD addon: https://github.com/Qiskit/qiskit-addon-sqd-hpc
 - Qiskit C API HPC demo: https://github.com/qiskit-community/qiskit-c-api-demo

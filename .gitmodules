@@ -1,0 +1,6 @@
+[submodule "external/amd-sbd"]
+	path = external/amd-sbd
+	url = https://github.com/AMD-HPC/amd-sbd.git
+[submodule "external/riken-sbd"]
+	path = external/riken-sbd
+	url = https://github.com/r-ccs-cms/sbd.git

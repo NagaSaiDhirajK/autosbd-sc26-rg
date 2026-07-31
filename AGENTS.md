@@ -20,12 +20,12 @@ Build a credible, reproducible, single-node CPU/GPU runtime selector for authent
 - Prevent evaluation leakage: keep repetitions of an instance/configuration in one split, learn thresholds and models on training data only, and make held-out regret/speedup the primary evidence.
 - Describe this machine accurately as one heterogeneous node with an NVIDIA L4; do not imply multi-node or exascale results.
 
-## Upstream and pivot policy
+## Upstream implementation policy
 
-1. Inspect both `AMD-HPC/amd-sbd` and `r-ccs-cms/sbd` before choosing.
-2. Try the AMD CPU target first and verify the NVIDIA OpenMP-offload compiler requirements from source.
-3. Do not install NVIDIA HPC SDK without explicit approval.
-4. After at most 60 minutes of focused AMD GPU build work, pivot to `r-ccs-cms/sbd` tag `v1.3.0` if no working NVIDIA GPU build exists. Record the evidence and rationale.
+1. Use the official `AMD-HPC/amd-sbd` repository as the primary CPU/GPU implementation named by the OpenMP paper and handoff.
+2. Build CPU and NVIDIA OpenMP-offload GPU executables from the same exact AMD commit and record all external build adaptations.
+3. NVIDIA HPC SDK installation is authorized for this AMD path; record its size, version, compiler, MPI, and CUDA provenance.
+4. Preserve prior `r-ccs-cms/sbd` tag `v1.3.0` work as historical fallback evidence only. Do not promote it to the primary pipeline without explicit user direction.
 
 ## Work protocol
 
@@ -43,4 +43,3 @@ Obtain explicit approval before package installation; downloads over 500 MiB; mu
 Before each benchmark, verify the GPU is idle; capture free VRAM, temperature, power, and CPU load; estimate memory; skip candidates above 80% of current free VRAM; monitor peak host/GPU memory; enforce timeout; atomically record success or failure; and resume by immutable trial ID. Default to at most about 20 GiB of L4 VRAM. Do not run final timing configurations concurrently.
 
 Preserve user changes, avoid destructive Git commands, do not commit without reviewing scope, and never push without approval. At the end of each work session, remind the user to stop the GCP VM unless a job is intentionally running.
-

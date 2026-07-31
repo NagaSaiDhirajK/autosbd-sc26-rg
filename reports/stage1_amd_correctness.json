@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "cpu_residual": true,
+    "density_max_absolute_error": true,
+    "energy_relative_error": true,
+    "gpu_residual": true
+  },
+  "cpu": {
+    "density_length": 36,
+    "energy_hartree": -326.6982536731583,
+    "final_residual": 8.931146441578446e-09,
+    "path": "logs/stage1_amd_cpu_fe4s4_t16_i6.stdout.log"
+  },
+  "criteria": {
+    "density_max_absolute_tolerance": 1e-10,
+    "energy_relative_tolerance": 1e-10,
+    "residual_tolerance": 1e-08
+  },
+  "gpu": {
+    "density_length": 36,
+    "energy_hartree": -326.6982536731581,
+    "final_residual": 8.931494922593578e-09,
+    "path": "logs/stage1_amd_gpu_fe4s4_i6_rerun1.stdout.log"
+  },
+  "metrics": {
+    "density_l2_error": 4.1285257310171806e-13,
+    "density_max_absolute_error": 2.7017277304253184e-13,
+    "energy_absolute_error_hartree": 2.2737367544323206e-13,
+    "energy_relative_error": 6.959745663982201e-16,
+    "residual_absolute_difference": 3.4848101513151106e-13
+  },
+  "passed": true,
+  "schema_version": 1
+}

@@ -84,4 +84,44 @@ After the metadata update, first run an APT simulation and report its package co
 
 ## Readiness conclusion
 
-Hardware capacity is sufficient for Stage 1 inspection and later bounded L4 experiments. Compilation is blocked until the standard C++/CMake/MPI/BLAS/Python environment is installed. The AMD NVIDIA OpenMP-offload route remains uncertain because neither Clang nor `nvc++` is present; this is expected and governed by the 60-minute pivot rule.
+Hardware capacity is sufficient for Stage 1 inspection and later bounded L4 experiments. At the initial audit, compilation was blocked pending the standard C++/CMake/MPI/BLAS/Python environment documented below. The AMD NVIDIA OpenMP-offload route was uncertain because neither Clang nor `nvc++` was present and was governed by the 60-minute pivot rule.
+
+## Stage 1 dependency installation
+
+Installation time: 2026-07-31 around 22:19 UTC
+
+APT metadata refresh downloaded 49.0 MB. The transaction installed 83 new packages, upgraded 0, removed 0, downloaded 108 MB, and added approximately 451 MB. The simulation and completed transaction made no CUDA toolkit, driver, or cuDNN change. Disk availability after installation was 78 GiB.
+
+| Installed component | Version |
+|---|---|
+| build-essential | 12.9ubuntu3 |
+| G++ / MPI wrapper compiler | GCC 11.4.0 |
+| CMake | 3.22.1 |
+| Ninja | 1.10.1 |
+| pkg-config | 0.29.2 |
+| OpenMPI runtime/development | 4.1.2-2ubuntu1 |
+| OpenBLAS development | 0.3.20+ds-1 |
+| LAPACK/LAPACKE development | 3.10.0-2ubuntu1 |
+| system Python pip | 22.0.2 |
+| Python venv metapackage | 3.10.6-1~22.04.1 |
+
+The project-local `.venv` uses Python 3.10.12 with bootstrap packages `pip==26.2`, `setuptools==83.0.0`, `wheel==0.47.0`, and `packaging==26.2`. The scientific Python dependencies remain intentionally uninstalled until the benchmark/tuner package definition is written.
+
+The standard build environment is ready. The statement above that NVIDIA OpenMP target offload was unavailable describes the initial audit and was superseded by the user-authorized SDK installation below.
+
+## NVIDIA HPC SDK installation
+
+Installation time: 2026-07-31 from 22:35 to 22:42 UTC
+
+The official NVIDIA APT package `nvhpc-26-5` version `26.5-0` installed successfully. The transaction added one package, upgraded or removed none, held seven unrelated packages back, downloaded 5,095 MB, and added approximately 14.8 GB (`Installed-Size: 14,463,145 KiB`). It installed no driver package and changed no existing CUDA/cuDNN package. Approximately 59 GiB remained on the repository filesystem after installation.
+
+| Component | Verified value |
+|---|---|
+| NVIDIA C++ compiler | `nvc++ 26.5-0` at `/opt/nvidia/hpc_sdk/Linux_x86_64/26.5/compilers/bin/nvc++` |
+| Bundled CUDA toolkit | CUDA 13.2, nvcc `V13.2.78` |
+| MPI wrapper | `/opt/nvidia/hpc_sdk/Linux_x86_64/26.5/comm_libs/mpi/bin/mpic++`; backend `nvc++` |
+| MPI implementation | NVIDIA HPC-X 2.50 / Open MPI `5.0.10rc2` |
+| CUDA-aware MPI | built with CUDA 13.2; `opal_built_with_cuda_support=true` and `opal_cuda_support=true` |
+| L4 target support | `-gpu=cc89` accepted by `nvc++` and verified in the built cubin |
+
+The NVHPC compiler-bin and MPI-bin directories must both be in `PATH` when invoking the bundled MPI wrapper. `scripts/build_upstream.sh` supplies that environment itself. NVIDIA OpenMP target offload is now available; Clang is not required for the selected build.

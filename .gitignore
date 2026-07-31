@@ -1,0 +1,22 @@
+# Local Python environment and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build products
+build/
+build-*/
+*.o
+*.a
+*.so
+
+# Full command/build/runtime logs are local; durable summaries live in reports/.
+logs/*.log
+logs/*.csv
+
+# Editor and operating-system noise
+.vscode/
+.DS_Store
