@@ -1,0 +1,1881 @@
+{
+  "rows": [
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.1847839202865,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.18478392028646,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 5.595942122801479e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9053043618977,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729456,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 1.7406612185217347e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9053043618977,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-59536-configurations",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.18478392028646,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 5.595942122801479e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.07312514830402,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9053043618978,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 9.134172443598379e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798623,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 1.740625307671452e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019396,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.07312514830399,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 3.736103831017339e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-59536-configurations",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.07312514830402,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729456,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 1.7406612185217347e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019396,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.1847839202865,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.07312514830402,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9053043618977,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.07312514830399,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 3.736103831017339e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6593248445311,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 3.480287537351754e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.18478392028646,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 5.595942122801479e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.1847839202865,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.18478392028646,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 5.595942122801479e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-59536-configurations",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798623,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 1.740625307671452e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.07312514830399,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 3.736103831017339e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019396,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9053043618977,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.1847839202865,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.1847839202865,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729456,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 1.7406612185217347e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.58479570194,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.2183786179342119e-15
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6593248445311,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 3.480287537351754e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.07312514830402,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6593248445312,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9053043618977,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.07312514830402,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798623,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 1.740625307671452e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.58479570194,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.2183786179342119e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6593248445311,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 3.480287537351754e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6593248445312,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.07312514830402,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9053043618977,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.07312514830399,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 3.736103831017339e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6593248445312,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.07312514830399,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 3.736103831017339e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6593248445311,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 3.480287537351754e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9053043618978,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 9.134172443598379e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019396,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9053043618978,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 9.134172443598379e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.18478392028646,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 5.595942122801479e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-59536-configurations",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.1847839202865,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9053043618978,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 9.134172443598379e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6593248445312,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019396,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9053043618978,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 9.134172443598379e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.10793303539991,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 5.601592691497278e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6593248445311,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 3.480287537351754e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6593248445312,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9407606093665,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0100",
+      "reference_value": -108.9407606093665,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729456,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 1.7406612185217347e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.14467787856536,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 1.86629651751437e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6982536731583,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.6593248445312,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5689554798622,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 5.221875923014356e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798623,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 1.740625307671452e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5689554798624,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0055",
+      "reference_value": -326.5689554798624,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -109.0415109298453,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0239",
+      "reference_value": -109.0415109298453,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9094778983647,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0055",
+      "reference_value": -108.9094778983647,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -108.9053043618978,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0032",
+      "reference_value": -108.9053043618977,
+      "relative_error": 9.134172443598379e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.10793303539987,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0055",
+      "reference_value": -76.10793303539987,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5622181729457,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0032",
+      "reference_value": -326.5622181729457,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6982536731581,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0244",
+      "reference_value": -326.6982536731583,
+      "relative_error": 6.959745663982201e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.5847957019399,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 1.044324529657896e-15
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -326.5847957019396,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0100",
+      "reference_value": -326.5847957019396,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.23593762863834,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 5.592187290104358e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -109.0075349193047,
+      "family_id": "n2",
+      "problem_instance": "n2-prefix-0174",
+      "reference_value": -109.0075349193047,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.07312514830399,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0032",
+      "reference_value": -76.07312514830402,
+      "relative_error": 3.736103831017339e-16
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -326.6593248445311,
+      "family_id": null,
+      "problem_instance": "fe4s4-prefix-0174",
+      "reference_value": -326.6593248445312,
+      "relative_error": 3.480287537351754e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.23593762863838,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0275",
+      "reference_value": -76.23593762863838,
+      "relative_error": 0.0
+    },
+    {
+      "backend": "gpu",
+      "energy_or_eigenvalue": -76.18478392028646,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0174",
+      "reference_value": -76.1847839202865,
+      "relative_error": 5.595942122801479e-16
+    },
+    {
+      "backend": "cpu",
+      "energy_or_eigenvalue": -76.14467787856537,
+      "family_id": "h2o",
+      "problem_instance": "h2o-prefix-0100",
+      "reference_value": -76.14467787856537,
+      "relative_error": 0.0
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "primary_metric": "energy_or_eigenvalue",
+    "raw_directory": "results/raw"
+  }
+}

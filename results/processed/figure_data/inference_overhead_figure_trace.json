@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "hot_median_percent_of_shortest_sbd_runtime": "0.007273449840352077",
+      "maximum_us": 157.348,
+      "measurement": "hot_selection",
+      "median_us": 44.165,
+      "p90_us": 46.157300000000006,
+      "p95_us": 48.977199999999996,
+      "raw_record_path": "results/raw/inference_overhead_multifamily/7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd.json",
+      "raw_record_sha256": "bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754",
+      "selected_candidate_counts": "{\"amd-cpu-16\":5336,\"amd-l4-default\":4664}"
+    },
+    {
+      "hot_median_percent_of_shortest_sbd_runtime": "",
+      "maximum_us": 990.03,
+      "measurement": "cold_load_plus_selection",
+      "median_us": 840.905,
+      "p90_us": 855.6012999999999,
+      "p95_us": 859.7317,
+      "raw_record_path": "results/raw/inference_overhead_multifamily/7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd.json",
+      "raw_record_sha256": "bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754",
+      "selected_candidate_counts": "{\"amd-cpu-16\":56,\"amd-l4-default\":44}"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "inference_overhead_path": "results/processed/stage5_multifamily/inference_overhead.csv",
+    "inference_overhead_sha256": "b52db314ce4f10d2a0dab8d77dc146990e9add83eff3af77dc8e26f871947f0e",
+    "primary_metric": "median_us"
+  }
+}

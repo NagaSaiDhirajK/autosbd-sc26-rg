@@ -1,0 +1,159 @@
+{
+  "families": [
+    "fe4s4",
+    "h2o",
+    "n2"
+  ],
+  "rows": [
+    {
+      "family_id": "fe4s4",
+      "geometric_mean_overhead_percent": 107.79687720600366,
+      "median_normalized_regret_percent": 98.34842404051707,
+      "p90_normalized_regret_percent": 309.10759721114306,
+      "policy": "fixed_cpu16",
+      "selection_accuracy": 0.2
+    },
+    {
+      "family_id": "fe4s4",
+      "geometric_mean_overhead_percent": 2.9771528206909537,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 9.479334569411678,
+      "policy": "fixed_gpu",
+      "selection_accuracy": 0.8
+    },
+    {
+      "family_id": "fe4s4",
+      "geometric_mean_overhead_percent": 4.7213278347955745,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 15.5660901205665,
+      "policy": "static_size_threshold",
+      "selection_accuracy": 0.8
+    },
+    {
+      "family_id": "fe4s4",
+      "geometric_mean_overhead_percent": 4.7213278347955745,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 15.5660901205665,
+      "policy": "size_only_tree_ablation",
+      "selection_accuracy": 0.8
+    },
+    {
+      "family_id": "fe4s4",
+      "geometric_mean_overhead_percent": 4.7213278347955745,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 15.5660901205665,
+      "policy": "autosbd_full_tree",
+      "selection_accuracy": 0.8
+    },
+    {
+      "family_id": "fe4s4",
+      "geometric_mean_overhead_percent": 0.0,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 0.0,
+      "policy": "measured_feasible_oracle",
+      "selection_accuracy": 1.0
+    },
+    {
+      "family_id": "n2",
+      "geometric_mean_overhead_percent": 68.49341677835585,
+      "median_normalized_regret_percent": 11.663029153925956,
+      "p90_normalized_regret_percent": 279.4137066688189,
+      "policy": "fixed_cpu16",
+      "selection_accuracy": 0.4
+    },
+    {
+      "family_id": "n2",
+      "geometric_mean_overhead_percent": 7.661113279732756,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 22.582744426540337,
+      "policy": "fixed_gpu",
+      "selection_accuracy": 0.6
+    },
+    {
+      "family_id": "n2",
+      "geometric_mean_overhead_percent": 0.0,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 0.0,
+      "policy": "static_size_threshold",
+      "selection_accuracy": 1.0
+    },
+    {
+      "family_id": "n2",
+      "geometric_mean_overhead_percent": 0.0,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 0.0,
+      "policy": "size_only_tree_ablation",
+      "selection_accuracy": 1.0
+    },
+    {
+      "family_id": "n2",
+      "geometric_mean_overhead_percent": 2.2308286387068277,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 6.997817492355575,
+      "policy": "autosbd_full_tree",
+      "selection_accuracy": 0.8
+    },
+    {
+      "family_id": "n2",
+      "geometric_mean_overhead_percent": 0.0,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 0.0,
+      "policy": "measured_feasible_oracle",
+      "selection_accuracy": 1.0
+    },
+    {
+      "family_id": "h2o",
+      "geometric_mean_overhead_percent": 88.27794941768619,
+      "median_normalized_regret_percent": 32.04754393920177,
+      "p90_normalized_regret_percent": 399.50960523549196,
+      "policy": "fixed_cpu16",
+      "selection_accuracy": 0.4
+    },
+    {
+      "family_id": "h2o",
+      "geometric_mean_overhead_percent": 13.933375748277289,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 38.584568054317536,
+      "policy": "fixed_gpu",
+      "selection_accuracy": 0.6
+    },
+    {
+      "family_id": "h2o",
+      "geometric_mean_overhead_percent": 6.718136686974985,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 23.050532115371915,
+      "policy": "static_size_threshold",
+      "selection_accuracy": 0.8
+    },
+    {
+      "family_id": "h2o",
+      "geometric_mean_overhead_percent": 53.63689700706791,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 341.77330083510986,
+      "policy": "size_only_tree_ablation",
+      "selection_accuracy": 0.6
+    },
+    {
+      "family_id": "h2o",
+      "geometric_mean_overhead_percent": 0.0,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 0.0,
+      "policy": "autosbd_full_tree",
+      "selection_accuracy": 1.0
+    },
+    {
+      "family_id": "h2o",
+      "geometric_mean_overhead_percent": 0.0,
+      "median_normalized_regret_percent": 0.0,
+      "p90_normalized_regret_percent": 0.0,
+      "policy": "measured_feasible_oracle",
+      "selection_accuracy": 1.0
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "policy_summary_path": "results/processed/stage5_multifamily/policy_summary.csv",
+    "policy_summary_sha256": "5f34333500332f3c28b181b3b333d7662f49a0246a984506ebafba1f640cd154",
+    "primary_metric": "selection_accuracy"
+  }
+}

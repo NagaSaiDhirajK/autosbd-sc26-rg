@@ -419,6 +419,800 @@ def generate_stage4_figures(
     }
 
 
+def build_cpu_thread_scaling_figure_data(raw_dir: Path) -> dict[str, Any]:
+    """Build CPU thread-scaling plot data from eligible raw CPU records."""
+
+    raw_directory = Path(raw_dir)
+    instances: dict[str, list[Mapping[str, Any]]] = {}
+    for raw_path in sorted(raw_directory.glob("*.json")):
+        raw = _load_mapping(raw_path, f"raw record {raw_path.name}")
+        if raw.get("backend") != "cpu":
+            continue
+        if not (
+            raw.get("status") == "success"
+            and raw.get("correct") is True
+            and raw.get("timing_eligible") is True
+            and raw.get("warmup_or_measured") == "measured"
+            and raw.get("timeout") is False
+            and raw.get("oom") is False
+            and raw.get("skip_reason") is None
+        ):
+            continue
+        cpu_threads = raw.get("cpu_threads")
+        if not isinstance(cpu_threads, int) or cpu_threads <= 0:
+            continue
+        instance = _require_text(raw.get("problem_instance"), "problem_instance")
+        instances.setdefault(instance, []).append(raw)
+
+    rows: list[dict[str, Any]] = []
+    for instance, records in sorted(instances.items()):
+        thread_levels = sorted({
+            _require_positive_int(record.get("cpu_threads"), "cpu_threads")
+            for record in records
+        })
+        if len(thread_levels) < 2:
+            continue
+        family_id = records[0].get("family_id")
+        n_configurations = _require_positive_int(
+            records[0].get("n_configurations"), "n_configurations"
+        )
+        for threads in thread_levels:
+            group = [
+                record
+                for record in records
+                if _require_positive_int(record.get("cpu_threads"), "cpu_threads")
+                == threads
+            ]
+            wall_times = [
+                _require_positive_number(record.get("wall_time_s"), "wall_time_s")
+                for record in group
+            ]
+            solver_times = [
+                _require_positive_number(record.get("solver_time_s"), "solver_time_s")
+                for record in group
+            ]
+            wall_summary = summarize_values(wall_times)
+            solver_summary = summarize_values(solver_times)
+            rows.append(
+                {
+                    "problem_instance": instance,
+                    "family_id": family_id,
+                    "n_configurations": n_configurations,
+                    "cpu_threads": threads,
+                    "count": wall_summary["count"],
+                    "wall_minimum_s": wall_summary["minimum"],
+                    "wall_q1_s": wall_summary["q1"],
+                    "wall_median_s": wall_summary["median"],
+                    "wall_q3_s": wall_summary["q3"],
+                    "wall_iqr_s": wall_summary["iqr"],
+                    "wall_maximum_s": wall_summary["maximum"],
+                    "solver_median_s": solver_summary["median"],
+                }
+            )
+    if not rows:
+        raise FigureError("no eligible CPU thread-scaling records")
+
+    return {
+        "schema_version": 1,
+        "source": {
+            "raw_directory": str(raw_directory),
+            "primary_metric": "end_to_end_wall_time_s",
+        },
+        "rows": sorted(rows, key=lambda item: (item["problem_instance"], item["cpu_threads"])),
+    }
+
+
+def generate_cpu_thread_scaling_figures(
+    raw_dir: Path, output_dir: Path, table_dir: Path
+) -> dict[str, Any]:
+    data = build_cpu_thread_scaling_figure_data(raw_dir)
+    output_directory = Path(output_dir)
+    table_directory = Path(table_dir)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    table_directory.mkdir(parents=True, exist_ok=True)
+
+    statuses: dict[str, bool] = {}
+    trace_json = table_directory / "cpu_thread_scaling_figure_trace.json"
+    statuses[str(trace_json)] = _write_text_if_changed(
+        trace_json, json.dumps(data, indent=2, sort_keys=True) + "\n"
+    )
+    scaling_csv = table_directory / "cpu_thread_scaling.csv"
+    statuses[str(scaling_csv)] = _write_csv_if_changed(
+        scaling_csv,
+        data["rows"],
+        (
+            "problem_instance",
+            "family_id",
+            "n_configurations",
+            "cpu_threads",
+            "count",
+            "wall_minimum_s",
+            "wall_q1_s",
+            "wall_median_s",
+            "wall_q3_s",
+            "wall_iqr_s",
+            "wall_maximum_s",
+            "solver_median_s",
+        ),
+    )
+    scaling_svg = output_directory / "cpu_thread_scaling.svg"
+    statuses[str(scaling_svg)] = _render_cpu_thread_scaling_svg(data, scaling_svg)
+    return {
+        "status": "ok",
+        "changed": statuses,
+        "instance_count": len({row["problem_instance"] for row in data["rows"]}),
+        "thread_variants": len({row["cpu_threads"] for row in data["rows"]}),
+    }
+
+
+def _render_cpu_thread_scaling_svg(
+    data: Mapping[str, Any], output_path: Path
+) -> bool:
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+
+    rows = data["rows"]
+    instances = sorted({row["problem_instance"] for row in rows})
+    colors = (
+        COLORBLIND_BLUE,
+        COLORBLIND_ORANGE,
+        COLORBLIND_GREEN,
+        COLORBLIND_SKY,
+        COLORBLIND_PURPLE,
+    )
+    with mpl.rc_context(
+        {
+            "svg.hashsalt": "autosbd-stage4-figures-v1",
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+        }
+    ):
+        figure, axis = plt.subplots(figsize=(7.2, 4.6), constrained_layout=True)
+        for color, instance in zip(colors, instances):
+            instance_rows = [row for row in rows if row["problem_instance"] == instance]
+            x = [row["cpu_threads"] for row in instance_rows]
+            y = [row["wall_median_s"] for row in instance_rows]
+            yerr = [
+                [row["wall_median_s"] - row["wall_q1_s"] for row in instance_rows],
+                [row["wall_q3_s"] - row["wall_median_s"] for row in instance_rows],
+            ]
+            axis.errorbar(
+                x,
+                y,
+                yerr=yerr,
+                label=instance,
+                color=color,
+                marker="o",
+                linewidth=1.8,
+                capsize=3,
+            )
+        axis.set_xscale("log")
+        axis.set_yscale("log")
+        axis.set_xticks([1, 4, 8, 16])
+        axis.set_xticklabels(["1", "4", "8", "16"])
+        axis.set_xlim(0.8, 18)
+        axis.set_xlabel("CPU threads")
+        axis.set_ylabel("Median end-to-end wall time (s)")
+        axis.set_title("CPU thread-scaling pilot")
+        axis.legend(frameon=False, fontsize=8)
+        figure.text(
+            0.5,
+            0.015,
+            "Source: eligible measured CPU raw records from results/raw.",
+            ha="center",
+            va="bottom",
+            fontsize=6,
+            family="DejaVu Sans Mono",
+        )
+        description = (
+            "Internal CPU thread-scaling pilot for eligible measured raw CPU records. "
+            "Only instances with multiple thread counts are shown."
+        )
+        return _save_figure_if_changed(
+            figure, output_path, description=description
+        )
+
+
+def build_multifamily_holdout_figure_data(policy_summary_path: Path) -> dict[str, Any]:
+    summary_file = Path(policy_summary_path)
+    rows = _load_csv_rows(
+        summary_file,
+        "multifamily policy summary",
+        {
+            "scope",
+            "heldout_family_id",
+            "policy",
+            "selection_accuracy",
+            "geometric_mean_selected_over_oracle_valid_only",
+            "median_normalized_regret_valid_only",
+            "p90_normalized_regret_valid_only",
+        },
+    )
+    heldout_rows = [row for row in rows if row["scope"] == "heldout_family"]
+    if len(heldout_rows) != 18:
+        raise FigureError(
+            f"multifamily heldout summary must contain 18 rows, found {len(heldout_rows)}"
+        )
+    data_rows: list[dict[str, Any]] = []
+    for row in heldout_rows:
+        policy = row["policy"]
+        if policy not in MULTIFAMILY_POLICIES:
+            raise FigureError(f"unexpected multifamily summary policy: {policy}")
+        family_id = _require_text(row["heldout_family_id"], "heldout_family_id")
+        data_rows.append(
+            {
+                "family_id": family_id,
+                "policy": policy,
+                "selection_accuracy": _parse_fraction(row["selection_accuracy"], "selection_accuracy"),
+                "geometric_mean_overhead_percent": (
+                    _parse_positive_number(
+                        row["geometric_mean_selected_over_oracle_valid_only"],
+                        "geometric_mean_selected_over_oracle_valid_only",
+                    )
+                    - 1.0
+                )
+                * 100.0,
+                "median_normalized_regret_percent": _parse_nonnegative_number(
+                    row["median_normalized_regret_valid_only"],
+                    "median_normalized_regret_valid_only",
+                )
+                * 100.0,
+                "p90_normalized_regret_percent": _parse_nonnegative_number(
+                    row["p90_normalized_regret_valid_only"],
+                    "p90_normalized_regret_valid_only",
+                )
+                * 100.0,
+            }
+        )
+    families = sorted({row["family_id"] for row in data_rows})
+    return {
+        "schema_version": 1,
+        "source": {
+            "policy_summary_path": str(summary_file),
+            "policy_summary_sha256": sha256_path(summary_file),
+            "primary_metric": "selection_accuracy",
+        },
+        "rows": data_rows,
+        "families": families,
+    }
+
+
+def generate_multifamily_holdout_figures(
+    policy_summary_path: Path, output_dir: Path, table_dir: Path
+) -> dict[str, Any]:
+    data = build_multifamily_holdout_figure_data(policy_summary_path)
+    output_directory = Path(output_dir)
+    table_directory = Path(table_dir)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    table_directory.mkdir(parents=True, exist_ok=True)
+    statuses: dict[str, bool] = {}
+    trace_path = table_directory / "multifamily_holdout_figure_trace.json"
+    statuses[str(trace_path)] = _write_text_if_changed(
+        trace_path, json.dumps(data, indent=2, sort_keys=True) + "\n"
+    )
+    holdout_csv = table_directory / "multifamily_holdout_generalization.csv"
+    statuses[str(holdout_csv)] = _write_csv_if_changed(
+        holdout_csv,
+        data["rows"],
+        (
+            "family_id",
+            "policy",
+            "selection_accuracy",
+            "geometric_mean_overhead_percent",
+            "median_normalized_regret_percent",
+            "p90_normalized_regret_percent",
+        ),
+    )
+    holdout_svg = output_directory / "multifamily_holdout_generalization.svg"
+    statuses[str(holdout_svg)] = _render_multifamily_holdout_svg(data, holdout_svg)
+    return {
+        "status": "ok",
+        "changed": statuses,
+        "families": len(data["families"]),
+        "policies": len({row["policy"] for row in data["rows"]}),
+    }
+
+
+def _render_multifamily_holdout_svg(
+    data: Mapping[str, Any], output_path: Path
+) -> bool:
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+
+    rows = data["rows"]
+    families = data["families"]
+    policies = MULTIFAMILY_POLICIES
+    colors = (
+        COLORBLIND_BLUE,
+        COLORBLIND_ORANGE,
+        COLORBLIND_GREEN,
+        COLORBLIND_SKY,
+        COLORBLIND_YELLOW,
+        COLORBLIND_PURPLE,
+    )
+    family_order = {family: index for index, family in enumerate(families)}
+    grouped: dict[str, list[dict[str, Any]]] = {policy: [] for policy in policies}
+    for row in rows:
+        grouped[row["policy"]].append(row)
+    with mpl.rc_context(
+        {
+            "svg.hashsalt": "autosbd-multifamily-figures-v1",
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+        }
+    ):
+        figure, axes = plt.subplots(ncols=2, figsize=(12.8, 4.6), constrained_layout=True)
+        width = 0.12
+        x = list(range(len(families)))
+        for index, policy in enumerate(policies):
+            policy_rows = sorted(
+                grouped[policy], key=lambda row: family_order[row["family_id"]]
+            )
+            offsets = [position + (index - 2.5) * width for position in x]
+            axes[0].bar(
+                offsets,
+                [row["selection_accuracy"] for row in policy_rows],
+                width=width,
+                label=MULTIFAMILY_POLICY_LABELS[policy],
+                color=colors[index],
+                edgecolor="#333333",
+                linewidth=0.8,
+            )
+            axes[1].bar(
+                offsets,
+                [row["geometric_mean_overhead_percent"] for row in policy_rows],
+                width=width,
+                label=MULTIFAMILY_POLICY_LABELS[policy],
+                color=colors[index],
+                edgecolor="#333333",
+                linewidth=0.8,
+            )
+        axes[0].set_xticks(x, families)
+        axes[0].set_ylim(0.0, 1.0)
+        axes[0].set_ylabel("Selection accuracy")
+        axes[0].set_title("Held-out selection accuracy by family")
+        axes[1].set_xticks(x, families)
+        axes[1].set_ylabel("Geometric mean overhead (%)")
+        axes[1].set_title("Held-out runtime overhead vs oracle")
+        axes[1].set_ylim(0.0, max(row["geometric_mean_overhead_percent"] for row in rows) * 1.12)
+        axes[1].axhline(0.0, color="#333333", linewidth=0.8)
+        axes[0].legend(frameon=False, fontsize=8, ncol=2)
+        figure.text(
+            0.5,
+            0.01,
+            "Source: held-out family summary from policy_summary.csv.",
+            ha="center",
+            va="bottom",
+            fontsize=6,
+            family="DejaVu Sans Mono",
+        )
+        description = (
+            "Internal multifamily held-out generalization figure showing accuracy "
+            "and runtime overhead for each held-out family and policy."
+        )
+        return _save_figure_if_changed(figure, output_path, description=description)
+
+
+def build_inference_overhead_figure_data(inference_overhead_path: Path) -> dict[str, Any]:
+    path = Path(inference_overhead_path)
+    rows = _load_csv_rows(
+        path,
+        "inference overhead",
+        {
+            "measurement",
+            "median_us",
+            "p90_us",
+            "p95_us",
+            "maximum_us",
+            "selected_candidate_counts",
+            "hot_median_percent_of_shortest_sbd_runtime",
+            "raw_record_path",
+            "raw_record_sha256",
+        },
+    )
+    if not rows:
+        raise FigureError("inference overhead file is empty")
+    data_rows: list[dict[str, Any]] = []
+    for row in rows:
+        label = row["measurement"]
+        data_rows.append(
+            {
+                "measurement": label,
+                "median_us": _parse_positive_number(row["median_us"], f"median_us for {label}"),
+                "p90_us": _parse_nonnegative_number(row["p90_us"], f"p90_us for {label}"),
+                "p95_us": _parse_nonnegative_number(row["p95_us"], f"p95_us for {label}"),
+                "maximum_us": _parse_nonnegative_number(row["maximum_us"], f"maximum_us for {label}"),
+                "selected_candidate_counts": row["selected_candidate_counts"],
+                "hot_median_percent_of_shortest_sbd_runtime": row["hot_median_percent_of_shortest_sbd_runtime"],
+                "raw_record_path": row["raw_record_path"],
+                "raw_record_sha256": row["raw_record_sha256"],
+            }
+        )
+    return {
+        "schema_version": 1,
+        "source": {
+            "inference_overhead_path": str(path),
+            "inference_overhead_sha256": sha256_path(path),
+            "primary_metric": "median_us",
+        },
+        "rows": data_rows,
+    }
+
+
+def generate_inference_overhead_figures(
+    inference_overhead_path: Path, output_dir: Path, table_dir: Path
+) -> dict[str, Any]:
+    data = build_inference_overhead_figure_data(inference_overhead_path)
+    output_directory = Path(output_dir)
+    table_directory = Path(table_dir)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    table_directory.mkdir(parents=True, exist_ok=True)
+    statuses: dict[str, bool] = {}
+    trace_path = table_directory / "inference_overhead_figure_trace.json"
+    statuses[str(trace_path)] = _write_text_if_changed(
+        trace_path, json.dumps(data, indent=2, sort_keys=True) + "\n"
+    )
+    overhead_csv = table_directory / "inference_overhead.csv"
+    statuses[str(overhead_csv)] = _write_csv_if_changed(
+        overhead_csv,
+        data["rows"],
+        (
+            "measurement",
+            "median_us",
+            "p90_us",
+            "p95_us",
+            "maximum_us",
+            "selected_candidate_counts",
+            "hot_median_percent_of_shortest_sbd_runtime",
+            "raw_record_path",
+            "raw_record_sha256",
+        ),
+    )
+    overhead_svg = output_directory / "inference_overhead.svg"
+    statuses[str(overhead_svg)] = _render_inference_overhead_svg(data, overhead_svg)
+    return {
+        "status": "ok",
+        "changed": statuses,
+        "measurements": len(data["rows"]),
+    }
+
+
+def _render_inference_overhead_svg(
+    data: Mapping[str, Any], output_path: Path
+) -> bool:
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+
+    rows = data["rows"]
+    measurements = [row["measurement"] for row in rows]
+    medians = [row["median_us"] for row in rows]
+    colors = (COLORBLIND_BLUE, COLORBLIND_ORANGE, COLORBLIND_GREEN, COLORBLIND_PURPLE)
+    with mpl.rc_context(
+        {
+            "svg.hashsalt": "autosbd-multifamily-figures-v1",
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+        }
+    ):
+        figure, axis = plt.subplots(figsize=(7.2, 4.6), constrained_layout=True)
+        bars = axis.bar(
+            measurements,
+            medians,
+            color=colors[: len(measurements)],
+            edgecolor="#333333",
+            linewidth=0.8,
+        )
+        axis.set_ylabel("Median selection overhead (µs)")
+        axis.set_title("Inference overhead for AutoSBD selection")
+        for bar, row in zip(bars, rows):
+            axis.text(
+                bar.get_x() + bar.get_width() / 2,
+                bar.get_height() + max(medians) * 0.02,
+                f"{row['median_us']:.1f}µs",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+            )
+        figure.text(
+            0.5,
+            0.015,
+            "Source: inference_overhead.csv generated from evaluation overhead measurements.",
+            ha="center",
+            va="bottom",
+            fontsize=6,
+            family="DejaVu Sans Mono",
+        )
+        description = (
+            "Measured AutoSBD inference overhead for hot selection and cold load-plus-selection."
+        )
+        return _save_figure_if_changed(figure, output_path, description=description)
+
+
+def build_numerical_parity_figure_data(raw_dir: Path) -> dict[str, Any]:
+    raw_directory = Path(raw_dir)
+    rows: list[dict[str, Any]] = []
+    for raw_path in sorted(raw_directory.glob("*.json")):
+        raw = _load_mapping(raw_path, f"raw record {raw_path.name}")
+        if raw.get("status") != "success" or raw.get("correct") is not True:
+            continue
+        energy = raw.get("energy_or_eigenvalue")
+        reference = raw.get("reference_value")
+        relative_error = raw.get("relative_error")
+        if energy is None or reference is None or relative_error is None:
+            continue
+        rows.append(
+            {
+                "problem_instance": _require_text(raw.get("problem_instance"), "problem_instance"),
+                "backend": _require_text(raw.get("backend"), "backend"),
+                "family_id": raw.get("family_id"),
+                "energy_or_eigenvalue": _require_number(energy, "energy_or_eigenvalue"),
+                "reference_value": _require_number(reference, "reference_value"),
+                "relative_error": _require_number(relative_error, "relative_error"),
+            }
+        )
+    if not rows:
+        raise FigureError("no eligible energy parity records")
+    return {
+        "schema_version": 1,
+        "source": {
+            "raw_directory": str(raw_directory),
+            "primary_metric": "energy_or_eigenvalue",
+        },
+        "rows": rows,
+    }
+
+
+def generate_numerical_parity_figures(
+    raw_dir: Path, output_dir: Path, table_dir: Path
+) -> dict[str, Any]:
+    data = build_numerical_parity_figure_data(raw_dir)
+    output_directory = Path(output_dir)
+    table_directory = Path(table_dir)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    table_directory.mkdir(parents=True, exist_ok=True)
+    statuses: dict[str, bool] = {}
+    trace_path = table_directory / "numerical_parity_figure_trace.json"
+    statuses[str(trace_path)] = _write_text_if_changed(
+        trace_path, json.dumps(data, indent=2, sort_keys=True) + "\n"
+    )
+    parity_csv = table_directory / "numerical_parity.csv"
+    statuses[str(parity_csv)] = _write_csv_if_changed(
+        parity_csv,
+        data["rows"],
+        (
+            "problem_instance",
+            "family_id",
+            "backend",
+            "energy_or_eigenvalue",
+            "reference_value",
+            "relative_error",
+        ),
+    )
+    parity_svg = output_directory / "numerical_parity.svg"
+    statuses[str(parity_svg)] = _render_numerical_parity_svg(data, parity_svg)
+    return {
+        "status": "ok",
+        "changed": statuses,
+        "records": len(data["rows"]),
+    }
+
+
+def _render_numerical_parity_svg(
+    data: Mapping[str, Any], output_path: Path
+) -> bool:
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+
+    rows = data["rows"]
+    backends = sorted({row["backend"] for row in rows})
+    backend_colors = {"cpu": COLORBLIND_BLUE, "gpu": COLORBLIND_ORANGE}
+    with mpl.rc_context(
+        {
+            "svg.hashsalt": "autosbd-stage4-figures-v1",
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+        }
+    ):
+        figure, axis = plt.subplots(figsize=(7.2, 4.6), constrained_layout=True)
+        x = [row["reference_value"] for row in rows]
+        y = [row["energy_or_eigenvalue"] for row in rows]
+        colors = [backend_colors.get(row["backend"], NEUTRAL_GRAY) for row in rows]
+        axis.scatter(x, y, c=colors, alpha=0.8, edgecolor="#333333", linewidth=0.4)
+        min_val = min(min(x), min(y))
+        max_val = max(max(x), max(y))
+        axis.plot([min_val, max_val], [min_val, max_val], color="#333333", linewidth=1.0, linestyle="--")
+        axis.set_xlabel("Reference energy")
+        axis.set_ylabel("Measured energy")
+        axis.set_title("Numerical parity of final energy across raw records")
+        axis.set_aspect("equal", adjustable="box")
+        axis.legend(
+            handles=(
+                mpl.lines.Line2D([0], [0], marker="o", color="w", markerfacecolor=COLORBLIND_BLUE, label="CPU", markersize=6),
+                mpl.lines.Line2D([0], [0], marker="o", color="w", markerfacecolor=COLORBLIND_ORANGE, label="GPU", markersize=6),
+            ),
+            loc="upper left",
+            frameon=False,
+        )
+        max_error = max(abs(row["relative_error"]) for row in rows) * 100.0
+        axis.text(
+            0.98,
+            0.03,
+            f"max relative error: {max_error:.2g}%",
+            transform=axis.transAxes,
+            ha="right",
+            va="bottom",
+            fontsize=8,
+            color=NEUTRAL_GRAY,
+        )
+        figure.text(
+            0.5,
+            0.01,
+            "Source: raw energy/eigenvalue records from results/raw.",
+            ha="center",
+            va="bottom",
+            fontsize=6,
+            family="DejaVu Sans Mono",
+        )
+        description = (
+            "Internal numerical parity figure comparing measured and reference energies in raw records."
+        )
+        return _save_figure_if_changed(figure, output_path, description=description)
+
+
+def build_run_eligibility_figure_data(
+    aggregate_path: Path, raw_dir: Path
+) -> dict[str, Any]:
+    aggregate_file = Path(aggregate_path)
+    raw_directory = Path(raw_dir)
+    aggregate = _load_mapping(aggregate_file, "aggregate")
+    record_counts = aggregate.get("record_counts")
+    if not isinstance(record_counts, Mapping):
+        raise FigureError("aggregate record_counts missing or invalid")
+    total_raw = 0
+    success_correct = 0
+    measured_eligible = 0
+    for raw_path in sorted(raw_directory.glob("*.json")):
+        total_raw += 1
+        raw = _load_mapping(raw_path, f"raw record {raw_path.name}")
+        if raw.get("status") == "success" and raw.get("correct") is True:
+            success_correct += 1
+            if (
+                raw.get("timing_eligible") is True
+                and raw.get("warmup_or_measured") == "measured"
+                and raw.get("timeout") is False
+                and raw.get("oom") is False
+                and raw.get("skip_reason") is None
+            ):
+                measured_eligible += 1
+    return {
+        "schema_version": 1,
+        "source": {
+            "aggregate_path": str(aggregate_file),
+            "aggregate_sha256": sha256_path(aggregate_file),
+            "raw_directory": str(raw_directory),
+            "primary_metric": "count",
+        },
+        "counts": {
+            "total_raw_attempts": total_raw,
+            "success_and_correct": success_correct,
+            "measured_and_eligible": measured_eligible,
+            "stage4_input": _require_positive_int(record_counts.get("input"), "record_counts.input"),
+            "stage4_included": _require_positive_int(record_counts.get("included"), "record_counts.included"),
+            "stage4_excluded": _require_nonnegative_int(record_counts.get("excluded"), "record_counts.excluded"),
+        },
+    }
+
+
+def generate_run_eligibility_figures(
+    aggregate_path: Path, raw_dir: Path, output_dir: Path, table_dir: Path
+) -> dict[str, Any]:
+    data = build_run_eligibility_figure_data(aggregate_path, raw_dir)
+    output_directory = Path(output_dir)
+    table_directory = Path(table_dir)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    table_directory.mkdir(parents=True, exist_ok=True)
+    statuses: dict[str, bool] = {}
+    trace_json = table_directory / "run_eligibility_figure_trace.json"
+    statuses[str(trace_json)] = _write_text_if_changed(
+        trace_json, json.dumps(data, indent=2, sort_keys=True) + "\n"
+    )
+    eligibility_csv = table_directory / "run_eligibility_counts.csv"
+    statuses[str(eligibility_csv)] = _write_csv_if_changed(
+        eligibility_csv,
+        [data["counts"]],
+        (
+            "total_raw_attempts",
+            "success_and_correct",
+            "measured_and_eligible",
+            "stage4_input",
+            "stage4_included",
+            "stage4_excluded",
+        ),
+    )
+    eligibility_svg = output_directory / "run_eligibility_flow.svg"
+    statuses[str(eligibility_svg)] = _render_run_eligibility_svg(data, eligibility_svg)
+    return {
+        "status": "ok",
+        "changed": statuses,
+        "total_raw_attempts": data["counts"]["total_raw_attempts"],
+    }
+
+
+def _render_run_eligibility_svg(
+    data: Mapping[str, Any], output_path: Path
+) -> bool:
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+
+    counts = data["counts"]
+    labels = [
+        "Total raw attempts",
+        "Success + correct",
+        "Measured eligible",
+        "Stage4 input",
+        "Stage4 included",
+        "Stage4 excluded",
+    ]
+    values = [
+        counts["total_raw_attempts"],
+        counts["success_and_correct"],
+        counts["measured_and_eligible"],
+        counts["stage4_input"],
+        counts["stage4_included"],
+        counts["stage4_excluded"],
+    ]
+    with mpl.rc_context(
+        {
+            "svg.hashsalt": "autosbd-stage4-figures-v1",
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+        }
+    ):
+        figure, axis = plt.subplots(figsize=(8.4, 4.6), constrained_layout=True)
+        bars = axis.bar(
+            labels,
+            values,
+            color=(COLORBLIND_BLUE, COLORBLIND_ORANGE, COLORBLIND_GREEN, NEUTRAL_GRAY, COLORBLIND_SKY, COLORBLIND_PURPLE),
+            edgecolor="#333333",
+            linewidth=0.8,
+        )
+        axis.set_ylabel("Record counts")
+        axis.set_title("Stage4 run eligibility and outcome flow")
+        axis.set_xticklabels(labels, rotation=45, ha="right")
+        for bar in bars:
+            axis.text(
+                bar.get_x() + bar.get_width() / 2,
+                bar.get_height() + max(values) * 0.02,
+                f"{int(bar.get_height())}",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+            )
+        figure.text(
+            0.5,
+            0.01,
+            "Source: stage4 aggregate counts and eligible raw record counts.",
+            ha="center",
+            va="bottom",
+            fontsize=6,
+            family="DejaVu Sans Mono",
+        )
+        description = (
+            "Internal run eligibility flow counts for raw records and Stage4 aggregate inclusion."
+        )
+        return _save_figure_if_changed(figure, output_path, description=description)
+
+
 def build_multifamily_figure_data(
     policy_summary_path: Path,
     policy_predictions_path: Path,
@@ -1106,7 +1900,55 @@ def _save_figure_if_changed(
         plt.close(figure)
         if temporary is not None and temporary.exists():
             temporary.unlink()
-    return _write_bytes_if_changed(output, payload)
+    changed = _write_bytes_if_changed(output, payload)
+
+    # Also write PDF and 300-DPI PNG previews next to the SVG when possible.
+    try:
+        # Save PDF
+        pdf_path = output.with_suffix(".pdf")
+        descriptor, pdf_tmp = tempfile.mkstemp(prefix=f".{pdf_path.name}.", suffix=".tmp.pdf", dir=output.parent)
+        os.close(descriptor)
+        pdf_tmp_path = Path(pdf_tmp)
+        svg_bytes = payload
+        try:
+            # Use BytesIO SVG -> matplotlib.image for raster PNG; for PDF, matplotlib can save from SVG via figure conversion not trivial.
+            # Simpler approach: write the SVG-based PDF using cairosvg if available.
+            try:
+                import cairosvg
+
+                cairosvg.svg2pdf(bytestring=svg_bytes, write_to=str(pdf_tmp_path))
+                pdf_payload = pdf_tmp_path.read_bytes()
+                _write_bytes_if_changed(pdf_path, pdf_payload)
+            except Exception:
+                # If cairosvg not available, skip PDF generation.
+                pass
+        finally:
+            if pdf_tmp_path.exists():
+                pdf_tmp_path.unlink()
+
+        # Save PNG at 300 DPI using cairosvg if available
+        png_path = output.with_suffix(".png")
+        descriptor, png_tmp = tempfile.mkstemp(prefix=f".{png_path.name}.", suffix=".tmp.png", dir=output.parent)
+        os.close(descriptor)
+        png_tmp_path = Path(png_tmp)
+        try:
+            try:
+                import cairosvg
+
+                cairosvg.svg2png(bytestring=svg_bytes, write_to=str(png_tmp_path), dpi=300)
+                png_payload = png_tmp_path.read_bytes()
+                _write_bytes_if_changed(png_path, png_payload)
+            except Exception:
+                # If cairosvg not available, skip PNG generation.
+                pass
+        finally:
+            if png_tmp_path.exists():
+                png_tmp_path.unlink()
+    except Exception:
+        # Non-fatal: do not fail figure generation if preview creation fails.
+        pass
+
+    return changed
 
 
 def _write_csv_if_changed(
@@ -1319,6 +2161,15 @@ def _require_positive_number(value: Any, label: str) -> float:
     return result
 
 
+def _require_number(value: Any, label: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise FigureError(f"{label} must be numeric")
+    result = float(value)
+    if not math.isfinite(result):
+        raise FigureError(f"{label} must be finite")
+    return result
+
+
 def _require_nonnegative_number(value: Any, label: str) -> float:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise FigureError(f"{label} must be numeric")
@@ -1330,9 +2181,19 @@ def _require_nonnegative_number(value: Any, label: str) -> float:
 
 __all__ = [
     "FigureError",
+    "build_cpu_thread_scaling_figure_data",
+    "build_inference_overhead_figure_data",
+    "build_multifamily_holdout_figure_data",
     "build_multifamily_figure_data",
+    "build_numerical_parity_figure_data",
+    "build_run_eligibility_figure_data",
     "build_stage4_figure_data",
+    "generate_cpu_thread_scaling_figures",
+    "generate_inference_overhead_figures",
     "generate_multifamily_figures",
+    "generate_multifamily_holdout_figures",
+    "generate_numerical_parity_figures",
+    "generate_run_eligibility_figures",
     "generate_stage4_figures",
     "sha256_path",
 ]

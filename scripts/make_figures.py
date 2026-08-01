@@ -9,7 +9,12 @@ from pathlib import Path
 
 from autosbd.figures import (
     FigureError,
+    generate_cpu_thread_scaling_figures,
+    generate_inference_overhead_figures,
     generate_multifamily_figures,
+    generate_multifamily_holdout_figures,
+    generate_numerical_parity_figures,
+    generate_run_eligibility_figures,
     generate_stage4_figures,
 )
 
@@ -42,6 +47,22 @@ def main() -> int:
                 arguments.output_dir,
                 arguments.table_dir,
             )
+            statuses["cpu_thread_scaling"] = generate_cpu_thread_scaling_figures(
+                arguments.raw_dir,
+                arguments.output_dir,
+                arguments.table_dir,
+            )
+            statuses["numerical_parity"] = generate_numerical_parity_figures(
+                arguments.raw_dir,
+                arguments.output_dir,
+                arguments.table_dir,
+            )
+            statuses["run_eligibility"] = generate_run_eligibility_figures(
+                arguments.stage4,
+                arguments.raw_dir,
+                arguments.output_dir,
+                arguments.table_dir,
+            )
         if arguments.multifamily_summary is not None:
             statuses["multifamily"] = generate_multifamily_figures(
                 arguments.multifamily_summary,
@@ -49,6 +70,21 @@ def main() -> int:
                 arguments.output_dir,
                 arguments.table_dir,
             )
+            statuses["multifamily_holdout"] = generate_multifamily_holdout_figures(
+                arguments.multifamily_summary,
+                arguments.output_dir,
+                arguments.table_dir,
+            )
+            inference_overhead_path = (
+                arguments.multifamily_summary.parent / "inference_overhead.csv"
+            )
+            statuses["inference_overhead"] = generate_inference_overhead_figures(
+                inference_overhead_path,
+                arguments.output_dir,
+                arguments.table_dir,
+            )
+        if arguments.stage4 is None and arguments.multifamily_summary is None:
+            parser.error("select Stage 4 and/or multifamily figure inputs")
     except FigureError as error:
         parser.error(str(error))
     status = next(iter(statuses.values())) if len(statuses) == 1 else statuses

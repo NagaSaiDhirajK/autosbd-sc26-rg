@@ -1,0 +1,17 @@
+{
+  "counts": {
+    "measured_and_eligible": 163,
+    "stage4_excluded": 10,
+    "stage4_included": 38,
+    "stage4_input": 48,
+    "success_and_correct": 234,
+    "total_raw_attempts": 284
+  },
+  "schema_version": 1,
+  "source": {
+    "aggregate_path": "results/processed/stage4_final.json",
+    "aggregate_sha256": "58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa",
+    "primary_metric": "count",
+    "raw_directory": "results/raw"
+  }
+}

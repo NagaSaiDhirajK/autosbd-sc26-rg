@@ -1,0 +1,3 @@
+measurement,median_us,p90_us,p95_us,maximum_us,selected_candidate_counts,hot_median_percent_of_shortest_sbd_runtime,raw_record_path,raw_record_sha256
+hot_selection,44.165,46.157300000000006,48.977199999999996,157.348,"{""amd-cpu-16"":5336,""amd-l4-default"":4664}",0.007273449840352077,results/raw/inference_overhead_multifamily/7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd.json,bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754
+cold_load_plus_selection,840.905,855.6012999999999,859.7317,990.03,"{""amd-cpu-16"":56,""amd-l4-default"":44}",,results/raw/inference_overhead_multifamily/7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd.json,bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754

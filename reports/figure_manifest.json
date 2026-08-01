@@ -1,0 +1,357 @@
+{
+  "git_commit": "7d65b0f1874bd69249c6bf1a15ff6cbc2614d87d",
+  "git_dirty": true,
+  "generation_command": "PYTHONPATH=src .venv/bin/python scripts/make_figures.py --stage4 results/processed/stage4_final.json --raw-dir results/raw --multifamily-summary results/processed/stage5_multifamily/policy_summary.csv --multifamily-predictions results/processed/stage5_multifamily/policy_predictions.csv --output-dir figures --table-dir results/processed/figure_data",
+  "generated_figures": [
+    {
+      "id": "cpu_gpu_crossover",
+      "title": "Stage4 CPU/GPU crossover landscape",
+      "svg": "figures/cpu_gpu_crossover.svg",
+      "pdf": "figures/cpu_gpu_crossover.pdf",
+      "png": "figures/cpu_gpu_crossover.png",
+      "data_table": "results/processed/figure_data/cpu_gpu_crossover.csv",
+      "trace": "results/processed/figure_data/stage4_figure_trace.json",
+      "svg_sha256": "0e23beae5f62ead893d8400f2b6ea775471732fc77d4fbc4df090567013fb105",
+      "data_sha256": "2a45636f546f9777154d62b1ae3b79fed08b0c8a60400d300ba3493eb828524e",
+      "source": {
+        "aggregate_path": "results/processed/stage4_final.json",
+        "aggregate_sha256": "58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa",
+        "raw_directory": "results/raw"
+      }
+    },
+    {
+      "id": "gpu_memory_guard",
+      "title": "GPU memory guard",
+      "svg": "figures/gpu_memory_guard.svg",
+      "pdf": "figures/gpu_memory_guard.pdf",
+      "png": "figures/gpu_memory_guard.png",
+      "data_table": "results/processed/figure_data/gpu_memory_guard.csv",
+      "trace": "results/processed/figure_data/stage4_figure_trace.json",
+      "svg_sha256": "1d56fc1ad2006257912be7a7b849b07e5563ab7ccbe04357ae6a4a746a5b8dc9",
+      "data_sha256": "c758e41fb48a5a99ee5c1c3e41b30fa365044e0c34ef15af1beef59178b6315b",
+      "source": {
+        "aggregate_path": "results/processed/stage4_final.json",
+        "aggregate_sha256": "58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa",
+        "raw_directory": "results/raw"
+      }
+    },
+    {
+      "id": "cpu_thread_scaling",
+      "title": "CPU thread-scaling pilot",
+      "svg": "figures/cpu_thread_scaling.svg",
+      "pdf": "figures/cpu_thread_scaling.pdf",
+      "png": "figures/cpu_thread_scaling.png",
+      "data_table": "results/processed/figure_data/cpu_thread_scaling.csv",
+      "trace": "results/processed/figure_data/cpu_thread_scaling_figure_trace.json",
+      "svg_sha256": "3cfd77964360111170769c59c03e214d4dbcd822fd12167175349c26d1eb25be",
+      "data_sha256": "4c9cea33f15e082f22a371b5e79de9eb8eab182d574462a773c40e6d9b66666c",
+      "source": {
+        "raw_directory": "results/raw"
+      }
+    },
+    {
+      "id": "inference_overhead",
+      "title": "Inference overhead",
+      "svg": "figures/inference_overhead.svg",
+      "pdf": "figures/inference_overhead.pdf",
+      "png": "figures/inference_overhead.png",
+      "data_table": "results/processed/figure_data/inference_overhead.csv",
+      "trace": "results/processed/figure_data/inference_overhead_figure_trace.json",
+      "svg_sha256": "73d58760a0a88615fd79609ef552e7858175613fdf43489fb09f537f086fa657",
+      "data_sha256": "c925c7044dc5a2d20f75462a352098bd5ddfb7e95d2c4d5814216cee324b2cce",
+      "source": {
+        "inference_overhead_path": "results/processed/stage5_multifamily/inference_overhead.csv",
+        "inference_overhead_sha256": "b52db314ce4f10d2a0dab8d77dc146990e9add83eff3af77dc8e26f871947f0e"
+      }
+    },
+    {
+      "id": "multifamily_holdout_generalization",
+      "title": "Multifamily held-out generalization",
+      "svg": "figures/multifamily_holdout_generalization.svg",
+      "pdf": "figures/multifamily_holdout_generalization.pdf",
+      "png": "figures/multifamily_holdout_generalization.png",
+      "data_table": "results/processed/figure_data/multifamily_holdout_generalization.csv",
+      "trace": "results/processed/figure_data/multifamily_holdout_figure_trace.json",
+      "svg_sha256": "bc87c70e1d6543eddfb952fa50d79057f23aba64cbdb0b3faa5d87fc93f1d90f",
+      "data_sha256": "a7605c1c2902739333d4458f29e57e174d52ff416e77422761bfd918ba8e8d7d",
+      "source": {
+        "policy_summary_path": "results/processed/stage5_multifamily/policy_summary.csv",
+        "policy_summary_sha256": "5f34333500332f3c28b181b3b333d7662f49a0246a984506ebafba1f640cd154"
+      }
+    },
+    {
+      "id": "multifamily_policy_regret",
+      "title": "Multifamily policy regret",
+      "svg": "figures/multifamily_policy_regret.svg",
+      "pdf": "figures/multifamily_policy_regret.pdf",
+      "png": "figures/multifamily_policy_regret.png",
+      "data_table": "results/processed/figure_data/multifamily_figure_trace.json",
+      "trace": "results/processed/figure_data/multifamily_figure_trace.json",
+      "svg_sha256": "54e2bfcb10bb8ddd57739948394d10fde093c12e4487052c5d1b06f06089819b",
+      "data_sha256": "5404e908901464bc8efc512b9a997bfedeecf09fefcbe998267fc0510bc6ca77",
+      "source": {
+        "policy_summary_path": "results/processed/stage5_multifamily/policy_summary.csv",
+        "policy_summary_sha256": "5f34333500332f3c28b181b3b333d7662f49a0246a984506ebafba1f640cd154",
+        "policy_predictions_path": "results/processed/stage5_multifamily/policy_predictions.csv",
+        "policy_predictions_sha256": "e29de16120ad611a13adde46fa5e21624880f04afc5d5621c83b249cb58629c4"
+      }
+    },
+    {
+      "id": "multifamily_instance_decisions",
+      "title": "Multifamily instance decision matrix",
+      "svg": "figures/multifamily_instance_decisions.svg",
+      "pdf": "figures/multifamily_instance_decisions.pdf",
+      "png": "figures/multifamily_instance_decisions.png",
+      "data_table": "results/processed/figure_data/multifamily_figure_trace.json",
+      "trace": "results/processed/figure_data/multifamily_figure_trace.json",
+      "svg_sha256": "4a5f29c00ba66cc31437fe2b5739dba30ba49f52590a3595a63bed310984802d",
+      "data_sha256": "5404e908901464bc8efc512b9a997bfedeecf09fefcbe998267fc0510bc6ca77",
+      "source": {
+        "policy_summary_path": "results/processed/stage5_multifamily/policy_summary.csv",
+        "policy_summary_sha256": "5f34333500332f3c28b181b3b333d7662f49a0246a984506ebafba1f640cd154",
+        "policy_predictions_path": "results/processed/stage5_multifamily/policy_predictions.csv",
+        "policy_predictions_sha256": "e29de16120ad611a13adde46fa5e21624880f04afc5d5621c83b249cb58629c4"
+      }
+    },
+    {
+      "id": "numerical_parity",
+      "title": "Numerical parity",
+      "svg": "figures/numerical_parity.svg",
+      "pdf": "figures/numerical_parity.pdf",
+      "png": "figures/numerical_parity.png",
+      "data_table": "results/processed/figure_data/numerical_parity.csv",
+      "trace": "results/processed/figure_data/numerical_parity_figure_trace.json",
+      "svg_sha256": "11f5c207fd1bb743315bf9809300346e96887c0b6b66288d7105fb7a868e7dd2",
+      "data_sha256": "23a6b19c522d31df0a0bafa796e32cb0e550047b96759f6172bb1953963acabb",
+      "source": {
+        "raw_directory": "results/raw"
+      }
+    },
+    {
+      "id": "run_eligibility_flow",
+      "title": "Run eligibility flow",
+      "svg": "figures/run_eligibility_flow.svg",
+      "pdf": "figures/run_eligibility_flow.pdf",
+      "png": "figures/run_eligibility_flow.png",
+      "data_table": "results/processed/figure_data/run_eligibility_counts.csv",
+      "trace": "results/processed/figure_data/run_eligibility_figure_trace.json",
+      "svg_sha256": "44c4552a6948d5b7da4ad32d686c8d09de45eaad406f010b6c2618b5f943e4e3",
+      "data_sha256": "86d4252df6b9f6954f77bf5f4b5937d6b1f5a50f435b61b0d7be1aa55f316f80",
+      "source": {
+        "aggregate_path": "results/processed/stage4_final.json",
+        "aggregate_sha256": "58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa",
+        "raw_directory": "results/raw"
+      }
+    }
+  ],
+  "data_blocked_figures": [
+    {
+      "id": "F25",
+      "title": "bit_length sensitivity",
+      "reason": "Raw records contain bit_length but only a single unique value, so no meaningful sensitivity analysis can be constructed from current data."
+    },
+    {
+      "id": "F26",
+      "title": "shuffle sensitivity",
+      "reason": "Raw records contain shuffle=false only, so there is no matched shuffled/unshuffled experimental comparison in the current dataset."
+    },
+    {
+      "id": "F30",
+      "title": "Davidson convergence diagnostics",
+      "reason": "Raw records do not include iteration history or residual norms; only final solver outcomes are available."
+    },
+    {
+      "id": "F31",
+      "title": "GPU memory guard (extended across all families)",
+      "reason": "Base GPU memory guard figure is available, but a full family-extended curve requires broader memory/peak data across families not present in the current Stage4 dataset."
+    },
+    {
+      "id": "F32",
+      "title": "GPU telemetry timeline",
+      "reason": "Raw records do not include time-series utilization, memory, power, or temperature telemetry suitable for timeline plots."
+    },
+    {
+      "id": "F33",
+      "title": "Host-resource timeline",
+      "reason": "Raw records do not include aligned process RSS or CPU utilization time-series for representative runs."
+    }
+  ],
+  "implementation_blocked_figures": [
+    {
+      "id": "F01",
+      "title": "AutoSBD end-to-end architecture",
+      "reason": "Not implemented in the current figure pipeline; requires schematic design rather than derived numerical data."
+    },
+    {
+      "id": "F02",
+      "title": "Experimental provenance and evidence DAG",
+      "reason": "Not implemented; no DAG generator exists in the current figure pipeline."
+    },
+    {
+      "id": "F03",
+      "title": "Cross-family CPU/GPU runtime scaling",
+      "reason": "Current Stage4 data are limited to five representative workloads; the exact proposed full family faceted scaling plot is not produced."
+    },
+    {
+      "id": "F04",
+      "title": "CPU/GPU speedup and crossover landscape",
+      "reason": "Current output provides a Stage4 crossover plot, but not the full family×size winner map as described in the handoff."
+    },
+    {
+      "id": "F05",
+      "title": "Held-out policy performance",
+      "reason": "Partially supported by multifamily policy regret, but the exact grouped bar/dot layout with explicit family aggregates is not separately rendered."
+    },
+    {
+      "id": "F06",
+      "title": "Policy regret distribution",
+      "reason": "Not implemented by current pipeline."
+    },
+    {
+      "id": "F07",
+      "title": "Interpretable model and decision logic",
+      "reason": "Not implemented; requires model/decision visualization beyond current figure outputs."
+    },
+    {
+      "id": "F08",
+      "title": "Structural-feature ablation",
+      "reason": "Not implemented; current code does not produce a comparative ablation figure."
+    },
+    {
+      "id": "F09",
+      "title": "Per-family runtime small multiples",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F10",
+      "title": "Runtime variability",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F11",
+      "title": "Empirical scaling slope",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F12",
+      "title": "End-to-end versus solver time",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F13",
+      "title": "Absolute and relative speedup matrix",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F14",
+      "title": "CPU thread-scaling pilot",
+      "reason": "Supported by cpu_thread_scaling figure."
+    },
+    {
+      "id": "F15",
+      "title": "Measured versus predicted runtime",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F16",
+      "title": "Prediction residual diagnostics",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F17",
+      "title": "Selection matrix",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F18",
+      "title": "Fold-by-fold generalization",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F19",
+      "title": "Model stability",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F21",
+      "title": "Learning-curve sensitivity",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F22",
+      "title": "Workload structural fingerprint heatmap",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F23",
+      "title": "Feature correlation and collinearity",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F24",
+      "title": "Dataset coverage map",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F25",
+      "title": "bit_length sensitivity",
+      "reason": "Data available but single-valued; no variability in current records."
+    },
+    {
+      "id": "F26",
+      "title": "shuffle sensitivity",
+      "reason": "Data available but constant shuffle=false; no matched experiment."
+    },
+    {
+      "id": "F27",
+      "title": "Configuration winner map",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F28",
+      "title": "Configuration-pruning Pareto plot",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F29",
+      "title": "Numerical parity",
+      "reason": "Supported by numerical_parity figure."
+    },
+    {
+      "id": "F30",
+      "title": "Davidson convergence diagnostics",
+      "reason": "Blocked by missing iteration/residual history data."
+    },
+    {
+      "id": "F31",
+      "title": "GPU memory guard",
+      "reason": "Partial support present, but full family-extended memory guard requires additional data."
+    },
+    {
+      "id": "F32",
+      "title": "GPU telemetry timeline",
+      "reason": "Blocked by missing telemetry time-series data."
+    },
+    {
+      "id": "F33",
+      "title": "Host-resource timeline",
+      "reason": "Blocked by missing host telemetry time-series data."
+    },
+    {
+      "id": "F34",
+      "title": "Run eligibility and outcome flow",
+      "reason": "Supported by run_eligibility_flow figure."
+    },
+    {
+      "id": "F35",
+      "title": "Benchmark campaign timeline",
+      "reason": "Not implemented."
+    },
+    {
+      "id": "F36",
+      "title": "Claim-to-evidence matrix",
+      "reason": "Not implemented."
+    }
+  ],
+  "note": "The current pipeline produces nine supported figures from Stage4 and multifamily artifacts. Remaining handoff figures are either unimplemented in the current renderer pipeline or data-limited; F30-F33 are specifically blocked by missing raw telemetry/convergence history, while F25/F26 are blocked by constant single-valued experimental parameters."
+}
