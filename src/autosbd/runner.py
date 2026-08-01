@@ -53,6 +53,7 @@ OFFICIAL_BUILD_SHA256 = {
 OFFICIAL_BUILD_DIRECTORY_PREFIX = "amd-729cfa3a-"
 DEFAULT_CONNECTIVITY_PAIR_LIMIT = 1_000_000
 DEFAULT_REFERENCE_RTOL = 1.0e-10
+_RECORD_SCHEMA_BY_CONFIG_SCHEMA = {1: 2, 2: SCHEMA_VERSION}
 _REQUIRED_BUILD_FLAGS = {
     "cpu": frozenset({"-mp", "-DSBD_TRADMODE", "-DUSE_DET_CACHE_OMP"}),
     "gpu": frozenset(
@@ -197,6 +198,7 @@ class TrialRunner:
         """Run or reuse one deterministic trial from its owning sweep config."""
 
         self._validate_template_config(template, config)
+        record_schema_version = _record_schema_version(config)
         if attempt_index < 0:
             raise RunnerError("attempt_index must be nonnegative")
         explicit_reference = reference_value is not None
@@ -231,7 +233,7 @@ class TrialRunner:
         )
 
         logical_identity = {
-            "schema_version": SCHEMA_VERSION,
+            "schema_version": record_schema_version,
             "sweep_name": template.sweep_name,
             "workload": template.workload.name,
             "input_sha256": features.combined_input_sha256,
@@ -267,6 +269,14 @@ class TrialRunner:
             "upstream_commit": self.upstream_state["commit"],
             "machine_fingerprint": self.system_snapshot["machine_fingerprint"],
         }
+        if record_schema_version == 3:
+            logical_identity.update(
+                {
+                    "family_id": template.workload.family_id,
+                    "molecule": template.workload.molecule,
+                    "basis": template.workload.basis,
+                }
+            )
         logical_trial_id = make_trial_id(logical_identity)
         trial_id = make_trial_id(
             {"logical_trial_id": logical_trial_id, "attempt_index": attempt_index}
@@ -275,7 +285,11 @@ class TrialRunner:
         record_path = paths["record"]
         if record_path.exists():
             record = _load_expected_record(
-                record_path, trial_id, logical_trial_id, logical_identity
+                record_path,
+                trial_id,
+                logical_trial_id,
+                logical_identity,
+                record_schema_version,
             )
             return TrialRunResult(record_path, record, False, True)
 
@@ -290,7 +304,11 @@ class TrialRunner:
         ):
             if record_path.exists():
                 record = _load_expected_record(
-                    record_path, trial_id, logical_trial_id, logical_identity
+                    record_path,
+                    trial_id,
+                    logical_trial_id,
+                    logical_identity,
+                    record_schema_version,
                 )
                 return TrialRunResult(record_path, record, False, True)
 
@@ -446,6 +464,7 @@ class TrialRunner:
             record = self._record(
                 template=template,
                 config=config,
+                record_schema_version=record_schema_version,
                 trial_id=trial_id,
                 logical_trial_id=logical_trial_id,
                 logical_identity=logical_identity,
@@ -478,7 +497,11 @@ class TrialRunner:
             )
             write_immutable_json(record_path, record)
             durable_record = _load_expected_record(
-                record_path, trial_id, logical_trial_id, logical_identity
+                record_path,
+                trial_id,
+                logical_trial_id,
+                logical_identity,
+                record_schema_version,
             )
             return TrialRunResult(record_path, durable_record, launched, False)
 
@@ -513,7 +536,7 @@ class TrialRunner:
             if template.candidate.backend != "mock":
                 raise RunnerError(
                     "the pinned AMD executable accepts only --adetfile; distinct "
-                    "beta determinant files are unsupported in schema v2"
+                    "beta determinant files are unsupported by this harness"
                 )
         return extract_input_features(
             workload.fcidump,
@@ -695,7 +718,7 @@ class TrialRunner:
                 errors.append("manifest input hash mismatch")
             if payload.get("solver") != _solver_identity(template.solver):
                 errors.append("manifest solver settings mismatch")
-        elif schema_version == 2:
+        elif schema_version in {2, 3}:
             validated_inputs = payload.get("validated_inputs")
             matching_inputs: list[Mapping[str, Any]] = []
             if isinstance(validated_inputs, list):
@@ -735,6 +758,14 @@ class TrialRunner:
                     errors.append("workload reference_value is missing")
                 elif manifest_reference != template.workload.reference_value:
                     errors.append("manifest validated input reference_value mismatch")
+                if schema_version == 3:
+                    for field in ("family_id", "molecule", "basis"):
+                        if matching_input.get(field) != getattr(
+                            template.workload, field
+                        ):
+                            errors.append(
+                                f"manifest validated input {field} mismatch"
+                            )
         else:
             errors.append(f"unsupported manifest schema_version: {schema_version!r}")
         candidates = payload.get("candidate_artifacts")
@@ -846,8 +877,8 @@ class TrialRunner:
             )
         if values["reference_value"] is None:
             notes.append("No per-trial energy reference was supplied; correct is null.")
-        return {
-            "schema_version": SCHEMA_VERSION,
+        record = {
+            "schema_version": values["record_schema_version"],
             "trial_id": values["trial_id"],
             "logical_trial_id": values["logical_trial_id"],
             "logical_identity": values["logical_identity"],
@@ -969,6 +1000,15 @@ class TrialRunner:
                 execution.termination_signal if execution else None
             ),
         }
+        if values["record_schema_version"] == 3:
+            record.update(
+                {
+                    "family_id": template.workload.family_id,
+                    "molecule": template.workload.molecule,
+                    "basis": template.workload.basis,
+                }
+            )
+        return record
 
 
 def _process_status(
@@ -1084,10 +1124,13 @@ def _load_expected_record(
     trial_id: str,
     logical_trial_id: str,
     logical_identity: Mapping[str, Any],
+    expected_schema_version: int,
 ) -> dict[str, Any]:
     record = load_record(path)
-    if record.get("schema_version") != SCHEMA_VERSION:
-        raise RunnerError(f"existing record at current trial ID uses old schema: {path}")
+    if record.get("schema_version") != expected_schema_version:
+        raise RunnerError(
+            f"existing record at current trial ID uses an unexpected schema: {path}"
+        )
     if record.get("trial_id") != trial_id:
         raise RunnerError(f"existing record trial_id does not match expectation: {path}")
     if record.get("logical_trial_id") != logical_trial_id:
@@ -1099,6 +1142,15 @@ def _load_expected_record(
     ):
         raise RunnerError(f"existing record logical identity does not match: {path}")
     return record
+
+
+def _record_schema_version(config: SweepConfig) -> int:
+    try:
+        return _RECORD_SCHEMA_BY_CONFIG_SCHEMA[config.schema_version]
+    except KeyError as error:  # pragma: no cover - SweepConfig rejects this first
+        raise RunnerError(
+            f"unsupported configuration schema_version={config.schema_version}"
+        ) from error
 
 
 def _redact_environment(environment: Mapping[str, str]) -> dict[str, str]:

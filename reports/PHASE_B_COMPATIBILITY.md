@@ -1,10 +1,11 @@
 # Phase B N₂/H₂O Compatibility Gate
 
 **Status:** static unchanged-input compatibility **PASS**; smallest complete
-N₂/H₂O CPU/GPU correctness **PASS**; derived-size correctness and all timing are
-pending.  This is an internal engineering record, not submission prose.  The
-runtime portion used only the existing official AMD executables, and no timing
-evidence is created or admitted by this gate.
+N₂/H₂O CPU/GPU correctness **PASS**; deterministic derived-size preparation
+**PASS**; derived-size runtime correctness and all timing are pending. This is
+an internal engineering record, not submission prose. The runtime portion used
+only the existing official AMD executables, and no timing evidence is created or
+admitted by this gate.
 
 ## Scope and implementation boundary
 
@@ -180,6 +181,26 @@ This PASS applies only to combined input hashes
 `ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d`
 (H₂O).  Larger upstream lists and any derived prefixes require their own exact
 CPU/GPU validation before timing.
+
+## Deterministic Phase B2 size-grid preparation
+
+`scripts/prepare_phase_b_workloads.py` generated and immediately verified five
+nested half-determinant counts per family: `32`, `55`, `100`, `174`, and the
+full official smallest list (`239` N₂; `275` H₂O). The exact provenance manifest
+is `data/derived/phase_b_prefixes/manifest.json`, SHA-256
+`852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`.
+It records the parent/output/FCIDUMP hashes, prefix rule, family/molecule/basis,
+`NORB`/`NELEC`, product configuration count, source/license, input-data commit,
+and official AMD commit for every workload. The two full variants are byte-
+identical to their pinned parents.
+
+Config schema 2 now requires `family_id`, molecule, and basis and emits raw
+schema 3 with those values in logical identity. The pending correctness-only
+protocol is `configs/phaseb_n2_h2o_grid_correctness.yaml`: ten workloads, CPU16
+then L4, zero warmups, one repetition, 300-second timeout, no timing validation.
+No derived-grid solver ran during preparation. The eight non-full combined
+hashes remain unvalidated, and even the full inputs will receive bounded v3
+records so one homogeneous family-aware manifest can gate the pilot.
 
 ## Stop conditions
 

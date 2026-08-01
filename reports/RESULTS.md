@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance, unchanged-input compatibility, and smallest-case N₂/H₂O CPU/GPU correctness also pass. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. N₂/H₂O timing and multifamily evaluation remain pending.
+Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance, unchanged-input compatibility, and smallest-case N₂/H₂O CPU/GPU correctness also pass. Phase B2 preparation now provides ten deterministic N₂/H₂O workloads, family-aware future raw identities, and external Fe₄S₄ augmentation without rewriting history. The harness enforces official AMD source/build provenance and node safety, distinguishes process success from scientific success, and resumes exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. New-grid correctness, N₂/H₂O timing, and multifamily evaluation remain pending.
 
-The standard-library suite passes all 128 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input provenance/structure validation, and density-length enforcement.
+The standard-library suite passes all 155 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2/v3 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, family-aware calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input/provenance/registry validation, and density-length enforcement.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -64,6 +64,14 @@ The four immutable record IDs are:
 - H₂O CPU `52b394f95cad7a1fca0d929ef1e099780ffb730c3156b48afa8d2270fef748d0` and GPU `15c1e429c88423849e587e132bbf588caa1545cc9e27270a63f4a23d2d0de716`.
 
 The deterministic combined gate is `reports/phaseb_n2_h2o_correctness_manifest.json`, SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`. An immediate identical builder invocation reported `status=unchanged`. These trials used zero warmups, one repetition, and purpose `correctness`; all have `timing_eligible=false`. Their diagnostic wall fields are excluded from performance analysis. The manifest validates only these two exact input hashes, not larger lists or future derived prefixes.
+
+## Phase B2 multifamily preparation (no new solver result)
+
+The N₂/6-31G and H₂O/cc-pVDZ determinant grids now contain nested counts `32, 55, 100, 174`, plus each full official smallest list (`239` and `275`). `data/derived/phase_b_prefixes/manifest.json`, SHA-256 `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`, binds every output to its exact parent, FCIDUMP, molecule/basis, electron/orbital counts, product configurations, license, input-data commit, and the official-AMD-only solver boundary.
+
+Future config-schema-2 trials emit raw schema 3 and bind `family_id`, molecule, and basis into logical identity; all historical schema-v2 records remain unchanged. `reports/stage4_fe4s4_family_registry.json`, SHA-256 `cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d`, maps the 48 frozen Stage 4 records to five exact Fe₄S₄ workloads while recording its basis as null/`upstream_not_reported`. The prepared correctness protocol is `configs/phaseb_n2_h2o_grid_correctness.yaml`.
+
+This section reports preparation only. No new derived-prefix solver run has occurred; the eight non-full hashes have no dynamic correctness evidence; all ten inputs require the homogeneous v3 CPU/GPU gate before the pilot; and no timing or cross-family selector claim is supported yet.
 
 ## Definitive five-size correctness calibration
 

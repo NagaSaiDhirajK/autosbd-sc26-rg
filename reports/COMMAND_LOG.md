@@ -1757,3 +1757,109 @@ PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
 Outcome: the combined builder exited `0`, validated two inputs, reported `written` then `unchanged`, and produced SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`. N₂ energy relative error was zero and density max difference was `3.1974e-14`; H₂O energy relative error was `5.5922e-16` and density max difference was `1.9984e-14`. Residuals were below `1e-8`, iteration counts matched exactly, and density lengths equaled `NORB`. All four records remain `timing_eligible=false`. No RIKEN solver ran.
 
 Final B1 integration verification used the complete 128-test suite, `pip check`, the Phase B input validator, strict JSON parsing and explicit success/clean/timing-ineligible/input-stable assertions for all four raw records, combined-manifest regeneration, `git diff --check`, exact SHA-256 recomputation, post-run GPU telemetry, and both upstream cleanliness checks. Outcome: exit `0`; 128/128 tests passed in 11.250 seconds; dependencies were consistent; the 20-artifact inventory passed; all record assertions passed; manifest regeneration reported `unchanged`; hashes matched; the L4 returned to 0 MiB used, 0% utilization, 22,564 MiB free, 34 C, and no compute process; and both upstream trees were clean.
+
+## 2026-08-01 — Prepare the Phase B2 deterministic N₂/H₂O size grid
+
+Read-only handoff and artifact discovery used `rg --files`, `rg -n`, `jq`, `sha256sum`, `wc`, `sed`, `git status --short`, and `git diff --no-index` against the completion handoff, Phase B inventory/correctness manifest, Stage 4 completion/aggregate evidence, the new generator, and its tests. The first compact JSON query guessed nonexistent `.workloads`/`.pairs` keys and a nonexistent processed path; the corrected key/path discovery succeeded, no file changed, and the unchanged failing query was not repeated. `git diff --no-index /dev/null <new-file>` returned its expected status `1` because both reviewed files were new. The full 890-line implementation and test suite were subsequently read in bounded chunks. Comparison with `scripts/prepare_workloads.py` confirmed the same changed-only generation plus read-only immutable `--check` convention.
+
+The generator implementation and validation commands were:
+
+```bash
+# Deterministically derive and pin the eight non-full prefix hashes from the
+# exact official-parent input bytes; no repository output was created.
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile \
+  scripts/prepare_phase_b_workloads.py tests/test_prepare_phase_b_workloads.py
+
+# This attempted test runner was unavailable and was not repeated.
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q \
+  tests/test_phase_b_inputs.py tests/test_prepare_phase_b_workloads.py
+# Outcome: `.venv/bin/python: No module named pytest`.
+# `.venv/bin/ruff` was also absent, so linting was skipped without installation.
+
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest -v \
+  tests.test_phase_b_inputs tests.test_prepare_phase_b_workloads
+```
+
+Outcome: syntax validation passed and the available `unittest` runner passed 11/11 tests in 4.020 seconds. Coverage includes exact byte equality and nesting, full-parent identity, closed manifest fields, changed-only idempotency, read-only checking, source/inventory/output/manifest tamper failures, exact checkout origin/tag/commit/cleanliness, and safe output boundaries. No package was installed.
+
+Repository data generation and immediate verification used:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/prepare_phase_b_workloads.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/prepare_phase_b_workloads.py --check
+find data/derived/phase_b_prefixes -type f -printf '%P\t%s bytes\n' | sort
+sha256sum data/derived/phase_b_prefixes/manifest.json
+jq -c '.workloads[] | {workload_id,family_id,molecule,basis,half_determinant_count:.prefix.half_determinant_count,output_sha256:.output.sha256,fcidump_sha256:.companion_fcidump.sha256,norb:.electronic_structure.norb,nelec:.electronic_structure.nelec,expected_product_configurations}' \
+  data/derived/phase_b_prefixes/manifest.json
+git status --short
+```
+
+Outcome: exit `0`. Generation wrote exactly ten family-separated determinant files plus `manifest.json`; immediate `--check` reported `changed_files=[]`. Manifest SHA-256 is `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`. N₂ half-list counts are 32, 55, 100, 174, and 239, producing 1,024, 3,025, 10,000, 30,276, and 57,121 configurations. H₂O counts are 32, 55, 100, 174, and 275, producing 1,024, 3,025, 10,000, 30,276, and 75,625 configurations. The full N₂/H₂O variants have exact parent SHA-256 values `73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2` and `ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67`. Total generated file payload is under 47 KiB. No solver, GPU kernel, network access, package installation, or timing experiment ran.
+
+Independent source-byte verification used `cmp` for both full variants, `head -n N | cmp` for all eight shorter prefixes, and a manifest-versus-directory file count. Outcome: exit `0`; all ten data files match the exact expected parent bytes, the directory has exactly 11 files including its manifest, and the manifest hash remains `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`.
+
+## 2026-08-01 — Implement versioned family identity and immutable Fe₄S₄ augmentation
+
+Implemented config schema 2 and raw-record schema 3 in `src/autosbd/config.py`, `src/autosbd/records.py`, `src/autosbd/runner.py`, and `scripts/build_calibration_manifest.py`, with focused tests in the four matching test modules. Config schema 1 remains the omitted default and continues emitting raw schema 2. Config schema 2 requires exact trimmed `family_id`, `molecule`, and `basis` fields and emits raw schema 3 with those values bound at the top level and in `logical_identity`. `problem_family` remains the sweep name. Calibration manifests remain byte-compatible for all-v2 inputs, emit schema 3 for all-v3 inputs, pair by `(family_id, problem_instance, input_sha256)`, and reject mixed raw schemas. A regression verifies that identical instance labels in distinct families do not collide.
+
+Delegated verification passed 49/49 focused tests and then 143/143 repository tests. Independent review used complete `git diff`/`sed` reads, import-impact `rg`, and:
+
+```bash
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest -q \
+  tests.test_config tests.test_records tests.test_runner \
+  tests.test_calibration_manifest tests.test_phase_b_inputs \
+  tests.test_prepare_phase_b_workloads
+.venv/bin/python -m pip check
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/prepare_phase_b_workloads.py --check
+# Rebuild the four-record B1 manifest into an isolated /tmp directory, then cmp.
+git diff --check
+```
+
+Outcome: exit `0`; 61/61 independently selected tests passed in 8.839 seconds; dependencies were consistent; prefix check changed nothing; and the rebuilt B1 manifest was byte-identical with SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`. The verification copy remains at `/tmp/autosbd-b2-verify.df4eM7/manifest.json`. The first attempted verification wrapper was rejected by the command safety layer before execution because it contained guarded recursive temporary cleanup; it changed nothing and was replaced by the non-deleting form.
+
+Added `src/autosbd/family_registry.py`, `scripts/build_family_registry.py`, and `tests/test_family_registry.py`. The builder hard-binds the frozen completion/aggregate path, SHA, and size; verifies all 48 immutable schema-v2 raw records, IDs, exact input components, and complete feature agreement; derives five Fe₄S₄ workload entries; records every raw path/SHA/size and trial/logical ID; represents basis as null with `basis_status=upstream_not_reported`; and rejects unknown, ambiguous, inconsistent, or extra nested fields. Focused validation passed 7/7 tests in 0.411 seconds.
+
+Registry generation used:
+
+```bash
+before_raw_chain=$(jq -r '.records[].raw_record.path' reports/stage4_completion.json \
+  | sort | xargs sha256sum | sha256sum | cut -d ' ' -f 1)
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/build_family_registry.py
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/build_family_registry.py --check
+after_raw_chain=$(jq -r '.records[].raw_record.path' reports/stage4_completion.json \
+  | sort | xargs sha256sum | sha256sum | cut -d ' ' -f 1)
+test "$before_raw_chain" = "$after_raw_chain"
+sha256sum reports/stage4_fe4s4_family_registry.json
+```
+
+Outcome: exit `0`; generation reported changed and immediate check reported unchanged/verified. Registry ID is `86bb6e3954b0b6dc86ae831c6b754eb25d77f63a3e548e7c4bd88fb10858e631`; file SHA-256 is `cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d`; it maps 48 records to five workloads. The pre/post raw-chain digest is unchanged at `3bc6e00863305e08720aeb0949f1b0ceb80d2715af213cae5f7375629b66a91c`. No raw record, Stage 4 aggregate, completion attestation, or Stage 5-v1 artifact changed.
+
+The read-only B3 campaign audit extracted exact B1 end-to-end walls and measured-only Stage 3 size scaling. The initial compact query used nonexistent raw aliases and included warmups; exact path discovery corrected it without file changes. Final inputs were N₂ CPU/GPU `5.836839927/1.299271674 s`, H₂O CPU/GPU `10.757544634/1.746693241 s`, and measured-only Fe₄S₄ sum/full ratios `1.50216726` CPU and `1.88101214` GPU. The resulting conservative plan budgets 1.55 minutes for 20 v3 correctness records, 3.09 minutes for 40 pilot records, and 4.64 minutes total before the approval stop. Current official GCP `g2-standard-32` [accelerator-optimized list pricing](https://cloud.google.com/products/compute/pricing/accelerator-optimized) was checked separately as `USD 1.734376528/hour`; projected pre-approval marginal cost is about `USD 0.134`, excluding disk, region/discount variation, and pathological repeated timeouts.
+
+## 2026-08-01 — Freeze and validate the ten-workload raw-v3 correctness protocol
+
+Added `configs/phaseb_n2_h2o_grid_correctness.yaml`, SHA-256 `d9ff3d497a0ba561016b5c22b12a29ad3db808b0fe3c2f68beef37ebb14fe99a`, and `tests/test_phase_b_grid_config.py`, SHA-256 `86293fb936fc6318b13b2102d371bd841e352214d9aaf00d441083e6e917854b`. The config uses schema 2; orders five N₂ then five H₂O workloads; binds exact family/molecule/basis and derived paths; retains the exact B1 CPU16/L4 candidates, build flags, solver, timeout, and seed; and specifies zero warmups, one correctness repetition, no reference values, and no prior timing authorization. In nonrandomized expansion it produces exactly 20 templates, CPU then GPU within every workload.
+
+Focused validation passed 12/12 tests and independently pinned all determinant, FCIDUMP, combined-input, executable, solver-boundary, and manifest hashes. Full pre-checkpoint validation then used:
+
+```bash
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python -m unittest discover -s tests -q
+.venv/bin/python -m pip check
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/validate_phase_b_inputs.py
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/prepare_phase_b_workloads.py --check
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/build_family_registry.py --check
+git -C external/amd-sbd status --porcelain=v1 --untracked-files=all
+git -C external/riken-sbd status --porcelain=v1 --untracked-files=all
+git diff --check
+```
+
+Outcome: exit `0`; 155/155 tests passed in 16.173 seconds; dependencies were consistent; the 20-artifact source inventory passed; both derived-input and Fe₄S₄ registry checks were unchanged; both upstream trees were clean; and diff hygiene passed. Factual status was updated in `README.md`, `PROJECT_CONTEXT.md`, `reports/RESULTS.md`, `reports/LIMITATIONS.md`, and `reports/PHASE_B_COMPATIBILITY.md` without claiming unrun correctness/timing or creating student-submission prose. No solver or GPU kernel ran in this preparation/validation block.
+
+After the documentation review and one README clarification, the same full gate was repeated. Outcome: exit `0`; 155/155 tests passed in 16.143 seconds; `pip check` reported no broken requirements; the inventory, derived-prefix, registry, upstream-cleanliness, and diff checks all remained unchanged/passing.

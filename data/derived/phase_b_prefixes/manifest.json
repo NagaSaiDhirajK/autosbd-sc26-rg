@@ -1,0 +1,496 @@
+{
+  "dataset_id": "phase-b-n2-h2o-derived-determinant-prefixes",
+  "derivation": {
+    "derived_prefix_counts": [
+      32,
+      55,
+      100,
+      174
+    ],
+    "full_official_counts": {
+      "h2o": 275,
+      "n2": 239
+    },
+    "nested_within_family": true,
+    "operation": "byte_exact_ordered_prefix",
+    "product_configuration_rule": "half_determinant_count_squared",
+    "source_line_bytes_preserved": true,
+    "source_order_preserved": true
+  },
+  "inventory": {
+    "path": "reports/phase_b_input_inventory.json",
+    "sha256": "0105bc73dea01e31f8a4230ec7c69f0bb903d8f53763eb5270b4f4bbaf0b9fc1"
+  },
+  "license": {
+    "path": "external/riken-sbd/LICENSE.txt",
+    "sha256": "b2bd772f0613e47353e1e4391f953d3de1958a12d0759f5cda48395f6f5ea759",
+    "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+    "spdx": "Apache-2.0"
+  },
+  "schema_version": 1,
+  "solver_boundary": {
+    "active_solver_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "active_solver_repository": "https://github.com/AMD-HPC/amd-sbd.git",
+    "riken_checkout_role": "input_data_only",
+    "riken_solver_build_run_or_timing_allowed": false,
+    "same_pinned_amd_cpu_gpu_implementation_required": true
+  },
+  "source_repository": {
+    "checkout_role": "input_data_only",
+    "commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+    "tag": "v1.3.0",
+    "url": "https://github.com/r-ccs-cms/sbd.git"
+  },
+  "workloads": [
+    {
+      "basis": "6-31G",
+      "companion_fcidump": {
+        "bytes": 437951,
+        "path": "external/riken-sbd/data/n2/fcidump.txt",
+        "sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 14,
+        "norb": 18
+      },
+      "expected_product_configurations": 1024,
+      "family_id": "n2",
+      "molecule": "N2",
+      "output": {
+        "bytes": 608,
+        "path": "n2/AlphaDets_n0032.txt",
+        "row_count": 32,
+        "sha256": "3d2406670cadd5ba16089fa08af208b469208d3afaf09ff6268aa6bfd2ea7b7d"
+      },
+      "parent_determinants": {
+        "bytes": 4541,
+        "path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+        "row_count": 239,
+        "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 32,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/n2",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "n2-prefix-0032"
+    },
+    {
+      "basis": "6-31G",
+      "companion_fcidump": {
+        "bytes": 437951,
+        "path": "external/riken-sbd/data/n2/fcidump.txt",
+        "sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 14,
+        "norb": 18
+      },
+      "expected_product_configurations": 3025,
+      "family_id": "n2",
+      "molecule": "N2",
+      "output": {
+        "bytes": 1045,
+        "path": "n2/AlphaDets_n0055.txt",
+        "row_count": 55,
+        "sha256": "75b771bea9661bb23f98f6e2bdd165e47841cee8e8de91c13959eb40abc54d79"
+      },
+      "parent_determinants": {
+        "bytes": 4541,
+        "path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+        "row_count": 239,
+        "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 55,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/n2",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "n2-prefix-0055"
+    },
+    {
+      "basis": "6-31G",
+      "companion_fcidump": {
+        "bytes": 437951,
+        "path": "external/riken-sbd/data/n2/fcidump.txt",
+        "sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 14,
+        "norb": 18
+      },
+      "expected_product_configurations": 10000,
+      "family_id": "n2",
+      "molecule": "N2",
+      "output": {
+        "bytes": 1900,
+        "path": "n2/AlphaDets_n0100.txt",
+        "row_count": 100,
+        "sha256": "bc288d1aa1293c495453c7bb7bf3079aa9d2e03c799715d2835d9a09034b9917"
+      },
+      "parent_determinants": {
+        "bytes": 4541,
+        "path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+        "row_count": 239,
+        "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 100,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/n2",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "n2-prefix-0100"
+    },
+    {
+      "basis": "6-31G",
+      "companion_fcidump": {
+        "bytes": 437951,
+        "path": "external/riken-sbd/data/n2/fcidump.txt",
+        "sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 14,
+        "norb": 18
+      },
+      "expected_product_configurations": 30276,
+      "family_id": "n2",
+      "molecule": "N2",
+      "output": {
+        "bytes": 3306,
+        "path": "n2/AlphaDets_n0174.txt",
+        "row_count": 174,
+        "sha256": "89ff6a62b266baf5d449dbc21d728acf318fb5c2f13dfe5e786804033bfe4823"
+      },
+      "parent_determinants": {
+        "bytes": 4541,
+        "path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+        "row_count": 239,
+        "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 174,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/n2",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "n2-prefix-0174"
+    },
+    {
+      "basis": "6-31G",
+      "companion_fcidump": {
+        "bytes": 437951,
+        "path": "external/riken-sbd/data/n2/fcidump.txt",
+        "sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 14,
+        "norb": 18
+      },
+      "expected_product_configurations": 57121,
+      "family_id": "n2",
+      "molecule": "N2",
+      "output": {
+        "bytes": 4541,
+        "path": "n2/AlphaDets_n0239.txt",
+        "row_count": 239,
+        "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2"
+      },
+      "parent_determinants": {
+        "bytes": 4541,
+        "path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+        "row_count": 239,
+        "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": true,
+        "half_determinant_count": 239,
+        "is_full_official_smallest_list": true,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/n2",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "n2-prefix-0239"
+    },
+    {
+      "basis": "cc-pVDZ",
+      "companion_fcidump": {
+        "bytes": 1124056,
+        "path": "external/riken-sbd/data/h2o/fcidump.txt",
+        "sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 10,
+        "norb": 24
+      },
+      "expected_product_configurations": 1024,
+      "family_id": "h2o",
+      "molecule": "H2O",
+      "output": {
+        "bytes": 800,
+        "path": "h2o/AlphaDets_n0032.txt",
+        "row_count": 32,
+        "sha256": "6f1fcf262ca0e91cbede71522a4f756cc801a0c7730d2e16552876386f6da58f"
+      },
+      "parent_determinants": {
+        "bytes": 6875,
+        "path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+        "row_count": 275,
+        "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 32,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/h2o",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "h2o-prefix-0032"
+    },
+    {
+      "basis": "cc-pVDZ",
+      "companion_fcidump": {
+        "bytes": 1124056,
+        "path": "external/riken-sbd/data/h2o/fcidump.txt",
+        "sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 10,
+        "norb": 24
+      },
+      "expected_product_configurations": 3025,
+      "family_id": "h2o",
+      "molecule": "H2O",
+      "output": {
+        "bytes": 1375,
+        "path": "h2o/AlphaDets_n0055.txt",
+        "row_count": 55,
+        "sha256": "5e4b39a5043f24f7cdaabbc08de83d9d0b1d7e7bd44d0ee17093d9434de09463"
+      },
+      "parent_determinants": {
+        "bytes": 6875,
+        "path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+        "row_count": 275,
+        "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 55,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/h2o",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "h2o-prefix-0055"
+    },
+    {
+      "basis": "cc-pVDZ",
+      "companion_fcidump": {
+        "bytes": 1124056,
+        "path": "external/riken-sbd/data/h2o/fcidump.txt",
+        "sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 10,
+        "norb": 24
+      },
+      "expected_product_configurations": 10000,
+      "family_id": "h2o",
+      "molecule": "H2O",
+      "output": {
+        "bytes": 2500,
+        "path": "h2o/AlphaDets_n0100.txt",
+        "row_count": 100,
+        "sha256": "e9839cc16b450597bac2d0e1c9e8357d6de0e76b6755aab0d3e73419ab329ce3"
+      },
+      "parent_determinants": {
+        "bytes": 6875,
+        "path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+        "row_count": 275,
+        "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 100,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/h2o",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "h2o-prefix-0100"
+    },
+    {
+      "basis": "cc-pVDZ",
+      "companion_fcidump": {
+        "bytes": 1124056,
+        "path": "external/riken-sbd/data/h2o/fcidump.txt",
+        "sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 10,
+        "norb": 24
+      },
+      "expected_product_configurations": 30276,
+      "family_id": "h2o",
+      "molecule": "H2O",
+      "output": {
+        "bytes": 4350,
+        "path": "h2o/AlphaDets_n0174.txt",
+        "row_count": 174,
+        "sha256": "5cb369df17d90da84c3fb7fb13ff45a490e56281d262c8ae968e235b93c82c10"
+      },
+      "parent_determinants": {
+        "bytes": 6875,
+        "path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+        "row_count": 275,
+        "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": false,
+        "half_determinant_count": 174,
+        "is_full_official_smallest_list": false,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/h2o",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "h2o-prefix-0174"
+    },
+    {
+      "basis": "cc-pVDZ",
+      "companion_fcidump": {
+        "bytes": 1124056,
+        "path": "external/riken-sbd/data/h2o/fcidump.txt",
+        "sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/fcidump.txt"
+      },
+      "electronic_structure": {
+        "ms2": 0,
+        "nelec": 10,
+        "norb": 24
+      },
+      "expected_product_configurations": 75625,
+      "family_id": "h2o",
+      "molecule": "H2O",
+      "output": {
+        "bytes": 6875,
+        "path": "h2o/AlphaDets_n0275.txt",
+        "row_count": 275,
+        "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67"
+      },
+      "parent_determinants": {
+        "bytes": 6875,
+        "path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+        "row_count": 275,
+        "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+        "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em3-alpha.txt"
+      },
+      "prefix": {
+        "byte_identical_to_parent": true,
+        "half_determinant_count": 275,
+        "is_full_official_smallest_list": true,
+        "rule": "first_n_rows_in_official_parent_order"
+      },
+      "source_and_license": {
+        "family_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/h2o",
+        "license_spdx": "Apache-2.0",
+        "license_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+        "repository_commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+        "repository_tag": "v1.3.0",
+        "repository_url": "https://github.com/r-ccs-cms/sbd.git"
+      },
+      "workload_id": "h2o-prefix-0275"
+    }
+  ]
+}

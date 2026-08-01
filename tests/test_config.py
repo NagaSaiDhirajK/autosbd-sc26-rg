@@ -96,6 +96,28 @@ class ConfigTestCase(unittest.TestCase):
               correctness_validated: false
         """
 
+    def valid_v2_yaml(self) -> str:
+        body = self.valid_yaml().replace("schema_version: 1", "schema_version: 2", 1)
+        body = body.replace(
+            "- name: fe4s4-small\n                fcidump:",
+            "- name: fe4s4-small\n"
+            "                family_id: fe4s4\n"
+            "                molecule: Fe4S4\n"
+            "                basis: documented-fixture-basis\n"
+            "                fcidump:",
+            1,
+        )
+        body = body.replace(
+            "- name: fe4s4-larger\n                fcidump:",
+            "- name: fe4s4-larger\n"
+            "                family_id: fe4s4\n"
+            "                molecule: Fe4S4\n"
+            "                basis: documented-fixture-basis\n"
+            "                fcidump:",
+            1,
+        )
+        return body
+
     def test_loads_resolved_paths_and_preserves_source_names(self) -> None:
         config_path = self.write_config(self.valid_yaml())
         config = load_sweep_config(config_path)
@@ -123,6 +145,68 @@ class ConfigTestCase(unittest.TestCase):
         self.assertEqual(config.protocol.purpose, "correctness")
         self.assertFalse(config.protocol.correctness_validated)
         self.assertFalse(ProtocolConfig().correctness_validated)
+
+    def test_schema_v1_remains_default_and_schema_v2_requires_metadata(self) -> None:
+        implicit_v1 = self.valid_yaml().replace("schema_version: 1\n", "", 1)
+        implicit = load_sweep_config(self.write_config(implicit_v1, "implicit.yaml"))
+        self.assertEqual(implicit.schema_version, 1)
+        self.assertIsNone(implicit.workloads[0].family_id)
+
+        v2 = load_sweep_config(self.write_config(self.valid_v2_yaml(), "v2.yaml"))
+        self.assertEqual(v2.schema_version, 2)
+        self.assertEqual(v2.workloads[0].family_id, "fe4s4")
+        self.assertEqual(v2.workloads[0].molecule, "Fe4S4")
+        self.assertEqual(v2.workloads[0].basis, "documented-fixture-basis")
+
+        missing_basis = self.valid_v2_yaml().replace(
+            "                basis: documented-fixture-basis\n", "", 1
+        )
+        with self.assertRaisesRegex(ConfigError, "missing required keys"):
+            load_sweep_config(self.write_config(missing_basis, "missing-basis.yaml"))
+
+    def test_schema_v2_rejects_invalid_or_inconsistent_family_metadata(self) -> None:
+        invalid_cases = (
+            (
+                "uppercase-family",
+                self.valid_v2_yaml().replace("family_id: fe4s4", "family_id: Fe4S4", 1),
+                "lowercase ASCII slug",
+            ),
+            (
+                "blank-molecule",
+                self.valid_v2_yaml().replace("molecule: Fe4S4", 'molecule: "   "', 1),
+                "nonempty string",
+            ),
+            (
+                "padded-basis",
+                self.valid_v2_yaml().replace(
+                    "basis: documented-fixture-basis",
+                    'basis: " documented-fixture-basis"',
+                    1,
+                ),
+                "surrounding whitespace",
+            ),
+            (
+                "inconsistent-family",
+                self.valid_v2_yaml().replace("molecule: Fe4S4", "molecule: Other", 1),
+                "inconsistent molecule/basis",
+            ),
+        )
+        for label, body, message in invalid_cases:
+            with self.subTest(label=label):
+                with self.assertRaisesRegex(ConfigError, message):
+                    load_sweep_config(self.write_config(body, f"{label}.yaml"))
+
+        v1_with_metadata = self.valid_yaml().replace(
+            "- name: fe4s4-small\n                fcidump:",
+            "- name: fe4s4-small\n"
+            "                family_id: fe4s4\n"
+            "                molecule: Fe4S4\n"
+            "                basis: documented-fixture-basis\n"
+            "                fcidump:",
+            1,
+        )
+        with self.assertRaisesRegex(ConfigError, "unknown keys"):
+            load_sweep_config(self.write_config(v1_with_metadata, "v1-metadata.yaml"))
 
     def test_unknown_keys_and_duplicate_yaml_keys_are_rejected(self) -> None:
         cases = {

@@ -17,9 +17,10 @@ from pathlib import Path
 from typing import Any
 
 
-SCHEMA_VERSION = 2
-SUPPORTED_SCHEMA_VERSIONS = frozenset({1, SCHEMA_VERSION})
+SCHEMA_VERSION = 3
+SUPPORTED_SCHEMA_VERSIONS = frozenset({1, 2, SCHEMA_VERSION})
 SHA256_RE = re.compile(r"[0-9a-f]{64}")
+FAMILY_ID_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 
 REQUIRED_FIELDS = frozenset(
     {
@@ -93,6 +94,9 @@ REQUIRED_FIELDS = frozenset(
     }
 )
 V2_REQUIRED_FIELDS = REQUIRED_FIELDS | frozenset({"logical_identity"})
+V3_REQUIRED_FIELDS = V2_REQUIRED_FIELDS | frozenset(
+    {"family_id", "molecule", "basis"}
+)
 
 VALID_STATUSES = frozenset(
     {
@@ -156,7 +160,11 @@ def validate_record(record: Mapping[str, Any]) -> None:
     ):
         raise RecordError(f"Unsupported schema_version: {schema_version!r}")
 
-    required_fields = V2_REQUIRED_FIELDS if schema_version == 2 else REQUIRED_FIELDS
+    required_fields = {
+        1: REQUIRED_FIELDS,
+        2: V2_REQUIRED_FIELDS,
+        3: V3_REQUIRED_FIELDS,
+    }[schema_version]
     missing = sorted(required_fields.difference(record))
     if missing:
         raise RecordError(f"Missing required record fields: {', '.join(missing)}")
@@ -176,7 +184,7 @@ def validate_record(record: Mapping[str, Any]) -> None:
     ):
         raise RecordError("attempt_index must be a nonnegative integer")
 
-    if schema_version == 2:
+    if schema_version in {2, 3}:
         logical_identity = record["logical_identity"]
         if not isinstance(logical_identity, Mapping):
             raise RecordError("logical_identity must be an object")
@@ -191,6 +199,28 @@ def validate_record(record: Mapping[str, Any]) -> None:
         )
         if record["trial_id"] != expected_trial_id:
             raise RecordError("trial_id does not match logical_trial_id and attempt_index")
+
+    if schema_version == 3:
+        logical_identity = record["logical_identity"]
+        assert isinstance(logical_identity, Mapping)
+        metadata: dict[str, str] = {}
+        for field in ("family_id", "molecule", "basis"):
+            value = record[field]
+            if not isinstance(value, str) or not value:
+                raise RecordError(f"{field} must be a nonempty string")
+            if value != value.strip():
+                raise RecordError(f"{field} must not contain surrounding whitespace")
+            metadata[field] = value
+            if logical_identity.get(field) != value:
+                raise RecordError(f"{field} does not match logical_identity")
+        if FAMILY_ID_RE.fullmatch(metadata["family_id"]) is None:
+            raise RecordError("family_id must be a lowercase ASCII slug")
+        if logical_identity.get("schema_version") != 3:
+            raise RecordError("logical_identity schema_version must be 3")
+        if logical_identity.get("workload") != record["problem_instance"]:
+            raise RecordError("problem_instance does not match logical_identity workload")
+        if logical_identity.get("sweep_name") != record["problem_family"]:
+            raise RecordError("problem_family does not match logical_identity sweep_name")
 
     if record["status"] not in VALID_STATUSES:
         raise RecordError(f"Invalid status: {record['status']!r}")

@@ -28,6 +28,12 @@ def make_valid_record(**overrides: object) -> dict[str, object]:
 
     input_sha256 = "c" * 64
     logical_identity = {
+        "schema_version": 3,
+        "sweep_name": "mock",
+        "workload": "fixture-success",
+        "family_id": "fixture",
+        "molecule": "Fixture",
+        "basis": "fixture-basis",
         "backend": "mock",
         "build_id": "mock-build-v1",
         "input_sha256": input_sha256,
@@ -60,6 +66,9 @@ def make_valid_record(**overrides: object) -> dict[str, object]:
         "physical_cores": 1,
         "problem_family": "mock",
         "problem_instance": "fixture-success",
+        "family_id": "fixture",
+        "molecule": "Fixture",
+        "basis": "fixture-basis",
         "input_sha256": input_sha256,
         "seed": 0,
         "n_orbitals": 36,
@@ -124,6 +133,40 @@ def make_valid_record(**overrides: object) -> dict[str, object]:
     return record
 
 
+def as_schema_v2(record: dict[str, object]) -> dict[str, object]:
+    """Return the historical schema-v2 shape with self-consistent identities."""
+
+    converted = dict(record)
+    converted["schema_version"] = 2
+    for field in ("family_id", "molecule", "basis"):
+        converted.pop(field)
+    identity = dict(converted["logical_identity"])  # type: ignore[arg-type]
+    identity["schema_version"] = 2
+    for field in ("family_id", "molecule", "basis"):
+        identity.pop(field)
+    converted["logical_identity"] = identity
+    logical_trial_id = make_trial_id(identity)
+    converted["logical_trial_id"] = logical_trial_id
+    converted["trial_id"] = make_trial_id(
+        {"logical_trial_id": logical_trial_id, "attempt_index": 0}
+    )
+    validate_record(converted)
+    return converted
+
+
+def rehash_schema_v3(record: dict[str, object]) -> None:
+    identity = record["logical_identity"]
+    assert isinstance(identity, dict)
+    logical_trial_id = make_trial_id(identity)
+    record["logical_trial_id"] = logical_trial_id
+    record["trial_id"] = make_trial_id(
+        {
+            "logical_trial_id": logical_trial_id,
+            "attempt_index": record["attempt_index"],
+        }
+    )
+
+
 class TrialIdentityTests(unittest.TestCase):
     def test_canonical_json_and_trial_id_ignore_mapping_key_order(self) -> None:
         first = {
@@ -151,7 +194,7 @@ class TrialIdentityTests(unittest.TestCase):
 
 class ImmutableRecordTests(unittest.TestCase):
     def test_v2_rejects_tampered_logical_identity(self) -> None:
-        record = make_valid_record()
+        record = as_schema_v2(make_valid_record())
         record["logical_identity"] = {
             **record["logical_identity"],  # type: ignore[arg-type]
             "backend": "cpu",
@@ -160,19 +203,19 @@ class ImmutableRecordTests(unittest.TestCase):
             validate_record(record)
 
     def test_v2_rejects_tampered_logical_trial_id(self) -> None:
-        record = make_valid_record()
+        record = as_schema_v2(make_valid_record())
         record["logical_trial_id"] = "d" * 64
         with self.assertRaisesRegex(RecordError, "logical_trial_id does not match"):
             validate_record(record)
 
     def test_v2_rejects_tampered_attempt_index(self) -> None:
-        record = make_valid_record()
+        record = as_schema_v2(make_valid_record())
         record["attempt_index"] = 1
         with self.assertRaisesRegex(RecordError, "trial_id does not match"):
             validate_record(record)
 
     def test_existing_v1_shape_remains_valid_and_loadable(self) -> None:
-        record = make_valid_record()
+        record = as_schema_v2(make_valid_record())
         record["schema_version"] = 1
         record.pop("logical_identity")
         record["trial_id"] = make_trial_id(
@@ -188,6 +231,46 @@ class ImmutableRecordTests(unittest.TestCase):
             path = Path(temporary_directory) / f"{record['trial_id']}.json"
             write_immutable_json(path, record)
             self.assertEqual(load_record(path), record)
+
+    def test_existing_v2_shape_remains_valid_without_family_metadata(self) -> None:
+        record = as_schema_v2(make_valid_record())
+        self.assertEqual(record["schema_version"], 2)
+        self.assertNotIn("family_id", record)
+        validate_record(record)
+
+    def test_v3_requires_and_cross_checks_bound_family_metadata(self) -> None:
+        record = make_valid_record()
+        self.assertEqual(record["schema_version"], 3)
+        self.assertEqual(record["family_id"], "fixture")
+
+        for field in ("family_id", "molecule", "basis"):
+            with self.subTest(missing=field):
+                missing = dict(record)
+                missing.pop(field)
+                with self.assertRaisesRegex(RecordError, "Missing required"):
+                    validate_record(missing)
+
+        top_level_tamper = dict(record)
+        top_level_tamper["molecule"] = "Other"
+        with self.assertRaisesRegex(RecordError, "molecule does not match"):
+            validate_record(top_level_tamper)
+
+        invalid_slug = dict(record)
+        invalid_identity = dict(record["logical_identity"])  # type: ignore[arg-type]
+        invalid_identity["family_id"] = "Bad Family"
+        invalid_slug["logical_identity"] = invalid_identity
+        invalid_slug["family_id"] = "Bad Family"
+        rehash_schema_v3(invalid_slug)
+        with self.assertRaisesRegex(RecordError, "lowercase ASCII slug"):
+            validate_record(invalid_slug)
+
+        wrong_workload = dict(record)
+        wrong_identity = dict(record["logical_identity"])  # type: ignore[arg-type]
+        wrong_identity["workload"] = "other"
+        wrong_workload["logical_identity"] = wrong_identity
+        rehash_schema_v3(wrong_workload)
+        with self.assertRaisesRegex(RecordError, "problem_instance does not match"):
+            validate_record(wrong_workload)
 
     def test_write_is_immutable_and_preserves_bytes_and_mtime(self) -> None:
         record = make_valid_record()

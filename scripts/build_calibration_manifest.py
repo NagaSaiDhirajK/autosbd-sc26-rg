@@ -304,8 +304,8 @@ def _validate_record_evidence(
     record: Mapping[str, Any], path: Path
 ) -> dict[str, Any]:
     label = f"record {path.name}"
-    if record.get("schema_version") != 2:
-        raise CalibrationError(f"{label} must use schema_version 2")
+    if record.get("schema_version") not in {2, 3}:
+        raise CalibrationError(f"{label} must use schema_version 2 or 3")
     backend = record.get("backend")
     if backend not in EXPECTED_BUILD_SHA256:
         raise CalibrationError(f"{label} backend must be exactly cpu or gpu")
@@ -458,13 +458,19 @@ def _relative_difference(first: float, second: float) -> float:
 
 
 def _pair_manifest_entry(
-    key: tuple[str, str], pair: Mapping[str, Mapping[str, Any]]
+    key: tuple[str, ...], pair: Mapping[str, Mapping[str, Any]]
 ) -> dict[str, object]:
-    problem_instance, input_sha256 = key
     cpu_evidence = pair["cpu"]
     gpu_evidence = pair["gpu"]
     cpu = cpu_evidence["record"]
     gpu = gpu_evidence["record"]
+    record_schema_version = cpu["schema_version"]
+    if gpu["schema_version"] != record_schema_version:
+        raise CalibrationError("CPU/GPU record schema_version mismatch")
+    if record_schema_version == 2:
+        problem_instance, input_sha256 = key
+    else:
+        family_id, problem_instance, input_sha256 = key
     label = f"{problem_instance}/{input_sha256}"
 
     if cpu_evidence["solver"] != gpu_evidence["solver"]:
@@ -485,6 +491,8 @@ def _pair_manifest_entry(
         "estimated_work",
         "estimated_cache_bytes",
     )
+    if record_schema_version == 3:
+        workload_fields += ("family_id", "molecule", "basis")
     workload = {
         field: _same_workload_field(cpu, gpu, field, label)
         for field in workload_fields
@@ -537,7 +545,7 @@ def _pair_manifest_entry(
             "run_artifacts": evidence["run_artifacts"],
         }
 
-    return {
+    entry = {
         "problem_instance": problem_instance,
         "input_sha256": input_sha256,
         "solver": cpu_evidence["solver"],
@@ -556,6 +564,15 @@ def _pair_manifest_entry(
             "density_max_abs_difference": density_max_abs_difference,
         },
     }
+    if record_schema_version == 3:
+        entry.update(
+            {
+                "family_id": family_id,
+                "molecule": workload["molecule"],
+                "basis": workload["basis"],
+            }
+        )
+    return entry
 
 
 def make_calibration_manifest(record_paths: Sequence[Path]) -> dict[str, object]:
@@ -563,9 +580,10 @@ def make_calibration_manifest(record_paths: Sequence[Path]) -> dict[str, object]
 
     if not record_paths:
         raise CalibrationError("at least one explicit record path is required")
-    pairs: dict[tuple[str, str], dict[str, Mapping[str, Any]]] = {}
+    pairs: dict[tuple[str, ...], dict[str, Mapping[str, Any]]] = {}
     build_artifacts: dict[str, dict[str, object]] = {}
     seen_paths: set[Path] = set()
+    manifest_schema_version: int | None = None
 
     for supplied_path in record_paths:
         path = Path(supplied_path).resolve(strict=True)
@@ -574,12 +592,26 @@ def make_calibration_manifest(record_paths: Sequence[Path]) -> dict[str, object]
         seen_paths.add(path)
         evidence = _load_and_validate(path)
         record = evidence["record"]
-        key = (record["problem_instance"], record["input_sha256"])
+        record_schema_version = record["schema_version"]
+        if manifest_schema_version is None:
+            manifest_schema_version = record_schema_version
+        elif record_schema_version != manifest_schema_version:
+            raise CalibrationError(
+                "cannot mix schema_version 2 and 3 records in one manifest"
+            )
+        if record_schema_version == 3:
+            key = (
+                record["family_id"],
+                record["problem_instance"],
+                record["input_sha256"],
+            )
+        else:
+            key = (record["problem_instance"], record["input_sha256"])
         backend = record["backend"]
         pair = pairs.setdefault(key, {})
         if backend in pair:
             raise CalibrationError(
-                f"duplicate {backend} record for {key[0]}/{key[1]}"
+                f"duplicate {backend} record for {'/'.join(key)}"
             )
         pair[backend] = evidence
         previous_build = build_artifacts.get(backend)
@@ -593,7 +625,7 @@ def make_calibration_manifest(record_paths: Sequence[Path]) -> dict[str, object]
         missing = sorted({"cpu", "gpu"}.difference(pair))
         if missing:
             raise CalibrationError(
-                f"missing {', '.join(missing)} record for {key[0]}/{key[1]}"
+                f"missing {', '.join(missing)} record for {'/'.join(key)}"
             )
     if set(build_artifacts) != {"cpu", "gpu"}:
         raise CalibrationError("manifest requires both exact CPU and GPU artifacts")
@@ -605,8 +637,9 @@ def make_calibration_manifest(record_paths: Sequence[Path]) -> dict[str, object]
     validated_inputs = [
         _pair_manifest_entry(key, pairs[key]) for key in sorted(pairs)
     ]
+    assert manifest_schema_version is not None
     return {
-        "schema_version": 2,
+        "schema_version": manifest_schema_version,
         "passed": True,
         "upstream_url": OFFICIAL_UPSTREAM_URL,
         "upstream_git_commit": OFFICIAL_UPSTREAM_COMMIT,

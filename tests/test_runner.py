@@ -165,6 +165,7 @@ class TrialRunnerTests(unittest.TestCase):
         validation_manifest: Path | None = None,
         phase: str = "measured",
         workload: WorkloadConfig | None = None,
+        schema_version: int = 1,
     ) -> tuple[SweepConfig, TrialTemplate]:
         selected_workload = self.workload if workload is None else workload
         config = SweepConfig(
@@ -181,6 +182,7 @@ class TrialRunnerTests(unittest.TestCase):
                 correctness_validated=correctness_validated,
                 validation_manifest=validation_manifest,
             ),
+            schema_version=schema_version,
         )
         template = TrialTemplate(
             sweep_name=config.name,
@@ -291,12 +293,13 @@ class TrialRunnerTests(unittest.TestCase):
         candidate_artifact_sha256: str | None = None,
         candidate_backend: str | None = None,
         allow_nan: bool = False,
+        schema_version: int = 2,
     ) -> Path:
         artifact_sha256 = hashlib.sha256(
             "\0".join(candidate.mock_argv).encode()
         ).hexdigest()
         manifest = {
-            "schema_version": 2,
+            "schema_version": schema_version,
             "passed": True,
             "upstream_url": OFFICIAL_UPSTREAM_URL,
             "upstream_git_commit": UPSTREAM_COMMIT,
@@ -624,6 +627,54 @@ class TrialRunnerTests(unittest.TestCase):
             ),
         )
 
+    def test_config_v2_emits_schema_v3_with_bound_family_metadata(self) -> None:
+        candidate = self.mock_candidate("success")
+        workload = WorkloadConfig(
+            name="tiny-36-family",
+            fcidump=self.fcidump,
+            adetfile=self.determinants,
+            family_id="fixture",
+            molecule="Fixture",
+            basis="fixture-basis",
+        )
+        config, template = self.trial(
+            candidate, workload=workload, schema_version=2
+        )
+        record = self.assert_durable_valid_record(
+            self.runner.run(template, config=config, reference_value=REFERENCE_ENERGY)
+        )
+
+        self.assertEqual(record["schema_version"], 3)
+        self.assertEqual(record["problem_family"], "runner-test")
+        self.assertEqual(record["problem_instance"], workload.name)
+        for field in ("family_id", "molecule", "basis"):
+            self.assertEqual(record[field], getattr(workload, field))
+            self.assertEqual(
+                record["logical_identity"][field], getattr(workload, field)
+            )
+
+        changed_workload = WorkloadConfig(
+            name=workload.name,
+            fcidump=self.fcidump,
+            adetfile=self.determinants,
+            family_id="other-fixture",
+            molecule="Other Fixture",
+            basis="fixture-basis",
+        )
+        changed_config, changed_template = self.trial(
+            candidate, workload=changed_workload, schema_version=2
+        )
+        changed_record = self.assert_durable_valid_record(
+            self.runner.run(
+                changed_template,
+                config=changed_config,
+                reference_value=REFERENCE_ENERGY,
+            )
+        )
+        self.assertNotEqual(
+            record["logical_trial_id"], changed_record["logical_trial_id"]
+        )
+
     def test_unofficial_source_and_wrong_binary_hash_are_rejected(self) -> None:
         invalid_upstream_states = (
             (
@@ -730,6 +781,83 @@ class TrialRunnerTests(unittest.TestCase):
                 self.assertTrue(record["validation_evidence"]["valid"])
                 self.assertEqual(record["validation_evidence"]["errors"], [])
                 self.assertTrue(record["timing_eligible"])
+
+    def test_config_v2_accepts_legacy_manifest_and_checks_v3_metadata(self) -> None:
+        candidate = self.mock_candidate("success")
+        workload = WorkloadConfig(
+            name="tiny-v3-validated",
+            fcidump=self.fcidump,
+            adetfile=self.determinants,
+            reference_value=REFERENCE_ENERGY,
+            reference_source="runner test fixture",
+            family_id="fixture",
+            molecule="Fixture",
+            basis="fixture-basis",
+        )
+        entry = self._validated_input(workload)
+
+        legacy_manifest = self.write_validation_manifest_v2(
+            candidate, "legacy-for-v3", [entry]
+        )
+        legacy_config, legacy_template = self.trial(
+            candidate,
+            purpose="pilot",
+            warmups=1,
+            correctness_validated=True,
+            validation_manifest=legacy_manifest,
+            workload=workload,
+            schema_version=2,
+        )
+        legacy_record = self.assert_durable_valid_record(
+            self.runner.run(legacy_template, config=legacy_config)
+        )
+        self.assertTrue(legacy_record["validation_evidence"]["valid"])
+        self.assertTrue(legacy_record["timing_eligible"])
+
+        v3_entry = {
+            **entry,
+            "family_id": workload.family_id,
+            "molecule": workload.molecule,
+            "basis": workload.basis,
+        }
+        v3_manifest = self.write_validation_manifest_v2(
+            candidate, "v3-valid", [v3_entry], schema_version=3
+        )
+        v3_config, v3_template = self.trial(
+            candidate,
+            purpose="pilot",
+            warmups=1,
+            correctness_validated=True,
+            validation_manifest=v3_manifest,
+            workload=workload,
+            schema_version=2,
+        )
+        v3_record = self.assert_durable_valid_record(
+            self.runner.run(v3_template, config=v3_config)
+        )
+        self.assertTrue(v3_record["validation_evidence"]["valid"])
+
+        bad_entry = {**v3_entry, "basis": "wrong-basis"}
+        bad_manifest = self.write_validation_manifest_v2(
+            candidate, "v3-bad", [bad_entry], schema_version=3
+        )
+        bad_config, bad_template = self.trial(
+            candidate,
+            purpose="pilot",
+            warmups=1,
+            correctness_validated=True,
+            validation_manifest=bad_manifest,
+            workload=workload,
+            schema_version=2,
+        )
+        bad_record = self.assert_durable_valid_record(
+            self.runner.run(bad_template, config=bad_config)
+        )
+        self.assertFalse(bad_record["validation_evidence"]["valid"])
+        self.assertIn(
+            "manifest validated input basis mismatch",
+            bad_record["validation_evidence"]["errors"],
+        )
 
     def test_schema_v2_manifest_rejects_invalid_input_bindings(self) -> None:
         candidate = self.mock_candidate("success")

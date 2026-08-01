@@ -9,26 +9,26 @@ The primary implementation is the official [`AMD-HPC/amd-sbd`](https://github.co
 - CPU: NVHPC `nvc++` OpenMP, 16-thread candidate;
 - GPU: NVHPC `nvc++` OpenMP target offload for the NVIDIA L4 (`cc89`), using the SDK's bundled CUDA 13.2 toolchain.
 
-The earlier [`r-ccs-cms/sbd`](https://github.com/r-ccs-cms/sbd) `v1.3.0` work is retained only as historical fallback evidence. No RIKEN executable or input is used by the primary Stage 2 runner or its correctness result.
+The earlier [`r-ccs-cms/sbd`](https://github.com/r-ccs-cms/sbd) `v1.3.0` solver work is retained only as historical fallback evidence. Phase B reuses pinned N₂/H₂O bytes from that repository as licensed input data, but no RIKEN executable is built, run, timed, trained on, or selected.
 
 Exact source, compiler, flags, binary hashes, and license provenance are recorded in [`reports/BUILD_PROVENANCE.md`](reports/BUILD_PROVENANCE.md).
 
 ## Current status
 
-Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and for the exact smallest upstream N₂/H₂O cases; and the schema-v2 single-run/resumable-sweep harness is implemented. The frozen Stage 4 campaign produced 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 128 tests, including corrected threshold semantics, six-policy evaluation artifacts, inference-overhead coverage, strict Phase B input provenance, and density-length enforcement.
+Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and for the exact smallest upstream N₂/H₂O cases. Phase B2 now has ten deterministic N₂/H₂O size variants, config-v2/raw-v3 family identity, and a strict external registry for the immutable Fe₄S₄ records. The frozen Stage 4 campaign remains 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 155 tests. New-grid v3 correctness, warmup-enabled timing, and multifamily evaluation are still pending.
 
 The hardened runner provides:
 
 - strict YAML configuration and pre-execution FCIDUMP/determinant features;
 - admission checks for the exact official upstream commit, clean upstream tree, expected binaries, build flags, and NVHPC compiler;
 - a node-wide run lock, fail-closed GPU-idle checks, CPU-core and GPU-memory guards, bounded process-group execution, and host/GPU resource sampling;
-- immutable atomic schema-v2 JSON records with logical identity plus attempt identity, input re-hashing, artifact hashes, claims, and exact resume behavior;
+- immutable atomic JSON records with preserved schema-v2 history and family-aware schema-v3 logical/attempt identity, input re-hashing, artifact hashes, claims, and exact resume behavior;
 - explicit process, scientific-correctness, monitoring, and timing-eligibility states; and
 - a validation-manifest gate that prevents correctness smoke runs from silently becoming benchmark evidence.
 
 The schema-v2 Fe₄S₄ CPU and GPU runs converged and agreed in energy, density, and iteration count at all five determinant-prefix sizes. Every calibration record has `timing_eligible=false`; its wall time is diagnostic only and is not a final performance result. See [`reports/RESULTS.md`](reports/RESULTS.md) and [`reports/LIMITATIONS.md`](reports/LIMITATIONS.md).
 
-The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These remain size-held-out timing results from one Fe₄S₄ family, not cross-family performance evidence. Phase B1 now validates exact smallest N₂/H₂O inputs on the same official AMD CPU/GPU binaries; those four correctness records have zero warmups and remain timing-ineligible. Derived sizes, repeated timing, and cross-family evaluation are still pending.
+The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These remain size-held-out timing results from one Fe₄S₄ family, not cross-family performance evidence. Phase B1 validates exact smallest N₂/H₂O inputs on the same official AMD CPU/GPU binaries; those four correctness records have zero warmups and remain timing-ineligible. The deterministic Phase B2 grids are prepared, but their unified schema-v3 correctness gate, repeated timing, and cross-family evaluation are still pending.
 
 ## Reproduce the engineering checks
 
@@ -44,9 +44,12 @@ Prepare and verify the official-AMD Fe₄S₄ determinant-count variants:
 ```bash
 .venv/bin/python scripts/prepare_workloads.py
 .venv/bin/python scripts/prepare_workloads.py --check
+.venv/bin/python scripts/prepare_phase_b_workloads.py
+.venv/bin/python scripts/prepare_phase_b_workloads.py --check
+PYTHONPATH=src .venv/bin/python scripts/build_family_registry.py --check
 ```
 
-These are exact nested prefixes of one official Fe₄S₄ determinant list: derived size variants of one chemical family, not independent chemistry datasets.
+The Fe₄S₄ outputs are size variants of one official determinant list. The Phase B outputs are family-local prefixes of the pinned N₂ and H₂O lists. No prefix is an additional independent chemistry family.
 
 Build the official primary executables after NVIDIA HPC SDK 26.5 and the documented system dependencies are available:
 
@@ -82,6 +85,9 @@ Use `scripts/run_sweep.py` for a sequential resumable configuration sweep. The r
 - [`reports/phase_b_input_inventory.json`](reports/phase_b_input_inventory.json): exact licensed N₂/H₂O data inventory and hashes
 - [`reports/PHASE_B_COMPATIBILITY.md`](reports/PHASE_B_COMPATIBILITY.md): unchanged-input static and smallest-pair runtime gate
 - [`reports/phaseb_n2_h2o_correctness_manifest.json`](reports/phaseb_n2_h2o_correctness_manifest.json): exact four-record N₂/H₂O CPU/GPU correctness manifest
+- [`data/derived/phase_b_prefixes/manifest.json`](data/derived/phase_b_prefixes/manifest.json): ten deterministic N₂/H₂O prefix workloads and source/solver boundary
+- [`reports/stage4_fe4s4_family_registry.json`](reports/stage4_fe4s4_family_registry.json): external family metadata for all 48 immutable Stage 4 records
+- [`configs/phaseb_n2_h2o_grid_correctness.yaml`](configs/phaseb_n2_h2o_grid_correctness.yaml): pending all-v3 ten-workload correctness protocol
 - [`results/processed/stage4_final.json`](results/processed/stage4_final.json): deterministic repeated-timing aggregation
 - [`configs/stage5_size_heldout.yaml`](configs/stage5_size_heldout.yaml): leakage-safe single-family evaluation protocol
 - [`results/processed/stage5/evaluation.json`](results/processed/stage5/evaluation.json): corrected held-out predictions, metrics, models, and claim boundary

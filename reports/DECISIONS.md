@@ -225,3 +225,36 @@
 - Decision: Accept `reports/phaseb_n2_h2o_correctness_manifest.json`, schema 2, SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`, as the correctness gate only for combined input hashes `6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb` (N₂) and `ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d` (H₂O). Preserve all four immutable records. Do not infer correctness for any larger list or derived prefix, and do not admit any recorded duration as performance evidence.
 - Evidence: both CPU/GPU pairs used the same exact official AMD commit, solver settings, and family-specific input bytes; all four records converged with residual at most `1e-8`; per-family iteration counts match exactly; energy relative errors are `0` and `5.5922e-16`; density lengths equal `NORB`; density maximum differences are `3.1974e-14` and `1.9984e-14`; inputs and run artifacts verify; and both GPU records contain mandatory offload, exact device assignment, positive allocation, process observation, and complete monitoring.
 - Rationale: Phase B1 demonstrates that the official AMD path can consume and solve authentic smallest N₂/H₂O cases unchanged, closing the runtime compatibility gate while preserving a single implementation. Zero warmups and one correctness repetition provide no timing distribution or cross-family selector evidence. Phase B2 may prepare deterministic derived sizes and family metadata, but each exact hash needs a new correctness gate before a separately approved timing protocol.
+
+## D-032 — Version family identity without rewriting historical evidence
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: Preserve config schema 1 as the default and preserve raw-record schemas 1/2 exactly. Introduce config schema 2 for future chemistry-aware workloads, requiring `family_id`, `molecule`, and `basis`; emit raw-record schema 3 and bind the same metadata into both the top level and logical identity. Keep `problem_family=sweep_name` and `problem_instance=workload.name`; use `family_id` as the scientific grouping key. Never retrofit any of the 120 historical raw records. Add Fe₄S₄ metadata through a deterministic external registry that verifies exact immutable record bytes, IDs, component hashes, instance, and combined input SHA.
+- Rationale: existing `problem_family` values identify sweep configurations, not chemistry. Conditional additions to raw schema 2 would weaken its closed identity contract and could permit conflicting labels under one trial ID. A version boundary preserves all existing attestations while making future family metadata identity-bearing and collision-safe.
+- Leakage boundary: family, molecule, basis, paths, hashes, identifiers, and post-execution outcomes remain grouping/provenance fields only and must never enter selector predictors.
+
+## D-033 — Prepare two deterministic family-local grids as inputs only
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: For each authentic N₂ and H₂O family, derive byte-exact nested determinant prefixes at half-list counts 32, 55, 100, and 174, plus the full official smallest count (239 N₂; 275 H₂O). Bind every output to the exact parent determinant, FCIDUMP, family metadata, electronic structure, license/source, official input repository commit, and the official-AMD-only active solver boundary in `data/derived/phase_b_prefixes/manifest.json`, SHA-256 `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`.
+- Rationale: the controlled grid matches the handoff and provides comparable configuration-count scales across three families. Prefixes are size variants within a family, not independent chemical solutions or extra independent families.
+- Evidence boundary: generation proves provenance and byte determinism only. Each exact combined input hash needs CPU/GPU correctness before timing; correctness-run durations remain ineligible; no cross-family performance or selector claim follows from this preparation.
+
+## D-034 — Augment frozen Fe₄S₄ evidence externally with an explicitly unknown basis
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: Preserve all 48 Stage 4 raw records and their IDs/bytes. Generate `reports/stage4_fe4s4_family_registry.json` only after verifying the exact completion attestation, exact aggregate, every raw path/SHA/size, schema-v2 identity, input-integrity snapshots, component bytes, and aggregate/raw features. Bind exact `(problem_instance,input_sha256)` mappings to `family_id=fe4s4`, `molecule=Fe4S4`, `basis=null`, and `basis_status=upstream_not_reported`; reject unknown, ambiguous, inconsistent, duplicate, or extra fields.
+- Evidence: registry ID `86bb6e3954b0b6dc86ae831c6b754eb25d77f63a3e548e7c4bd88fb10858e631`; file SHA-256 `cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d`; five workload entries; 48 mapped raw records; unchanged raw-chain digest `3bc6e00863305e08720aeb0949f1b0ceb80d2715af213cae5f7375629b66a91c`.
+- Rationale: the verified upstream/local evidence names the Fe₄S₄ sample but does not report a basis set. External augmentation preserves immutable provenance and prevents both a fabricated basis and misuse of the historical sweep-name `problem_family` as chemistry identity.
+
+## D-035 — Use a homogeneous raw-v3 correctness gate for all ten Phase B grid inputs
+
+- Date: 2026-08-01
+- Status: accepted; config frozen, execution pending
+- Decision: Retain the four B1 schema-v2 full-size correctness records and manifest unchanged as historical compatibility evidence, but do not mix them into the new family-aware gate. Run one correctness-only CPU/GPU pair for each of the ten N₂/H₂O grid workloads under config schema 2/raw schema 3, including bounded full-size repeats, and build one all-v3 manifest. Only after that manifest passes and regenerates unchanged may a one-warmup/one-measured pilot run.
+- Rationale: the calibration builder intentionally rejects mixed v2/v3 evidence. A bridge would omit identity-bound family metadata for the two full cases, while the four bounded full-size v3 repeats add only about 33 conservative seconds and create a simple fail-closed contract across every exact pilot input.
+- Frozen protocol: `configs/phaseb_n2_h2o_grid_correctness.yaml`, SHA-256 `d9ff3d497a0ba561016b5c22b12a29ad3db808b0fe3c2f68beef37ebb14fe99a`; exact deterministic input manifest SHA-256 `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`.
+- Approval boundary: correctness plus pilot are conservatively estimated at 4.64 minutes and about `USD 0.134`, below repository gates. After the pilot, replace projections with measured family-specific runtime/cost and stop for explicit approval before any broad three-/five-repetition final timing.

@@ -1,8 +1,9 @@
 """Strict, deterministic configuration loading for AutoSBD sweeps.
 
-Version 1 intentionally exposes only the validated Layer-A AMD configuration:
+Both supported versions expose only the validated Layer-A AMD configuration:
 matrix-free method 0, no RDM calculation, one MPI rank for GPU candidates, and
-explicit CPU thread candidates.  Mock candidates exist solely for harness tests.
+explicit CPU thread candidates.  Version 2 additionally requires scientific
+family metadata on every workload.  Mock candidates exist solely for tests.
 """
 
 from __future__ import annotations
@@ -11,6 +12,7 @@ from dataclasses import dataclass, field
 import hashlib
 import math
 from pathlib import Path
+import re
 from types import MappingProxyType
 from typing import Any, Mapping, Sequence
 
@@ -19,10 +21,13 @@ from yaml.constructor import ConstructorError
 from yaml.nodes import MappingNode
 
 
-CONFIG_SCHEMA_VERSION = 1
+CONFIG_SCHEMA_VERSION = 2
+DEFAULT_CONFIG_SCHEMA_VERSION = 1
+SUPPORTED_CONFIG_SCHEMA_VERSIONS = frozenset({1, CONFIG_SCHEMA_VERSION})
 VALID_BACKENDS = frozenset({"cpu", "gpu", "mock"})
 VALID_PHASES = frozenset({"warmup", "measured"})
 VALID_PROTOCOL_PURPOSES = frozenset({"test", "correctness", "pilot", "final"})
+FAMILY_ID_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 
 
 class ConfigError(ValueError):
@@ -78,6 +83,9 @@ class WorkloadConfig:
     fcidump_source: str | None = field(default=None, repr=False, compare=False)
     adetfile_source: str | None = field(default=None, repr=False, compare=False)
     bdetfile_source: str | None = field(default=None, repr=False, compare=False)
+    family_id: str | None = None
+    molecule: str | None = None
+    basis: str | None = None
 
     def __post_init__(self) -> None:
         _validate_name(self.name, "workload.name")
@@ -115,6 +123,24 @@ class WorkloadConfig:
             value = getattr(self, field_name)
             if value is not None:
                 _require_nonempty_string(value, f"workload.{field_name}")
+
+        metadata = (self.family_id, self.molecule, self.basis)
+        if any(value is not None for value in metadata) and not all(
+            value is not None for value in metadata
+        ):
+            raise ConfigError(
+                "workload family_id, molecule, and basis must be provided together"
+            )
+        if self.family_id is not None:
+            family_id = _require_trimmed_nonempty_string(
+                self.family_id, "workload.family_id"
+            )
+            if FAMILY_ID_RE.fullmatch(family_id) is None:
+                raise ConfigError(
+                    "workload.family_id must be a lowercase ASCII slug"
+                )
+            _require_trimmed_nonempty_string(self.molecule, "workload.molecule")
+            _require_trimmed_nonempty_string(self.basis, "workload.basis")
 
     @property
     def semantic_input_names(self) -> Mapping[str, str]:
@@ -238,7 +264,7 @@ class CandidateConfig:
 
 @dataclass(frozen=True)
 class SolverConfig:
-    """Whitelisted AMD SBD solver settings for configuration schema v1."""
+    """Whitelisted AMD SBD solver settings for supported config schemas."""
 
     method: int = 0
     iteration: int = 1
@@ -291,9 +317,9 @@ class SolverConfig:
         )
 
         if self.method != 0:
-            raise ConfigError("configuration schema v1 permits only AMD solver method=0")
+            raise ConfigError("supported config schemas permit only AMD solver method=0")
         if self.rdm != 0:
-            raise ConfigError("configuration schema v1 requires rdm=0")
+            raise ConfigError("supported config schemas require rdm=0")
         if self.shuffle not in (0, 1):
             raise ConfigError("solver.shuffle must be exactly 0 or 1")
         if self.carryover_ratio > 1.0:
@@ -444,7 +470,7 @@ class SweepConfig:
     candidates: tuple[CandidateConfig, ...]
     solver: SolverConfig = field(default_factory=SolverConfig)
     protocol: ProtocolConfig = field(default_factory=ProtocolConfig)
-    schema_version: int = CONFIG_SCHEMA_VERSION
+    schema_version: int = DEFAULT_CONFIG_SCHEMA_VERSION
     source_path: Path | None = field(default=None, repr=False, compare=False)
 
     def __post_init__(self) -> None:
@@ -452,12 +478,14 @@ class SweepConfig:
         object.__setattr__(
             self,
             "schema_version",
-            _require_int(self.schema_version, "schema_version", CONFIG_SCHEMA_VERSION),
+            _require_int(
+                self.schema_version, "schema_version", DEFAULT_CONFIG_SCHEMA_VERSION
+            ),
         )
-        if self.schema_version != CONFIG_SCHEMA_VERSION:
+        if self.schema_version not in SUPPORTED_CONFIG_SCHEMA_VERSIONS:
             raise ConfigError(
                 f"unsupported schema_version={self.schema_version}; "
-                f"expected {CONFIG_SCHEMA_VERSION}"
+                f"expected one of {sorted(SUPPORTED_CONFIG_SCHEMA_VERSIONS)}"
             )
         workloads = tuple(self.workloads)
         candidates = tuple(self.candidates)
@@ -471,6 +499,35 @@ class SweepConfig:
             raise ConfigError("sweep.candidates must contain CandidateConfig values")
         _reject_duplicate_names(workloads, "workload")
         _reject_duplicate_names(candidates, "candidate")
+        if self.schema_version == 1:
+            annotated = [item.name for item in workloads if item.family_id is not None]
+            if annotated:
+                raise ConfigError(
+                    "configuration schema v1 cannot define workload family metadata: "
+                    + ", ".join(annotated)
+                )
+        else:
+            missing_metadata = [
+                item.name for item in workloads if item.family_id is None
+            ]
+            if missing_metadata:
+                raise ConfigError(
+                    "configuration schema v2 requires family_id, molecule, and basis "
+                    "for workloads: "
+                    + ", ".join(missing_metadata)
+                )
+            family_metadata: dict[str, tuple[str, str]] = {}
+            for workload in workloads:
+                assert workload.family_id is not None
+                assert workload.molecule is not None
+                assert workload.basis is not None
+                metadata = (workload.molecule, workload.basis)
+                previous = family_metadata.setdefault(workload.family_id, metadata)
+                if previous != metadata:
+                    raise ConfigError(
+                        f"family_id {workload.family_id!r} has inconsistent "
+                        "molecule/basis metadata"
+                    )
         if not isinstance(self.solver, SolverConfig):
             raise ConfigError("sweep.solver must be a SolverConfig")
         if not isinstance(self.protocol, ProtocolConfig):
@@ -540,7 +597,7 @@ class SweepConfig:
 
 
 def load_sweep_config(path: str | Path) -> SweepConfig:
-    """Load and strictly validate a version-1 YAML sweep configuration."""
+    """Load and strictly validate a supported YAML sweep configuration."""
 
     config_path = Path(path).resolve()
     try:
@@ -558,11 +615,14 @@ def load_sweep_config(path: str | Path) -> SweepConfig:
         allowed={"schema_version", "name", "workloads", "candidates", "solver", "protocol"},
         required={"workloads", "candidates"},
     )
-    schema_version = root.get("schema_version", CONFIG_SCHEMA_VERSION)
-    schema_version = _require_int(schema_version, "schema_version", CONFIG_SCHEMA_VERSION)
-    if schema_version != CONFIG_SCHEMA_VERSION:
+    schema_version = root.get("schema_version", DEFAULT_CONFIG_SCHEMA_VERSION)
+    schema_version = _require_int(
+        schema_version, "schema_version", DEFAULT_CONFIG_SCHEMA_VERSION
+    )
+    if schema_version not in SUPPORTED_CONFIG_SCHEMA_VERSIONS:
         raise ConfigError(
-            f"unsupported schema_version={schema_version}; expected {CONFIG_SCHEMA_VERSION}"
+            f"unsupported schema_version={schema_version}; expected one of "
+            f"{sorted(SUPPORTED_CONFIG_SCHEMA_VERSIONS)}"
         )
     name = root.get("name", config_path.stem)
     _validate_name(name, "sweep.name")
@@ -570,7 +630,7 @@ def load_sweep_config(path: str | Path) -> SweepConfig:
     workloads_data = _require_list(root["workloads"], "workloads")
     candidates_data = _require_list(root["candidates"], "candidates")
     workloads = tuple(
-        _load_workload(item, config_path.parent, index)
+        _load_workload(item, config_path.parent, index, schema_version)
         for index, item in enumerate(workloads_data)
     )
     candidates = tuple(
@@ -600,20 +660,28 @@ def enumerate_trials(
     return config.trial_templates(randomize=randomize)
 
 
-def _load_workload(value: Any, base_dir: Path, index: int) -> WorkloadConfig:
+def _load_workload(
+    value: Any, base_dir: Path, index: int, schema_version: int
+) -> WorkloadConfig:
     context = f"workloads[{index}]"
+    metadata_keys = {"family_id", "molecule", "basis"}
+    allowed = {
+        "name",
+        "fcidump",
+        "adetfile",
+        "bdetfile",
+        "reference_value",
+        "reference_source",
+    }
+    required = {"name", "fcidump", "adetfile"}
+    if schema_version == 2:
+        allowed |= metadata_keys
+        required |= metadata_keys
     data = _strict_mapping(
         value,
         context,
-        allowed={
-            "name",
-            "fcidump",
-            "adetfile",
-            "bdetfile",
-            "reference_value",
-            "reference_source",
-        },
-        required={"name", "fcidump", "adetfile"},
+        allowed=allowed,
+        required=required,
     )
     fcidump_source = _require_nonempty_string(data["fcidump"], f"{context}.fcidump")
     adetfile_source = _require_nonempty_string(data["adetfile"], f"{context}.adetfile")
@@ -636,6 +704,9 @@ def _load_workload(value: Any, base_dir: Path, index: int) -> WorkloadConfig:
         bdetfile_source=bdetfile_source,
         reference_value=data.get("reference_value"),
         reference_source=data.get("reference_source"),
+        family_id=data.get("family_id"),
+        molecule=data.get("molecule"),
+        basis=data.get("basis"),
     )
 
 
@@ -765,6 +836,13 @@ def _require_nonempty_string(value: Any, context: str) -> str:
     return converted
 
 
+def _require_trimmed_nonempty_string(value: Any, context: str) -> str:
+    converted = _require_nonempty_string(value, context)
+    if converted != converted.strip():
+        raise ConfigError(f"{context} must not contain surrounding whitespace")
+    return converted
+
+
 def _require_string(value: Any, context: str) -> str:
     if not isinstance(value, str):
         raise ConfigError(f"{context} must be a string")
@@ -881,6 +959,8 @@ def _format_float(value: float) -> str:
 
 __all__ = [
     "CONFIG_SCHEMA_VERSION",
+    "DEFAULT_CONFIG_SCHEMA_VERSION",
+    "SUPPORTED_CONFIG_SCHEMA_VERSIONS",
     "CandidateConfig",
     "ConfigError",
     "ProtocolConfig",

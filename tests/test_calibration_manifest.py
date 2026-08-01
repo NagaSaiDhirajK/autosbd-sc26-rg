@@ -110,6 +110,10 @@ class CalibrationManifestTests(unittest.TestCase):
         protocol_purpose: str = "correctness",
         timing_eligible: bool = False,
         upstream_url: str | None = None,
+        schema_version: int = 2,
+        family_id: str = "fixture-family",
+        molecule: str = "Fixture",
+        basis: str = "fixture-basis",
     ) -> Path:
         if input_sha256 is None or input_files is None:
             input_sha256, input_files = self._input_description(instance)
@@ -139,8 +143,12 @@ class CalibrationManifestTests(unittest.TestCase):
             "compiler_flags": ["-mp=gpu" if backend == "gpu" else "-mp"],
         }
         logical_identity = {
-            "schema_version": 2,
-            "sweep_name": "synthetic-calibration",
+            "schema_version": schema_version,
+            "sweep_name": (
+                "synthetic-amd-calibration"
+                if schema_version == 3
+                else "synthetic-calibration"
+            ),
             "workload": instance,
             "input_sha256": input_sha256,
             "candidate": candidate,
@@ -166,6 +174,14 @@ class CalibrationManifestTests(unittest.TestCase):
             "upstream_commit": MODULE.OFFICIAL_UPSTREAM_COMMIT,
             "machine_fingerprint": "c" * 64,
         }
+        if schema_version == 3:
+            logical_identity.update(
+                {
+                    "family_id": family_id,
+                    "molecule": molecule,
+                    "basis": basis,
+                }
+            )
         logical_trial_id = make_trial_id(logical_identity)
         trial_id = make_trial_id(
             {
@@ -206,7 +222,7 @@ class CalibrationManifestTests(unittest.TestCase):
             "rehash_error": None,
         }
         record: dict[str, object] = {
-            "schema_version": 2,
+            "schema_version": schema_version,
             "trial_id": trial_id,
             "logical_trial_id": logical_trial_id,
             "logical_identity": logical_identity,
@@ -319,6 +335,14 @@ class CalibrationManifestTests(unittest.TestCase):
             "launch_error": None,
             "termination_signal": None,
         }
+        if schema_version == 3:
+            record.update(
+                {
+                    "family_id": family_id,
+                    "molecule": molecule,
+                    "basis": basis,
+                }
+            )
         record_path = self.records / f"{trial_id}.json"
         write_immutable_json(record_path, record)
         return record_path
@@ -381,6 +405,98 @@ class CalibrationManifestTests(unittest.TestCase):
         self.assertFalse(second_changed)
         self.assertEqual(second_manifest, manifest)
         self.assertEqual(after, before)
+
+    def test_schema_v3_manifest_binds_family_metadata(self) -> None:
+        cpu_path, gpu_path = self._write_pair(
+            "v3-input",
+            cpu={
+                "schema_version": 3,
+                "family_id": "n2",
+                "molecule": "N2",
+                "basis": "6-31G",
+            },
+            gpu={
+                "schema_version": 3,
+                "family_id": "n2",
+                "molecule": "N2",
+                "basis": "6-31G",
+            },
+        )
+        manifest = MODULE.make_calibration_manifest([gpu_path, cpu_path])
+
+        self.assertEqual(manifest["schema_version"], 3)
+        entry = manifest["validated_inputs"][0]
+        self.assertEqual(entry["family_id"], "n2")
+        self.assertEqual(entry["molecule"], "N2")
+        self.assertEqual(entry["basis"], "6-31G")
+        self.assertEqual(entry["workload"]["family_id"], "n2")
+
+    def test_schema_v3_pairing_distinguishes_same_label_across_families(self) -> None:
+        n2_cpu, n2_gpu = self._write_pair(
+            "shared-instance-label",
+            cpu={
+                "schema_version": 3,
+                "family_id": "n2",
+                "molecule": "N2",
+                "basis": "6-31G",
+            },
+            gpu={
+                "schema_version": 3,
+                "family_id": "n2",
+                "molecule": "N2",
+                "basis": "6-31G",
+            },
+        )
+        h2o_cpu, h2o_gpu = self._write_pair(
+            "shared-instance-label",
+            cpu={
+                "schema_version": 3,
+                "family_id": "h2o",
+                "molecule": "H2O",
+                "basis": "cc-pVDZ",
+            },
+            gpu={
+                "schema_version": 3,
+                "family_id": "h2o",
+                "molecule": "H2O",
+                "basis": "cc-pVDZ",
+            },
+        )
+
+        manifest = MODULE.make_calibration_manifest(
+            [n2_cpu, h2o_gpu, n2_gpu, h2o_cpu]
+        )
+
+        self.assertEqual(manifest["schema_version"], 3)
+        self.assertEqual(len(manifest["validated_inputs"]), 2)
+        self.assertEqual(
+            [entry["family_id"] for entry in manifest["validated_inputs"]],
+            ["h2o", "n2"],
+        )
+        self.assertEqual(
+            {
+                entry["problem_instance"]
+                for entry in manifest["validated_inputs"]
+            },
+            {"shared-instance-label"},
+        )
+
+    def test_refuses_mixed_schema_or_v3_metadata_mismatch(self) -> None:
+        cpu_path, gpu_path = self._write_pair(
+            "mixed-schema",
+            cpu={"schema_version": 2},
+            gpu={"schema_version": 3},
+        )
+        with self.assertRaisesRegex(MODULE.CalibrationError, "cannot mix"):
+            MODULE.make_calibration_manifest([cpu_path, gpu_path])
+
+        cpu_path, gpu_path = self._write_pair(
+            "metadata-mismatch",
+            cpu={"schema_version": 3, "molecule": "N2"},
+            gpu={"schema_version": 3, "molecule": "Other"},
+        )
+        with self.assertRaisesRegex(MODULE.CalibrationError, "molecule mismatch"):
+            MODULE.make_calibration_manifest([cpu_path, gpu_path])
 
     def test_refuses_missing_and_duplicate_pairs(self) -> None:
         cpu_path, gpu_path = self._write_pair("pairing")

@@ -6,7 +6,7 @@ This internal report records what the completed engineering, repeated-timing, an
 
 ## Workload coverage
 
-- The timed and evaluated corpus currently contains one authentic chemistry family: Fe₄S₄. Phase B1 has validated the exact smallest upstream N₂/H₂O cases for correctness only, but neither family yet contributes warmup-enabled repeated timing or selector-evaluation rows.
+- The timed and evaluated corpus currently contains one authentic chemistry family: Fe₄S₄. Phase B2 has prepared five deterministic sizes each for N₂/H₂O, but only the exact full inputs have B1 correctness evidence and neither family yet contributes warmup-enabled repeated timing or selector-evaluation rows.
 - Determinant-prefix sizes derived from Fe₄S₄ can locate a size crossover, but they change the selected subspace and energy and are not independent chemical families. Evaluation must label them as size-held-out, not family-held-out.
 - With only one family, leave-one-family-out generalization is impossible. The current evaluation groups all repetitions and candidates for a derived instance together, but its largest-size holdout and leave-one-instance-out folds remain size-based evidence rather than independent-family generalization.
 
@@ -24,7 +24,7 @@ This internal report records what the completed engineering, repeated-timing, an
 - Correctness is strong cross-backend agreement on identical bytes, convergence, energy, iteration count, and density. It is not comparison against an independently certified exact Fe₄S₄ energy: upstream supplies only an approximate, non-asserted value.
 - The pinned upstream prints one density vector with a missing closing bracket. The parser performs one narrowly defined repair and records `density_bracket_repaired=true`; any other malformed output remains a parsing failure.
 - The Stage 2 and five-input Stage 3 validation manifests prove the exact checked artifacts and criteria. They do not retroactively make their zero-warmup source trials eligible for performance analysis.
-- The Phase B1 manifest proves only the two exact smallest complete upstream input hashes. It does not validate untested larger determinant lists or any future derived prefix; each exact input must pass the same CPU/GPU gate before timing.
+- The Phase B1 manifest proves only the two exact full inputs. It does not validate the eight non-full derived prefixes; the prepared ten-input config must produce a homogeneous family-aware CPU/GPU manifest before any pilot timing is admitted.
 
 ## Harness and selector maturity
 

@@ -211,3 +211,25 @@
 - Manifest: `reports/phaseb_n2_h2o_correctness_manifest.json`, schema 2, SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`; immediate identical regeneration reported unchanged.
 - Timing boundary: all four diagnostic durations are excluded. Records have `purpose=correctness`, zero warmups, and `timing_eligible=false`. The manifest admits only the two exact combined input hashes; it does not cover larger lists or future prefixes.
 - Decision: Phase B1 passes. Proceed with deterministic Phase B2 family schema and derived-input preparation; require separate exact CPU/GPU correctness before any new input enters timing.
+
+## 2026-08-01 — Phase B2 deterministic derived workload preparation
+
+- Purpose: create the preregistered five-size grids for authentic N₂/6-31G and H₂O/cc-pVDZ inputs without running any solver or treating size variants as independent chemistry families.
+- Input provenance: exact clean `r-ccs-cms/sbd` tag `v1.3.0`, commit `b71e1c3ed857fcb4fb05731dc285831c1afe9ebd`, is used for licensed input data only. Inventory SHA-256 is `0105bc73dea01e31f8a4230ec7c69f0bb903d8f53763eb5270b4f4bbaf0b9fc1`.
+- Active solver boundary: every future execution must use the official `AMD-HPC/amd-sbd` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`; the RIKEN solver remains prohibited.
+- Derivation: preserve the exact official determinant row order and bytes; take nested prefixes of 32, 55, 100, and 174 rows; use the full official smallest list as the fifth variant (239 for N₂, 275 for H₂O); reuse each family-specific determinant list for the matching alpha and beta inputs as already validated for this closed-shell AMD path.
+- Result: 10/10 deterministic workload files plus one provenance manifest were created and immediately verified unchanged. Manifest SHA-256 is `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`; 11/11 focused inventory/generator tests passed.
+- Evidence boundary: these are derived inputs only. No prefix has timing eligibility, and no prefix is dynamically correct until its exact combined input hash passes official-AMD CPU/GPU agreement. The two full variants correspond to the B1 determinant bytes, but future family-aware configs will produce versioned identities and must still obey the manifest gate rather than infer timing validity.
+- Resource use: under 47 KiB of generated payload, about four seconds of focused test time, no GPU, no solver, no download, and no meaningful cloud-cost increment.
+- Next gate: finish config-v2/raw-v3 family identity and immutable Fe₄S₄ augmentation; construct correctness-only configs for all ten exact hashes; estimate bounded runtime/cost from prior B1 evidence and any permitted pilot; stop for explicit approval before a timing campaign.
+
+## 2026-08-01 — Phase B2 family-identity and campaign-design gate
+
+- Purpose: establish family identity end to end without rewriting historical evidence, and pre-budget the correctness/pilot stages before any new solver run.
+- Schema result: config v1 remains default/raw v2; config v2 requires family/molecule/basis and emits identity-bound raw v3. All historical raw records and frozen Stage 4/Stage 5-v1 artifacts remain unchanged. Focused, full, and independent test selections passed; the B1 correctness manifest rebuilt byte-identically.
+- Fe₄S₄ augmentation: `reports/stage4_fe4s4_family_registry.json`, SHA-256 `cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d`, externally maps all 48 frozen records to five exact workloads. Registry ID is `86bb6e3954b0b6dc86ae831c6b754eb25d77f63a3e548e7c4bd88fb10858e631`. The 48-record byte-hash chain was unchanged before/after generation. Basis is null and explicitly `upstream_not_reported`.
+- Correctness topology: run all ten N₂/H₂O sizes through config-v2/raw-v3, including the two full inputs already represented by B1 v2 evidence. This creates one homogeneous family-aware correctness manifest while retaining B1 as historical compatibility evidence.
+- Frozen config: `configs/phaseb_n2_h2o_grid_correctness.yaml`, SHA-256 `d9ff3d497a0ba561016b5c22b12a29ad3db808b0fe3c2f68beef37ebb14fe99a`; 10 workloads, 20 ordered CPU→GPU correctness templates, zero warmups, one repetition, 300-second timeout, and no timing authorization.
+- Pre-approval count: 20 correctness records plus 20 warmups and 20 measured pilot records, all sequential. Conservative elapsed estimate is 4.64 minutes and current-list-price marginal cost is approximately `USD 0.134`.
+- Safety/evidence boundary: no solver or GPU ran in this block. Correctness records will remain timing-ineligible. Pilot execution can start only after the exact v3 manifest exists and must retain preflight/idleness/memory/offload/monitoring gates. Stop for explicit approval after measured pilot evidence replaces the estimate and before broad three-/five-repetition timing.
+- Verification: 155/155 repository tests, dependency consistency, exact input inventory, derived-workload check, Fe₄S₄ registry check, upstream cleanliness, and diff hygiene all passed before the local infrastructure checkpoint.
