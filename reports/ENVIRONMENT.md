@@ -154,3 +154,32 @@ There is one primary NVIDIA HPC SDK path, not separate RIKEN and AMD toolchains.
 The system CUDA 12.9 toolkit remains installed but is not the compiler path used for the primary AMD GPU binary. The older RIKEN CUDA/Thrust probe is historical fallback evidence only and contributes no executable, workload, or measurement to the Stage 2 primary runner result.
 
 Before every authentic run, the runner rechecks the GPU query, idleness, free VRAM, temperature, power, CPU load, core availability, and estimated memory. GPU admission uses `min(20 GiB, 80% of current free VRAM)`. A node-wide lock prevents CPU and GPU candidates from overlapping, and final timings must remain sequential.
+
+## Stage 5 analysis environment
+
+Installation verification time: 2026-08-01T02:23:04Z
+
+The project-local `.venv` gained only the CPU-side analysis stack needed for the handoff's grouped decision-tree evaluation and reproducible figures. No system package, compiler, CUDA component, upstream checkout, executable, raw record, or GPU state changed. The single primary compiled-software path remains official `AMD-HPC/amd-sbd` built with NVIDIA HPC SDK 26.5.
+
+Direct project dependencies added to `pyproject.toml` are `numpy==2.2.6`, `scikit-learn==1.7.1`, and `matplotlib==3.10.5`. `requirements-lock.txt` pins the complete 16-package environment:
+
+| Package | Version |
+|---|---|
+| PyYAML | 6.0.2 |
+| contourpy | 1.3.2 |
+| cycler | 0.12.1 |
+| fonttools | 4.63.0 |
+| joblib | 1.5.3 |
+| kiwisolver | 1.5.0 |
+| matplotlib | 3.10.5 |
+| numpy | 2.2.6 |
+| packaging | 26.2 |
+| pillow | 12.3.0 |
+| pyparsing | 3.2.3 |
+| python-dateutil | 2.9.0.post0 |
+| scikit-learn | 1.7.1 |
+| scipy | 1.15.3 |
+| six | 1.17.0 |
+| threadpoolctl | 3.6.0 |
+
+`python -m pip check` reported no broken requirements, the exact installed freeze matched `requirements-lock.txt`, and the pre-existing repository suite still passed 97/97 after installation. The filesystem continued to report 59 GiB available.

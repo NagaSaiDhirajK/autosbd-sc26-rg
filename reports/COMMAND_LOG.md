@@ -1339,3 +1339,181 @@ Exit status: `0`. The protocol-freeze test passed, and the complete standard-lib
 An independent runner-identity audit also confirmed 48 unique logical identities and all 10 workload/backend correctness-manifest pairs.
 
 Interpretation: the Stage 4 plan is frozen as three bounded, non-overlapping shards with 48 unique semantic/logical trials—10 warm-ups and 38 measured trials—and valid correctness provenance. No Stage 4 measurement was started in this block.
+
+## 2026-08-01 — Execute and aggregate the frozen Stage 4 final timing protocol
+
+- UTC execution/analysis window: approximately `2026-08-01 01:59–02:23`.
+- Working directory: `/home/nagan/autosbd-sc26-rg`.
+- Scope: execute the three already frozen final-timing shards sequentially, prove immutable reuse, audit the exact resulting record set, and aggregate only those explicit records. This block did not train or complete a selector and did not create figures.
+
+### Per-shard preflight and provenance
+
+The following read-only checks were performed before each of the crossover, mid, and large shards, using the corresponding frozen config in the final `sha256sum` argument:
+
+```bash
+git status --porcelain
+git -C external/amd-sbd status --porcelain
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd remote get-url origin
+sha256sum \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu \
+  reports/stage3_calibration_manifest.json \
+  configs/stage4_final_crossover.yaml
+# The mid and large preflights substituted, respectively:
+# configs/stage4_final_mid.yaml
+# configs/stage4_final_large.yaml
+nvidia-smi --query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw --format=csv,noheader,nounits
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits
+free -b
+uptime
+```
+
+All three preflights passed:
+
+- `external/amd-sbd` was clean at official `AMD-HPC/amd-sbd` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`, origin `https://github.com/AMD-HPC/amd-sbd.git`.
+- NVHPC 26.5 CPU executable SHA-256: `190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07`.
+- NVHPC 26.5 GPU executable SHA-256: `8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07`.
+- Correctness-manifest SHA-256: `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`.
+- Crossover-config SHA-256: `e87e5ba6957b1f054a4973199a5ecad92ebca630093fb5d6bee6c5f3d00d8b70`.
+- Mid-config SHA-256: `f2dca217bd21c215ef708445c98e1d7994f6f9d0854022454ced19273f51a6bd`.
+- Large-config SHA-256: `784e8b3cecbdd010e526ade2b301a91a1b7b8ceefd151e9c20d59d8f39a62cac`.
+- The NVIDIA L4 was idle before every shard: 0 MiB used, 0% utilization, and no compute processes. Final timing ran sequentially; no final configurations overlapped.
+
+### Sequential final runs and immutable reuse
+
+Each command below was followed immediately by one identical invocation to verify resume behavior:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage4_final_crossover.yaml --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage4_final_crossover.yaml --require-all-success
+
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage4_final_mid.yaml --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage4_final_mid.yaml --require-all-success
+
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage4_final_large.yaml --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage4_final_large.yaml --require-all-success
+```
+
+All six invocations exited `0`:
+
+- Crossover first run: total 24, launched 24, reused 0, successful 24. Immediate identical rerun: launched 0, reused 24, successful 24.
+- Mid first run: total 16, launched 16, reused 0, successful 16. Immediate identical rerun: launched 0, reused 16, successful 16.
+- Large first run: total 8, launched 8, reused 0, successful 8. Immediate identical rerun: launched 0, reused 8, successful 8.
+- Across the campaign there were no failures, timeouts, OOMs, or skips. The final immutable set contains 48 records: 10 warm-ups and 38 measured trials.
+
+The exact 48 raw paths, in the deterministic aggregate input order, were:
+
+```bash
+stage4_records=(
+  results/raw/107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8.json
+  results/raw/17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36.json
+  results/raw/1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530.json
+  results/raw/18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868.json
+  results/raw/196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f.json
+  results/raw/23c4bddd74dad174b71b7f603de6217283774f0e6ec3a76238bfcbd37322649a.json
+  results/raw/2682ab52f394aa3332c4ce384f0eeb099e5222b30aa6512a2750213e61c8f025.json
+  results/raw/26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5.json
+  results/raw/2a3761bfb0e7d1da032304ab608bcd13e898bade945269c386049b8db2764dd4.json
+  results/raw/2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546.json
+  results/raw/2d7af29017a3bd241e7b73c2504be82e8419e9e1124daafb0b0d3aa37ddfa1fa.json
+  results/raw/3242dcd76554d7c4a5771d59336b4ae5566bc9918edcada17184593dca344522.json
+  results/raw/364c2dd8099b484e6fdeab99d39197da5051c4918f40a31faf02b059eb3e9699.json
+  results/raw/36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a.json
+  results/raw/3e678c24f0557fc0944c95780b793b32d2ad68a8ee3d842fb1db37ad16ea494a.json
+  results/raw/469f3e9e0bfed5ce886a3fc8912e382ca839c3b15b28d04e8ef0188ccf02d85a.json
+  results/raw/47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964.json
+  results/raw/49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0.json
+  results/raw/4ef3e18770524d630983b87dc94e44eaf78bb19c51dde3badccdd25fb20ea1d3.json
+  results/raw/59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8.json
+  results/raw/59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad.json
+  results/raw/5ff4896b2b15bec48961a74f8f9cda4c142e834dbea71dfec53c874f6a06e29c.json
+  results/raw/6311fb33ec3ecab681770bfc3f96fa6eef26c0ccab9ef12375dd11afbdca9dad.json
+  results/raw/6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8.json
+  results/raw/72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f.json
+  results/raw/8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829.json
+  results/raw/82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa.json
+  results/raw/a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce.json
+  results/raw/a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9.json
+  results/raw/ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c.json
+  results/raw/b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5.json
+  results/raw/b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7.json
+  results/raw/b8d1a6bd46a949791192ab58d59fcf8898313ce93ee5495004a6014ecfa428f3.json
+  results/raw/bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf.json
+  results/raw/bd327b11319cb72a7d8c74312308cfb091c9e37318ea64ff16af05aa93575ed4.json
+  results/raw/c0fe60a66c19a581b8d1b3223116c9a54071125fbce6a427bd926fc9ab747496.json
+  results/raw/c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68.json
+  results/raw/c847995688ac6961210aae0e1e5ee7eebc93301404e744ca672adbfebfdfd029.json
+  results/raw/cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6.json
+  results/raw/d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9.json
+  results/raw/d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf.json
+  results/raw/db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23.json
+  results/raw/e284853e26527ba397dc55b81bf3e41aaa6e49bb07a1c9219172743b8918a976.json
+  results/raw/e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11.json
+  results/raw/f16ec20bbfcfcc9cc28a1f90b9a114d9686f69f98ac1567e7b47b97ae7a21a7e.json
+  results/raw/f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195.json
+  results/raw/f3efd5c43424129519dfefe1f302cf742615d7225ab2a20a3451709a53000514.json
+  results/raw/f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196.json
+)
+```
+
+### Strict record audit and deterministic aggregation
+
+The first strict-audit probe stopped safely at `results/raw/107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8.json` with an artifact-map mismatch. This was a validator comparison issue: the correctness manifest's candidate-artifact entry contains the manifest-only `backend` key, while a run record's `build_artifact` contains the common `path`, `sha256`, and `size_bytes` fields. No record failed and no file was changed. A diagnostic invocation then exited with `ModuleNotFoundError: No module named 'autosbd'` because `PYTHONPATH=src` had been omitted. Neither failing diagnostic was repeated unchanged.
+
+The corrected field-normalized audit used `PYTHONPATH=src`, loaded records with `autosbd.records.load_record`, compared common artifact fields, checked the frozen semantic-key set and all provenance/integrity/monitoring fields, and passed:
+
+```text
+{"audit":"PASS","records":48,"warmup":10,"measured":38,"timing_eligible":38,"all_success_correct":true}
+```
+
+The aggregator then received only the exact array above and was run twice without alteration:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/analyze_results.py \
+  "${stage4_records[@]}" \
+  --output-json results/processed/stage4_final.json \
+  --output-csv results/processed/stage4_final.csv
+# The immediate second invocation used the identical array, order, and command.
+sha256sum results/processed/stage4_final.json results/processed/stage4_final.csv
+```
+
+- First aggregation: exit `0`; input 48, included 38, excluded 10, `json_changed=true`, `csv_changed=true`.
+- Immediate identical aggregation: exit `0`; input 48, included 38, excluded 10, `json_changed=false`, `csv_changed=false`.
+- Final aggregate geometry: 48 rows, 10 candidate groups, and 5 workload comparisons. All 10 exclusions are warm-up/timing-ineligible records.
+- JSON SHA-256: `58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa`.
+- CSV SHA-256: `b60ffa4dcfff0c7c46cd0d4b89a9af876845a4f3bee965bca8946758981b0801`.
+
+### Install the isolated analysis dependencies
+
+The requested packages were installed only in the repository virtual environment:
+
+```bash
+.venv/bin/python -m pip install scikit-learn==1.7.1 matplotlib==3.10.5
+.venv/bin/python -m pip check
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -q
+df -h /home/nagan/autosbd-sc26-rg
+git diff --check
+```
+
+The install exited `0`. Resolved relevant versions were:
+
+```text
+scikit-learn==1.7.1
+matplotlib==3.10.5
+numpy==2.2.6
+scipy==1.15.3
+joblib==1.5.3
+threadpoolctl==3.6.0
+contourpy==1.3.2
+cycler==0.12.1
+fonttools==4.63.0
+kiwisolver==1.5.0
+packaging==26.2
+pillow==12.3.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+six==1.17.0
+```
+
+`pip check` passed with `No broken requirements found.` The full standard-library suite remained green at 97/97. The filesystem retained 59 GiB free. No system package, compiler, upstream source, raw record, or GPU state was changed by this virtual-environment installation. Model development and figure generation had not yet been performed or completed in this block.
