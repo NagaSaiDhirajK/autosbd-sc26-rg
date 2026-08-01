@@ -1,0 +1,95 @@
+{
+  "dataset_id": "amd-sbd-fe4s4-derived-determinant-prefixes",
+  "dataset_scope": {
+    "chemical_system": "Fe4S4",
+    "distinct_chemical_families": false,
+    "family_count": 1,
+    "label": "Derived size variants of one Fe4S4 input; these are not distinct chemical families.",
+    "variant_type": "derived_determinant_prefix_size"
+  },
+  "derivation": {
+    "nested": true,
+    "operation": "byte_exact_ordered_prefix",
+    "prefix_sizes": [
+      32,
+      55,
+      100,
+      174,
+      244
+    ],
+    "source_lines_preserved": true,
+    "source_order_preserved": true
+  },
+  "schema_version": 1,
+  "upstream": {
+    "commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "companion_fcidump": {
+      "access": "read_only_validation",
+      "bytes": 9584950,
+      "copied_or_modified": false,
+      "path": "external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+      "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93"
+    },
+    "repository": "https://github.com/AMD-HPC/amd-sbd.git",
+    "source_determinants": {
+      "bytes": 9028,
+      "determinant_width": 36,
+      "line_count": 244,
+      "occupancy": 27,
+      "path": "external/amd-sbd/samples/selected_basis_diagonalization/AlphaDets.txt",
+      "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68"
+    }
+  },
+  "variants": [
+    {
+      "determinant_count": 32,
+      "id": "fe4s4-prefix-0032",
+      "output": {
+        "bytes": 1184,
+        "line_count": 32,
+        "path": "AlphaDets_n0032.txt",
+        "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8"
+      }
+    },
+    {
+      "determinant_count": 55,
+      "id": "fe4s4-prefix-0055",
+      "output": {
+        "bytes": 2035,
+        "line_count": 55,
+        "path": "AlphaDets_n0055.txt",
+        "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1"
+      }
+    },
+    {
+      "determinant_count": 100,
+      "id": "fe4s4-prefix-0100",
+      "output": {
+        "bytes": 3700,
+        "line_count": 100,
+        "path": "AlphaDets_n0100.txt",
+        "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a"
+      }
+    },
+    {
+      "determinant_count": 174,
+      "id": "fe4s4-prefix-0174",
+      "output": {
+        "bytes": 6438,
+        "line_count": 174,
+        "path": "AlphaDets_n0174.txt",
+        "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67"
+      }
+    },
+    {
+      "determinant_count": 244,
+      "id": "fe4s4-prefix-0244",
+      "output": {
+        "bytes": 9028,
+        "line_count": 244,
+        "path": "AlphaDets_n0244.txt",
+        "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68"
+      }
+    }
+  ]
+}

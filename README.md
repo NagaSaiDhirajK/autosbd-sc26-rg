@@ -15,7 +15,7 @@ Exact source, compiler, flags, binary hashes, and license provenance are recorde
 
 ## Current status
 
-Stages 0–2 are complete: the machine and upstream builds are documented, identical-input AMD CPU/GPU correctness passes, and the schema-v2 single-run/resumable-sweep harness is implemented. The current suite has 67 passing tests.
+Stages 0–2 are complete: the machine and upstream builds are documented, identical-input AMD CPU/GPU correctness passes, and the schema-v2 single-run/resumable-sweep harness is implemented. The current suite has 74 passing tests, including seven Stage 3 workload-preparation tests.
 
 The hardened runner provides:
 
@@ -38,6 +38,15 @@ The repository uses Python 3.10 and the project-local `.venv`; the only Stage 2 
 PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q
 PYTHONPATH=src bash scripts/smoke_test.sh
 ```
+
+Prepare and verify the official-AMD Fe₄S₄ determinant-count variants:
+
+```bash
+.venv/bin/python scripts/prepare_workloads.py
+.venv/bin/python scripts/prepare_workloads.py --check
+```
+
+These are exact nested prefixes of one official Fe₄S₄ determinant list: derived size variants of one chemical family, not independent chemistry datasets.
 
 Build the official primary executables after NVIDIA HPC SDK 26.5 and the documented system dependencies are available:
 

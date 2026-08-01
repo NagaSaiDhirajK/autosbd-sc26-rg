@@ -139,3 +139,10 @@
 - Status: accepted, user-directed, and implemented
 - Decision: Expose only `amd-all`, `amd-cpu`, and `amd-gpu` from `scripts/build_upstream.sh`. Require the official `AMD-HPC/amd-sbd` origin, pinned commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`, and a clean checkout before building either executable with NVIDIA HPC SDK 26.5. Keep the RIKEN submodule, compatibility header, prior logs, and earlier decisions solely as recoverable history; do not build, run, train on, or select RIKEN in the active project.
 - Rationale: The paper/handoff's main implementation and the user's explicit correction both require the official AMD path. Removing legacy RIKEN targets from the current entry point eliminates ambiguity while preserving the audit trail. This decision supersedes any interpretation of D-012's secondary-diagnostics clause as authorization for active RIKEN work.
+
+## D-021 — Use audited Fe₄S₄ determinant prefixes only as size variants
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: Derive determinant-count variants `32`, `55`, `100`, `174`, and `244` as byte-exact nested prefixes of the pinned official AMD `AlphaDets.txt`, while keeping the exact official FCIDUMP read-only. Require the generator to verify the live official origin/commit/cleanliness, source hashes and structure, deterministic output hashes, atomic/idempotent writes, and a manifest that states `family_count=1` and `distinct_chemical_families=false`. Calibrate each non-full prefix with identical-input CPU/GPU agreement before it can enter a timing protocol.
+- Rationale: The pinned artifact tree contains only one usable authentic chemistry dataset. Prefixes provide controlled size variation for locating a device crossover, but the selected subspace and energy change with prefix length. Calling them independent chemical families or reusing the full-space energy would create false generalization/correctness claims.

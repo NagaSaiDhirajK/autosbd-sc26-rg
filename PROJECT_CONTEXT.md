@@ -4,7 +4,7 @@ Status date: 2026-08-01
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stage 2 harness implementation and hardening are complete; Stage 3 workload preparation and bounded pilot execution are next. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit, and the final schema-v2 identical-input Fe₄S₄ residual, energy, iteration, and density validation passes. Earlier RIKEN builds and a CPU smoke run remain historical fallback evidence only and are not used by the primary pipeline.
+Current phase: Stage 2 harness implementation and hardening are complete. Stage 3 has generated and verified five exact nested determinant-count variants of the official AMD Fe₄S₄ input; cross-backend calibration and a bounded pilot are next. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit, and the final schema-v2 identical-input Fe₄S₄ residual, energy, iteration, and density validation passes. Earlier RIKEN builds and a CPU smoke run remain historical evidence only and are not used by the primary pipeline.
 
 ## Stage 2 implementation status
 
@@ -12,7 +12,7 @@ The primary upstream is the official `AMD-HPC/amd-sbd` repository at commit `729
 
 The harness now supports strict configuration validation, deterministic pre-execution features, exact provenance admission, fail-closed GPU-idle and memory checks, a node-wide single-run lock, monitored process-group timeouts, atomic immutable records, resumable sweeps, and distinct logical/attempt identities. Schema v2 re-hashes inputs before launch and after execution, hashes the three run artifacts, preserves failures and orphan evidence, and requires a hash-linked correctness manifest plus protocol conditions before marking any record timing-eligible.
 
-The full standard-library test suite passes: 67 tests cover configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. The authentic schema-v2 AMD Fe₄S₄ CPU/GPU correctness pair also passes. Both records deliberately have `timing_eligible=false` because they were zero-warmup correctness trials executed while the Stage 2 worktree was uncommitted; their durations must not be presented as final benchmark evidence.
+The Stage 2 standard-library harness suite passes 67 tests covering configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. Seven additional Stage 3 workload-preparation tests bring the current total to 74. The authentic schema-v2 AMD Fe₄S₄ CPU/GPU correctness pair also passes. Both records deliberately have `timing_eligible=false` because they were zero-warmup correctness trials executed while the Stage 2 worktree was uncommitted; their durations must not be presented as final benchmark evidence.
 
 ## Research objective
 

@@ -86,3 +86,13 @@
 - Evidence manifest: `reports/stage2_amd_validation_manifest.json` binds exact input hash `cca24426...49e03`, source commit, binary hashes, v1/v2 records, run artifacts, solver settings, and numerical criteria.
 - Timing eligibility: both records correctly set `timing_eligible=false` because this was a zero-warmup correctness protocol, `correctness_validated=false`, and the harness worktree was dirty. The observed wall/solver values diagnose execution only and are not final timing data.
 - Decision: Correctness gate passes for the exact official AMD CPU/GPU artifacts. A later clean, warmup-enabled, manifest-linked pilot/final protocol is required before performance analysis.
+
+## 2026-08-01 — Stage 3 official AMD Fe₄S₄ workload preparation
+
+- Purpose: Prepare deterministic size variants for later cross-backend calibration without changing the official upstream input or making a performance measurement.
+- Configuration identifier: `amd-sbd-fe4s4-derived-determinant-prefixes`, manifest schema 1.
+- Source: official `AMD-HPC/amd-sbd` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`; `AlphaDets.txt` SHA-256 `b1aa7e60...8f68`; read-only Fe₄S₄ FCIDUMP SHA-256 `9a74e203...1b6e93`.
+- Outputs: exact nested prefixes with 32, 55, 100, 174, and 244 determinant strings under `data/derived/amd_fe4s4_prefixes/`; manifest SHA-256 `47b62521b5b369f2a7c3af52ae805073451b23b457a8e044ff9fa27a2f6d47e8`.
+- Geometry: 1,024; 3,025; 10,000; 30,276; and 59,536 product configurations respectively. These are one Fe₄S₄ family with altered selected subspaces, not independent chemical families.
+- Outcome: generation and immediate read-only `--check` passed; no solver, GPU kernel, timing, or energy reference was produced in this step.
+- Decision: Commit the generator, manifest, data, tests, and correctness-only calibration config before running calibration so the runner captures a clean project state.

@@ -877,3 +877,32 @@ test "$(git -C external/amd-sbd rev-parse HEAD)" = "729cfa3a5011fb805eb9e686a771
 test "$(git -C external/amd-sbd remote get-url origin)" = "https://github.com/AMD-HPC/amd-sbd.git"
 test -z "$(git -C external/amd-sbd status --porcelain)"
 ```
+
+## 2026-08-01T00:35Z — Generate and verify official AMD Fe₄S₄ size variants
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: Generated five exact nested determinant prefixes and `manifest.json` under `data/derived/amd_fe4s4_prefixes/`. The immediate `--check` changed zero files. Manifest SHA-256 is `47b62521b5b369f2a7c3af52ae805073451b23b457a8e044ff9fa27a2f6d47e8`; the official AMD checkout remained clean.
+
+```bash
+.venv/bin/python scripts/prepare_workloads.py
+.venv/bin/python scripts/prepare_workloads.py --check
+find data/derived/amd_fe4s4_prefixes -maxdepth 1 -type f -printf '%f %s bytes\n' | sort
+sha256sum data/derived/amd_fe4s4_prefixes/AlphaDets_n*.txt data/derived/amd_fe4s4_prefixes/manifest.json
+jq '.' data/derived/amd_fe4s4_prefixes/manifest.json
+test -z "$(git -C external/amd-sbd status --porcelain)"
+```
+
+## 2026-08-01T00:36Z — Validate workload generator and calibration geometry
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0 for the final checks
+- Outcome: Seven focused tests passed in 0.662 s, including exact prefix hashes, idempotence, tamper rejection, upstream write refusal, and fail-closed origin/commit/dirty-checkout cases. `configs/stage3_calibration.yaml` strict-loaded to eight CPU16/GPU correctness trials. The four non-full prefix configuration counts are 1,024, 3,025, 10,000, and 30,276; conservative guards are at most 640 MiB.
+- Diagnostic correction: the first read-only geometry probe omitted the required `max_block` and `iterations` arguments to `estimate_source_memory` and raised `TypeError` after loading the eight trials. It changed no files and was retried once with the actual signature.
+
+```bash
+.venv/bin/python -m py_compile scripts/prepare_workloads.py tests/test_prepare_workloads.py
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_prepare_workloads.py' -v
+.venv/bin/python scripts/prepare_workloads.py --help >/dev/null
+.venv/bin/python scripts/prepare_workloads.py --check
+```
