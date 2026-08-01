@@ -1,0 +1,2403 @@
+{
+  "analysis_views": {
+    "balanced_broad": {
+      "description": "Measured repetitions 0, 1, and 2 for every workload/candidate.",
+      "record_ids": [
+        "037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef",
+        "08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319",
+        "0a0a6d7eea361d0d2656eebb5942c1dece8a0a236a5b325b1c3300fbcef9d572",
+        "0c0708436752e56a3da2d45f508a6aeb42c9f2573612869402ce916334e5c47d",
+        "0d149660f9d880830f05303834f18916631f6c19c2e2f3bea411ff9caa6f06ab",
+        "1094d460be08be2090cb4ae7e78d57024ea2840a8dcfd3704f857ab84d07ca94",
+        "124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd",
+        "13d5b988546e8bfea42def7f1dca6636d295cb1695b83bd246670c2761c4062b",
+        "1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856",
+        "1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f",
+        "1d330b936b8d6098f68e6958c333295851cd96b9b3960d77aa9314c97104c7f1",
+        "24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181",
+        "2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43",
+        "2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877",
+        "3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70",
+        "37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3",
+        "3864801d362800f9cd759a6d5372ba6301707406fceb109728baa8cf837039b1",
+        "38aa7d5738a07fb8ee4fdf218a3ce8577d919ce1d6689d890dea8f13b60e2a40",
+        "397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a",
+        "3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0",
+        "3b77cb65794ab766e0eaa5c0d4cc76b7ef7a0cd07d8c058d3090ef0ce91c7229",
+        "3cb36deef152a72c3bc5004d782b50a01a0659163a6c79db59eb151cdacdd9bf",
+        "3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64",
+        "4310ff0e7e0fc1c11f2c379338d18f1fdaec38f2d3bcc4120f8c1ccd91837613",
+        "434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b",
+        "46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3",
+        "4a2cf63d4456923274a11e19df59a61ada97d725068859ab19ba614d31fae241",
+        "5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9",
+        "516077e2b3797f0b606854a666e4d4adaf5df55fde04ffe58d55af7370e41fb0",
+        "5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e",
+        "53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45",
+        "554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46",
+        "5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7",
+        "5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0",
+        "5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640",
+        "5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40",
+        "60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8",
+        "63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d",
+        "6421f689e8e9c4c7f5816ff2e1602bdc8e11cd849e05a255f68e91d013ffadf9",
+        "646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7",
+        "71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71",
+        "7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370",
+        "838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e",
+        "87a4a07004286806a8949952edf8f1dcf3deb89424aeea654634e46d6f835e56",
+        "8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c",
+        "8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c",
+        "8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b",
+        "94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c",
+        "99e73c6eeb05935ab90fc5cfa97d58c2b5edb0c30a02a525161953b2de85e462",
+        "a144503ea2243461303c0fa3105fe474abc352c17fd050ec334cb868e36ddbe2",
+        "ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31",
+        "acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73",
+        "b1f6ee7ae44e8e7ed7184687808847828940473febed9353b9a8ef39ce146549",
+        "b6bd807cc952f732475d8249823c9a30a6230cd828fec767adc56bb2bd51655e",
+        "cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a",
+        "e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0",
+        "eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd",
+        "f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956",
+        "f5751ff9b9699bc32ef8669ff5a0057c6aba31280c72587ce2558584fcb979fb",
+        "f75f2b6790b5f03b84e50ec19f7464a708eff82be0481506e56784a53cda9e2c"
+      ]
+    },
+    "crossover": {
+      "description": "All measured repetitions at 55/100 half determinants.",
+      "record_ids": [
+        "0096d515b2a97f43bfdb03204e8179c590ef6d6ba05db89cba5410da5325d148",
+        "037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef",
+        "08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319",
+        "124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd",
+        "1784bbb132f8cffd9185eb43827ab450a8f949b331417860b722d99d44ef63bb",
+        "1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856",
+        "2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877",
+        "35028f33cc81632d809be7348bc9348db1dfa5881a1f8710e3fa63edbac02a7e",
+        "354c862a5fd68e94fe2bcaa8da7f59d52cff376cd55c00d4e587d8174c8ff57f",
+        "3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64",
+        "434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b",
+        "4984b60035bc8eda05003a4dc1ade25c295debca75b1ca4ab3685e9ebc9008cd",
+        "5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9",
+        "5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e",
+        "53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45",
+        "554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46",
+        "5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7",
+        "5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0",
+        "5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640",
+        "63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d",
+        "7602f28b93f9e165b1540defb8f2474147f62961633f7349ea6e842b965181d6",
+        "7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370",
+        "8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c",
+        "8c107466878ce004722f136a71a29eebbc578e16d98c80ae2aa2d620aaf5472a",
+        "8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c",
+        "8f97d175fd861e5539bb2553bfdb362b64bb103b91ff0a886327f30be38281dd",
+        "8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b",
+        "92fa400de7305e35c7219b575a59946e44b8e0846e64ef113ba63bd304fbbe36",
+        "94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c",
+        "99ace22f5424459fc61da222e3342bb1d8ec2c1830f0f3c71a91728f044ffa81",
+        "99df8763001536f2064480c3c0b9556cf16c9a3a3bd501744f9995ee87b622be",
+        "a0e019032e928ba0f8484aca7840bb150ced84d7b363b15cf55623ec8e409851",
+        "ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31",
+        "acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73",
+        "db41ee0f178a610aa6d59b939f22fecd346a93bab0424c19ee396a4883fac935",
+        "e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0",
+        "e96183b5f34c95aac3310d3b6925e63a19d59b40d3342ca9c39c211fb46f85f4",
+        "ef872a7195032735b07114a30f2185b580511e161012a6ef626a357e62f83bac",
+        "f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956",
+        "ff2d68d94d49963209881affcd9b7239acd195d1b3e82dade37768e296e75987"
+      ]
+    },
+    "extra_repetition_sensitivity": {
+      "description": "Measured repetitions 3 and 4; excluded from balanced training.",
+      "record_ids": [
+        "0096d515b2a97f43bfdb03204e8179c590ef6d6ba05db89cba5410da5325d148",
+        "0bdc1b103bd33f9625c381f614ddcbc2cdd6cba98c6301079a3d72edb1cec787",
+        "1784bbb132f8cffd9185eb43827ab450a8f949b331417860b722d99d44ef63bb",
+        "2d41266af477d282f2eae0566e503f29d9c7c5b02cd0eaa508beab472e0227f1",
+        "2e73e21f3cf533a149c04fe990271ce287d00772abc688155b6a5e8a0093c143",
+        "35028f33cc81632d809be7348bc9348db1dfa5881a1f8710e3fa63edbac02a7e",
+        "354c862a5fd68e94fe2bcaa8da7f59d52cff376cd55c00d4e587d8174c8ff57f",
+        "4984b60035bc8eda05003a4dc1ade25c295debca75b1ca4ab3685e9ebc9008cd",
+        "73b05e34521c2b7a08fcc19b9db407089400f67b7f4699adf2b6a41b92868399",
+        "7602f28b93f9e165b1540defb8f2474147f62961633f7349ea6e842b965181d6",
+        "8c107466878ce004722f136a71a29eebbc578e16d98c80ae2aa2d620aaf5472a",
+        "8f3bb046c59a19be07212696d3eb7d6843fdbacf30cf942327fbe4a8965b1ee6",
+        "8f97d175fd861e5539bb2553bfdb362b64bb103b91ff0a886327f30be38281dd",
+        "92fa400de7305e35c7219b575a59946e44b8e0846e64ef113ba63bd304fbbe36",
+        "99ace22f5424459fc61da222e3342bb1d8ec2c1830f0f3c71a91728f044ffa81",
+        "99df8763001536f2064480c3c0b9556cf16c9a3a3bd501744f9995ee87b622be",
+        "9c595a73561659cee3d81d47d3d726475d063e4ce1a2f7338d22aca81214644a",
+        "a0e019032e928ba0f8484aca7840bb150ced84d7b363b15cf55623ec8e409851",
+        "d39eefaf40d0b2e1003676ddedb26a9a037f5ff08454f03b4b426adf2c3b18db",
+        "db41ee0f178a610aa6d59b939f22fecd346a93bab0424c19ee396a4883fac935",
+        "e96183b5f34c95aac3310d3b6925e63a19d59b40d3342ca9c39c211fb46f85f4",
+        "ef872a7195032735b07114a30f2185b580511e161012a6ef626a357e62f83bac",
+        "f3f8dd019f089dfb7d535bcb2dc083625d6c9f0f7a72f96951a89192904d4baa",
+        "ff2d68d94d49963209881affcd9b7239acd195d1b3e82dade37768e296e75987"
+      ]
+    },
+    "headline": {
+      "description": "All measured repetitions at both full-list inputs.",
+      "record_ids": [
+        "0bdc1b103bd33f9625c381f614ddcbc2cdd6cba98c6301079a3d72edb1cec787",
+        "24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181",
+        "2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43",
+        "2d41266af477d282f2eae0566e503f29d9c7c5b02cd0eaa508beab472e0227f1",
+        "2e73e21f3cf533a149c04fe990271ce287d00772abc688155b6a5e8a0093c143",
+        "3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70",
+        "37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3",
+        "397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a",
+        "3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0",
+        "46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3",
+        "5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40",
+        "71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71",
+        "73b05e34521c2b7a08fcc19b9db407089400f67b7f4699adf2b6a41b92868399",
+        "838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e",
+        "8f3bb046c59a19be07212696d3eb7d6843fdbacf30cf942327fbe4a8965b1ee6",
+        "9c595a73561659cee3d81d47d3d726475d063e4ce1a2f7338d22aca81214644a",
+        "cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a",
+        "d39eefaf40d0b2e1003676ddedb26a9a037f5ff08454f03b4b426adf2c3b18db",
+        "eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd",
+        "f3f8dd019f089dfb7d535bcb2dc083625d6c9f0f7a72f96951a89192904d4baa"
+      ]
+    },
+    "no_double_count": "A raw trial ID may appear in multiple views but at most once in any one statistic, model input, policy row, table, or plotted value."
+  },
+  "attestation_type": "autosbd_phaseb_final_completion",
+  "campaign_counts": {
+    "by_candidate": {
+      "amd-cpu-16": 52,
+      "amd-l4-default": 52
+    },
+    "by_family": {
+      "h2o": 52,
+      "n2": 52
+    },
+    "by_shard": {
+      "broad": 32,
+      "crossover": 48,
+      "headline": 24
+    },
+    "correct": 104,
+    "measured": 84,
+    "records": 104,
+    "success": 104,
+    "timing_eligible": 84,
+    "unique_logical_trial_ids": 104,
+    "unique_trial_ids": 104,
+    "warmup": 20
+  },
+  "consistency": {
+    "harness_sha256": "df93472367bf42b2453748df56330ee4013760d6a8db34405cb1bc2e6c45505e",
+    "official_upstream_only": true,
+    "project_git_commit": "834af59c4663998e855e7442caf718850bfc60b1",
+    "project_git_dirty": false
+  },
+  "cost": {
+    "campaign_span_cost_usd": 0.13488914523167664,
+    "rate_source": "Repository-recorded GCP list rate; not independently refreshed during this audit.",
+    "rate_usd_per_hour": 1.734376528
+  },
+  "experiment": {
+    "authorization": {
+      "scope": "frozen 104-record Phase B final campaign",
+      "status": "explicit_user_approval_obtained_before_launch"
+    },
+    "candidates": [
+      "amd-cpu-16",
+      "amd-l4-default"
+    ],
+    "families": [
+      "n2",
+      "h2o"
+    ],
+    "name": "phaseb-amd-n2-h2o-grid-final-v1",
+    "purpose": "final",
+    "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "upstream_url": "https://github.com/AMD-HPC/amd-sbd"
+  },
+  "raw_evidence": {
+    "chain_definition": "sha256(canonical JSON of trial-id-sorted [{trial_id,path,size_bytes,sha256}])",
+    "chain_sha256": "ead9e2e0558bdf28079e3902f712aa33842efe979066ada7dd65a87cfd67b3e2",
+    "records": 104,
+    "total_size_bytes": 1943503
+  },
+  "records": [
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "e249f5747a22cbedc79e05f1f8c8e642d92e6581b0b1cb916062216a498277ae",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/98e47a92b2bfc1a9ebeaf38d099a75ec596d8c04809b7a3744d5db7dca01b178.json",
+        "sha256": "10e37e7d0bf7d524de0c40473239bfdadc2620b9a341fffe4333289c7f7b0502",
+        "size_bytes": 18343
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "98e47a92b2bfc1a9ebeaf38d099a75ec596d8c04809b7a3744d5db7dca01b178"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "52a9beae961fd6b3578695cfb7b00f8ae3bea4583ee6031fe7eba710eca068ae",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/ed7d2fb0b84e3a71a878e82918698612341ef12c58d08515c810737fa87edbd5.json",
+        "sha256": "2506f527af44083c206e24acc2df04b5c4d7b8a4de78ca69eb26396459997107",
+        "size_bytes": 18588
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "ed7d2fb0b84e3a71a878e82918698612341ef12c58d08515c810737fa87edbd5"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "4d2fe4a6229f1d6276ea283dc5946bfb0498682ff146649f2a88342fc7608ff0",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/043c75bb3f0c485f5e12bb1daf7d5393967f3b7034f72076d0c852d303b0a91a.json",
+        "sha256": "428960f8e2595667a4d2c21d77be6e924eecc0f2f5f49c172d4d037c6b800785",
+        "size_bytes": 18662
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "043c75bb3f0c485f5e12bb1daf7d5393967f3b7034f72076d0c852d303b0a91a"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "ed526e71e2eab9efb874f57e5f1df4799c6c0e3bdca60bb4347b0a8471c78915",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/be36acf35fe1ac0168c4759c2d151129e2e24472ab29a10b29843ca5c6667891.json",
+        "sha256": "1be9047556fd5ae72a66935c42bce926f0cd96fd508eab6619bf1a8a32e7c55a",
+        "size_bytes": 18438
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "be36acf35fe1ac0168c4759c2d151129e2e24472ab29a10b29843ca5c6667891"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "9071ed66690e02d52f67fcb1899d6cd7bfdf2738ea69f613716e3656ad3c79ab",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/52160a164e49ed4ffaeff210b3ac51ad284b1d2910585e127a3ac5ba3c59a935.json",
+        "sha256": "4b36821d813f7499eb02ece868cf4697ab4c3aab561ce7785453794350a5c24f",
+        "size_bytes": 18847
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "52160a164e49ed4ffaeff210b3ac51ad284b1d2910585e127a3ac5ba3c59a935"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "e32b1f9f4995e32632ef767be83986d9b56f33a2e05fffe2b8da7d435e2380a4",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/881c676bd5e6b13316c6d772c9bd74b5bb3ad4da41e54d3d42f4d5d5282d0e41.json",
+        "sha256": "dfef24f60f357096ee3ba3fcd2703c2f7d66a8afb83e26cee45bd2149d476cdf",
+        "size_bytes": 18608
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "881c676bd5e6b13316c6d772c9bd74b5bb3ad4da41e54d3d42f4d5d5282d0e41"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "b523c570a0322c91827b3f6bcb09c2d6e618d5d18946ad0ab716754f9db8df27",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/a783c97372cbf8d7673650ab08b369dba0b15061445355881617f90e263b293f.json",
+        "sha256": "6c8517fa88c7b79588902b73e17fc19f3cdc06a88e2fbfbaf9c368372e1c0683",
+        "size_bytes": 18647
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "a783c97372cbf8d7673650ab08b369dba0b15061445355881617f90e263b293f"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "6084d167f3e8459860fff6fc4f0d3d6c118978a564c73a93525b7e8cd0ca9a97",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/ad9b859a805fe1b12ebb8c44fd5146794ababb9ccdc5f286be0456e931761030.json",
+        "sha256": "61b0d787affc9171869052462d938375ff97d960bcc422a597c98c235568ea94",
+        "size_bytes": 18891
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": false,
+      "trial_id": "ad9b859a805fe1b12ebb8c44fd5146794ababb9ccdc5f286be0456e931761030"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "38cc265fc03c116294bee8f4937ac1b379bd2da2b0c638665078c6fa7629c1d9",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9.json",
+        "sha256": "18db7bfbadd404bad63ba97444aa698c6f2228394d290df07c135e898b44de43",
+        "size_bytes": 18590
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "07d61ee1b291e6999c625715c87dbb74a84a4591ed66ca86898cf5bf9550dcdb",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c.json",
+        "sha256": "500f9aea4de802b83a4284cf7e55b13c32ecbe120bfba796c3b3f4caa6398382",
+        "size_bytes": 18383
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "024671ed45a74bd854f7d81e2f795e3e35633edeb46ebdfeff20ec6ea6ea52f5",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64.json",
+        "sha256": "84c0bbff7cc08c96d58b085dc69126a1e3eaf0ef9fb9c7da440845cc032fc042",
+        "size_bytes": 18671
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "433bf329ca5da080c31303361116ede5c7a58b3446f21451e093184c885e934a",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46.json",
+        "sha256": "88eec36a6d0ca17673907ae41d59809f49e04b6570a6ee693447daf2d51c9d28",
+        "size_bytes": 18435
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "2c094c24900fb992317c016927f9751a889cd13dc8eb55a3117c2bfc279ff012",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877.json",
+        "sha256": "8a73baec3b6931ee1f1c78b8073f46a427660b5eb9277143bbf7c22b8d226e1a",
+        "size_bytes": 18600
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "01c55d0ae419716315ce91ec0404be19546d8a49612e4128fd71e0fbb53e0f3e",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e.json",
+        "sha256": "2b85bac359c896f58beca6c5b54ca41ba062055297963b414a4b9a6ad8e0c77b",
+        "size_bytes": 18860
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "3cd1dd09790b6c8dff238e60c48a7e25ee687fb9b3f473b4b017724979c32c0d",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b.json",
+        "sha256": "ff086e3eb163727b738f7b9fcfeff54a31faec6ef899ba86b5e6d5e7ae9cb7e1",
+        "size_bytes": 18616
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "30464649497fe9e397a7f0b9e6f42c9b6b6c28b50aaae5ae311684621902325b",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856.json",
+        "sha256": "2f425070336dd55160fc7cda648ff472ad89bd8fd1964e9f6ccabdc0d84f850a",
+        "size_bytes": 18862
+      },
+      "repetition": 0,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "8673517f1aee5644e3f2570af5b3f41378920c57e1417370ae346acb446c13be",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c.json",
+        "sha256": "e93380668ff75c9f06bdd96abdd8a3c292bd35d15423862428956027a232e47b",
+        "size_bytes": 18357
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "5f4c505b4f223a6da74e5f3c44336ef8c0296a37b3b3b47b4e91495bb697676c",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0.json",
+        "sha256": "0e49c8ec7a8a9fcea04e274c0c733a84f77d2973a1dce8138c6a21d49cd67e62",
+        "size_bytes": 18593
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "98ced508eb077f1dc7cb791979c45d7d6b8a8567af831a3872bdf321af6569e5",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c.json",
+        "sha256": "f18aa51a98a7aab8e6a5b5eedf641be91bde277b1f495c6bf920406462483691",
+        "size_bytes": 18436
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "43cc13f66907d55184bdcc6c7615aeec0dd5988d01caa5ebe504013703099efd",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640.json",
+        "sha256": "fc76f8197bfb07b170974ef737569b01989f4fb069c6d83552dfe6527147c180",
+        "size_bytes": 18694
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "e6bd39bd5714cd139b13f331a0ad62a9baa26522ba5501def51ae8d2fc588574",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31.json",
+        "sha256": "5d996495e7aab219e78756ffa3ae3b17f2352d77336bbae63e70b5409f80540f",
+        "size_bytes": 18596
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "b1308ce2b8359ee0a545e4bc93ed27d3edced1b896f5d3389baf0e243c0189fe",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370.json",
+        "sha256": "104bb9278d75823b8d3d1b1ebd25f7c42e473b4c06141403b102ff85c8c63bba",
+        "size_bytes": 18870
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "73dd6949c4ffe7358d58139b96aa1569b3390f27cd58580a1a1073dc22d1a975",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73.json",
+        "sha256": "723c2dbcc1b6378677d37872739581fd9bcf19bf1664a328e45a96f683bfcadf",
+        "size_bytes": 18607
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "5abe39d7759bc6ae3545a71ee590bf009461e4a1fcda514f50fa620c24a312fd",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45.json",
+        "sha256": "68aa6b4a0777b649db8488ec7444831bc51b71a45d263adb3ba30cbb7dce9af1",
+        "size_bytes": 18878
+      },
+      "repetition": 1,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "23017bd8de2c80079a6f1b53c190aaaca29405c12f21c8e7058040cd90f1a3d6",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef.json",
+        "sha256": "bc5da80fa08ed62095dd02c474dc552fc66e7a1259a840210adc5aba3b7dad94",
+        "size_bytes": 18588
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "12136cc274d0ce1af57b0bd97a566b6835963086cdb31a95dc2542766b813f8f",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d.json",
+        "sha256": "2267f3c81e8300d1e3d8867f11fefc09b2533443a6ca24fa73062bac843817bc",
+        "size_bytes": 18359
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "e2795141f6d1f0fb4a0dae677210f4abb91cf5e34edaf0ad292f33977aa8238e",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7.json",
+        "sha256": "07d9f34ff786b60d19991abf40c77b444a4195f9c852d868e0dcc17417fd90a7",
+        "size_bytes": 18483
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "89d042fdde4a146549c4b863d7fb9649ead20d3c2f194002a147240cf7f3f001",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319.json",
+        "sha256": "4b2b934db59fb83aedb0db10fe642705978221e3b32eca6998a90a4440542931",
+        "size_bytes": 18671
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "12b497903c652bf2b19e2af75ef0c29410e1afb974f4b7f47a3a1c9b0ee7efd3",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956.json",
+        "sha256": "2947145587cbc33e3a1d1b52e87c78d1521d1ae4aab5d6f5449d21e6abbf7d95",
+        "size_bytes": 18596
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "3ceb2dc30c8d27b5e5203d217690cb9f291cd5bd6d8ffba52d598e25e55c7af4",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd.json",
+        "sha256": "20c98dc5b4f63462e4357e40ca2794a0ba70929f2cb840950e1ce3c01e21df8d",
+        "size_bytes": 18875
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "d7b63d9ce40925997d31f3c427967915e431af5853a47637eb9b9ddb363a6dd8",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0.json",
+        "sha256": "4f51354d3d09f307dcd451c26b2e95f66540d1ef8e2472d94f89c012dba32e68",
+        "size_bytes": 18618
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "crossover"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "9a7f897250398a19601772637f443774707317f3a4ee724c4c2bbf8c53a91283",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b.json",
+        "sha256": "c1bf354932c6560525d5ce99884d18d3cd4f19a4671ce151f885395e782d39ec",
+        "size_bytes": 18863
+      },
+      "repetition": 2,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "8d41ead193b73f57a44d69850bf6f482fb694923a01df4089a07214841bf0ecb",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/8c107466878ce004722f136a71a29eebbc578e16d98c80ae2aa2d620aaf5472a.json",
+        "sha256": "42f22531229edb2a949d8e38908d2b2f153ed5755c9ded088841c5f23d3065ec",
+        "size_bytes": 18613
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "8c107466878ce004722f136a71a29eebbc578e16d98c80ae2aa2d620aaf5472a"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "5f9de2974247b83a949a654760906bb0f33572aa067587728cf5e2996e604021",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/db41ee0f178a610aa6d59b939f22fecd346a93bab0424c19ee396a4883fac935.json",
+        "sha256": "f1d88d88b17b099404d4ed608f56710aec329a715cf21097cd97b2e0b7cd1218",
+        "size_bytes": 18357
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "db41ee0f178a610aa6d59b939f22fecd346a93bab0424c19ee396a4883fac935"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "813da75b6964e858c87c802c4aa0d1da57c6c52fec3dd412fc6bae4e57f0f188",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/354c862a5fd68e94fe2bcaa8da7f59d52cff376cd55c00d4e587d8174c8ff57f.json",
+        "sha256": "cc7c8ef05bd6c27e73d1deee83ed03ebd0a8649be0dd31c9333180a864e53472",
+        "size_bytes": 18669
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "354c862a5fd68e94fe2bcaa8da7f59d52cff376cd55c00d4e587d8174c8ff57f"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "99e4b048f244002081396a406a2d9a03c651200ddf7ecff7b590d6a2d839cfe9",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/92fa400de7305e35c7219b575a59946e44b8e0846e64ef113ba63bd304fbbe36.json",
+        "sha256": "cc063edd970d92f49abc36ecc64fa5fcaf726e1c9b6463c8753163200fb194f4",
+        "size_bytes": 18432
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "92fa400de7305e35c7219b575a59946e44b8e0846e64ef113ba63bd304fbbe36"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "7ff84fd83d5eaeb7c017bc693f291c39c06de62c5a63890036471bb82268257a",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/a0e019032e928ba0f8484aca7840bb150ced84d7b363b15cf55623ec8e409851.json",
+        "sha256": "42d7ceabc1771f8a725e1d3a930968114dd9226299d453ef55427b1e836ea17d",
+        "size_bytes": 18598
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "a0e019032e928ba0f8484aca7840bb150ced84d7b363b15cf55623ec8e409851"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "40047b51b518daba35f7fd9cbea019b6543e4cbf1ac2c5ee6ac2bee7c3dba613",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/7602f28b93f9e165b1540defb8f2474147f62961633f7349ea6e842b965181d6.json",
+        "sha256": "76e9d5bf32eee1f3a171ad4fc54680ab8eaf8c850a33f7b38c956291a7414f9f",
+        "size_bytes": 18853
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "7602f28b93f9e165b1540defb8f2474147f62961633f7349ea6e842b965181d6"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "20b22de6e05d8adcecfa73d2a8e0e50d6a3f3fef4935bf00f4c1c690b2492003",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/1784bbb132f8cffd9185eb43827ab450a8f949b331417860b722d99d44ef63bb.json",
+        "sha256": "def881efe30523e65c6992495ef7acdf648d22313b054ff82591e4c975736fa3",
+        "size_bytes": 18889
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "1784bbb132f8cffd9185eb43827ab450a8f949b331417860b722d99d44ef63bb"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "131ad5eec742dbcb93fae39806aad890831c8e373ae8f745990474f201dc061f",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/ff2d68d94d49963209881affcd9b7239acd195d1b3e82dade37768e296e75987.json",
+        "sha256": "0b27af4a1c15106138d055b0c622997cdb283cc0dd3dce93b516ea0b5abd36fb",
+        "size_bytes": 18622
+      },
+      "repetition": 3,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "ff2d68d94d49963209881affcd9b7239acd195d1b3e82dade37768e296e75987"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "4e74032d3c3d91d1832b69285f5b456f1e111b2734d2c5019af35e0f1d51ae4a",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/4984b60035bc8eda05003a4dc1ade25c295debca75b1ca4ab3685e9ebc9008cd.json",
+        "sha256": "0c40667b63e70e92d79063898b6848ddc28065e7426573eed15de71bcd42bac9",
+        "size_bytes": 18368
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "4984b60035bc8eda05003a4dc1ade25c295debca75b1ca4ab3685e9ebc9008cd"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "logical_trial_id": "c6225b6435aa8bff5db66ec0060917095f98d2a33f9db15fe93b51fcd739e968",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/e96183b5f34c95aac3310d3b6925e63a19d59b40d3342ca9c39c211fb46f85f4.json",
+        "sha256": "d042ed7253af34dc2d28c7845b64ab1a1f7672547b2bd6891c98ea334de42b95",
+        "size_bytes": 18618
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "e96183b5f34c95aac3310d3b6925e63a19d59b40d3342ca9c39c211fb46f85f4"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "150f52c1f21c6b1667e98dd4db8dd26312c514a337fd55a7b7a3cc847a007f21",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/99ace22f5424459fc61da222e3342bb1d8ec2c1830f0f3c71a91728f044ffa81.json",
+        "sha256": "b5832d1775f0f2dc0211a711d1283fc5e45173be47fca0ad8119764ac2166a6b",
+        "size_bytes": 18445
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "99ace22f5424459fc61da222e3342bb1d8ec2c1830f0f3c71a91728f044ffa81"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "logical_trial_id": "a589c915918c65a908c54a92b2989a73f503bfe3d4531f283d2adda045c5ab4c",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/35028f33cc81632d809be7348bc9348db1dfa5881a1f8710e3fa63edbac02a7e.json",
+        "sha256": "56d34a503c7964290faeeccfd028bea4cdc31bac411e5ec8993c27494e9cfc90",
+        "size_bytes": 18666
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "35028f33cc81632d809be7348bc9348db1dfa5881a1f8710e3fa63edbac02a7e"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "169f4ea69637f1c41063bbbcaa6358d73c47cc18987afaf7a50f963cf84ddf66",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/99df8763001536f2064480c3c0b9556cf16c9a3a3bd501744f9995ee87b622be.json",
+        "sha256": "a955c367741d79fff479feb5f661bbb9784f61fc27481c97b7edadd7bdcce57b",
+        "size_bytes": 18853
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "99df8763001536f2064480c3c0b9556cf16c9a3a3bd501744f9995ee87b622be"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "logical_trial_id": "22ef2e025488fd5f96a298848665519b2c11d01da2b54068e3f9ddfdc8a8372c",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/ef872a7195032735b07114a30f2185b580511e161012a6ef626a357e62f83bac.json",
+        "sha256": "533e7d324f304b9a95af7dbac97ea9c7887fdbbd9f72f9bfb1ab987d5af16798",
+        "size_bytes": 18599
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "ef872a7195032735b07114a30f2185b580511e161012a6ef626a357e62f83bac"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "d6ab2518bf4cdde245e3f69a51aeb09187b2df60e07328343a75e34061668dba",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/8f97d175fd861e5539bb2553bfdb362b64bb103b91ff0a886327f30be38281dd.json",
+        "sha256": "8007e085b77ee617ce4c252f01f4118213a31e867b16228c582650a0f95bd702",
+        "size_bytes": 18625
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "8f97d175fd861e5539bb2553bfdb362b64bb103b91ff0a886327f30be38281dd"
+    },
+    {
+      "analysis_views": [
+        "crossover",
+        "extra_repetition_sensitivity"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "logical_trial_id": "95e169fcd512a428d002abf759b96167f788f0fca56d0e7a40d335c5807bae66",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/0096d515b2a97f43bfdb03204e8179c590ef6d6ba05db89cba5410da5325d148.json",
+        "sha256": "509755394f9feb16970b0c852f88fe620605dff0b4fd9087b67cd75a9dbb5fed",
+        "size_bytes": 18904
+      },
+      "repetition": 4,
+      "shard_role": "crossover",
+      "timing_eligible": true,
+      "trial_id": "0096d515b2a97f43bfdb03204e8179c590ef6d6ba05db89cba5410da5325d148"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "5832b0f5a0573cfeadf648e8b775e19fb3cdd48599047b65a23538ebc1a1a93c",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/7e1efc587a6f6e1482fe64985d0a356bd32ddd2ff4e56d535d767d2259e40a72.json",
+        "sha256": "12bf31f7a176527aac9f1d63f53b03d7249cc2d46fcd6325708f868e4ec9e583",
+        "size_bytes": 18296
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "7e1efc587a6f6e1482fe64985d0a356bd32ddd2ff4e56d535d767d2259e40a72"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "867c1320559ae7433dc297c78b8f44dc300d81d399a395d2d57b365ae1be5697",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/a1f1d537cb703e320563f439f1946015d60fa5e556e77b94884a2d19ab8880d2.json",
+        "sha256": "d31d03f2751f085502b0a6a9cb915e51a0688e7607506e378dc66bb80f8aa7b0",
+        "size_bytes": 18577
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "a1f1d537cb703e320563f439f1946015d60fa5e556e77b94884a2d19ab8880d2"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "faceead6364835dd292152c9fcb65c6dda058351bb501ebab0c5d00b9a05f506",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/b67e297ef1b191637a900d00025c69860df8d09b91a9346c3fdfbf8e2a57e4a0.json",
+        "sha256": "2c8c341c1084306046fe2d62889b10a6f64f94edb796c074a642754405c16641",
+        "size_bytes": 18784
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "b67e297ef1b191637a900d00025c69860df8d09b91a9346c3fdfbf8e2a57e4a0"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "fa0aeb225d981ec98a89e48d1b1e4058753612eacfa97e4acae5de01b8a835c3",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/c692ba130ab414d40ea1136d3bf0fefb8ea21d0c694f09c0b7f995c57fb15f4d.json",
+        "sha256": "84103ebda555b0897eb95d46b1c61afa17a948dca552224488b38d72647340f2",
+        "size_bytes": 18583
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "c692ba130ab414d40ea1136d3bf0fefb8ea21d0c694f09c0b7f995c57fb15f4d"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "5acb725365d0115a609c77b386d4478c61bdfc83c146d60f04f49c3f81eed4c4",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/0f9e4e3831572ce3b4cff365dd23afa1a123c2f8ff1eb37f4f6b1c2f2d2247d0.json",
+        "sha256": "3f87a3a19e763333d2b5aa9e9188e123ebc194548e3e5b7e1a3acf2a86134fbb",
+        "size_bytes": 18487
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "0f9e4e3831572ce3b4cff365dd23afa1a123c2f8ff1eb37f4f6b1c2f2d2247d0"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "39c3036c40ac34da0947bb57093b4b319401458921d0886c96aadb4a1632b04b",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/3095e50e7c84dfe0923de3ee9e9a30ae4e1b887fa3b89ddb92bf658ce74cb988.json",
+        "sha256": "67a9c7b1e4d9dbc5cba93f7fd596aa5108e3b6616f624653c8158ed9a5d6418c",
+        "size_bytes": 18753
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "3095e50e7c84dfe0923de3ee9e9a30ae4e1b887fa3b89ddb92bf658ce74cb988"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "72c82e2f36f4635de807d18a13de7221a7784f6671157459e8ae0d830e9a182c",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/04dd34d4c2898d2e3de120aa9642a02d23953edfa97611ffecba092c2c176789.json",
+        "sha256": "db808d22c9fe395f7b57ac98b75e746c24fb6264c295f3770830f637db3b3af6",
+        "size_bytes": 18776
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "04dd34d4c2898d2e3de120aa9642a02d23953edfa97611ffecba092c2c176789"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "70a85d2d66509b42c7be8e045797022b32c5390c2d6d97f9c49c117b8b101dfd",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/f93bfda0f66f3dc93469c2b63c68b6f3844ffe5d887402a625ef1f7ea3bab01b.json",
+        "sha256": "df850d4ec15b537ec0c40896dd878b78f5a348b47a8d93f7e89e6556aedf1509",
+        "size_bytes": 19004
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": false,
+      "trial_id": "f93bfda0f66f3dc93469c2b63c68b6f3844ffe5d887402a625ef1f7ea3bab01b"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "eed5492729bf52914ba108287938531b1d3e63214c9525a2ebd4aee30fcb3436",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/1094d460be08be2090cb4ae7e78d57024ea2840a8dcfd3704f857ab84d07ca94.json",
+        "sha256": "4862453b813a371fe7695ecd422cd18966b3dee900a37b745dde2368342a2d60",
+        "size_bytes": 18581
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "1094d460be08be2090cb4ae7e78d57024ea2840a8dcfd3704f857ab84d07ca94"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "52f477119f7bd331e774f03d1df2ae8c5399b42c8c0d58a046f176c887fb533d",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/4a2cf63d4456923274a11e19df59a61ada97d725068859ab19ba614d31fae241.json",
+        "sha256": "d26a3e3b6f1294466fc998058229cc68664e1c9bc591768d24213e5359e33cac",
+        "size_bytes": 18300
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "4a2cf63d4456923274a11e19df59a61ada97d725068859ab19ba614d31fae241"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "8fcefa6c455386724f103295df731860eaff3b22c00886fb76117c5383cf3256",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/b1f6ee7ae44e8e7ed7184687808847828940473febed9353b9a8ef39ce146549.json",
+        "sha256": "17cadf8ff17f4954cea47361d4deb2c7c7a7d3d15b528849c5beb0d968becf52",
+        "size_bytes": 18551
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "b1f6ee7ae44e8e7ed7184687808847828940473febed9353b9a8ef39ce146549"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "04766538cd5a973b388cad7f266ddcb04873ac6e2d593d90efc0714641d41f5d",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/13d5b988546e8bfea42def7f1dca6636d295cb1695b83bd246670c2761c4062b.json",
+        "sha256": "007b064460cb33f76c23dac9adad312d72fd21bf1fbe0e779fd566df9145df4e",
+        "size_bytes": 18785
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "13d5b988546e8bfea42def7f1dca6636d295cb1695b83bd246670c2761c4062b"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "cbec5119fbac14799378a36e08dbb5361ece58d356e511aa26f9dac35a3cc031",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/87a4a07004286806a8949952edf8f1dcf3deb89424aeea654634e46d6f835e56.json",
+        "sha256": "c63f409461b29283db43abeaa3be0f02b67b6a17aadc0f9fb748133ccaa8c249",
+        "size_bytes": 18756
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "87a4a07004286806a8949952edf8f1dcf3deb89424aeea654634e46d6f835e56"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "7bfbaa44d7855ebf1829869864451afb49772c80f49a121c3f1e123c2ca3623f",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7.json",
+        "sha256": "accf04b64ccb89f29f94ad87e96c6c81cd8256f327fe0fc1a01589f47be33db8",
+        "size_bytes": 18515
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "0d874b0f1f08afb4047badad882f1f4a780423faba8ed1c228a8db7457a7ba59",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/516077e2b3797f0b606854a666e4d4adaf5df55fde04ffe58d55af7370e41fb0.json",
+        "sha256": "ef438cbfecfcc1069882cf513ebb04dcb9da97b37b8e2b5bbcd17d39696291f1",
+        "size_bytes": 18789
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "516077e2b3797f0b606854a666e4d4adaf5df55fde04ffe58d55af7370e41fb0"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "6535d3ecc3ca8934bbb09afee35945ad5632ccdcc468deed0adfa753ece80473",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/0d149660f9d880830f05303834f18916631f6c19c2e2f3bea411ff9caa6f06ab.json",
+        "sha256": "7f80bedb4c5399415620c3843da55ade05118a6f633f6ea21e025deb188bcf88",
+        "size_bytes": 19028
+      },
+      "repetition": 0,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "0d149660f9d880830f05303834f18916631f6c19c2e2f3bea411ff9caa6f06ab"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "7ef1efe319b42097bb178248f94ea48e1a82f178d4f212093a2456e2e5384819",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/6421f689e8e9c4c7f5816ff2e1602bdc8e11cd849e05a255f68e91d013ffadf9.json",
+        "sha256": "9b01d62f689e774427bd21544fafd7da2bb67ae9c2193199f85cca14c81ebb8e",
+        "size_bytes": 18295
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "6421f689e8e9c4c7f5816ff2e1602bdc8e11cd849e05a255f68e91d013ffadf9"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "7feff087104f429667b5b0925607c5a9423fcbbb77a8d4da554e79b312a5b7f8",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/b6bd807cc952f732475d8249823c9a30a6230cd828fec767adc56bb2bd51655e.json",
+        "sha256": "c439715ed53786ec353bee56321c9c497061216aa046c4e0a7323b192af0d71b",
+        "size_bytes": 18575
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "b6bd807cc952f732475d8249823c9a30a6230cd828fec767adc56bb2bd51655e"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "50fa10e08a8b1517cd011b188fd20bbac083f7b5864ece9f2010d48e4b92d66e",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/f5751ff9b9699bc32ef8669ff5a0057c6aba31280c72587ce2558584fcb979fb.json",
+        "sha256": "50a773a504c908c3fa228ef42eedb2738784b5972557cbf149cdbe0192fc8dc1",
+        "size_bytes": 18781
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "f5751ff9b9699bc32ef8669ff5a0057c6aba31280c72587ce2558584fcb979fb"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "1e937c9f14752bc12176be0f34ec706894fcc997d8b1aa6eecb1e59cd48d93f1",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/3cb36deef152a72c3bc5004d782b50a01a0659163a6c79db59eb151cdacdd9bf.json",
+        "sha256": "cd48f122b5c07536852a860c78dcf7ab4fdd2619bed9c2e401ef2e49aa7a7d38",
+        "size_bytes": 18544
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "3cb36deef152a72c3bc5004d782b50a01a0659163a6c79db59eb151cdacdd9bf"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "a331f60f62bc7a8a1372ad476e40a5ae79e31a710e07dd8f983f102b90f57bb8",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f.json",
+        "sha256": "d06cae375e9136abe47d772c95a11be1dd5e6d355fdc0d186d801a1ca9b06d12",
+        "size_bytes": 18489
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "ab91062918db5dfde60c65456e407a9ce5d193898a27340bc822bea32629e406",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/4310ff0e7e0fc1c11f2c379338d18f1fdaec38f2d3bcc4120f8c1ccd91837613.json",
+        "sha256": "61963a6b1d2f0768a10bead24d7a71f3ed9b30a596c629e79e1fbecaca201ba3",
+        "size_bytes": 18755
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "4310ff0e7e0fc1c11f2c379338d18f1fdaec38f2d3bcc4120f8c1ccd91837613"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "2b4b477aca7d7f2bddba11d1e526f02a158802fdbd102a3022b63a3ed0a6fa16",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/a144503ea2243461303c0fa3105fe474abc352c17fd050ec334cb868e36ddbe2.json",
+        "sha256": "7ebb45d3c45ff6b9c75d70572c3538ef90dde33cba752eed5aee4154abb18f11",
+        "size_bytes": 18755
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "a144503ea2243461303c0fa3105fe474abc352c17fd050ec334cb868e36ddbe2"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "bdabd9aecb923f0e13528d330a44c0df4c6a82b4d5b2b247adf96d7205035d06",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/3b77cb65794ab766e0eaa5c0d4cc76b7ef7a0cd07d8c058d3090ef0ce91c7229.json",
+        "sha256": "75e7ae4424a1ed554af1df478563aed23e230ffca4e00655d699527cf095ae1e",
+        "size_bytes": 19009
+      },
+      "repetition": 1,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "3b77cb65794ab766e0eaa5c0d4cc76b7ef7a0cd07d8c058d3090ef0ce91c7229"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "b6fb75e9a09031895abbe7c7bf386d3dc4426d4ef118f5bc1c00a22ce030ff6c",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/0a0a6d7eea361d0d2656eebb5942c1dece8a0a236a5b325b1c3300fbcef9d572.json",
+        "sha256": "9734de889f2cd48662b6e09f388506d9680d875e4552b6736a6540bd289f2918",
+        "size_bytes": 18300
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "0a0a6d7eea361d0d2656eebb5942c1dece8a0a236a5b325b1c3300fbcef9d572"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "logical_trial_id": "92bdc4cf42565e1856e0ba6a915b3312d5ad157a2fe0e61b3fafb92dee065c91",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/99e73c6eeb05935ab90fc5cfa97d58c2b5edb0c30a02a525161953b2de85e462.json",
+        "sha256": "dfe8a517b548c462aa48772946b00a811825d920f7141563cbec7c823d77b61e",
+        "size_bytes": 18582
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "99e73c6eeb05935ab90fc5cfa97d58c2b5edb0c30a02a525161953b2de85e462"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "8b98b95b909393663a7fd9ed2b1cea393ddab28866c27365aecbabac31ad5106",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/1d330b936b8d6098f68e6958c333295851cd96b9b3960d77aa9314c97104c7f1.json",
+        "sha256": "a45cf8b9f98c3ba1a73ae46fed3adc93dfbdbf3c905ca6e5bf70203e9b7c9239",
+        "size_bytes": 18793
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "1d330b936b8d6098f68e6958c333295851cd96b9b3960d77aa9314c97104c7f1"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "logical_trial_id": "f88c99da88652b56ad47b542dd5e254aff1326a4bb75fe6dcd721fb4a578b1ac",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/0c0708436752e56a3da2d45f508a6aeb42c9f2573612869402ce916334e5c47d.json",
+        "sha256": "224b12382c4d727157790feeaca819d1c56dd3ddc237b715ea22bc927d4fd4c1",
+        "size_bytes": 18548
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "0c0708436752e56a3da2d45f508a6aeb42c9f2573612869402ce916334e5c47d"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "ce81d925f7d9334317be442b4f301f39e8a54c5af73bfcefbe81000e793a1f56",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8.json",
+        "sha256": "8fa6e3198e8d0ab2aae5bb4028afdd756a66bd829615af716198d5b6219fb6a1",
+        "size_bytes": 18491
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "logical_trial_id": "df250435f1af66be01408655f988cc5fbfcbe9a0cdea7dad14eab63c6267efe9",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/f75f2b6790b5f03b84e50ec19f7464a708eff82be0481506e56784a53cda9e2c.json",
+        "sha256": "dc26b044a667ffb612e3d9636c8b4ef535ce3bcf95d82156b89e97a238aca5d2",
+        "size_bytes": 18758
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "f75f2b6790b5f03b84e50ec19f7464a708eff82be0481506e56784a53cda9e2c"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "e3dab0b1ff3ffac06d23fe6c3fb9919cf85878b05b2fbdcff4b7ee45dab2cfa2",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/3864801d362800f9cd759a6d5372ba6301707406fceb109728baa8cf837039b1.json",
+        "sha256": "064a665377845a5716dfa7acc0a2a5ca7088d787b45ebf1b0bbbdcaf0d260d82",
+        "size_bytes": 19008
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "3864801d362800f9cd759a6d5372ba6301707406fceb109728baa8cf837039b1"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "logical_trial_id": "3bae74ba441aa62a8776cbbe1b9e8bc5e5cb43c87a87ec776be6eb404a435dbe",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/38aa7d5738a07fb8ee4fdf218a3ce8577d919ce1d6689d890dea8f13b60e2a40.json",
+        "sha256": "31d9f060779455b526e2bde03289f8b917d27da886dd515dbdce7154d1b859e0",
+        "size_bytes": 18752
+      },
+      "repetition": 2,
+      "shard_role": "broad",
+      "timing_eligible": true,
+      "trial_id": "38aa7d5738a07fb8ee4fdf218a3ce8577d919ce1d6689d890dea8f13b60e2a40"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "1a595a69c9aef0355f510dc1530624e0d25b684dfbf885f5672aa7b3a8fb6375",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/7aedb4bf9a5603e77966bce3200a4773ebbeef1ffcc6851db46eaf58bd6057fb.json",
+        "sha256": "6c0bd056b70759187c750f1253f3978408ad2d2d59bb428a04dacd8b008e6707",
+        "size_bytes": 18562
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": false,
+      "trial_id": "7aedb4bf9a5603e77966bce3200a4773ebbeef1ffcc6851db46eaf58bd6057fb"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "c05628d2a5e5624755c8749ea55f82a252478bcf046537551ec72712383995f7",
+      "phase": "warmup",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/310e8853941021152cf1530389793ed7ecf06d1a7cb07163d21c348bffea0da2.json",
+        "sha256": "157f45dee5737d23e591d750e235bb6e600a86f0ed935f55a9c0e3a96ff717d2",
+        "size_bytes": 18822
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": false,
+      "trial_id": "310e8853941021152cf1530389793ed7ecf06d1a7cb07163d21c348bffea0da2"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "05371bbdaba25953c82b147dbd66e0f308a73a0061d8966b10555d46baeca9e8",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/f875462d42c33b56ee15854b5b0f3c17014dc7937f499387eb622d62b9ccbd5c.json",
+        "sha256": "6c0a7b55ebe2ef7db74c3db29b10becff55224610a725f35663a490fee5828e0",
+        "size_bytes": 18885
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": false,
+      "trial_id": "f875462d42c33b56ee15854b5b0f3c17014dc7937f499387eb622d62b9ccbd5c"
+    },
+    {
+      "analysis_views": [],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "19841c45d7e290957b468353b982218fb1f843c2d5740eb4a0dcb3daa0b9136b",
+      "phase": "warmup",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/beb24375a68d4f882bb3f3c39566f5221c7f85e70245ca011045178e7f3f6f10.json",
+        "sha256": "28c5e5f5ccd805a3eb9e78d6d0d796f08b4a92d1e615d561173075916c69fc87",
+        "size_bytes": 19105
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": false,
+      "trial_id": "beb24375a68d4f882bb3f3c39566f5221c7f85e70245ca011045178e7f3f6f10"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "cfd06aad8b04e32ad3f8ba7f747fdb0c60801645078214961607950c97b5049b",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a.json",
+        "sha256": "94899678e7fbad90ce3932fb4ada7c0401d59a2dfa3a140f9efd2142e3c3dddc",
+        "size_bytes": 18606
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "8389774c35eff9b08949fa9c4d7779a89c54be8fb756e1897aad95ae113a6618",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e.json",
+        "sha256": "87323233db5727bab9e14e131fc141ce76ec51f6f7c4f08055ec8e81d592022e",
+        "size_bytes": 18802
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "4626e603b92d3b70be15cf3286204cfabae489d655371d8a2d312fcf1cf5c31b",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3.json",
+        "sha256": "c525d06da65d8924299be6e00d3ef74d47769b147c494494928bd4b8ce3b9796",
+        "size_bytes": 19110
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "4d7367db0ad66df3fe3f92d3dd1b9c25eef18f8cbca1fd8bfa2a2e0017eab714",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3.json",
+        "sha256": "e7ab78a26fde694f90748194080f1602aa146633f23d2272a93e5212d6e6ab5c",
+        "size_bytes": 18853
+      },
+      "repetition": 0,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "8c88db32b5028add9a6f3ef0f929e9bff4ea80ca1aa0d5fc686f99a1494fc24b",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70.json",
+        "sha256": "fa54fd51909f8c983f8f5af5e0f8b692a5ac30959e969be2c38ed08b85059b97",
+        "size_bytes": 18561
+      },
+      "repetition": 1,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "50c8bd89204444fc4d6e84a64dd6b3ab97c67e928c0caf4df54f44f7520143ed",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a.json",
+        "sha256": "d529f54298fa52ce5f531d5fbd3161f7cb937419aed9b2101184a668eb6c4fcc",
+        "size_bytes": 18826
+      },
+      "repetition": 1,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "57020657c395da8160f61f8a1cf77f411bd16f13564bf76c6c050b4117806a37",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181.json",
+        "sha256": "47eda719ad39278ae36eb0cd728a1a2061d4971ff9025ae9ea2f9aa8474b2f53",
+        "size_bytes": 19108
+      },
+      "repetition": 1,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "fc588d790826b08292514aa79207aa63422c802944ab267b76cd7e7c2f2ad9c0",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43.json",
+        "sha256": "cf30e3e5d6cd564e342de9aa4d0a95624dfb8ff9b4a47b932f13fa7b33b98e14",
+        "size_bytes": 18890
+      },
+      "repetition": 1,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "1b5bded9310129ec634fd4fd9102ad092f07a81e6f48839cb3a426078c0c96ac",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd.json",
+        "sha256": "95b6c0ef03f92e3336dade022ef1bcea46769dd3a0b02c0d8adf81fbe195631b",
+        "size_bytes": 18584
+      },
+      "repetition": 2,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "6819ae6d74cd494d3151f7e57051ac5864464d8b00eb1fcbf3fb8b31dab8d2c6",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0.json",
+        "sha256": "7b997daca1b700b90dfce6a479befc26d0a3843d835083863ac55f6662ca5d3e",
+        "size_bytes": 18799
+      },
+      "repetition": 2,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "90353a9f017275b6db565127480aea0d187d003dbc6c74b2fc52427cab9a5bb5",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71.json",
+        "sha256": "5ff19a70d54daea3c1d652b79a8f96015ebfb1b794c76f875d143787ca3e7c88",
+        "size_bytes": 18889
+      },
+      "repetition": 2,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71"
+    },
+    {
+      "analysis_views": [
+        "balanced_broad",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "ede97c3962283aaab048403f65af5f378bbb7e25a8fb977fb29a4ae230a72356",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40.json",
+        "sha256": "58b7d8e31d2635bc7aa566cf87b202a4f0b89b62aaf0f582dd9b7b9a78463260",
+        "size_bytes": 19111
+      },
+      "repetition": 2,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "cf18984203ec1ef11a3b9f583266df72cd4111e8f24a99b1156b41cc7cd92418",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/d39eefaf40d0b2e1003676ddedb26a9a037f5ff08454f03b4b426adf2c3b18db.json",
+        "sha256": "3d2263bedf0d912baaa17e6fea4699e188e189f99c7d7e16514a677c4c370334",
+        "size_bytes": 18826
+      },
+      "repetition": 3,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "d39eefaf40d0b2e1003676ddedb26a9a037f5ff08454f03b4b426adf2c3b18db"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "775995f3778d2920e23eafd6b5054930ba296997eb745513e031573d834eba75",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/0bdc1b103bd33f9625c381f614ddcbc2cdd6cba98c6301079a3d72edb1cec787.json",
+        "sha256": "4a6fa6b2c3f0ba640065acf720982f208f76be1ccb57569cd7f62957a1e71a78",
+        "size_bytes": 18568
+      },
+      "repetition": 3,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "0bdc1b103bd33f9625c381f614ddcbc2cdd6cba98c6301079a3d72edb1cec787"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "ab3a580d3d40589588a30b79a5463df0845519dc3f5c39ab9fb9ab4e70b1a4dc",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/f3f8dd019f089dfb7d535bcb2dc083625d6c9f0f7a72f96951a89192904d4baa.json",
+        "sha256": "bf12dc10cfb6df8cd0fcdefa7c0bc4106907cf1b6987708ae19028dd54d89eab",
+        "size_bytes": 19117
+      },
+      "repetition": 3,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "f3f8dd019f089dfb7d535bcb2dc083625d6c9f0f7a72f96951a89192904d4baa"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "704c518ccb02e4a92be915bddbb322627f1fb095112bfbdd1f8df5ae07d9f368",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/9c595a73561659cee3d81d47d3d726475d063e4ce1a2f7338d22aca81214644a.json",
+        "sha256": "3d6e203b23a5b10812ad26b64f93efe390ea43cf4307317acb3012c7913a057d",
+        "size_bytes": 18880
+      },
+      "repetition": 3,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "9c595a73561659cee3d81d47d3d726475d063e4ce1a2f7338d22aca81214644a"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "2cbaf860644600921965e2456170514d0130ddb26e8cb39a87f8b865026adf17",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/2d41266af477d282f2eae0566e503f29d9c7c5b02cd0eaa508beab472e0227f1.json",
+        "sha256": "850b239554e16ecbfefc52a466db652f629cdad042f3b48d071bd0b7470b8336",
+        "size_bytes": 18804
+      },
+      "repetition": 4,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "2d41266af477d282f2eae0566e503f29d9c7c5b02cd0eaa508beab472e0227f1"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "logical_trial_id": "769f1a9dfeb9fbff64331d3194a94456190a09d00a212b7dde777a20a7d4debd",
+      "phase": "measured",
+      "problem_instance": "n2-prefix-0239",
+      "raw_record": {
+        "path": "results/raw/8f3bb046c59a19be07212696d3eb7d6843fdbacf30cf942327fbe4a8965b1ee6.json",
+        "sha256": "ae9708188eb936ee77a09884b5b209b2a00b09760fabb8dd16391eb518d5056a",
+        "size_bytes": 18569
+      },
+      "repetition": 4,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "8f3bb046c59a19be07212696d3eb7d6843fdbacf30cf942327fbe4a8965b1ee6"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "3d8fa2a0295490eaaca88f8497428da045033dd3c227a8b90b20c19d0f07fea8",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/2e73e21f3cf533a149c04fe990271ce287d00772abc688155b6a5e8a0093c143.json",
+        "sha256": "9ebbd554ee0a604c65d5bbdcf738587c7b2d23d7041c457fe0ab883b9145f409",
+        "size_bytes": 18871
+      },
+      "repetition": 4,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "2e73e21f3cf533a149c04fe990271ce287d00772abc688155b6a5e8a0093c143"
+    },
+    {
+      "analysis_views": [
+        "extra_repetition_sensitivity",
+        "headline"
+      ],
+      "candidate_name": "amd-l4-default",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "logical_trial_id": "e94e61766ba304c7d748865c5d1a1bd6a09c3f2b60ce5cb31b2fe7ea3e4c2787",
+      "phase": "measured",
+      "problem_instance": "h2o-prefix-0275",
+      "raw_record": {
+        "path": "results/raw/73b05e34521c2b7a08fcc19b9db407089400f67b7f4699adf2b6a41b92868399.json",
+        "sha256": "e791a3f4535ade0a3ba08a85f380c69d70b8923a340a68feefa82abb425c8f25",
+        "size_bytes": 19119
+      },
+      "repetition": 4,
+      "shard_role": "headline",
+      "timing_eligible": true,
+      "trial_id": "73b05e34521c2b7a08fcc19b9db407089400f67b7f4699adf2b6a41b92868399"
+    }
+  ],
+  "resources": {
+    "maximum_gpu_guard_bytes": 603979776,
+    "maximum_preflight_temperature_c": 39,
+    "minimum_preflight_free_gpu_memory_mib": 22564,
+    "peak_gpu_memory_mb": 196.0,
+    "peak_host_rss_mb": 138.078125
+  },
+  "schema_version": 1,
+  "source_artifacts": {
+    "aggregate": {
+      "path": "results/processed/phaseb_n2_h2o_grid_final.json",
+      "sha256": "f7deacc86e923614fded5f8e6bdfa7206fe8339e3a4d035d6db7ee967212768d",
+      "size_bytes": 567173
+    },
+    "candidate_artifacts": [
+      {
+        "backend": "cpu",
+        "candidate_name": "amd-cpu-16",
+        "cpu_threads": 16,
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      {
+        "backend": "gpu",
+        "candidate_name": "amd-l4-default",
+        "cpu_threads": 1,
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      }
+    ],
+    "configs": [
+      {
+        "path": "configs/phaseb_n2_h2o_final_crossover.yaml",
+        "role": "crossover",
+        "sha256": "f9aedb1eb33d419f7a7ff0103e284259926aa522e139845a11b3d4a68abcd990",
+        "size_bytes": 2437
+      },
+      {
+        "path": "configs/phaseb_n2_h2o_final_broad.yaml",
+        "role": "broad",
+        "sha256": "755ccfa48ae7830d494d6b0c0a3617df82eb5a86c79fae6a0deb00c0c6425398",
+        "size_bytes": 2435
+      },
+      {
+        "path": "configs/phaseb_n2_h2o_final_headline.yaml",
+        "role": "headline",
+        "sha256": "1807f183eab5d4732ae28ef8a7c3bf9becb17013870246e4d03eda9969519c2e",
+        "size_bytes": 1796
+      }
+    ],
+    "correctness_manifest": {
+      "path": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+      "sha256": "ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829",
+      "size_bytes": 40806
+    },
+    "protocol": {
+      "path": "reports/phaseb_final_protocol.json",
+      "sha256": "bf5b27d5213e02b08c5836e7a91da4702431d7c6ee9b01c58d76d660add73e98",
+      "size_bytes": 6118
+    },
+    "raw_directory": "results/raw"
+  },
+  "status": "complete",
+  "temporal_integrity": {
+    "campaign_span_s": 279.985871,
+    "first_start_utc": "2026-08-01T17:09:52.635682Z",
+    "last_finish_utc": "2026-08-01T17:14:32.621553Z",
+    "overlap_count": 0,
+    "process_wall_sum_s": 212.77459565193567,
+    "sequential_no_overlap": true
+  }
+}

@@ -6,7 +6,7 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance and unchanged-input compatibility pass, and the homogeneous Phase B2 schema-v3 manifest validates all ten exact N₂/H₂O grid inputs. The 40-record Phase B pilot is complete, audited, and deterministically aggregated, with 20 excluded warmups and 20 eligible single-repetition measurements. Phase B2 also provides family-aware raw identities and external Fe₄S₄ augmentation without rewriting history. The harness enforces official AMD source/build provenance and node safety, distinguishes process success from scientific success, and resumes exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. Repeated N₂/H₂O timing is frozen but awaiting explicit approval; multifamily evaluation remains pending.
+Stages 2–5 and repeated Phase B timing are complete. Phase B final contributes 104 immutable records—20 excluded warmups and 84 eligible measurements—across ten N₂/H₂O instances, with fail-closed completion evidence and no process, scientific, correctness, monitoring, memory, or overlap failure. Combined with the balanced Fe₄S₄ view, measured repetitions 0–2 yield 90 source measurements, 30 candidate medians, and 15 instances across three families. The sealed Stage 5 multifamily package evaluates six policies in three leakage-clean leave-one-family-out folds. The harness and analysis preserve exact official AMD source/build provenance, immutable raw records, deterministic aggregation, grouped splits, and training-only model fitting.
 
 The standard-library suite passes all 168 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2/v3 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, family-aware calibration-manifest timing gates, schema-v2-byte-compatible/schema-v3-family-aware aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input/provenance/registry validation, the completed 40-record pilot, frozen 104-record final geometry/protocol hashes, fail-fast sweep control, and density-length enforcement.
 
@@ -190,7 +190,58 @@ There are no invalid selections and no failures. The full-feature tree does not 
 
 The Stage 5 configuration SHA-256 is `21ad73381a156d424cd762a18a2fb3b897e074824665d96d6e631837021eb0f1`. Core artifacts are `results/processed/stage5/evaluation.json` (`9b2f163e6267f2ec3b3eb2c04f76405ca96c30f16dcfbf1c789a1173cb1e3b6e`), `models.json` (`85f8a84e1d40163b9971ba8d9d9fab47dd049adf036b95c5f0b8f6c11884eb1c`), and `policy_summary.json` (`7bfff41c644886884b6524d64a16e41df542b79a7767484a28c94474d1ddd9c0`).
 
-## Selector inference overhead
+## Stage 5 multifamily leave-one-family-out evaluation
+
+The frozen configuration selects exactly measured repetitions 0–2 for every
+family/instance/candidate. Ninety measurements become 30 median candidate rows
+across 15 correlated prefixes: five each for Fe₄S₄, N₂, and H₂O. Each of three
+primary folds holds out one complete chemistry family, so its five instances,
+both candidates, and all selected repetitions are absent from training. The
+split manifest reports no source or group leakage.
+
+| Pooled policy | Correct | Geometric selected/oracle | Speedup vs CPU16 | Speedup vs GPU | Maximum normalized regret |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Fixed CPU16 | 5/15 | `1.8750253246988415` | `1.0` | `0.5765138778218245` | `5.482571387657153` |
+| Fixed GPU | 10/15 | `1.080978120956255` | `1.7345636219169327` | `1.0` | `0.3869591107344933` |
+| Training-only threshold | 13/15 | `1.0377461353348265` | `1.8068246759539786` | `1.0416595004783897` | `0.3841755352561985` |
+| Size-only tree | 12/15 | `1.1717731863098702` | `1.6001606339906465` | `0.9225148122397769` | `5.482571387657153` |
+| Full tree | 13/15 | `1.0229922425736244` | `1.8328832288910508` | `1.0566826178825666` | `0.25943483534277495` |
+| Measured feasible oracle | 15/15 | `1.0` | — | — | `0.0` |
+
+Per held-out family, the full tree obtains Fe₄S₄ 4/5 with geometric
+selected/oracle `1.0472132783479557`, N₂ 4/5 with
+`1.0223082863870683`, and H₂O 5/5 with `1.0`. Its exact misses are
+Fe₄S₄ at 3,025 configurations and N₂ at 10,000, both selecting CPU16 when the
+GPU is the measured oracle. The threshold's exact misses are Fe₄S₄ at 3,025
+(CPU16 instead of GPU) and H₂O at 3,025 (GPU instead of CPU16). There are no
+invalid selections or failures.
+
+The full model has lower pooled selected/oracle runtime than the frozen
+size-only ablation and modestly improves on the frozen training-only threshold.
+This is evidence for these 15 correlated prefixes, two candidates, three
+families, and one CPU/L4 node. It is not universal generalization, a
+comprehensive autotuner, an independent-machine result, or a multi-node claim.
+
+The config SHA-256 is
+`5bcf87ce6cafe898412172c3f7a5bfd5299474719ae0940041f19b62f4d2cfa3`.
+Core sealed artifacts are `source_manifest.json`
+(`2a51193041b0e4d5f365769a67e0cd0b9aee86d48bbe85739f16c928b8e63ec6`),
+`evaluation.json`
+(`c0f7e6cead38bd431c4da7907beb7df7408cae99989a743eaef4044f61420c50`),
+`models.json`
+(`f5114b0a8c2ff5bef52940ddd673757eabbab85b893849a8e9d475462b49c286`),
+and `policy_summary.json`
+(`4967162ff54c41fb8061f5b3024167573c485edecfefe80c2d0f563806100d56`).
+The independent completion/multifamily hardening audit passed 25 focused tests;
+full provenance and all output hashes are in
+`reports/STAGE5_MULTIFAMILY_AUDIT.md`.
+
+The current `models.json` also contains one separately marked all-15 deployment
+tree for selection-latency measurement. It is not used by any held-out fold or
+metric; the three LOFO models and every evaluation artifact remain
+byte-identical to the original seal.
+
+## Preliminary Fe4S4 selector inference overhead
 
 With the deployment full tree already loaded, the measured hot path includes feature mapping, memory-feasibility filtering, both candidate predictions, and deterministic argmin. After 1,000 warmups, 10,000 iterations have median `38.65 us`, p90 `42.6673 us`, and p95 `48.7131 us`. The hot median is `0.002739337080263366%` of the shortest Stage 4 SBD median (`1.4109253030037507 s`).
 

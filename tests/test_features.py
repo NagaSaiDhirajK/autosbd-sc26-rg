@@ -12,6 +12,7 @@ from autosbd.features import (
     UnsupportedGuardConfiguration,
     candidate_memory_feasible,
     combine_input_hashes,
+    determinant_word_counts,
     estimate_source_memory,
     extract_input_features,
     gpu_admission_limit_bytes,
@@ -134,6 +135,43 @@ class Fe4S4FeatureTests(unittest.TestCase):
         self.assertEqual(estimate.gpu_host_guard_bytes, 640 * MIB)
         self.assertEqual(estimate.gpu_guard_bytes, 576 * MIB)
         self.assertFalse(estimate.helper_is_upper_bound)
+
+    def test_bit_length_48_matches_real_full_interleaved_representation(self) -> None:
+        family_inputs = {
+            "fe4s4": (
+                self.fcidump_path,
+                {20: (2, 4), 48: (1, 2)},
+            ),
+            "n2": (
+                REPOSITORY_ROOT / "external/riken-sbd/data/n2/fcidump.txt",
+                {20: (1, 2), 48: (1, 1)},
+            ),
+            "h2o": (
+                REPOSITORY_ROOT / "external/riken-sbd/data/h2o/fcidump.txt",
+                {20: (2, 3), 48: (1, 1)},
+            ),
+        }
+        for family_id, (fcidump_path, expected) in family_inputs.items():
+            with self.subTest(family_id=family_id):
+                n_orbitals = parse_fcidump(fcidump_path).n_orbitals
+                self.assertEqual(
+                    {
+                        width: determinant_word_counts(n_orbitals, width)
+                        for width in (20, 48)
+                    },
+                    expected,
+                )
+
+        width_48 = estimate_source_memory(
+            self.features,
+            bit_length=48,
+            max_block=10,
+            iterations=6,
+        )
+        self.assertEqual(width_48.determinant_cache_bytes, 952_576)
+        self.assertEqual(width_48.determinant_cache_temporary_bytes, 3_904)
+        with self.assertRaisesRegex(FeatureError, "64-bit size_t"):
+            determinant_word_counts(36, 65)
 
 
 class SmallInputTests(unittest.TestCase):

@@ -258,3 +258,91 @@
 - Evidence boundary: each candidate/workload has one measured repetition. The pilot is planning/crossover-bracketing evidence only; it supplies no final median, variability, held-out family evaluation, or structural-feature claim.
 - Final protocol: `reports/phaseb_final_protocol.json` freezes 104 new records—20 warmups and 84 measurements. Five repetitions are preregistered at the four 55/100 crossover-adjacent workloads and two full headline workloads; three are used at the other four workloads. The runner now has tested stop-on-first-non-success behavior. Projected total is 7.55063 minutes/USD 0.21826; the 25% buffer is 9.43829 minutes/USD 0.27283.
 - Decision/gate: D-037 accepts the pilot only for planning and freezes the final design. No final shard may launch until the user grants fresh explicit approval. Multifamily evaluation remains gated on at least three eligible repetitions per retained candidate/size.
+
+## 2026-08-01 — Phase B repeated N₂/H₂O final campaign
+
+- Purpose: produce repeated, correctness-gated timing evidence for two
+  additional authentic chemistry families on the exact official AMD CPU16 and
+  L4 binaries, enabling three-family held-out evaluation.
+- Authorization/protocol: the user explicitly approved the frozen campaign
+  before launch. `reports/phaseb_final_protocol.json` SHA-256
+  `bf5b27d5213e02b08c5836e7a91da4702431d7c6ee9b01c58d76d660add73e98`;
+  shard hashes `f9aedb1e...d990`, `755ccfa4...5398`, and
+  `1807f183...c2e`; clean project commit
+  `834af59c4663998e855e7442caf718850bfc60b1`.
+- Implementation boundary: all 104 runs used official
+  `AMD-HPC/amd-sbd` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`,
+  NVIDIA HPC SDK 26.5, CPU executable SHA `190525bd...ef07`, and L4
+  OpenMP-offload executable SHA `8f1481b6...bc07`. RIKEN supplied exact input
+  bytes only; no RIKEN executable ran.
+- Geometry: crossover shard 48 records, broad shard 32, headline shard 24;
+  total 104 = 20 warmups + 84 measurements. All 104 physical/logical IDs are
+  unique. All warmups and only warmups are ineligible; all 84 measurements are
+  eligible. Balanced multifamily evaluation will use repetitions 0–2 only:
+  60 N₂/H₂O measurements, combined later with 30 Fe₄S₄ measurements.
+- Outcome: all 104 records passed process, convergence, reference correctness,
+  input integrity, build/manifest provenance, CPU/GPU pairing, monitoring,
+  offload, and memory gates. There was no timeout, OOM, skip, parser failure,
+  scientific failure, correctness failure, or overlap.
+
+| Family | Configurations | CPU16 median (s) | CPU IQR (s) | L4 median (s) | L4 IQR (s) | CPU/L4 | Winner |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| N₂ | 1,024 | 0.607656 | 0.000346 | 0.791775 | 0.000665 | 0.767460 | CPU16 |
+| N₂ | 3,025 | 0.707902 | 0.000388 | 0.786233 | 0.005360 | 0.900372 | CPU16 |
+| N₂ | 10,000 | 1.110516 | 0.001125 | 0.995270 | 0.004767 | 1.115794 | L4 |
+| N₂ | 30,276 | 3.020428 | 0.000209 | 1.126547 | 0.028935 | 2.681138 | L4 |
+| N₂ | 57,121 | 5.936789 | 0.000694 | 1.308605 | 0.001763 | 4.536732 | L4 |
+| H₂O | 1,024 | 0.607208 | 0.000465 | 0.842173 | 0.031098 | 0.721002 | CPU16 |
+| H₂O | 3,025 | 0.708406 | 0.000305 | 0.980570 | 0.052381 | 0.722443 | CPU16 |
+| H₂O | 10,000 | 1.311406 | 0.000394 | 0.993132 | 0.002685 | 1.320475 | L4 |
+| H₂O | 30,276 | 3.624439 | 0.001227 | 1.311358 | 0.048623 | 2.763883 | L4 |
+| H₂O | 75,625 | 10.965016 | 0.101867 | 1.754983 | 0.064964 | 6.247934 | L4 |
+
+- Interpretation: each new family has an observed winner flip between measured
+  sizes 3,025 and 10,000, with no interpolation. Fe₄S₄ instead favors the GPU
+  at 3,025, so the three-family corpus contains a same-size family-dependent
+  winner and is not perfectly described by one universal size threshold.
+- Variability/anomaly: N₂-55 GPU repetition 4 is 10.65% above its cell median.
+  It remains valid and immutable; no outlier deletion or hand adjustment was
+  performed.
+- Resources/cost: sequential span 279.985871 seconds; process-wall sum
+  212.774595652 seconds; peak host RSS 138.078125 MiB; peak GPU allocation
+  196 MiB; minimum free L4 memory 22,564 MiB; maximum preflight temperature
+  39 °C. Approximate span cost is USD 0.13489 at the repository-recorded
+  USD 1.734376528/hour rate, which was not independently refreshed.
+- Deterministic aggregate: JSON SHA `f7deacc8...2768d`, CSV SHA
+  `755cf8c6...8244`; immediate regeneration was byte-stable.
+- Claim boundary: this completes repeated N₂/H₂O CPU/GPU timing coverage. It
+  does not by itself establish selector generalization or structural-feature
+  benefit; those require preregistered leave-one-family-out evaluation.
+
+## 2026-08-01 — Sealed Stage 5 multifamily LOFO evaluation
+
+- Purpose: execute the hash-frozen D-039/D-040 evaluation without launching an SBD solver, modifying raw records, tuning on held-out data, or replacing the existing single-family Stage 5 artifacts.
+- Sources: all seven config-bound Stage 4/Phase B protocol, completion, aggregate, and Fe₄S₄-registry hashes matched. `results/processed/stage5_multifamily/source_manifest.json` independently binds all 90 selected raw records; its SHA-256 is `2a51193041b0e4d5f365769a67e0cd0b9aee86d48bbe85739f16c928b8e63ec6`.
+- Geometry/leakage: measured repetitions 0–2 only; 90 measurements, 30 candidate medians, 15 family-qualified instances, and three LOFO folds holding out Fe₄S₄, N₂, and H₂O. Every candidate/repetition of each held-out family remains outside training; split leakage check passed.
+- Frozen model: full and size-only `DecisionTreeRegressor` models use `max_depth=3`, `min_samples_leaf=2`, random state 1729, and training-family data only. Provenance/grouping fields and post-execution telemetry are not predictors.
+- Pooled result: full tree 13/15, geometric selected/oracle `1.0229922425736244`, speedup `1.8328832288910508` versus fixed CPU16 and `1.0566826178825666` versus fixed GPU; threshold 13/15 and `1.0377461353348265`; size-only 12/15 and `1.1717731863098702`. Fixed CPU16 is 5/15 and `1.8750253246988415`; fixed GPU is 10/15 and `1.080978120956255`.
+- Exact misses: full tree misses Fe₄S₄-3025 and N₂-10000; threshold misses Fe₄S₄-3025 and H₂O-3025. No policy has an invalid selection or execution failure.
+- Hardening: an independent audit passed 25 focused completion/multifamily tests covering source/raw hashes, symlinks, view/registry bindings, changed-only determinism, exact geometry, feature leakage, fold/model source exclusion, held-out mutation, and metric completeness.
+- Sealed outputs: evaluation SHA `c0f7e6cead38bd431c4da7907beb7df7408cae99989a743eaef4044f61420c50`; models SHA `f5ab01ac353a6d3ded09f6907d56d0dc2cad40e6e91fa10d3b51791638cdd9b2`; policy-summary SHA `4967162ff54c41fb8061f5b3024167573c485edecfefe80c2d0f563806100d56`; complete hash table in `reports/STAGE5_MULTIFAMILY_AUDIT.md`.
+- Interpretation boundary: this supports only a three-family, 15-correlated-prefix, two-candidate backend selector on one CPU/L4 node. There are no confidence intervals, independent-machine data, comprehensive parameter autotuning, multi-node results, or universal-generalization claim.
+
+## 2026-08-01 — Phase C solver-parameter screen frozen before execution
+
+- Purpose: test two genuine options exposed by the exact official AMD SBD executable—`bit_length` 20/48 and shuffle 0/1—together with CPU16/L4 backend selection, without substituting a solver or expanding into weakly supported MPI/cache axes.
+- Workload rule: from the sealed balanced three-family dataset, choose each family's smallest and largest instance plus the non-endpoint instance whose CPU16/L4 median ratio is closest to parity. This selects Fe₄S₄ 1,024/3,025/59,536, N₂ 1,024/3,025/57,121, and H₂O 1,024/10,000/75,625 configurations.
+- Exact grid: 9 workloads × 2 backends × 2 `bit_length` values × 2 shuffle values = 72 correctness-only records. After all 36 exact CPU/GPU solver-setting pairs pass and a schema-v3 manifest is sealed, the unchanged grid may run one warmup and one measured repetition per cell: 144 timing-campaign records. Total planned records are 216.
+- Validity: pinned AMD source defines `bit_length` per `size_t`; the cache stores `ceil(2L/w)` words per full configuration and inputs use `ceil(L/w)` words per half determinant. Value 48 is within the audited 64-bit bound and reduces the full cache representation versus 20. Shuffle reorders alpha/beta determinant lists with fixed seeds 1729/137; every setting therefore requires dynamic CPU/GPU correctness.
+- Provenance: `configs/phasec_parameter_correctness.yaml` SHA `9164e53b...c991d7`; official AMD commit `729cfa3...36dcb`; NVIDIA HPC SDK 26.5 CPU/GPU hashes `190525bd...ef07`/`8f1481b6...bc07`. RIKEN contributes N₂/H₂O input bytes only.
+- Safety: 300 seconds is a per-run hang/pathology cap; solver `max_time` is 240 seconds. Maximum modeled guards are 640 MiB host and 576 MiB GPU, still subject to per-trial idleness, free-memory, temperature, power, CPU-load, and dynamic 80%-of-free/20-GiB checks.
+- Projection: 25.919 minutes/USD 0.749 nominal for correctness plus timing; 32.399 minutes/USD 0.937 at 25% contingency and 38.879 minutes/USD 1.124 at 50%. `reports/phasec_parameter_protocol.json`, SHA `2082cecd...9e56`, remains `awaiting_explicit_phase_c_approval`.
+- Evidence boundary: one measured repetition is a pruning screen, not final variability evidence. Call the result a configuration tuner only if parameter winners genuinely vary by instance; otherwise retain the dominant setting and report a cross-family CPU/GPU selector honestly. No Phase C solver run occurred in this block.
+
+## 2026-08-01 — Multifamily deployment-model and offline-analysis readiness
+
+- Deployment isolation: added one deterministic full-feature tree fitted to all 15 balanced instances only for deployed selection and latency measurement. Its exact 15 instance IDs and 90 source record IDs are bound in `models.json`; `used_for_heldout_metrics=false`. All three 10-instance/60-source LOFO models and every held-out evaluation/prediction/summary artifact remained byte-identical.
+- Artifact change: only multifamily `models.json` changed during deterministic regeneration, from SHA `f5ab01ac...dd9b2` to `f5114b0a...c286`; the immediate second regeneration changed nothing.
+- Latency boundary: no multifamily inference-overhead timing occurred before the clean checkpoint. The existing Fe₄S₄ timing remains separate preliminary evidence.
+- Phase C analysis readiness: the offline analyzer requires the complete future 144-record timing aggregate, recomputes it from explicit immutable raw IDs, enforces exact correctness/provenance/parameter geometry, and produces descriptive paired effects and family/size/candidate summaries without automatic pruning or model fitting.
+- Verification: 21/21 focused deployment/overhead tests, 5/5 parameter-analyzer tests, and 207/207 full repository tests passed. Dependency and diff checks passed. No SBD solver or GPU kernel ran.

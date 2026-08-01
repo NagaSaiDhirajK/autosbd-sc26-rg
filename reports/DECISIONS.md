@@ -276,3 +276,95 @@
 - Observed planning result: CPU16 wins at 1,024 and 3,025 configurations in both N₂ and H₂O; L4 wins at 10,000, 30,276, and the full family sizes. This preregisters 55/100 half-determinants as crossover-adjacent and both full inputs as headline cases; it does not interpolate an unmeasured crossover.
 - Frozen final protocol: `reports/phaseb_final_protocol.json` defines three same-campaign shards with one warmup per candidate/workload, five measured repetitions at the four crossover-adjacent and two full headline workloads, and three at the remaining four workloads: 104 total records, 20 warmups, and 84 measurements. All shards retain the exact official AMD commit/binaries, correctness manifest, solver settings, seeded candidate randomization, sequential node lock, 300-second timeout, memory/idleness checks, immutable resume, and stop-on-first-non-success behavior.
 - Estimate and gate: the measured pilot projects 7.55063 minutes and approximately USD 0.21826; a 25% buffer projects 9.43829 minutes and USD 0.27283 at the repository-recorded list rate. This replaces the pre-pilot estimate. Do not launch any final shard until the user grants fresh explicit approval.
+
+## D-038 — Accept the completed Phase B final timing campaign
+
+- Date: 2026-08-01
+- Status: accepted and independently audited
+- Decision: Following explicit user approval, accept the 104 immutable records
+  produced by the three frozen final shards as Phase B final timing evidence.
+  Preserve all 20 warmups as ineligible and all 84 measured records as eligible.
+  Preserve the N₂-55 GPU repetition-4 variation unchanged; do not delete,
+  reclassify, smooth, or replace any raw measurement.
+- Evidence: all shard commands exited `0` with `48/48`, `32/32`, and `24/24`
+  successes and zero reuse. Independent strict audit found exact geometry,
+  unique identities, correct official-AMD/input/build/manifest bindings, stable
+  inputs, complete monitoring/offload, zero overlap, and no process/scientific/
+  correctness/resource failure. Campaign span was 279.985871 seconds; peak host
+  RSS was 138.078125 MiB and peak GPU allocation was 196 MiB.
+- Analysis boundary: use the final aggregate at
+  `results/processed/phaseb_n2_h2o_grid_final.json`, SHA-256
+  `f7deacc86e923614fded5f8e6bdfa7206fe8339e3a4d035d6db7ee967212768d`.
+  Pilot and correctness runs remain excluded from final medians and model rows.
+- Claim boundary: the campaign supports repeated N₂/H₂O CPU16-versus-L4
+  evidence on this one node. Cross-family selector and structural-feature
+  claims remain pending held-out evaluation.
+
+## D-039 — Freeze leave-one-family-out evaluation before inspecting its outcomes
+
+- Date: 2026-08-01
+- Status: accepted; implementation in progress
+- Decision: Create a versioned multifamily evaluator without overwriting the
+  existing Fe₄S₄-only Stage 5 artifacts. Use exactly measured repetitions
+  `0,1,2` for every family/instance/candidate: 90 source measurements, 30
+  candidate medians, 15 instances, and three primary folds holding out Fe₄S₄,
+  N₂, and H₂O in turn. Keep every candidate and repetition of a held-out family
+  entirely outside training.
+- Models/policies: preregister a deterministic full-feature decision tree with
+  `max_depth=3`, `min_samples_leaf=2`, and random state 1729; use an otherwise
+  matched size/backend-only tree. Compare fixed CPU16, fixed L4, training-only
+  geometric-midpoint threshold, size-only tree, full tree, and measured feasible
+  oracle. Pool only out-of-family predictions for primary global metrics and
+  also report every held-out family separately.
+- Leakage boundary: family ID, molecule, basis, instance/hash identifiers,
+  measured peaks, timings, and other post-execution telemetry are grouping,
+  provenance, or targets only—not predictors. Model thresholds and the static
+  threshold are fitted from training families only. Pilot, correctness,
+  warmup, and measured repetitions 3–4 cannot enter the balanced model dataset.
+- Interpretation gate: if full features do not improve over size-only and the
+  static threshold, report that directly and retain the narrower cross-family
+  backend-selector result. Authentic `shuffle` and `bit_length` screening comes
+  only after this core evidence is sealed and requires a separate bounded
+  correctness/timing approval.
+
+## D-040 — Freeze the hash-bound multifamily evaluation configuration
+
+- Date: 2026-08-01
+- Status: frozen before real-data model fitting
+- Decision: Bind `configs/stage5_multifamily.yaml` to the exact SHA-256 values
+  of the Stage 4 protocol/completion/aggregate/Fe₄S₄ registry and Phase B
+  protocol/completion/aggregate. The configuration makes D-039 executable:
+  exact repetitions 0–2, 90 measurements, 30 medians, 15 family-qualified
+  instances, three leave-one-chemistry-family-out folds, the frozen tree
+  settings, six policies, and the no-universal/no-multinode claim boundary.
+- Timing: all seven source hashes were recomputed and matched before this file
+  was written. No real-data model was fitted and no selector outcome was
+  inspected before the freeze.
+
+## D-041 — Accept the sealed multifamily LOFO package with a narrow claim
+
+- Date: 2026-08-01
+- Status: accepted and independently audited
+- Decision: Accept the deterministic `stage5-amd-multifamily-selector-v1` package as the primary cross-family selector evidence. Preserve the frozen 90-measurement/30-median/15-instance dataset, three leave-one-family-out folds, depth-3/minimum-leaf-2 trees, training-only threshold, six-policy comparison, source manifest, models, predictions, and summaries unchanged.
+- Evidence: all seven source claims and all 90 selected raw path/SHA/size claims verify; the split manifest reports no leakage; all policy predictions are valid and failure-free. The full tree is correct on 13/15 pooled held-out instances with geometric selected/oracle runtime `1.0229922425736244`, versus threshold 13/15 and `1.0377461353348265`, and size-only 12/15 and `1.1717731863098702`. Its geometric speedups are `1.8328832288910508` versus fixed CPU16 and `1.0566826178825666` versus fixed GPU.
+- Miss disclosure: preserve and report the full-tree misses at Fe₄S₄-3025 and N₂-10000 and the threshold misses at Fe₄S₄-3025 and H₂O-3025. Do not hide the size-only H₂O full-size high-regret miss or tune the frozen models after inspecting these outcomes.
+- Hardening: the independent audit passed 25 focused completion/multifamily tests, including hash/symlink failure paths, deterministic changed-only outputs, source-view and registry binding, exact geometry, feature allowlists, fold/model source exclusion, and held-out mutation invariance.
+- Claim boundary: state only that the full frozen model improves pooled selected/oracle runtime over the frozen size-only ablation and threshold for these 15 correlated prefixes from three families and two candidates on one CPU/L4 node. Do not claim universal chemistry generalization, comprehensive autotuning, independent-machine robustness, multi-node scaling, or exascale relevance.
+
+## D-042 — Freeze a narrow authentic Phase C parameter screen
+
+- Date: 2026-08-01
+- Status: frozen; execution awaiting explicit Phase C approval
+- Decision: Screen only the three authentic axes supported by the exact official AMD executable: CPU16/L4 backend, shuffle 0/1, and `bit_length` 20/48. Use one small, one crossover-near, and one large sealed workload per Fe₄S₄, N₂, and H₂O under a correctness-first 72-record grid, followed only after a complete exact-solver schema-v3 manifest by one warmup and one measured repetition per cell.
+- Rationale: this is the smallest factorial design that answers whether the two genuine solver controls add instance-dependent choices beyond backend. Source inspection establishes their representation/load-order semantics, and the existing candidate-override/manifest code binds each setting immutably without modifying upstream SBD.
+- Pruning rule: prune only invalid settings, settings consistently dominated within a backend, scientifically redundant settings, or settings exceeding the memory budget. Retain at most four final candidates unless measured evidence strongly justifies more. Preserve every success/failure and do not infer unmeasured settings.
+- Approval/safety gate: the combined 216-record sequence projects to 25.919 minutes/USD 0.749 nominal, 32.399 minutes/USD 0.937 with 25% buffer, and 38.879 minutes/USD 1.124 at 50% contingency. Do not launch until the project scope is reviewed and locally committed, the GPU preflight is repeated, and the user explicitly approves this Phase C campaign.
+- Claim gate: if parameter winners vary by instance, a modest backend/configuration-selector claim may be considered. If one setting dominates, prune it honestly and retain the narrower CPU/GPU runtime-selector claim. One-repetition pruning evidence is not a final variance study or comprehensive autotuning result.
+
+## D-043 — Separate the all-data deployment model from LOFO evidence
+
+- Date: 2026-08-01
+- Status: accepted and implemented; multifamily latency measurement pending
+- Decision: Fit one deterministic full-feature tree on all 15 balanced instances solely to exercise the deployed selection path. Export it under a separate `deployment_models` namespace with exact 15-instance/90-source provenance and `used_for_heldout_metrics=false`. Keep the three training-family-only fold models unchanged and keep the deployment model out of `evaluation.json`, policy predictions, and every held-out metric.
+- Rationale: timing a single deployable selector is meaningful; timing a family-aware router among three LOFO models would measure an artificial mechanism and risk confusing latency evidence with generalization evidence. Training on all instances is acceptable only for this compute-latency microbenchmark, never for accuracy, regret, or speedup claims.
+- Gate: multifamily hot/cold timing may run only from a clean local checkpoint. The timed projection must contain only registered pre-execution features and feasibility data; family/chemistry identities, measured runtime, targets, and post-execution telemetry remain outside it.

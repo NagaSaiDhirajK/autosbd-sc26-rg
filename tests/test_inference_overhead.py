@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 import csv
 import hashlib
 import json
@@ -29,6 +30,10 @@ from autosbd.inference_overhead import (
     write_immutable_raw_record,
     write_processed_artifacts,
 )
+from autosbd.multifamily_evaluation import fit_multifamily_deployment_tree
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class InferenceOverheadTests(unittest.TestCase):
@@ -108,6 +113,49 @@ class InferenceOverheadTests(unittest.TestCase):
             "rows": rows,
         }
 
+    def _multifamily_dataset(self) -> dict[str, object]:
+        path = ROOT / "results/processed/stage5_multifamily/balanced_dataset.json"
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def _multifamily_model_artifact(
+        self, dataset: dict[str, object]
+    ) -> dict[str, object]:
+        return {
+            "schema_version": 1,
+            "config": {
+                "name": "fixture-stage5-multifamily",
+                "path": "configs/fixture.yaml",
+                "sha256": "a" * 64,
+            },
+            "deployment_model_scope": {
+                "fit_scope": "all_balanced_instances_after_heldout_evaluation",
+                "purpose": "deployment_selection_and_inference_overhead_only",
+                "used_for_heldout_metrics": False,
+                "training_instance_count": 15,
+                "training_source_record_count": 90,
+            },
+            "deployment_models": {
+                POLICY_FULL_TREE: fit_multifamily_deployment_tree(dataset)
+            },
+        }
+
+    def _load_temporary_multifamily_inputs(
+        self,
+        root: Path,
+        *,
+        dataset: dict[str, object],
+        models: dict[str, object],
+    ) -> dict[str, object]:
+        models_path = root / "models.json"
+        dataset_path = root / "balanced_dataset.json"
+        models_path.write_text(json.dumps(models), encoding="utf-8")
+        dataset_path.write_text(json.dumps(dataset), encoding="utf-8")
+        return load_inference_inputs(
+            models_path,
+            dataset_path,
+            repository_root=root,
+        )
+
     def test_inputs_are_strict_and_project_only_preexecution_selection_fields(self) -> None:
         with tempfile.TemporaryDirectory() as name:
             root = Path(name)
@@ -143,6 +191,86 @@ class InferenceOverheadTests(unittest.TestCase):
 
             loaded = load_deployment_model(models)
             self.assertEqual(loaded["feature_names"], list(FULL_FEATURE_NAMES))
+
+    def test_multifamily_inputs_cover_all_instances_without_timed_targets(self) -> None:
+        dataset = self._multifamily_dataset()
+        models = self._multifamily_model_artifact(dataset)
+        with tempfile.TemporaryDirectory() as name:
+            inputs = self._load_temporary_multifamily_inputs(
+                Path(name), dataset=dataset, models=models
+            )
+        groups = inputs["candidate_groups"]
+        self.assertEqual(len(groups), 15)
+        self.assertEqual(
+            {group["family_id"] for group in groups}, {"fe4s4", "n2", "h2o"}
+        )
+        self.assertEqual(
+            {group["instance_id"] for group in groups},
+            {item["instance_id"] for item in dataset["instances"]},
+        )
+        self.assertEqual(inputs["workload"]["problem_instance_count"], 15)
+        self.assertTrue(
+            all(
+                "instance_id" in item and "family_id" in item
+                for item in inputs["workload"]["problem_instances"]
+            )
+        )
+        shortest = inputs["workload"]["shortest_measured_sbd_candidate_median"]
+        self.assertIn("instance_id", shortest)
+        self.assertIn("family_id", shortest)
+        for group in groups:
+            self.assertEqual(len(group["candidate_rows"]), 2)
+            for row in group["candidate_rows"]:
+                self.assertEqual(
+                    set(row),
+                    {
+                        "candidate_name",
+                        "backend",
+                        "feature_values",
+                        "memory_guard",
+                        "memory_caps",
+                    },
+                )
+                self.assertEqual(set(row["feature_values"]), set(FULL_FEATURE_NAMES))
+                self.assertNotIn("median_wall_time_s", row)
+                self.assertNotIn("target_log1p_median_wall_time_s", row)
+
+    def test_multifamily_geometry_and_model_bindings_fail_closed(self) -> None:
+        dataset = self._multifamily_dataset()
+        models = self._multifamily_model_artifact(dataset)
+        malformed_dataset = deepcopy(dataset)
+        malformed_dataset["record_counts"]["problem_instances"] = 14
+        malformed_instance_model = deepcopy(models)
+        malformed_instance_model["deployment_models"][POLICY_FULL_TREE][
+            "training_instance_ids"
+        ][0] = "fe4s4::not-a-balanced-instance"
+        malformed_source_model = deepcopy(models)
+        malformed_source_model["deployment_models"][POLICY_FULL_TREE][
+            "training_source_record_ids"
+        ][0] = "0" * 64
+        malformed_scope_model = deepcopy(models)
+        malformed_scope_model["deployment_model_scope"][
+            "used_for_heldout_metrics"
+        ] = True
+        malformed_feature_dataset = deepcopy(dataset)
+        malformed_feature_dataset["rows"][0]["feature_values"][
+            "median_wall_time_s"
+        ] = malformed_feature_dataset["rows"][0]["median_wall_time_s"]
+
+        cases = (
+            (malformed_dataset, models),
+            (dataset, malformed_instance_model),
+            (dataset, malformed_source_model),
+            (dataset, malformed_scope_model),
+            (malformed_feature_dataset, models),
+        )
+        for case_index, (case_dataset, case_models) in enumerate(cases):
+            with self.subTest(case=case_index):
+                with tempfile.TemporaryDirectory() as name:
+                    with self.assertRaises(InferenceOverheadError):
+                        self._load_temporary_multifamily_inputs(
+                            Path(name), dataset=case_dataset, models=case_models
+                        )
 
     def test_strict_loader_rejects_duplicate_and_nonfinite_json(self) -> None:
         with tempfile.TemporaryDirectory() as name:

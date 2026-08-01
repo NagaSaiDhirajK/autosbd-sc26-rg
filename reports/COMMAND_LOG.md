@@ -2142,3 +2142,417 @@ and was not repeated unchanged. The corrected check used
 `rg -l phaseb-amd-n2-h2o-grid-pilot results/raw/*.json` plus the aggregate's
 `input_record_ids`; both counts were exactly 40, and every aggregate-derived
 path existed.
+
+## 2026-08-01T17:08Z–17:15Z — Execute the approved Phase B final campaign
+
+The user explicitly approved the frozen 104-record final campaign after the
+measured pilot projection and restated that the 300-second timeout is a
+per-trial hang/pathology safety cap. No abstract, submission summary, poster,
+poster source, or poster copy was created.
+
+The final preflight required clean tracked source at commit
+`834af59c4663998e855e7442caf718850bfc60b1`, exact protocol/config/manifest/
+binary hashes, an idle L4, sufficient host/GPU memory, and sufficient disk.
+The external gates before and between shards used:
+
+```bash
+nvidia-smi --query-gpu=name,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw,power.limit --format=csv,noheader,nounits
+nvidia-smi --query-compute-apps=pid,process_name,used_gpu_memory --format=csv,noheader,nounits
+uptime
+free -b
+df -B1 --output=avail .
+git diff --quiet
+git diff --cached --quiet
+vmstat 1 2
+ps -eo pid,comm,%cpu --sort=-%cpu | head -n 8
+```
+
+Before launch the L4 had 22,564 MiB free, zero allocation/utilization, no
+compute process, and was 34 °C. The largest static guard was 603,979,776 bytes,
+far below the 18,928,055,091-byte admission cap. Before the headline shard,
+`vmstat` confirmed 100% instantaneous CPU idle; the nonzero one-minute load was
+only a trailing average from the completed broad shard.
+
+The three shards ran sequentially, with no concurrent timing configuration:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/run_sweep.py configs/phaseb_n2_h2o_final_crossover.yaml \
+  --stop-on-non-success --require-all-success
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/run_sweep.py configs/phaseb_n2_h2o_final_broad.yaml \
+  --stop-on-non-success --require-all-success
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/run_sweep.py configs/phaseb_n2_h2o_final_headline.yaml \
+  --stop-on-non-success --require-all-success
+```
+
+Outcomes were respectively `48/48`, `32/32`, and `24/24` newly launched
+successes, with zero reused records and no stop condition. The full campaign
+therefore produced 104/104 successful immutable records. Live post-shard gates
+continued to find zero L4 allocation/utilization and no GPU process.
+
+## 2026-08-01T17:15Z–17:28Z — Inventory, aggregate, and independently audit Phase B final evidence
+
+The exact final family inventory and deterministic aggregation used:
+
+```bash
+jq -s '[.[] | select(.problem_family == "phaseb-amd-n2-h2o-grid-final-v1")] as $r | {...}' results/raw/*.json
+mapfile -t phaseb_final_records < <(jq -r \
+  'select(.problem_family == "phaseb-amd-n2-h2o-grid-final-v1") | input_filename' \
+  results/raw/*.json | sort)
+test "${#phaseb_final_records[@]}" -eq 104
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/analyze_results.py "${phaseb_final_records[@]}" \
+  --output-json results/processed/phaseb_n2_h2o_grid_final.json \
+  --output-csv results/processed/phaseb_n2_h2o_grid_final.csv
+# The identical command was immediately run a second time.
+sha256sum results/processed/phaseb_n2_h2o_grid_final.json \
+  results/processed/phaseb_n2_h2o_grid_final.csv
+```
+
+The first aggregation reported `input=104,included=84,excluded=20`; the second
+reported the same counts with `json_changed=false,csv_changed=false`. Output
+SHA-256 values are `f7deacc86e923614fded5f8e6bdfa7206fe8339e3a4d035d6db7ee967212768d`
+and `755cf8c6a35a260eec39ffc61d8a24028e99c3916057d8ec9b1151ffb6a58244`
+for JSON and CSV.
+
+An independent read-only audit used strict `load_sweep_config()` templates,
+`load_record()` validation, canonical ID/SHA reconstruction, in-memory
+correctness-manifest regeneration, linked-artifact/resource-log checks, paired
+CPU/GPU science checks, and timestamp interval checks. Its supporting commands
+included exact config/binary/manifest `sha256sum`, repository/upstream
+`git rev-parse` and cleanliness checks, and explicit raw-family discovery with
+`rg -l`. It did not invoke a solver or edit a file.
+
+The audit passed all 104 records: 20 warmups, 84 measured, 52 CPU, 52 GPU,
+104 unique physical/logical IDs, exact shard ownership `48/32/24`, zero missing
+or extra templates, and zero overlapping intervals. Every record passed
+process/science/correctness, input/build/validation, offload, monitoring, and
+resource checks. The campaign spanned 279.985871 seconds and summed to
+212.774595652 seconds of recorded process wall. Peak host RSS was 138.078125
+MiB and peak GPU allocation was 196 MiB. N₂-55 GPU measured repetition 4 was
+10.65% slower than its cell median; it is retained unchanged and disclosed as
+the only notable timing spread.
+
+Read-only inspection had three harmless query errors, none repeated unchanged:
+
+- `sed` targeted nonexistent `scripts/aggregate_results.py` and exited `2`;
+  the real entry point is `scripts/analyze_results.py`.
+- one jq timing-table query used `.candidates` instead of
+  `.candidate_groups`, reported a null-iteration error, and changed nothing;
+- one corrected-schema probe accidentally expanded every aggregate row per
+  workload, producing display-truncated output but no write. The final bounded
+  ten-row query joined each workload to one included row and succeeded.
+
+The first combined documentation patch failed before any write because one
+`DECISIONS.md` context line was stale. Exact EOF anchors were then read and
+separate append-only patches were used. The complete factual evidence review is
+`reports/PHASE_B_FINAL_AUDIT.md`.
+
+## 2026-08-01 — Build the Phase B final completion attestation
+
+The new fail-closed completion path was verified with:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  -m unittest tests.test_phaseb_completion tests.test_stage4_completion -q
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  -m py_compile src/autosbd/phaseb_completion.py \
+  scripts/build_phaseb_completion.py tests/test_phaseb_completion.py
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/build_phaseb_completion.py \
+  --protocol reports/phaseb_final_protocol.json \
+  --aggregate results/processed/phaseb_n2_h2o_grid_final.json \
+  --raw-dir results/raw \
+  --output reports/phaseb_final_completion.json
+# The identical generation command was immediately run a second time.
+sha256sum reports/phaseb_final_completion.json
+```
+
+Twelve new-plus-legacy completion tests passed in 2.223 seconds. The first
+production generation reported `changed=true`; the second reported
+`changed=false`. The completion is 101,178 bytes with SHA-256
+`9a75df34696ee05e683e50ce4583eaefcfbbed4f8f8265b3836a892ce0c7326d`.
+It traces 104 raw records, exposes exactly 60 balanced final IDs, recomputes the
+aggregate byte-semantically, and records raw-chain SHA-256
+`ead9e2e0558bdf28079e3902f712aa33842efe979066ada7dd65a87cfd67b3e2`.
+No raw file or solver artifact was modified and no GPU kernel ran.
+
+Before artifact-loader work, a read-only real-data smoke enriched all 48 Stage
+4 rows in memory through the strict Fe₄S₄ registry and combined them with the
+104-row Phase B aggregate. The multifamily builder accepted exactly 90 selected
+measurements, 30 candidate medians, and 15 instances. Each family contributed
+30/10/5, and every LOFO fold had 60 training records/10 instances and 30 test
+records/5 instances. No model was fitted and no outcome was inspected in this
+smoke check.
+
+## 2026-08-01 — Freeze Stage 5 multifamily source bindings
+
+The seven prerequisite artifacts were checked immediately before freezing the
+configuration:
+
+```bash
+sha256sum reports/stage4_protocol.json reports/stage4_completion.json \
+  results/processed/stage4_final.json \
+  reports/stage4_fe4s4_family_registry.json \
+  reports/phaseb_final_protocol.json reports/phaseb_final_completion.json \
+  results/processed/phaseb_n2_h2o_grid_final.json
+```
+
+Exit status was `0`; every digest matched the audited value. Added
+`configs/stage5_multifamily.yaml` with the exact source claims and D-039's
+frozen dataset/split/model/policy contract. No model fit, benchmark, raw-data
+mutation, network access, GPU work, or cost occurred. One preceding combined
+documentation patch failed atomically because it used a `COMMAND_LOG.md` EOF
+anchor against `DECISIONS.md`; it changed nothing and was replaced by this
+exact-context patch rather than repeated unchanged.
+
+## 2026-08-01 — Implement, harden, and verify multifamily LOFO evaluation
+
+The filesystem-free evaluator, hash-bound loader, CLI, tests, and frozen config
+were added at:
+
+- `src/autosbd/multifamily_evaluation.py`
+- `src/autosbd/multifamily_artifacts.py`
+- `scripts/evaluate_multifamily.py`
+- `tests/test_multifamily_evaluation.py`
+- `tests/test_multifamily_artifacts.py`
+- `configs/stage5_multifamily.yaml`
+
+Before production output, combined verification used:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_multifamily_artifacts tests.test_multifamily_evaluation \
+  tests.test_phaseb_completion tests.test_stage4_completion -q
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python - <<'PY'
+from pathlib import Path
+for name in (
+    'src/autosbd/multifamily_evaluation.py',
+    'src/autosbd/multifamily_artifacts.py',
+    'scripts/evaluate_multifamily.py',
+    'tests/test_multifamily_evaluation.py',
+    'tests/test_multifamily_artifacts.py',
+):
+    path = Path(name)
+    compile(path.read_text(), str(path), 'exec')
+PY
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/evaluate_multifamily.py --help
+git diff --check
+```
+
+Final result: 25/25 tests passed in 3.013 seconds; compilation, CLI smoke, and
+diff hygiene passed. Source/config SHA-256 values at the production seal were:
+
+- evaluator: `496ea0e5dfaa45e21bbdb4e50d86c604667490efd71b9579f9d2752408f6a610`
+- artifact loader/writer: `2e5b6e0db5c055be0a70d05fffe0a84566bdf0b40399564e1c3e8a99a45a8d63`
+- CLI: `a770165706b8c4bf692e4591a7bb33a19095ac76bfda20fa6e193c6d4f94fb46`
+- config: `5bcf87ce6cafe898412172c3f7a5bfd5299474719ae0940041f19b62f4d2cfa3`
+
+An independent read-only audit verified all seven source claims, both
+completion attestations, all 152 raw record hashes/identities, exact 90/30/15
+geometry, three 60/30-source LOFO partitions, training-only model/threshold
+fits, six policies, and provenance-feature exclusion. It found two Medium
+defense-in-depth gaps before production: derived instance summaries could be
+family-swapped, and the public writer did not recompute a supplied evaluation.
+Both were fixed. Candidate rows now exactly regenerate each instance and family
+summary; the writer now recomputes the complete deterministic evaluation and
+requires equality before creating its output directory. Both synthetic attacks
+fail closed, and the independent audit issued a GO verdict with no unresolved
+High or Medium finding.
+
+## 2026-08-01 — Seal and inspect Stage 5 multifamily artifacts
+
+The frozen production run was:
+
+```bash
+test ! -e results/processed/stage5_multifamily
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/evaluate_multifamily.py \
+  --config configs/stage5_multifamily.yaml \
+  --output-dir results/processed/stage5_multifamily
+# The identical evaluator command was then run a second time.
+sha256sum results/processed/stage5_multifamily/*
+```
+
+The first invocation exited `0` in 1.137 seconds and wrote all nine artifacts
+with `changed=true`. It reported exactly 90 measurements, 30 candidate medians,
+15 instances, and three family folds. The second exited `0` in 1.122 seconds
+and reported `changed=false` for every file. All JSON parsed, CSV sizes were
+90 policy predictions, 24 summary rows, and 12 ablation rows, and every fold
+had 60 training plus 30 test raw IDs with zero overlap. Hashes were:
+
+- `balanced_dataset.json`: `ba6a5506af54df7c5b1f4b888117d34c8ecb86d300d305c834c31fe02e15a846`
+- `evaluation.json`: `c0f7e6cead38bd431c4da7907beb7df7408cae99989a743eaef4044f61420c50`
+- `models.json`: `f5ab01ac353a6d3ded09f6907d56d0dc2cad40e6e91fa10d3b51791638cdd9b2`
+- `policy_predictions.csv`: `e29de16120ad611a13adde46fa5e21624880f04afc5d5621c83b249cb58629c4`
+- `policy_summary.csv`: `5f34333500332f3c28b181b3b333d7662f49a0246a984506ebafba1f640cd154`
+- `policy_summary.json`: `4967162ff54c41fb8061f5b3024167573c485edecfefe80c2d0f563806100d56`
+- `selector_ablation.csv`: `3baee7ba9a45485d9788350c6291054eacd86a1e6540de943b3198bcfd8cd968`
+- `source_manifest.json`: `2a51193041b0e4d5f365769a67e0cd0b9aee86d48bbe85739f16c928b8e63ec6`
+- `split_manifest.json`: `54aad40f6f012bcc483c0072e5de2b9d91430698904fea875556484618bb5811`
+
+Read-only inspection of the preregistered summaries and predictions found the
+full tree at 13/15 selections and geometric mean selected/oracle `1.022992243`,
+versus the static threshold at 13/15 and `1.037746135`, the size-only tree at
+12/15 and `1.171773186`, fixed GPU at 10/15 and `1.080978121`, and fixed CPU at
+5/15 and `1.875025325`. The full tree missed Fe₄S₄-3025 (25.94% regret)
+and N₂-10000 (11.66%); the threshold missed Fe₄S₄-3025 and H₂O-3025
+(38.42%). No raw measurement, solver binary, or source artifact changed, and
+no benchmark, GPU kernel, network operation, or billable analysis service ran.
+
+## 2026-08-01 — Audit and freeze Phase C parameter-screen protocol
+
+The initial read-only configuration audit used `git status --short`,
+`sha256sum configs/phasec_parameter_correctness.yaml`, the config/feature APIs,
+and the following focused suite:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_config tests.test_runner tests.test_calibration_manifest \
+  tests.test_features
+```
+
+The focused suite passed `57/57` in 6.875 seconds. The final strict audit used
+`SweepConfig.trial_templates(randomize=False)` and
+`extract_input_features(..., max_connectivity_pairs=0)` and passed exact
+assertions for 9 workloads, 8 candidates, 72 unique correctness templates,
+36 CPU/36 GPU trials, three workloads per family, all canonical input hashes,
+and the complete backend × `bit_length` × shuffle grid. Exact binary hashes
+were recomputed and matched CPU `190525bd...ef07` and GPU
+`8f1481b6...bc07`.
+
+Four harmless inspection snippets exited before their intended assertions and
+changed no files or evidence; none was repeated unchanged:
+
+- an audit imported nonexistent `build_trial_templates` instead of using the
+  `SweepConfig.trial_templates` method;
+- a corrected audit queried nonexistent `WorkloadConfig.dimension`; the 57
+  tests after that snippet still passed;
+- a feature audit passed nonexistent `include_connectivity`; source inspection
+  identified the correct `max_connectivity_pairs=0` argument;
+- two source queries named nonexistent paths
+  `applications/selected_basis_diagonalization/main.cc` and
+  `external/amd-sbd/src`; the correct paths under `.../src/main.cc` and
+  `external/amd-sbd/include` were then used.
+
+The completion handoff was read completely with:
+
+```bash
+wc -l AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '1,220p' AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '221,440p' AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '441,660p' AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '661,880p' AutoSBD_SC26_Completion_Handoff_v2.md
+```
+
+Source and build provenance were then captured with `rg`, `sed`, `sha256sum`,
+`stat`, and read-only `git -C external/amd-sbd` checks. The official checkout
+was clean at commit `729cfa3a5011fb805eb9e686a7711f6919836dcb` and origin
+`https://github.com/AMD-HPC/amd-sbd.git`. Source inspection confirmed that
+`bit_length` is the number of bits represented per `size_t`, with half/full
+word counts `ceil(L/w)` and `ceil(2L/w)`, and that shuffle uses fixed alpha/beta
+seeds 1729/137. An independent audit found maximum conservative guards of 640
+MiB host and 576 MiB GPU; its snapshot found an idle L4 with 22,564 MiB free.
+
+The runtime projection was recomputed with the repository-recorded rate:
+correctness 518.380728664 seconds, timing 1036.761457328 seconds, and combined
+1555.142185992 seconds (25.9190 minutes, USD 0.749223 nominal). A 25% buffer is
+32.3988 minutes/USD 0.936529; a 50% contingency is 38.8786 minutes/USD
+1.123834.
+
+`apply_patch` added `reports/phasec_parameter_protocol.json` and
+`tests/test_phasec_parameter_protocol.py`. Verification was:
+
+```bash
+.venv/bin/python -m json.tool reports/phasec_parameter_protocol.json >/dev/null
+PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_phasec_parameter_protocol tests.test_config tests.test_runner \
+  tests.test_calibration_manifest tests.test_features
+git diff --check
+sha256sum reports/phasec_parameter_protocol.json
+```
+
+Exit status was `0`; `62/62` tests passed in 10.245 seconds, diff hygiene
+passed, and the frozen protocol SHA-256 is
+`2082cecdae512473965b75d651b18768b02c092be0eccc21b73d0333b82d9e56`.
+No SBD executable, GPU kernel, benchmark, raw-record mutation, package install,
+network access, or student submission artifact was involved.
+
+## 2026-08-01 — Add multifamily deployment timing path and Phase C analyzer
+
+The multifamily evaluator now exports one full-feature deployment model trained
+on all 15 balanced instances only after held-out evaluation. The overhead loader
+accepts the exact multifamily 90-measurement/30-median/15-instance schema,
+groups by family-qualified `instance_id`, binds the deployment model to all 15
+instance IDs and 90 source record IDs, and projects only registered
+pre-execution features into the timed path. The deployment model is explicitly
+outside all LOFO metrics.
+
+Focused verification used:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_multifamily_evaluation tests.test_multifamily_artifacts \
+  tests.test_inference_overhead
+git diff --check
+```
+
+All `21/21` tests passed. `scripts/evaluate_multifamily.py` was then run twice
+with the frozen config/output paths. On the first pass only `models.json`
+changed, from SHA `f5ab01ac...dd9b2` to `f5114b0a...c286`; the dataset,
+evaluation, predictions, summaries, split/source manifests, and figure trace
+were byte-identical. The second pass reported `changed=false` for every file.
+No latency benchmark had yet run.
+
+The new `src/autosbd/parameter_screen.py` and
+`scripts/analyze_parameter_screen.py` strictly recompute a future aggregate
+from 144 explicit immutable raw IDs, require 72 measured cells and exact
+9-workload × 8-candidate warmup/measured geometry, enforce correctness and
+official-AMD provenance, and emit 108 direct paired factor effects plus 48
+size/candidate summaries. It performs no imputation, pruning, model fitting, or
+significance claim. The writer recomputes all derived content before atomic,
+idempotent JSON/272-row CSV output. Verification used:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_parameter_screen
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python -m py_compile \
+  src/autosbd/parameter_screen.py scripts/analyze_parameter_screen.py \
+  tests/test_parameter_screen.py
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/analyze_parameter_screen.py --help
+```
+
+All `5/5` tests, compilation, CLI smoke, and diff hygiene passed. One combined
+hardening patch failed atomically against a stale test anchor and changed
+nothing; smaller exact-context patches then succeeded.
+
+The full repository checkpoint was:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  -m unittest discover -s tests -q
+.venv/bin/python -m pip check
+git diff --check
+```
+
+Exit status was `0`: `207/207` tests passed in 27.007 seconds, no broken
+requirements were found, and nine primary JSON artifacts parsed successfully.
+The first combined documentation patch for this entry failed atomically because
+one audit-report line break differed from its expected context; smaller patches
+were used and no partial write occurred.
+
+The first cached diff check then exposed trailing spaces emitted inside the two
+new Matplotlib SVG path blocks plus two Markdown hard-break spaces. No commit
+occurred. The central SVG save helper now strips only line-ending whitespace
+and normalizes the final newline; a regression asserts canonical lines. The
+figures were regenerated twice with unchanged scientific sources. The first
+pass changed only the two SVGs and the second changed nothing. Four figure
+tests, XML parsing, embedded source-hash checks, and cached diff hygiene passed.
+Current SVG hashes are policy-regret
+`54e2bfcb10bb8ddd57739948394d10fde093c12e4487052c5d1b06f06089819b`
+and instance-decisions
+`4a5f29c00ba66cc31437fe2b5739dba30ba49f52590a3595a63bed310984802d`.

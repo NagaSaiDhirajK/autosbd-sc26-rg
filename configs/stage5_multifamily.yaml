@@ -1,0 +1,83 @@
+schema_version: 1
+name: stage5-amd-multifamily-selector-v1
+
+sources:
+  stage4_protocol:
+    path: reports/stage4_protocol.json
+    sha256: 29431c68e84cee75a280c5b5faf3d2a15f1eb2ec2c16f4f5ce37796ef5f307f6
+  stage4_completion:
+    path: reports/stage4_completion.json
+    sha256: 7fefb110d29b0bfae2ece24a3506bd6fa53e6e81257f57779ce2067e9910ee36
+  stage4_aggregate:
+    path: results/processed/stage4_final.json
+    sha256: 58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa
+  fe4s4_family_registry:
+    path: reports/stage4_fe4s4_family_registry.json
+    sha256: cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d
+  phaseb_protocol:
+    path: reports/phaseb_final_protocol.json
+    sha256: bf5b27d5213e02b08c5836e7a91da4702431d7c6ee9b01c58d76d660add73e98
+  phaseb_completion:
+    path: reports/phaseb_final_completion.json
+    sha256: 9a75df34696ee05e683e50ce4583eaefcfbbed4f8f8265b3836a892ce0c7326d
+  phaseb_aggregate:
+    path: results/processed/phaseb_n2_h2o_grid_final.json
+    sha256: f7deacc86e923614fded5f8e6bdfa7206fe8339e3a4d035d6db7ee967212768d
+  raw_directory: results/raw
+
+dataset:
+  stage4_source_view: balanced_broad_sensitivity
+  phaseb_source_view: balanced_broad
+  family_order: [fe4s4, n2, h2o]
+  phase: measured
+  purpose: final
+  repetitions: [0, 1, 2]
+  expected_measurements: 90
+  expected_candidate_rows: 30
+  expected_problem_instances: 15
+  expected_instances_per_family: 5
+  expected_candidates_per_instance: 2
+  pilot_records_allowed: false
+  post_execution_selection_features_allowed: false
+
+splits:
+  primary_type: leave_one_chemistry_family_out
+  folds: 3
+  group_key: family_id_and_instance_id
+  all_candidates_and_repetitions_stay_together: true
+
+model:
+  implementation: sklearn.tree.DecisionTreeRegressor
+  sklearn_version: 1.7.1
+  max_depth: 3
+  min_samples_leaf: 2
+  random_state: 1729
+  heldout_hyperparameter_tuning: false
+  full_features:
+    - log1p_n_configurations
+    - backend_gpu
+    - log1p_method0_work_proxy
+    - log1p_determinant_cache_bytes
+    - log1p_gpu_guard_bytes
+    - alpha_single_edge_density
+    - alpha_double_edge_density
+    - beta_single_edge_density
+    - beta_double_edge_density
+    - cpu_threads
+  size_only_ablation_features:
+    - log1p_n_configurations
+    - backend_gpu
+
+policies:
+  - fixed_cpu16
+  - fixed_gpu
+  - static_size_threshold
+  - size_only_tree_ablation
+  - autosbd_full_tree
+  - measured_feasible_oracle
+policy_aliases:
+  upstream_default: fixed_gpu
+
+claim_boundary:
+  universal_generalization_claim_allowed: false
+  multi_node_claim_allowed: false

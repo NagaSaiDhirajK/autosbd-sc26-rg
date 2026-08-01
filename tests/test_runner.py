@@ -139,6 +139,7 @@ class TrialRunnerTests(unittest.TestCase):
         *,
         memory_override: int | None = None,
         extra_arguments: tuple[str, ...] = (),
+        solver_overrides: dict[str, int] | None = None,
     ) -> CandidateConfig:
         return CandidateConfig(
             name=f"mock-{mode}",
@@ -151,6 +152,7 @@ class TrialRunnerTests(unittest.TestCase):
                 str(self.invocation_counter),
                 *extra_arguments,
             ),
+            solver_overrides={} if solver_overrides is None else solver_overrides,
             estimated_gpu_memory_override_bytes=memory_override,
         )
 
@@ -226,8 +228,10 @@ class TrialRunnerTests(unittest.TestCase):
                 compiler_identity="test nvc++ 26.5",
             )
 
-    def solver_identity(self) -> dict[str, object]:
-        solver = self.solver
+    def solver_identity(
+        self, solver: SolverConfig | None = None
+    ) -> dict[str, object]:
+        solver = self.solver if solver is None else solver
         return {
             "method": solver.method,
             "iteration": solver.iteration,
@@ -746,14 +750,132 @@ class TrialRunnerTests(unittest.TestCase):
         )
 
     def _validated_input(
-        self, workload: WorkloadConfig
+        self, workload: WorkloadConfig, solver: SolverConfig | None = None
     ) -> dict[str, object]:
         features = extract_input_features(workload.fcidump, workload.adetfile)
         return {
             "input_sha256": features.combined_input_sha256,
-            "solver": self.solver_identity(),
+            "solver": self.solver_identity(solver),
             "reference_value": workload.reference_value,
         }
+
+    def test_effective_candidate_solver_controls_template_membership_and_command(self) -> None:
+        candidate = CandidateConfig(
+            name="cpu-parameterized",
+            backend="cpu",
+            executable=MOCK_SBD,
+            solver_overrides={"bit_length": 48, "shuffle": 1},
+        )
+        config = SweepConfig(
+            name="runner-effective-solver",
+            workloads=(self.workload,),
+            candidates=(candidate,),
+            solver=self.solver,
+            protocol=ProtocolConfig(warmups=0, repetitions=1),
+        )
+        generated = config.trial_templates(randomize=False)[0]
+        effective = candidate.resolved_solver(self.solver)
+        self.assertEqual(generated.solver, effective)
+        self.runner._validate_template_config(generated, config)
+
+        command = self.runner._command(generated)
+        self.assertEqual(command[command.index("--bit_length") + 1], "48")
+        self.assertEqual(command[command.index("--shuffle") + 1], "1")
+
+        mismatched = TrialTemplate(
+            sweep_name=config.name,
+            workload=self.workload,
+            candidate=candidate,
+            solver=self.solver,
+            phase="measured",
+            repetition=0,
+        )
+        with self.assertRaisesRegex(RunnerError, "does not belong"):
+            self.runner._validate_template_config(mismatched, config)
+
+    def test_schema_v2_v3_manifest_matches_input_and_exact_effective_solver(self) -> None:
+        workload = WorkloadConfig(
+            name="tiny-parameterized",
+            fcidump=self.fcidump,
+            adetfile=self.determinants,
+            reference_value=REFERENCE_ENERGY,
+            reference_source="runner test fixture",
+            family_id="fixture",
+            molecule="Fixture",
+            basis="fixture-basis",
+        )
+        candidate = self.mock_candidate(
+            "success", solver_overrides={"bit_length": 48, "shuffle": 1}
+        )
+        effective = candidate.resolved_solver(self.solver)
+        base_entry = {
+            **self._validated_input(workload, self.solver),
+            "family_id": workload.family_id,
+            "molecule": workload.molecule,
+            "basis": workload.basis,
+        }
+        effective_entry = {
+            **self._validated_input(workload, effective),
+            "family_id": workload.family_id,
+            "molecule": workload.molecule,
+            "basis": workload.basis,
+        }
+
+        def evidence_for(
+            entries: list[dict[str, object]], label: str, schema_version: int
+        ) -> dict[str, object]:
+            manifest = self.write_validation_manifest_v2(
+                candidate,
+                label,
+                entries,
+                schema_version=schema_version,
+            )
+            config = SweepConfig(
+                name=f"runner-manifest-{label}",
+                workloads=(workload,),
+                candidates=(candidate,),
+                solver=self.solver,
+                protocol=ProtocolConfig(
+                    warmups=1,
+                    repetitions=1,
+                    purpose="pilot",
+                    correctness_validated=True,
+                    validation_manifest=manifest,
+                ),
+                schema_version=2,
+            )
+            template = config.trial_templates(randomize=False)[0]
+            features = extract_input_features(workload.fcidump, workload.adetfile)
+            build = self.runner._build_description(candidate)
+            return self.runner._validation_evidence(
+                template, config, features, build
+            )
+
+        for schema_version in (2, 3):
+            with self.subTest(schema_version=schema_version):
+                valid = evidence_for(
+                    [base_entry, effective_entry],
+                    f"same-hash-distinct-solvers-v{schema_version}",
+                    schema_version,
+                )
+                self.assertTrue(valid["valid"])
+                self.assertEqual(valid["errors"], [])
+
+        duplicate = evidence_for(
+            [base_entry, effective_entry, copy.deepcopy(effective_entry)],
+            "duplicate-effective-solver",
+            2,
+        )
+        self.assertFalse(duplicate["valid"])
+        self.assertIn(
+            "manifest has duplicate matching validated inputs", duplicate["errors"]
+        )
+
+        missing = evidence_for([base_entry], "missing-effective-solver", 2)
+        self.assertFalse(missing["valid"])
+        self.assertIn(
+            "manifest validated input solver settings mismatch", missing["errors"]
+        )
 
     def test_schema_v2_manifest_validates_two_inputs(self) -> None:
         candidate = self.mock_candidate("success")

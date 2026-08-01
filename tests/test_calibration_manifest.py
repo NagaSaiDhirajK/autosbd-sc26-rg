@@ -431,6 +431,48 @@ class CalibrationManifestTests(unittest.TestCase):
         self.assertEqual(entry["basis"], "6-31G")
         self.assertEqual(entry["workload"]["family_id"], "n2")
 
+    def test_same_input_supports_multiple_exact_solver_pairs(self) -> None:
+        input_sha256, input_files = self._input_description("parameter-grid")
+        shared = {
+            "input_sha256": input_sha256,
+            "input_files": input_files,
+            "schema_version": 3,
+            "family_id": "n2",
+            "molecule": "N2",
+            "basis": "6-31G",
+        }
+        solver_48 = {**SOLVER, "bit_length": 48}
+        paths = [
+            self._write_record("cpu", "parameter-grid", **shared),
+            self._write_record("gpu", "parameter-grid", **shared),
+            self._write_record(
+                "cpu",
+                "parameter-grid",
+                **shared,
+                solver=solver_48,
+                attempt_index=1,
+            ),
+            self._write_record(
+                "gpu",
+                "parameter-grid",
+                **shared,
+                solver=solver_48,
+                attempt_index=1,
+            ),
+        ]
+
+        manifest = MODULE.make_calibration_manifest(list(reversed(paths)))
+
+        self.assertEqual(len(manifest["validated_inputs"]), 2)
+        self.assertEqual(
+            [entry["solver"]["bit_length"] for entry in manifest["validated_inputs"]],
+            [20, 48],
+        )
+        self.assertEqual(
+            {entry["input_sha256"] for entry in manifest["validated_inputs"]},
+            {input_sha256},
+        )
+
     def test_schema_v3_pairing_distinguishes_same_label_across_families(self) -> None:
         n2_cpu, n2_gpu = self._write_pair(
             "shared-instance-label",
@@ -540,7 +582,7 @@ class CalibrationManifestTests(unittest.TestCase):
                 "solver",
                 {},
                 {"solver": {**SOLVER, "block": 11}},
-                "solver identity mismatch",
+                "missing gpu record",
             ),
             ("config-count", {}, {"n_configurations": 25}, "n_configurations"),
             ("iterations", {}, {"iterations": 8}, "iterations mismatch"),

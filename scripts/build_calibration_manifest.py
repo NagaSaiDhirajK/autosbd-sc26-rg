@@ -159,6 +159,17 @@ def _exact_solver(record: Mapping[str, Any], label: str) -> dict[str, object]:
     return {key: solver[key] for key in SOLVER_IDENTITY_KEYS}
 
 
+def _solver_group_key(solver: Mapping[str, object]) -> str:
+    """Return a stable key that distinguishes exact solver configurations."""
+
+    return json.dumps(
+        {key: solver[key] for key in SOLVER_IDENTITY_KEYS},
+        allow_nan=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+
 def _validate_input_integrity(
     record: Mapping[str, Any], label: str
 ) -> list[dict[str, object]]:
@@ -468,13 +479,15 @@ def _pair_manifest_entry(
     if gpu["schema_version"] != record_schema_version:
         raise CalibrationError("CPU/GPU record schema_version mismatch")
     if record_schema_version == 2:
-        problem_instance, input_sha256 = key
+        problem_instance, input_sha256, solver_group_key = key
     else:
-        family_id, problem_instance, input_sha256 = key
+        family_id, problem_instance, input_sha256, solver_group_key = key
     label = f"{problem_instance}/{input_sha256}"
 
     if cpu_evidence["solver"] != gpu_evidence["solver"]:
         raise CalibrationError(f"{label} CPU/GPU solver identity mismatch")
+    if _solver_group_key(cpu_evidence["solver"]) != solver_group_key:
+        raise CalibrationError(f"{label} internal solver grouping mismatch")
     n_configurations = _same_workload_field(
         cpu, gpu, "n_configurations", label
     )
@@ -599,14 +612,20 @@ def make_calibration_manifest(record_paths: Sequence[Path]) -> dict[str, object]
             raise CalibrationError(
                 "cannot mix schema_version 2 and 3 records in one manifest"
             )
+        solver_group_key = _solver_group_key(evidence["solver"])
         if record_schema_version == 3:
             key = (
                 record["family_id"],
                 record["problem_instance"],
                 record["input_sha256"],
+                solver_group_key,
             )
         else:
-            key = (record["problem_instance"], record["input_sha256"])
+            key = (
+                record["problem_instance"],
+                record["input_sha256"],
+                solver_group_key,
+            )
         backend = record["backend"]
         pair = pairs.setdefault(key, {})
         if backend in pair:

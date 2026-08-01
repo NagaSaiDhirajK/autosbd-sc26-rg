@@ -15,7 +15,7 @@ Exact source, compiler, flags, binary hashes, and license provenance are recorde
 
 ## Current status
 
-Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and all ten exact N₂/H₂O Phase B grid inputs. Phase B2 now has ten deterministic size variants, config-v2/raw-v3 family identity, a 20-record schema-v3 correctness gate, a strict external registry for the immutable Fe₄S₄ records, and a completed 40-record N₂/H₂O pilot with 20 excluded warmups and 20 eligible single-repetition measurements. The frozen Stage 4 campaign remains 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 168 tests. Repeated N₂/H₂O timing is frozen but awaiting explicit approval; multifamily evaluation remains pending.
+Stages 0–4, repeated Phase B timing, and both Stage 5 evaluation tracks are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and all ten exact N₂/H₂O grid inputs. The final Phase B campaign preserves 104 immutable records—20 excluded warmups and 84 timing-eligible measurements—with no failure, timeout, OOM, skip, correctness error, or execution overlap. Its balanced repetitions 0–2 combine with the Fe₄S₄ balanced view to form 90 measurements, 30 candidate medians, and 15 instances across three families. The sealed leave-one-family-out evaluation and its independent hardening audit pass 25 focused completion/multifamily tests.
 
 The hardened runner provides:
 
@@ -28,7 +28,7 @@ The hardened runner provides:
 
 The schema-v2 Fe₄S₄ CPU and GPU runs converged and agreed in energy, density, and iteration count at all five determinant-prefix sizes. Every calibration record has `timing_eligible=false`; its wall time is diagnostic only and is not a final performance result. See [`reports/RESULTS.md`](reports/RESULTS.md) and [`reports/LIMITATIONS.md`](reports/LIMITATIONS.md).
 
-The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These remain size-held-out timing results from one Fe₄S₄ family, not cross-family performance evidence. The schema-v3 Phase B gate validates all ten exact N₂/H₂O grid hashes on the same official AMD CPU/GPU binaries through 20 timing-ineligible correctness records. The completed one-repetition pilot brackets a CPU/GPU flip between 3,025 and 10,000 configurations in both families, but it is planning evidence rather than final repeated timing. The frozen 104-record final campaign is awaiting explicit approval; cross-family evaluation remains pending.
+The three primary Stage 5 folds hold out Fe₄S₄, N₂, and H₂O in turn, with all candidates and repetitions for a family excluded from training. Pooled over the 15 out-of-family instances, the full tree selects the oracle candidate for 13/15 instances and has geometric selected/oracle runtime `1.0229922425736244`, corresponding to geometric speedups `1.8328832288910508` versus fixed CPU16 and `1.0566826178825666` versus fixed GPU. The training-only threshold is also 13/15 with `1.0377461353348265`; the size-only tree is 12/15 with `1.1717731863098702`. There are no invalid selections or failures. These results support a narrow cross-family CPU16/L4 selector result on one node, not universal generalization, comprehensive autotuning, or multi-node behavior.
 
 ## Reproduce the engineering checks
 
@@ -94,12 +94,17 @@ Use `scripts/run_sweep.py` for a sequential resumable configuration sweep. The r
 - [`results/processed/phaseb_n2_h2o_grid_pilot.csv`](results/processed/phaseb_n2_h2o_grid_pilot.csv): companion row-level pilot table
 - [`reports/PHASE_B_PILOT_AUDIT.md`](reports/PHASE_B_PILOT_AUDIT.md): pilot integrity, diagnostic crossover, resource, cost, and claim-boundary audit
 - [`reports/phaseb_final_protocol.json`](reports/phaseb_final_protocol.json): frozen 104-record final shards, hashes, estimates, safety controls, and approval gate
+- [`reports/phaseb_final_completion.json`](reports/phaseb_final_completion.json): fail-closed completed-campaign attestation for the 104 final records
+- [`results/processed/phaseb_n2_h2o_grid_final.json`](results/processed/phaseb_n2_h2o_grid_final.json): deterministic final N₂/H₂O repeated-timing aggregation
 - [`results/processed/stage4_final.json`](results/processed/stage4_final.json): deterministic repeated-timing aggregation
 - [`configs/stage5_size_heldout.yaml`](configs/stage5_size_heldout.yaml): leakage-safe single-family evaluation protocol
 - [`results/processed/stage5/evaluation.json`](results/processed/stage5/evaluation.json): corrected held-out predictions, metrics, models, and claim boundary
 - [`results/processed/stage5/policy_summary.json`](results/processed/stage5/policy_summary.json): six-policy primary and sensitivity summary
 - [`results/processed/stage5/inference_overhead.json`](results/processed/stage5/inference_overhead.json): hot and diagnostic cold selector-overhead summary
 - [`reports/STAGE5_PRELIMINARY_AUDIT.md`](reports/STAGE5_PRELIMINARY_AUDIT.md): internal Phase A provenance, defect, result, and limitation audit
+- [`configs/stage5_multifamily.yaml`](configs/stage5_multifamily.yaml): frozen hash-bound three-family LOFO evaluation protocol
+- [`results/processed/stage5_multifamily/evaluation.json`](results/processed/stage5_multifamily/evaluation.json): sealed multifamily predictions, metrics, folds, and claim boundary
+- [`reports/STAGE5_MULTIFAMILY_AUDIT.md`](reports/STAGE5_MULTIFAMILY_AUDIT.md): internal multifamily provenance, leakage, result, hardening, and limitation audit
 - `results/raw/*.json`: immutable per-attempt records; failures and skips are retained
 - `results/raw/inference_overhead/*.json`: immutable per-iteration selector-overhead samples
 

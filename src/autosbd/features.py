@@ -411,6 +411,24 @@ def method0_work_proxy(
     )
 
 
+def determinant_word_counts(n_orbitals: int, bit_length: int) -> tuple[int, int]:
+    """Return half-string and full interleaved determinant word counts.
+
+    The pinned AMD implementation loads alpha/beta strings of length ``L`` and
+    forms a full determinant containing ``2L`` interleaved spin-orbital bits.
+    ``bit_length`` is the number of active bits stored in each ``size_t`` word.
+    """
+
+    _require_positive_int("n_orbitals", n_orbitals)
+    _require_positive_int("bit_length", bit_length)
+    if bit_length > 64:
+        raise FeatureError("bit_length must not exceed a 64-bit size_t word")
+    return (
+        _ceil_div(n_orbitals, bit_length),
+        _ceil_div(2 * n_orbitals, bit_length),
+    )
+
+
 def estimate_source_memory(
     features: InputFeatures,
     *,
@@ -449,9 +467,6 @@ def estimate_source_memory(
         raise UnsupportedGuardConfiguration(
             f"memory guard v1 supports only rdm=0, got {rdm!r}"
         )
-    _require_positive_int("bit_length", bit_length)
-    if bit_length > 64:
-        raise FeatureError("bit_length must not exceed a 64-bit size_t word")
     _require_positive_int("max_block", max_block)
     _require_positive_int("iterations", iterations)
     _require_positive_int("alpha_comm_size", alpha_comm_size)
@@ -461,8 +476,7 @@ def estimate_source_memory(
     n_orbitals = features.fcidump.n_orbitals
     n_alpha = features.alpha.count
     n_beta = features.beta.count
-    half_words = _ceil_div(n_orbitals, bit_length)
-    full_words = _ceil_div(2 * n_orbitals, bit_length)
+    half_words, full_words = determinant_word_counts(n_orbitals, bit_length)
     local_alpha = _ceil_div(n_alpha, alpha_comm_size)
     local_beta = _ceil_div(n_beta, beta_comm_size)
     local_configurations = local_alpha * local_beta
@@ -885,6 +899,7 @@ __all__ = [
     "GIB",
     "candidate_memory_feasible",
     "combine_input_hashes",
+    "determinant_word_counts",
     "estimate_source_memory",
     "extract_input_features",
     "gpu_admission_limit_bytes",

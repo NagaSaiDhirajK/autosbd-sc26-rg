@@ -146,6 +146,79 @@ class ConfigTestCase(unittest.TestCase):
         self.assertFalse(config.protocol.correctness_validated)
         self.assertFalse(ProtocolConfig().correctness_validated)
 
+    def test_candidate_solver_overrides_are_immutable_and_resolve_per_template(self) -> None:
+        body = self.valid_yaml().replace(
+            "                mpi_ranks: 1\n                environment:",
+            "                mpi_ranks: 1\n"
+            "                solver_overrides:\n"
+            "                  bit_length: 48\n"
+            "                  shuffle: 1\n"
+            "                environment:",
+            1,
+        )
+        config = load_sweep_config(self.write_config(body, "overrides.yaml"))
+        cpu = config.candidates[0]
+        gpu = config.candidates[1]
+
+        self.assertEqual(dict(cpu.solver_overrides), {"bit_length": 48, "shuffle": 1})
+        self.assertEqual(dict(gpu.solver_overrides), {})
+        with self.assertRaises(TypeError):
+            cpu.solver_overrides["shuffle"] = 0  # type: ignore[index]
+
+        effective = cpu.resolved_solver(config.solver)
+        self.assertEqual((effective.bit_length, effective.shuffle), (48, 1))
+        self.assertEqual((config.solver.bit_length, config.solver.shuffle), (20, 0))
+        args = effective.amd_cli_args()
+        self.assertEqual(args[args.index("--bit_length") + 1], "48")
+        self.assertEqual(args[args.index("--shuffle") + 1], "1")
+
+        templates = config.trial_templates(randomize=False)
+        first_workload = config.workloads[0]
+        by_candidate = {
+            template.candidate.name: template
+            for template in templates
+            if template.workload == first_workload
+            and template.phase == "warmup"
+            and template.repetition == 0
+        }
+        self.assertEqual(by_candidate[cpu.name].solver, effective)
+        self.assertEqual(by_candidate[gpu.name].solver, config.solver)
+
+    def test_candidate_solver_overrides_reject_unknown_types_and_ranges(self) -> None:
+        invalid = (
+            ["bit_length"],
+            {"method": 0},
+            {1: 20},
+            {"bit_length": True},
+            {"bit_length": 1.5},
+            {"bit_length": 0},
+            {"bit_length": 65},
+            {"shuffle": True},
+            {"shuffle": "1"},
+            {"shuffle": -1},
+            {"shuffle": 2},
+        )
+        for overrides in invalid:
+            with self.subTest(overrides=overrides):
+                with self.assertRaises(ConfigError):
+                    CandidateConfig(
+                        name="mock-overrides",
+                        backend="mock",
+                        mock_argv=("true",),
+                        solver_overrides=overrides,  # type: ignore[arg-type]
+                    )
+
+        unknown_yaml = self.valid_yaml().replace(
+            "                mpi_ranks: 1\n                environment:",
+            "                mpi_ranks: 1\n"
+            "                solver_overrides:\n"
+            "                  block: 2\n"
+            "                environment:",
+            1,
+        )
+        with self.assertRaisesRegex(ConfigError, "solver_overrides contains unknown keys"):
+            load_sweep_config(self.write_config(unknown_yaml, "bad-overrides.yaml"))
+
     def test_schema_v1_remains_default_and_schema_v2_requires_metadata(self) -> None:
         implicit_v1 = self.valid_yaml().replace("schema_version: 1\n", "", 1)
         implicit = load_sweep_config(self.write_config(implicit_v1, "implicit.yaml"))

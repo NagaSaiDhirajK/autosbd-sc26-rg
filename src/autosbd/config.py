@@ -8,7 +8,7 @@ family metadata on every workload.  Mock candidates exist solely for tests.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 import hashlib
 import math
 from pathlib import Path
@@ -28,6 +28,7 @@ VALID_BACKENDS = frozenset({"cpu", "gpu", "mock"})
 VALID_PHASES = frozenset({"warmup", "measured"})
 VALID_PROTOCOL_PURPOSES = frozenset({"test", "correctness", "pilot", "final"})
 FAMILY_ID_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
+SOLVER_OVERRIDE_KEYS = frozenset({"bit_length", "shuffle"})
 
 
 class ConfigError(ValueError):
@@ -173,6 +174,7 @@ class CandidateConfig:
     compiler_flags: tuple[str, ...] = ()
     estimated_gpu_memory_override_bytes: int | None = None
     executable_source: str | None = field(default=None, repr=False, compare=False)
+    solver_overrides: Mapping[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         _validate_name(self.name, "candidate.name")
@@ -199,9 +201,15 @@ class CandidateConfig:
         environment = _environment_mapping(
             self.environment, f"candidate {self.name}.environment"
         )
+        solver_overrides = _solver_override_mapping(
+            self.solver_overrides, f"candidate {self.name}.solver_overrides"
+        )
         object.__setattr__(self, "mock_argv", mock_argv)
         object.__setattr__(self, "compiler_flags", compiler_flags)
         object.__setattr__(self, "environment", MappingProxyType(environment))
+        object.__setattr__(
+            self, "solver_overrides", MappingProxyType(solver_overrides)
+        )
 
         if backend == "mock":
             if self.executable is not None:
@@ -260,6 +268,13 @@ class CandidateConfig:
             return self.mock_argv
         assert self.executable is not None
         return (str(self.executable),)
+
+    def resolved_solver(self, base: SolverConfig) -> SolverConfig:
+        """Return the base solver with this candidate's whitelisted overrides."""
+
+        if not isinstance(base, SolverConfig):
+            raise ConfigError("base solver must be a SolverConfig")
+        return replace(base, **dict(self.solver_overrides))
 
 
 @dataclass(frozen=True)
@@ -535,7 +550,7 @@ class SweepConfig:
 
         for candidate in candidates:
             try:
-                self.solver.h_comm_size(candidate.mpi_ranks)
+                candidate.resolved_solver(self.solver).h_comm_size(candidate.mpi_ranks)
             except ConfigError as error:
                 raise ConfigError(f"candidate {candidate.name!r}: {error}") from error
 
@@ -582,7 +597,7 @@ class SweepConfig:
                             sweep_name=self.name,
                             workload=workload,
                             candidate=candidate,
-                            solver=self.solver,
+                            solver=candidate.resolved_solver(self.solver),
                             phase=phase,
                             repetition=repetition,
                         )
@@ -724,6 +739,7 @@ def _load_candidate(value: Any, base_dir: Path, index: int) -> CandidateConfig:
             "mpi_ranks",
             "environment",
             "compiler_flags",
+            "solver_overrides",
             "estimated_gpu_memory_override_bytes",
         },
         required={"name", "backend"},
@@ -747,6 +763,7 @@ def _load_candidate(value: Any, base_dir: Path, index: int) -> CandidateConfig:
         mpi_ranks=data.get("mpi_ranks", 1),
         environment=data.get("environment", {}),
         compiler_flags=data.get("compiler_flags", ()),
+        solver_overrides=data.get("solver_overrides", {}),
         estimated_gpu_memory_override_bytes=data.get(
             "estimated_gpu_memory_override_bytes"
         ),
@@ -908,6 +925,28 @@ def _environment_mapping(value: Any, context: str) -> dict[str, str]:
         if "=" in key:
             raise ConfigError(f"{context} key cannot contain '=': {key!r}")
         result[key] = item
+    return dict(sorted(result.items()))
+
+
+def _solver_override_mapping(value: Any, context: str) -> dict[str, int]:
+    if not isinstance(value, Mapping):
+        raise ConfigError(f"{context} must be a mapping")
+    non_string_keys = [key for key in value if not isinstance(key, str)]
+    if non_string_keys:
+        raise ConfigError(f"{context} keys must be strings: {non_string_keys!r}")
+    unknown = sorted(set(value) - SOLVER_OVERRIDE_KEYS)
+    if unknown:
+        raise ConfigError(f"{context} contains unknown keys: {unknown}")
+
+    result: dict[str, int] = {}
+    for key, raw in value.items():
+        minimum = 1 if key == "bit_length" else 0
+        checked = _require_int(raw, f"{context}.{key}", minimum)
+        if key == "bit_length" and checked > 64:
+            raise ConfigError(f"{context}.bit_length must not exceed 64")
+        if key == "shuffle" and checked not in (0, 1):
+            raise ConfigError(f"{context}.shuffle must be exactly 0 or 1")
+        result[key] = checked
     return dict(sorted(result.items()))
 
 

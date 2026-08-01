@@ -522,12 +522,15 @@ class TrialRunner:
     def _validate_template_config(
         self, template: TrialTemplate, config: SweepConfig
     ) -> None:
-        if template.sweep_name != config.name or template.solver != config.solver:
+        if template.sweep_name != config.name:
             raise RunnerError("trial template does not belong to the supplied sweep")
         if template.workload not in config.workloads:
             raise RunnerError("trial workload is absent from the supplied sweep")
         if template.candidate not in config.candidates:
             raise RunnerError("trial candidate is absent from the supplied sweep")
+        effective_solver = template.candidate.resolved_solver(config.solver)
+        if template.solver != effective_solver:
+            raise RunnerError("trial template does not belong to the supplied sweep")
 
     def _features(self, template: TrialTemplate) -> InputFeatures:
         workload = template.workload
@@ -720,9 +723,9 @@ class TrialRunner:
                 errors.append("manifest solver settings mismatch")
         elif schema_version in {2, 3}:
             validated_inputs = payload.get("validated_inputs")
-            matching_inputs: list[Mapping[str, Any]] = []
+            hash_matching_inputs: list[Mapping[str, Any]] = []
             if isinstance(validated_inputs, list):
-                matching_inputs = [
+                hash_matching_inputs = [
                     item
                     for item in validated_inputs
                     if isinstance(item, dict)
@@ -732,14 +735,20 @@ class TrialRunner:
             else:
                 errors.append("manifest validated_inputs must be a list")
 
-            if not matching_inputs:
+            solver_identity = _solver_identity(template.solver)
+            matching_inputs = [
+                item
+                for item in hash_matching_inputs
+                if item.get("solver") == solver_identity
+            ]
+            if not hash_matching_inputs:
                 errors.append("manifest has no matching validated input")
+            elif not matching_inputs:
+                errors.append("manifest validated input solver settings mismatch")
             elif len(matching_inputs) > 1:
                 errors.append("manifest has duplicate matching validated inputs")
             else:
                 matching_input = matching_inputs[0]
-                if matching_input.get("solver") != _solver_identity(template.solver):
-                    errors.append("manifest validated input solver settings mismatch")
                 manifest_reference = matching_input.get("reference_value")
                 reference_is_finite = False
                 if (

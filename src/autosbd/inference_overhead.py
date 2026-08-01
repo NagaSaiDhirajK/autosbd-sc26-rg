@@ -32,10 +32,18 @@ from .evaluation import (
     EvaluationError,
     select_with_tree,
 )
+from .multifamily_evaluation import (
+    EXPECTED_CANDIDATE_ROW_COUNT as MULTIFAMILY_CANDIDATE_ROW_COUNT,
+    EXPECTED_INSTANCE_COUNT as MULTIFAMILY_INSTANCE_COUNT,
+    EXPECTED_MEASUREMENT_COUNT as MULTIFAMILY_MEASUREMENT_COUNT,
+    MULTIFAMILY_DATASET_TYPE,
+    validate_multifamily_dataset,
+)
 from .records import make_trial_id
 
 
 SCHEMA_VERSION = 1
+LEGACY_DATASET_TYPE = "autosbd_balanced_candidate_medians"
 HOT_WARMUP_ITERATIONS = 1_000
 HOT_MEASURED_ITERATIONS = 10_000
 COLD_WARMUP_ITERATIONS = 10
@@ -139,8 +147,17 @@ def load_inference_inputs(
 
     if dataset.get("schema_version") != SCHEMA_VERSION:
         raise InferenceOverheadError("unexpected balanced-dataset schema version")
-    if dataset.get("dataset_type") != "autosbd_balanced_candidate_medians":
+    dataset_type = dataset.get("dataset_type")
+    if dataset_type not in {LEGACY_DATASET_TYPE, MULTIFAMILY_DATASET_TYPE}:
         raise InferenceOverheadError("unexpected balanced-dataset type")
+    multifamily = dataset_type == MULTIFAMILY_DATASET_TYPE
+    if multifamily:
+        try:
+            validate_multifamily_dataset(dataset)
+        except EvaluationError as error:
+            raise InferenceOverheadError(
+                f"invalid multifamily balanced dataset: {error}"
+            ) from error
     rows = dataset.get("rows")
     if not isinstance(rows, list) or not rows:
         raise InferenceOverheadError("balanced dataset lacks candidate rows")
@@ -152,11 +169,38 @@ def load_inference_inputs(
         instance = _required_text(
             raw_row.get("problem_instance"), f"dataset row {index} problem_instance"
         )
-        grouped[instance].append(raw_row)
+        group_id = (
+            _required_text(
+                raw_row.get("instance_id"), f"dataset row {index} instance_id"
+            )
+            if multifamily
+            else instance
+        )
+        grouped[group_id].append(raw_row)
 
     candidate_groups: list[dict[str, Any]] = []
     shortest: dict[str, Any] | None = None
-    for instance, instance_rows in grouped.items():
+    for group_id, instance_rows in grouped.items():
+        problem_instances = {
+            _required_text(row.get("problem_instance"), "problem_instance")
+            for row in instance_rows
+        }
+        if len(problem_instances) != 1:
+            raise InferenceOverheadError(
+                f"candidate problem-instance mismatch for {group_id}"
+            )
+        instance = next(iter(problem_instances))
+        family_id: str | None = None
+        if multifamily:
+            family_ids = {
+                _required_text(row.get("family_id"), "family_id")
+                for row in instance_rows
+            }
+            if len(family_ids) != 1:
+                raise InferenceOverheadError(
+                    f"candidate family mismatch for {group_id}"
+                )
+            family_id = next(iter(family_ids))
         names = {
             _required_text(row.get("candidate_name"), "candidate name")
             for row in instance_rows
@@ -195,11 +239,21 @@ def load_inference_inputs(
                 raise InferenceOverheadError(
                     f"pre-execution selector fields missing for {instance}/{candidate_name}"
                 )
+            projected_feature_values = dict(feature_values)
+            if multifamily:
+                if not set(FULL_FEATURE_NAMES).issubset(projected_feature_values):
+                    raise InferenceOverheadError(
+                        "multifamily selector feature mapping lacks a registered "
+                        f"full feature for {group_id}/{candidate_name}"
+                    )
+                projected_feature_values = {
+                    name: projected_feature_values[name] for name in FULL_FEATURE_NAMES
+                }
             projected.append(
                 {
                     "candidate_name": candidate_name,
                     "backend": expected_backend,
-                    "feature_values": dict(feature_values),
+                    "feature_values": projected_feature_values,
                     "memory_guard": dict(memory_guard),
                     "memory_caps": dict(memory_caps),
                 }
@@ -218,6 +272,8 @@ def load_inference_inputs(
                 "median_wall_time_s": median_wall,
                 "source_record_ids": source_ids,
             }
+            if multifamily:
+                item.update({"instance_id": group_id, "family_id": family_id})
             if shortest is None or (
                 median_wall,
                 instance,
@@ -229,16 +285,20 @@ def load_inference_inputs(
             ):
                 shortest = item
 
-        candidate_groups.append(
-            {
-                "problem_instance": instance,
-                "n_configurations": next(iter(sizes)),
-                "candidate_rows": projected,
-            }
-        )
+        group = {
+            "problem_instance": instance,
+            "n_configurations": next(iter(sizes)),
+            "candidate_rows": projected,
+        }
+        if multifamily:
+            group.update({"instance_id": group_id, "family_id": family_id})
+        candidate_groups.append(group)
 
     candidate_groups.sort(
-        key=lambda value: (value["n_configurations"], value["problem_instance"])
+        key=lambda value: (
+            value["n_configurations"],
+            value.get("instance_id", value["problem_instance"]),
+        )
     )
     if shortest is None:
         raise InferenceOverheadError("could not identify shortest measured SBD runtime")
@@ -254,6 +314,53 @@ def load_inference_inputs(
     for key, expected in expected_count_values.items():
         if counts.get(key) != expected:
             raise InferenceOverheadError(f"balanced dataset count mismatch: {key}")
+    if multifamily:
+        expected_geometry = {
+            "candidate_rows": MULTIFAMILY_CANDIDATE_ROW_COUNT,
+            "problem_instances": MULTIFAMILY_INSTANCE_COUNT,
+            "selected_measurements": MULTIFAMILY_MEASUREMENT_COUNT,
+        }
+        for key, expected in expected_geometry.items():
+            if counts.get(key) != expected:
+                raise InferenceOverheadError(
+                    f"multifamily balanced dataset count mismatch: {key}"
+                )
+
+        model_instance_ids = _string_list(
+            model.get("training_instance_ids"),
+            "deployment model training_instance_ids",
+        )
+        expected_instance_ids = sorted(
+            str(group["instance_id"]) for group in candidate_groups
+        )
+        if model_instance_ids != expected_instance_ids:
+            raise InferenceOverheadError(
+                "deployment model training instances differ from multifamily dataset"
+            )
+        model_source_ids = _string_list(
+            model.get("training_source_record_ids"),
+            "deployment model training_source_record_ids",
+        )
+        expected_source_ids = sorted(
+            _string_list(
+                dataset.get("source_record_ids"), "dataset source_record_ids"
+            )
+        )
+        if model_source_ids != expected_source_ids:
+            raise InferenceOverheadError(
+                "deployment model source records differ from multifamily dataset"
+            )
+        expected_scope = {
+            "fit_scope": "all_balanced_instances_after_heldout_evaluation",
+            "purpose": "deployment_selection_and_inference_overhead_only",
+            "used_for_heldout_metrics": False,
+            "training_instance_count": MULTIFAMILY_INSTANCE_COUNT,
+            "training_source_record_count": MULTIFAMILY_MEASUREMENT_COUNT,
+        }
+        if models.get("deployment_model_scope") != expected_scope:
+            raise InferenceOverheadError(
+                "multifamily deployment model scope differs from registered contract"
+            )
 
     # Validate the exported model against every deployment candidate group before
     # any timing begins. This is outside both measured regions.
@@ -270,16 +377,24 @@ def load_inference_inputs(
         "models": _file_claim(models_file, models_payload, root),
         "balanced_dataset": _file_claim(dataset_file, dataset_payload, root),
     }
+    workload_instances = []
+    for group in candidate_groups:
+        item = {
+            "problem_instance": group["problem_instance"],
+            "n_configurations": group["n_configurations"],
+        }
+        if multifamily:
+            item.update(
+                {
+                    "instance_id": group["instance_id"],
+                    "family_id": group["family_id"],
+                }
+            )
+        workload_instances.append(item)
     workload = {
         "problem_instance_count": len(candidate_groups),
         "candidates_per_selection": len(EXPECTED_CANDIDATES),
-        "problem_instances": [
-            {
-                "problem_instance": group["problem_instance"],
-                "n_configurations": group["n_configurations"],
-            }
-            for group in candidate_groups
-        ],
+        "problem_instances": workload_instances,
         "shortest_measured_sbd_candidate_median": shortest,
         "comparison_denominator": (
             "minimum candidate median end-to-end wall time in the balanced dataset"

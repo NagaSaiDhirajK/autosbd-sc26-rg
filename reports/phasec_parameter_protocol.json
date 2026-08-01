@@ -1,0 +1,288 @@
+{
+  "approval_gate": {
+    "approval_scope": "Phase C correctness plus one-warmup/one-measured timing screen only",
+    "explicit_user_approval_required_before_launch": true,
+    "reason": "The combined sequential campaign is projected above the repository's 10-minute approval threshold and reaches USD 1 under a 50 percent contingency.",
+    "status_at_freeze": "awaiting_explicit_phase_c_approval"
+  },
+  "claim_boundary": {
+    "configuration_autotuner_claim_requires_instance_dependent_winners": true,
+    "correctness_records_are_timing_evidence": false,
+    "one_measured_repetition_is_final_variability_evidence": false,
+    "pruning_screen_role": "configuration validity and dominance evidence only",
+    "universal_or_multi_node_claim_allowed": false
+  },
+  "correctness_campaign": {
+    "config": {
+      "path": "configs/phasec_parameter_correctness.yaml",
+      "sha256": "9164e53b3ac4f69742affe278fd7079d1f6f3332d69c327a32a40e9596c991d7"
+    },
+    "exit_gate": {
+      "all_records_successful": true,
+      "cpu_gpu_pairs": 36,
+      "exact_solver_identity_required_in_manifest": true,
+      "expected_manifest_schema_version": 3,
+      "failures_are_preserved": true,
+      "numerical_agreement_required_for_every_backend_pair": true
+    },
+    "expected_records": {
+      "measured": 72,
+      "total": 72,
+      "warmup": 0
+    },
+    "protocol": {
+      "correctness_validated": false,
+      "max_solver_time_s": 240,
+      "purpose": "correctness",
+      "repetitions": 1,
+      "seed": 1729,
+      "timeout_s_per_trial": 300,
+      "warmups": 0
+    }
+  },
+  "execution_controls": {
+    "candidate_order": "deterministic seeded randomization within workload/phase/repetition blocks",
+    "gpu_idle_and_telemetry_preflight_before_every_trial": true,
+    "gpu_memory_policy": "min(20 GiB, 80 percent of current free VRAM)",
+    "immutable_trial_ids_and_atomic_records": true,
+    "planned_cli_flags": [
+      "--stop-on-non-success",
+      "--require-all-success"
+    ],
+    "project_and_upstream_cleanliness_required": true,
+    "sequential_node_lock": true,
+    "timeout_is_safety_cap_not_expected_runtime": true
+  },
+  "input_evidence": {
+    "selection_rule": "For each family, select the smallest and largest balanced workload, then among the remaining workloads select the CPU16/L4 median-runtime ratio closest to parity using sealed measured repetitions 0, 1, and 2 only.",
+    "selection_source": {
+      "path": "results/processed/stage5_multifamily/balanced_dataset.json",
+      "sha256": "ba6a5506af54df7c5b1f4b888117d34c8ecb86d300d305c834c31fe02e15a846"
+    },
+    "workloads": [
+      {
+        "alpha_sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+        "combined_input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+        "family_id": "fe4s4",
+        "fcidump_sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+        "n_configurations": 1024,
+        "name": "fe4s4-prefix-0032",
+        "reference_source": "reports/stage3_calibration_manifest.json",
+        "reference_value": -326.5622181729457
+      },
+      {
+        "alpha_sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+        "combined_input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+        "family_id": "fe4s4",
+        "fcidump_sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+        "n_configurations": 3025,
+        "name": "fe4s4-prefix-0055",
+        "reference_source": "reports/stage3_calibration_manifest.json",
+        "reference_value": -326.5689554798624
+      },
+      {
+        "alpha_sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+        "combined_input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+        "family_id": "fe4s4",
+        "fcidump_sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+        "n_configurations": 59536,
+        "name": "fe4s4-prefix-0244",
+        "reference_source": "reports/stage3_calibration_manifest.json",
+        "reference_value": -326.6982536731583
+      },
+      {
+        "alpha_sha256": "3d2406670cadd5ba16089fa08af208b469208d3afaf09ff6268aa6bfd2ea7b7d",
+        "combined_input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+        "family_id": "n2",
+        "fcidump_sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "n_configurations": 1024,
+        "name": "n2-prefix-0032",
+        "reference_source": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+        "reference_value": -108.9053043618977
+      },
+      {
+        "alpha_sha256": "75b771bea9661bb23f98f6e2bdd165e47841cee8e8de91c13959eb40abc54d79",
+        "combined_input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+        "family_id": "n2",
+        "fcidump_sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "n_configurations": 3025,
+        "name": "n2-prefix-0055",
+        "reference_source": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+        "reference_value": -108.9094778983647
+      },
+      {
+        "alpha_sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+        "combined_input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+        "family_id": "n2",
+        "fcidump_sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+        "n_configurations": 57121,
+        "name": "n2-prefix-0239",
+        "reference_source": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+        "reference_value": -109.0415109298453
+      },
+      {
+        "alpha_sha256": "6f1fcf262ca0e91cbede71522a4f756cc801a0c7730d2e16552876386f6da58f",
+        "combined_input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+        "family_id": "h2o",
+        "fcidump_sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "n_configurations": 1024,
+        "name": "h2o-prefix-0032",
+        "reference_source": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+        "reference_value": -76.07312514830402
+      },
+      {
+        "alpha_sha256": "e9839cc16b450597bac2d0e1c9e8357d6de0e76b6755aab0d3e73419ab329ce3",
+        "combined_input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+        "family_id": "h2o",
+        "fcidump_sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "n_configurations": 10000,
+        "name": "h2o-prefix-0100",
+        "reference_source": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+        "reference_value": -76.14467787856537
+      },
+      {
+        "alpha_sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+        "combined_input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+        "family_id": "h2o",
+        "fcidump_sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+        "n_configurations": 75625,
+        "name": "h2o-prefix-0275",
+        "reference_source": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+        "reference_value": -76.23593762863838
+      }
+    ]
+  },
+  "memory_safety": {
+    "admission_cap_bytes": 21474836480,
+    "dynamic_free_memory_fraction": 0.8,
+    "maximum_modeled_gpu_guard_bytes": 603979776,
+    "maximum_modeled_host_guard_bytes": 671088640,
+    "preflight_must_be_repeated_at_launch": true,
+    "source_memory_guard_version": 1
+  },
+  "name": "phasec-amd-parameter-screen-v1",
+  "parameter_grid": {
+    "axes": {
+      "backend": [
+        "cpu16",
+        "l4"
+      ],
+      "bit_length": [
+        20,
+        48
+      ],
+      "shuffle": [
+        0,
+        1
+      ]
+    },
+    "candidates": 8,
+    "workloads": 9
+  },
+  "parameter_semantics": {
+    "bit_length": {
+      "definition": "number of determinant bits managed by each size_t word",
+      "full_configuration_words": "ceil(2 * n_orbitals / bit_length)",
+      "half_determinant_words": "ceil(n_orbitals / bit_length)",
+      "rationale_for_48": "48 is within the audited 64-bit bound, exactly spans the 48-bit H2O full representation, spans N2 in one full word, and reduces Fe4S4 full storage from four words at 20 to two words at 48.",
+      "source": {
+        "cache_path": "external/amd-sbd/include/sbd/chemistry/tpb/determinant_cache_omp.h",
+        "cache_sha256": "8578a4663b2ec26700323165611674b6fcfbe055c273e35543d2ae7b26590628",
+        "sample_readme_path": "external/amd-sbd/samples/selected_basis_diagonalization/README.md",
+        "sample_readme_sha256": "9fd897ac8ac2de51dfc4456123d0766ab460a20cebb47bacc0baad1646b2f476"
+      }
+    },
+    "shuffle": {
+      "definition": "reorder the loaded alpha and beta half-determinant lists before solving",
+      "fixed_alpha_seed": 1729,
+      "fixed_beta_seed": 137,
+      "source": {
+        "main_path": "external/amd-sbd/applications/selected_basis_diagonalization/src/main.cc",
+        "main_sha256": "8f9c38cd43994cbe3e23796cffba30a08c792521e426e72aece49f832d9b317a",
+        "readme_path": "external/amd-sbd/applications/selected_basis_diagonalization/README.md",
+        "readme_sha256": "06d21ca6963907689358ede135020553c114788c766c12197f0a4dc800d5a90c"
+      }
+    }
+  },
+  "projection": {
+    "buffer_25_percent": {
+      "cost_usd": 0.9365285087108111,
+      "minutes": 32.3987955415,
+      "seconds": 1943.9277324900002
+    },
+    "buffer_50_percent": {
+      "cost_usd": 1.123834210452973,
+      "minutes": 38.8785546498,
+      "seconds": 2332.713278988
+    },
+    "correctness_only": {
+      "cost_usd": 0.24974093565621622,
+      "minutes": 8.639678811066666,
+      "seconds": 518.380728664
+    },
+    "method": "Sum sealed balanced CPU16/L4 process wall times for the nine selected workloads, once per four parameter cells; timing uses one warmup plus one measured pass. Orchestration overhead is not added separately because prior sealed process sums are used as the execution estimate; 25 and 50 percent contingencies cover it.",
+    "nominal_combined": {
+      "cost_usd": 0.7492228069686488,
+      "minutes": 25.919036433200002,
+      "seconds": 1555.1421859920001
+    },
+    "rate_usd_per_hour": 1.734376528,
+    "timing_only": {
+      "cost_usd": 0.49948187131243243,
+      "minutes": 17.279357622133332,
+      "seconds": 1036.761457328
+    }
+  },
+  "schema_version": 1,
+  "scope": {
+    "binaries": {
+      "cpu16": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "l4": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      }
+    },
+    "nvidia_toolchain": "NVIDIA HPC SDK 26.5",
+    "official_primary_only": true,
+    "riken_role": "input data provenance only; no RIKEN executable",
+    "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "upstream_url": "https://github.com/AMD-HPC/amd-sbd"
+  },
+  "source_manifests": {
+    "fe4s4": {
+      "path": "reports/stage3_calibration_manifest.json",
+      "sha256": "6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec"
+    },
+    "n2_h2o": {
+      "path": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+      "sha256": "ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829"
+    }
+  },
+  "status": "frozen_before_correctness",
+  "timing_campaign_after_correctness": {
+    "config_path": "configs/phasec_parameter_timing.yaml",
+    "correctness_manifest_required_before_materialization": true,
+    "expected_records": {
+      "measured": 72,
+      "total": 144,
+      "warmup": 72
+    },
+    "primary_metric": "end_to_end_wall_time_s",
+    "purpose": "pilot",
+    "repetitions": 1,
+    "summary_role": "paired configuration-pruning evidence",
+    "timeout_s_per_trial": 300,
+    "warmups": 1
+  },
+  "total_planned_records": {
+    "correctness": 72,
+    "grand_total": 216,
+    "timing_measured": 72,
+    "timing_warmup": 72
+  }
+}

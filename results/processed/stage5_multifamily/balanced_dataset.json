@@ -1,0 +1,1971 @@
+{
+  "analysis_view": {
+    "aggregation": "median wall time per family/workload/candidate",
+    "group_key": [
+      "family_id",
+      "problem_instance",
+      "input_sha256",
+      "candidate_name"
+    ],
+    "phase": "measured",
+    "protocol_purpose": "final",
+    "provenance_only_fields": [
+      "basis",
+      "basis_status",
+      "family_id",
+      "input_sha256",
+      "instance_id",
+      "molecule",
+      "problem_instance"
+    ],
+    "repetitions": [
+      0,
+      1,
+      2
+    ]
+  },
+  "candidate_contract": [
+    {
+      "backend": "cpu",
+      "cpu_threads": 16,
+      "name": "amd-cpu-16"
+    },
+    {
+      "backend": "gpu",
+      "cpu_threads": 1,
+      "name": "amd-l4-default"
+    }
+  ],
+  "dataset_type": "autosbd_multifamily_balanced_candidate_medians",
+  "families": [
+    {
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_rows": 10,
+      "family_id": "fe4s4",
+      "instance_ids": [
+        "fe4s4::fe4s4-prefix-0032",
+        "fe4s4::fe4s4-prefix-0055",
+        "fe4s4::fe4s4-prefix-0100",
+        "fe4s4::fe4s4-prefix-0174",
+        "fe4s4::fe4s4-prefix-0244"
+      ],
+      "measurement_records": 30,
+      "molecule": "Fe4S4",
+      "problem_instances": [
+        "fe4s4-prefix-0032",
+        "fe4s4-prefix-0055",
+        "fe4s4-prefix-0100",
+        "fe4s4-prefix-0174",
+        "fe4s4-prefix-0244"
+      ]
+    },
+    {
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_rows": 10,
+      "family_id": "n2",
+      "instance_ids": [
+        "n2::n2-prefix-0032",
+        "n2::n2-prefix-0055",
+        "n2::n2-prefix-0100",
+        "n2::n2-prefix-0174",
+        "n2::n2-prefix-0239"
+      ],
+      "measurement_records": 30,
+      "molecule": "N2",
+      "problem_instances": [
+        "n2-prefix-0032",
+        "n2-prefix-0055",
+        "n2-prefix-0100",
+        "n2-prefix-0174",
+        "n2-prefix-0239"
+      ]
+    },
+    {
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_rows": 10,
+      "family_id": "h2o",
+      "instance_ids": [
+        "h2o::h2o-prefix-0032",
+        "h2o::h2o-prefix-0055",
+        "h2o::h2o-prefix-0100",
+        "h2o::h2o-prefix-0174",
+        "h2o::h2o-prefix-0275"
+      ],
+      "measurement_records": 30,
+      "molecule": "H2O",
+      "problem_instances": [
+        "h2o-prefix-0032",
+        "h2o-prefix-0055",
+        "h2o-prefix-0100",
+        "h2o-prefix-0174",
+        "h2o-prefix-0275"
+      ]
+    }
+  ],
+  "feature_names": {
+    "full": [
+      "log1p_n_configurations",
+      "backend_gpu",
+      "log1p_method0_work_proxy",
+      "log1p_determinant_cache_bytes",
+      "log1p_gpu_guard_bytes",
+      "alpha_single_edge_density",
+      "alpha_double_edge_density",
+      "beta_single_edge_density",
+      "beta_double_edge_density",
+      "cpu_threads"
+    ],
+    "size_only": [
+      "log1p_n_configurations",
+      "backend_gpu"
+    ]
+  },
+  "instances": [
+    {
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "family_id": "fe4s4",
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "instance_id": "fe4s4::fe4s4-prefix-0032",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104438425190
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 1024,
+      "problem_instance": "fe4s4-prefix-0032",
+      "source_record_ids": [
+        "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+        "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+        "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829",
+        "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+        "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9",
+        "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68"
+      ]
+    },
+    {
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "family_id": "fe4s4",
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "instance_id": "fe4s4::fe4s4-prefix-0055",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104403864780
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 3025,
+      "problem_instance": "fe4s4-prefix-0055",
+      "source_record_ids": [
+        "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+        "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0",
+        "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c",
+        "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+        "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+        "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11"
+      ]
+    },
+    {
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "family_id": "fe4s4",
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "instance_id": "fe4s4::fe4s4-prefix-0100",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104484903321
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 10000,
+      "problem_instance": "fe4s4-prefix-0100",
+      "source_record_ids": [
+        "17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36",
+        "1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530",
+        "196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f",
+        "2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546",
+        "47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964",
+        "db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23"
+      ]
+    },
+    {
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "family_id": "fe4s4",
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "instance_id": "fe4s4::fe4s4-prefix-0174",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104475341619
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 30276,
+      "problem_instance": "fe4s4-prefix-0174",
+      "source_record_ids": [
+        "36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a",
+        "72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f",
+        "a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce",
+        "b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7",
+        "d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf",
+        "f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196"
+      ]
+    },
+    {
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "family_id": "fe4s4",
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "instance_id": "fe4s4::fe4s4-prefix-0244",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104470269132
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 59536,
+      "problem_instance": "fe4s4-prefix-0244",
+      "source_record_ids": [
+        "18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868",
+        "59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8",
+        "59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad",
+        "cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6",
+        "d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9",
+        "f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195"
+      ]
+    },
+    {
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "instance_id": "n2::n2-prefix-0032",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104670045798
+      },
+      "molecule": "N2",
+      "n_configurations": 1024,
+      "problem_instance": "n2-prefix-0032",
+      "source_record_ids": [
+        "0a0a6d7eea361d0d2656eebb5942c1dece8a0a236a5b325b1c3300fbcef9d572",
+        "1094d460be08be2090cb4ae7e78d57024ea2840a8dcfd3704f857ab84d07ca94",
+        "4a2cf63d4456923274a11e19df59a61ada97d725068859ab19ba614d31fae241",
+        "6421f689e8e9c4c7f5816ff2e1602bdc8e11cd849e05a255f68e91d013ffadf9",
+        "99e73c6eeb05935ab90fc5cfa97d58c2b5edb0c30a02a525161953b2de85e462",
+        "b6bd807cc952f732475d8249823c9a30a6230cd828fec767adc56bb2bd51655e"
+      ]
+    },
+    {
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "instance_id": "n2::n2-prefix-0055",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104676235673
+      },
+      "molecule": "N2",
+      "n_configurations": 3025,
+      "problem_instance": "n2-prefix-0055",
+      "source_record_ids": [
+        "037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef",
+        "5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9",
+        "63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d",
+        "8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c",
+        "94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c",
+        "e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0"
+      ]
+    },
+    {
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "instance_id": "n2::n2-prefix-0100",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104638952243
+      },
+      "molecule": "N2",
+      "n_configurations": 10000,
+      "problem_instance": "n2-prefix-0100",
+      "source_record_ids": [
+        "08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319",
+        "3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64",
+        "554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46",
+        "5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7",
+        "5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640",
+        "8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c"
+      ]
+    },
+    {
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "instance_id": "n2::n2-prefix-0174",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104664658739
+      },
+      "molecule": "N2",
+      "n_configurations": 30276,
+      "problem_instance": "n2-prefix-0174",
+      "source_record_ids": [
+        "0c0708436752e56a3da2d45f508a6aeb42c9f2573612869402ce916334e5c47d",
+        "13d5b988546e8bfea42def7f1dca6636d295cb1695b83bd246670c2761c4062b",
+        "1d330b936b8d6098f68e6958c333295851cd96b9b3960d77aa9314c97104c7f1",
+        "3cb36deef152a72c3bc5004d782b50a01a0659163a6c79db59eb151cdacdd9bf",
+        "b1f6ee7ae44e8e7ed7184687808847828940473febed9353b9a8ef39ce146549",
+        "f5751ff9b9699bc32ef8669ff5a0057c6aba31280c72587ce2558584fcb979fb"
+      ]
+    },
+    {
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "instance_id": "n2::n2-prefix-0239",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104728077926
+      },
+      "molecule": "N2",
+      "n_configurations": 57121,
+      "problem_instance": "n2-prefix-0239",
+      "source_record_ids": [
+        "3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70",
+        "397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a",
+        "3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0",
+        "838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e",
+        "cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a",
+        "eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd"
+      ]
+    },
+    {
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "instance_id": "h2o::h2o-prefix-0032",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104680646246
+      },
+      "molecule": "H2O",
+      "n_configurations": 1024,
+      "problem_instance": "h2o-prefix-0032",
+      "source_record_ids": [
+        "1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f",
+        "4310ff0e7e0fc1c11f2c379338d18f1fdaec38f2d3bcc4120f8c1ccd91837613",
+        "60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8",
+        "646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7",
+        "87a4a07004286806a8949952edf8f1dcf3deb89424aeea654634e46d6f835e56",
+        "f75f2b6790b5f03b84e50ec19f7464a708eff82be0481506e56784a53cda9e2c"
+      ]
+    },
+    {
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "instance_id": "h2o::h2o-prefix-0055",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104640570982
+      },
+      "molecule": "H2O",
+      "n_configurations": 3025,
+      "problem_instance": "h2o-prefix-0055",
+      "source_record_ids": [
+        "124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd",
+        "2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877",
+        "5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e",
+        "7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370",
+        "ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31",
+        "f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956"
+      ]
+    },
+    {
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "instance_id": "h2o::h2o-prefix-0100",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104662509158
+      },
+      "molecule": "H2O",
+      "n_configurations": 10000,
+      "problem_instance": "h2o-prefix-0100",
+      "source_record_ids": [
+        "1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856",
+        "434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b",
+        "53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45",
+        "5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0",
+        "8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b",
+        "acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73"
+      ]
+    },
+    {
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "instance_id": "h2o::h2o-prefix-0174",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104628577894
+      },
+      "molecule": "H2O",
+      "n_configurations": 30276,
+      "problem_instance": "h2o-prefix-0174",
+      "source_record_ids": [
+        "0d149660f9d880830f05303834f18916631f6c19c2e2f3bea411ff9caa6f06ab",
+        "3864801d362800f9cd759a6d5372ba6301707406fceb109728baa8cf837039b1",
+        "38aa7d5738a07fb8ee4fdf218a3ce8577d919ce1d6689d890dea8f13b60e2a40",
+        "3b77cb65794ab766e0eaa5c0d4cc76b7ef7a0cd07d8c058d3090ef0ce91c7229",
+        "516077e2b3797f0b606854a666e4d4adaf5df55fde04ffe58d55af7370e41fb0",
+        "a144503ea2243461303c0fa3105fe474abc352c17fd050ec334cb868e36ddbe2"
+      ]
+    },
+    {
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "instance_id": "h2o::h2o-prefix-0275",
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104610273689
+      },
+      "molecule": "H2O",
+      "n_configurations": 75625,
+      "problem_instance": "h2o-prefix-0275",
+      "source_record_ids": [
+        "24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181",
+        "2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43",
+        "37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3",
+        "46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3",
+        "5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40",
+        "71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71"
+      ]
+    }
+  ],
+  "record_counts": {
+    "candidate_rows": 30,
+    "candidates_per_instance": 2,
+    "problem_instances": 15,
+    "repetitions_per_candidate": 3,
+    "selected_measurements": 90
+  },
+  "rows": [
+    {
+      "backend": "cpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.20967741935483872,
+        "alpha_single_edge_density": 0.7903225806451613,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.20967741935483872,
+        "beta_single_edge_density": 0.7903225806451613,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 10.397238225511654,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 13.428625271005966,
+        "log1p_n_configurations": 6.932447891572509,
+        "n_configurations": 1024
+      },
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "instance_id": "fe4s4::fe4s4-prefix-0032",
+      "median_wall_time_s": 1.4109253030037507,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104438425190
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 1024,
+      "problem_instance": "fe4s4-prefix-0032",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+        "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+        "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9"
+      ],
+      "target_log1p_median_wall_time_s": 0.8800106169703343
+    },
+    {
+      "backend": "gpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.20967741935483872,
+        "alpha_single_edge_density": 0.7903225806451613,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.20967741935483872,
+        "beta_single_edge_density": 0.7903225806451613,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 10.397238225511654,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 13.428625271005966,
+        "log1p_n_configurations": 6.932447891572509,
+        "n_configurations": 1024
+      },
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "instance_id": "fe4s4::fe4s4-prefix-0032",
+      "median_wall_time_s": 1.6338358529974357,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104438425190
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 1024,
+      "problem_instance": "fe4s4-prefix-0032",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+        "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+        "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829"
+      ],
+      "target_log1p_median_wall_time_s": 0.9684412828512805
+    },
+    {
+      "backend": "cpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.4727272727272727,
+        "alpha_single_edge_density": 0.5272727272727272,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.4727272727272727,
+        "beta_single_edge_density": 0.5272727272727272,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 11.480412603789821,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 14.83871012622884,
+        "log1p_n_configurations": 8.0149968943483,
+        "n_configurations": 3025
+      },
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "instance_id": "fe4s4::fe4s4-prefix-0055",
+      "median_wall_time_s": 2.41789160999906,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104403864780
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 3025,
+      "problem_instance": "fe4s4-prefix-0055",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11",
+        "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+        "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0"
+      ],
+      "target_log1p_median_wall_time_s": 1.2290238726630942
+    },
+    {
+      "backend": "gpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.4727272727272727,
+        "alpha_single_edge_density": 0.5272727272727272,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.4727272727272727,
+        "beta_single_edge_density": 0.5272727272727272,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 11.480412603789821,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 14.83871012622884,
+        "log1p_n_configurations": 8.0149968943483,
+        "n_configurations": 3025
+      },
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "instance_id": "fe4s4::fe4s4-prefix-0055",
+      "median_wall_time_s": 1.9198227190063335,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104403864780
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 3025,
+      "problem_instance": "fe4s4-prefix-0055",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+        "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+        "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c"
+      ],
+      "target_log1p_median_wall_time_s": 1.0715229017680379
+    },
+    {
+      "backend": "cpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.7090909090909091,
+        "alpha_single_edge_density": 0.2909090909090909,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.7090909090909091,
+        "beta_single_edge_density": 0.2909090909090909,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 12.676079399771027,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 16.146138839217606,
+        "log1p_n_configurations": 9.210440366976517,
+        "n_configurations": 10000
+      },
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "instance_id": "fe4s4::fe4s4-prefix-0100",
+      "median_wall_time_s": 5.633911507997254,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104484903321
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 10000,
+      "problem_instance": "fe4s4-prefix-0100",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f",
+        "47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964",
+        "2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546"
+      ],
+      "target_log1p_median_wall_time_s": 1.8921946012735862
+    },
+    {
+      "backend": "gpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.7090909090909091,
+        "alpha_single_edge_density": 0.2909090909090909,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.7090909090909091,
+        "beta_single_edge_density": 0.2909090909090909,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 12.676079399771027,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 16.146138839217606,
+        "log1p_n_configurations": 9.210440366976517,
+        "n_configurations": 10000
+      },
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "instance_id": "fe4s4::fe4s4-prefix-0100",
+      "median_wall_time_s": 2.8404115309967892,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104484903321
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 10000,
+      "problem_instance": "fe4s4-prefix-0100",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36",
+        "1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530",
+        "db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23"
+      ],
+      "target_log1p_median_wall_time_s": 1.3455795303878055
+    },
+    {
+      "backend": "cpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.8136336456049432,
+        "alpha_single_edge_density": 0.1863663543950568,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.8136336456049432,
+        "beta_single_edge_density": 0.1863663543950568,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 13.783847533398948,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 17.552653204088866,
+        "log1p_n_configurations": 10.318143627345878,
+        "n_configurations": 30276
+      },
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "instance_id": "fe4s4::fe4s4-prefix-0174",
+      "median_wall_time_s": 29.969004751001194,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104475341619
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 671088640,
+        "host_guard_bytes": 671088640
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 30276,
+      "problem_instance": "fe4s4-prefix-0174",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce",
+        "72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f",
+        "d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf"
+      ],
+      "target_log1p_median_wall_time_s": 3.4329868575630655
+    },
+    {
+      "backend": "gpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.8136336456049432,
+        "alpha_single_edge_density": 0.1863663543950568,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.8136336456049432,
+        "beta_single_edge_density": 0.1863663543950568,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 13.783847533398948,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 17.552653204088866,
+        "log1p_n_configurations": 10.318143627345878,
+        "n_configurations": 30276
+      },
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "instance_id": "fe4s4::fe4s4-prefix-0174",
+      "median_wall_time_s": 8.776808773000084,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104475341619
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 671088640,
+        "host_guard_bytes": 671088640
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 30276,
+      "problem_instance": "fe4s4-prefix-0174",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196",
+        "36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a",
+        "b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7"
+      ],
+      "target_log1p_median_wall_time_s": 2.280013129469629
+    },
+    {
+      "backend": "cpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.8524590163934426,
+        "alpha_single_edge_density": 0.14754098360655737,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.8524590163934426,
+        "beta_single_edge_density": 0.14754098360655737,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 14.460072878278494,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 18.47442563222631,
+        "log1p_n_configurations": 10.994353247005408,
+        "n_configurations": 59536
+      },
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "instance_id": "fe4s4::fe4s4-prefix-0244",
+      "median_wall_time_s": 78.40097830099694,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104470269132
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 671088640,
+        "host_guard_bytes": 671088640
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 59536,
+      "problem_instance": "fe4s4-prefix-0244",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868",
+        "cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6",
+        "59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8"
+      ],
+      "target_log1p_median_wall_time_s": 4.374510689348432
+    },
+    {
+      "backend": "gpu",
+      "basis": null,
+      "basis_status": "upstream_not_reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "fe4s4",
+      "feature_values": {
+        "alpha_double_edge_density": 0.8524590163934426,
+        "alpha_single_edge_density": 0.14754098360655737,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.8524590163934426,
+        "beta_single_edge_density": 0.14754098360655737,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 14.460072878278494,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 18.47442563222631,
+        "log1p_n_configurations": 10.994353247005408,
+        "n_configurations": 59536
+      },
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "instance_id": "fe4s4::fe4s4-prefix-0244",
+      "median_wall_time_s": 17.261023300001398,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104470269132
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 671088640,
+        "host_guard_bytes": 671088640
+      },
+      "molecule": "Fe4S4",
+      "n_configurations": 59536,
+      "problem_instance": "fe4s4-prefix-0244",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9",
+        "59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad",
+        "f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195"
+      ],
+      "target_log1p_median_wall_time_s": 2.9047689141224264
+    },
+    {
+      "backend": "cpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.5241935483870968,
+        "alpha_single_edge_density": 0.3407258064516129,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.5241935483870968,
+        "beta_single_edge_density": 0.3407258064516129,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 9.704121561132915,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 12.044617855517439,
+        "log1p_n_configurations": 6.932447891572509,
+        "n_configurations": 1024
+      },
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "instance_id": "n2::n2-prefix-0032",
+      "median_wall_time_s": 0.6076556000043638,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104670045798
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 1024,
+      "problem_instance": "n2-prefix-0032",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "4a2cf63d4456923274a11e19df59a61ada97d725068859ab19ba614d31fae241",
+        "6421f689e8e9c4c7f5816ff2e1602bdc8e11cd849e05a255f68e91d013ffadf9",
+        "0a0a6d7eea361d0d2656eebb5942c1dece8a0a236a5b325b1c3300fbcef9d572"
+      ],
+      "target_log1p_median_wall_time_s": 0.4747769687153915
+    },
+    {
+      "backend": "gpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.5241935483870968,
+        "alpha_single_edge_density": 0.3407258064516129,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.5241935483870968,
+        "beta_single_edge_density": 0.3407258064516129,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 9.704121561132915,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 12.044617855517439,
+        "log1p_n_configurations": 6.932447891572509,
+        "n_configurations": 1024
+      },
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "instance_id": "n2::n2-prefix-0032",
+      "median_wall_time_s": 0.7917750219930895,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104670045798
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 1024,
+      "problem_instance": "n2-prefix-0032",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "1094d460be08be2090cb4ae7e78d57024ea2840a8dcfd3704f857ab84d07ca94",
+        "b6bd807cc952f732475d8249823c9a30a6230cd828fec767adc56bb2bd51655e",
+        "99e73c6eeb05935ab90fc5cfa97d58c2b5edb0c30a02a525161953b2de85e462"
+      ],
+      "target_log1p_median_wall_time_s": 0.5832067609084248
+    },
+    {
+      "backend": "cpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.5185185185185185,
+        "alpha_single_edge_density": 0.22962962962962963,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.5185185185185185,
+        "beta_single_edge_density": 0.22962962962962963,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 10.78727575364831,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 13.476633431913193,
+        "log1p_n_configurations": 8.0149968943483,
+        "n_configurations": 3025
+      },
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "instance_id": "n2::n2-prefix-0055",
+      "median_wall_time_s": 0.7082737710006768,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104676235673
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 3025,
+      "problem_instance": "n2-prefix-0055",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c",
+        "8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c",
+        "63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d"
+      ],
+      "target_log1p_median_wall_time_s": 0.5354833699928362
+    },
+    {
+      "backend": "gpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.5185185185185185,
+        "alpha_single_edge_density": 0.22962962962962963,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.5185185185185185,
+        "beta_single_edge_density": 0.22962962962962963,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 10.78727575364831,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 13.476633431913193,
+        "log1p_n_configurations": 8.0149968943483,
+        "n_configurations": 3025
+      },
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "instance_id": "n2::n2-prefix-0055",
+      "median_wall_time_s": 0.7862328740011435,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104676235673
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 3025,
+      "problem_instance": "n2-prefix-0055",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9",
+        "e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0",
+        "037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef"
+      ],
+      "target_log1p_median_wall_time_s": 0.5801088625329233
+    },
+    {
+      "backend": "cpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.45535353535353534,
+        "alpha_single_edge_density": 0.13494949494949496,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.45535353535353534,
+        "beta_single_edge_density": 0.13494949494949496,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 11.982935344196433,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 14.90194803345196,
+        "log1p_n_configurations": 9.210440366976517,
+        "n_configurations": 10000
+      },
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "instance_id": "n2::n2-prefix-0100",
+      "median_wall_time_s": 1.1113481970096473,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104638952243
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 10000,
+      "problem_instance": "n2-prefix-0100",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46",
+        "8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c",
+        "5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7"
+      ],
+      "target_log1p_median_wall_time_s": 0.7473266993712913
+    },
+    {
+      "backend": "gpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.45535353535353534,
+        "alpha_single_edge_density": 0.13494949494949496,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.45535353535353534,
+        "beta_single_edge_density": 0.13494949494949496,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 11.982935344196433,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 14.90194803345196,
+        "log1p_n_configurations": 9.210440366976517,
+        "n_configurations": 10000
+      },
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "instance_id": "n2::n2-prefix-0100",
+      "median_wall_time_s": 0.9952696120017208,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104638952243
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 10000,
+      "problem_instance": "n2-prefix-0100",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64",
+        "5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640",
+        "08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319"
+      ],
+      "target_log1p_median_wall_time_s": 0.6907791850712296
+    },
+    {
+      "backend": "cpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.3936615507275264,
+        "alpha_single_edge_density": 0.08790113613713374,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.3936615507275264,
+        "beta_single_edge_density": 0.08790113613713374,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 13.090701385008101,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 16.306747214254646,
+        "log1p_n_configurations": 10.318143627345878,
+        "n_configurations": 30276
+      },
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "instance_id": "n2::n2-prefix-0174",
+      "median_wall_time_s": 3.0204282859922387,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104664658739
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 30276,
+      "problem_instance": "n2-prefix-0174",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "b1f6ee7ae44e8e7ed7184687808847828940473febed9353b9a8ef39ce146549",
+        "3cb36deef152a72c3bc5004d782b50a01a0659163a6c79db59eb151cdacdd9bf",
+        "0c0708436752e56a3da2d45f508a6aeb42c9f2573612869402ce916334e5c47d"
+      ],
+      "target_log1p_median_wall_time_s": 1.3913884357601138
+    },
+    {
+      "backend": "gpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.3936615507275264,
+        "alpha_single_edge_density": 0.08790113613713374,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.3936615507275264,
+        "beta_single_edge_density": 0.08790113613713374,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 13.090701385008101,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 16.306747214254646,
+        "log1p_n_configurations": 10.318143627345878,
+        "n_configurations": 30276
+      },
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "instance_id": "n2::n2-prefix-0174",
+      "median_wall_time_s": 1.126547102991026,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104664658739
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 30276,
+      "problem_instance": "n2-prefix-0174",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "13d5b988546e8bfea42def7f1dca6636d295cb1695b83bd246670c2761c4062b",
+        "f5751ff9b9699bc32ef8669ff5a0057c6aba31280c72587ce2558584fcb979fb",
+        "1d330b936b8d6098f68e6958c333295851cd96b9b3960d77aa9314c97104c7f1"
+      ],
+      "target_log1p_median_wall_time_s": 0.7544995859440256
+    },
+    {
+      "backend": "cpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.3513237931155726,
+        "alpha_single_edge_density": 0.06785977989522168,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.3513237931155726,
+        "beta_single_edge_density": 0.06785977989522168,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 13.725516920270723,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 17.087136467585477,
+        "log1p_n_configurations": 10.952944610406092,
+        "n_configurations": 57121
+      },
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "instance_id": "n2::n2-prefix-0239",
+      "median_wall_time_s": 5.9361246040061815,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104728077926
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 57121,
+      "problem_instance": "n2-prefix-0239",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a",
+        "3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70",
+        "eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd"
+      ],
+      "target_log1p_median_wall_time_s": 1.9367432041389891
+    },
+    {
+      "backend": "gpu",
+      "basis": "6-31G",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "n2",
+      "feature_values": {
+        "alpha_double_edge_density": 0.3513237931155726,
+        "alpha_single_edge_density": 0.06785977989522168,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.3513237931155726,
+        "beta_single_edge_density": 0.06785977989522168,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 13.725516920270723,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 17.087136467585477,
+        "log1p_n_configurations": 10.952944610406092,
+        "n_configurations": 57121
+      },
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "instance_id": "n2::n2-prefix-0239",
+      "median_wall_time_s": 1.3086300879949704,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104728077926
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "N2",
+      "n_configurations": 57121,
+      "problem_instance": "n2-prefix-0239",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e",
+        "397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a",
+        "3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0"
+      ],
+      "target_log1p_median_wall_time_s": 0.8366543131185845
+    },
+    {
+      "backend": "cpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.5544354838709677,
+        "alpha_single_edge_density": 0.29435483870967744,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.5544354838709677,
+        "beta_single_edge_density": 0.29435483870967744,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 10.109566325223746,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 11.850661188769525,
+        "log1p_n_configurations": 6.932447891572509,
+        "n_configurations": 1024
+      },
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "instance_id": "h2o::h2o-prefix-0032",
+      "median_wall_time_s": 0.6072084219922544,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104680646246
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 1024,
+      "problem_instance": "h2o-prefix-0032",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7",
+        "1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f",
+        "60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8"
+      ],
+      "target_log1p_median_wall_time_s": 0.47449877466927715
+    },
+    {
+      "backend": "gpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.5544354838709677,
+        "alpha_single_edge_density": 0.29435483870967744,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.5544354838709677,
+        "beta_single_edge_density": 0.29435483870967744,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 10.109566325223746,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 11.850661188769525,
+        "log1p_n_configurations": 6.932447891572509,
+        "n_configurations": 1024
+      },
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "instance_id": "h2o::h2o-prefix-0032",
+      "median_wall_time_s": 0.8421732529968722,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104680646246
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 1024,
+      "problem_instance": "h2o-prefix-0032",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "87a4a07004286806a8949952edf8f1dcf3deb89424aeea654634e46d6f835e56",
+        "4310ff0e7e0fc1c11f2c379338d18f1fdaec38f2d3bcc4120f8c1ccd91837613",
+        "f75f2b6790b5f03b84e50ec19f7464a708eff82be0481506e56784a53cda9e2c"
+      ],
+      "target_log1p_median_wall_time_s": 0.6109459904115919
+    },
+    {
+      "backend": "cpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.509090909090909,
+        "alpha_single_edge_density": 0.19393939393939394,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.509090909090909,
+        "beta_single_edge_density": 0.19393939393939394,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 11.192733974822708,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 13.243663775438133,
+        "log1p_n_configurations": 8.0149968943483,
+        "n_configurations": 3025
+      },
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "instance_id": "h2o::h2o-prefix-0055",
+      "median_wall_time_s": 0.7084147349960404,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104640570982
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 3025,
+      "problem_instance": "h2o-prefix-0055",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877",
+        "ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31",
+        "f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956"
+      ],
+      "target_log1p_median_wall_time_s": 0.5355658849749284
+    },
+    {
+      "backend": "gpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.509090909090909,
+        "alpha_single_edge_density": 0.19393939393939394,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.509090909090909,
+        "beta_single_edge_density": 0.19393939393939394,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 11.192733974822708,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 13.243663775438133,
+        "log1p_n_configurations": 8.0149968943483,
+        "n_configurations": 3025
+      },
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "instance_id": "h2o::h2o-prefix-0055",
+      "median_wall_time_s": 0.9805703449965222,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104640570982
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 3025,
+      "problem_instance": "h2o-prefix-0055",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e",
+        "7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370",
+        "124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd"
+      ],
+      "target_log1p_median_wall_time_s": 0.6833848562556821
+    },
+    {
+      "backend": "cpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.4686868686868687,
+        "alpha_single_edge_density": 0.1317171717171717,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.4686868686868687,
+        "beta_single_edge_density": 0.1317171717171717,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 12.388398368982115,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 14.87995125850014,
+        "log1p_n_configurations": 9.210440366976517,
+        "n_configurations": 10000
+      },
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "instance_id": "h2o::h2o-prefix-0100",
+      "median_wall_time_s": 1.3114063190005254,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104662509158
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 10000,
+      "problem_instance": "h2o-prefix-0100",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b",
+        "acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73",
+        "5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0"
+      ],
+      "target_log1p_median_wall_time_s": 0.8378561353966565
+    },
+    {
+      "backend": "gpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.4686868686868687,
+        "alpha_single_edge_density": 0.1317171717171717,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.4686868686868687,
+        "beta_single_edge_density": 0.1317171717171717,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 12.388398368982115,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 14.87995125850014,
+        "log1p_n_configurations": 9.210440366976517,
+        "n_configurations": 10000
+      },
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "instance_id": "h2o::h2o-prefix-0100",
+      "median_wall_time_s": 0.9931319280003663,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104662509158
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 10000,
+      "problem_instance": "h2o-prefix-0100",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856",
+        "53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45",
+        "8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b"
+      ],
+      "target_log1p_median_wall_time_s": 0.6897072347249009
+    },
+    {
+      "backend": "cpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.42601820477044716,
+        "alpha_single_edge_density": 0.08936283303434987,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.42601820477044716,
+        "beta_single_edge_density": 0.08936283303434987,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 13.496165805003653,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 16.35437250170629,
+        "log1p_n_configurations": 10.318143627345878,
+        "n_configurations": 30276
+      },
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "instance_id": "h2o::h2o-prefix-0174",
+      "median_wall_time_s": 3.6244393740053056,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104628577894
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 30276,
+      "problem_instance": "h2o-prefix-0174",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "516077e2b3797f0b606854a666e4d4adaf5df55fde04ffe58d55af7370e41fb0",
+        "a144503ea2243461303c0fa3105fe474abc352c17fd050ec334cb868e36ddbe2",
+        "38aa7d5738a07fb8ee4fdf218a3ce8577d919ce1d6689d890dea8f13b60e2a40"
+      ],
+      "target_log1p_median_wall_time_s": 1.5313551471857978
+    },
+    {
+      "backend": "gpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.42601820477044716,
+        "alpha_single_edge_density": 0.08936283303434987,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.42601820477044716,
+        "beta_single_edge_density": 0.08936283303434987,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 13.496165805003653,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 16.35437250170629,
+        "log1p_n_configurations": 10.318143627345878,
+        "n_configurations": 30276
+      },
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "instance_id": "h2o::h2o-prefix-0174",
+      "median_wall_time_s": 1.311357719998341,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104628577894
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 30276,
+      "problem_instance": "h2o-prefix-0174",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "0d149660f9d880830f05303834f18916631f6c19c2e2f3bea411ff9caa6f06ab",
+        "3b77cb65794ab766e0eaa5c0d4cc76b7ef7a0cd07d8c058d3090ef0ce91c7229",
+        "3864801d362800f9cd759a6d5372ba6301707406fceb109728baa8cf837039b1"
+      ],
+      "target_log1p_median_wall_time_s": 0.8378351094469103
+    },
+    {
+      "backend": "cpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-cpu-16",
+      "cpu_threads": 16,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.39424021234240214,
+        "alpha_single_edge_density": 0.06449900464499005,
+        "backend_gpu": 0.0,
+        "beta_double_edge_density": 0.39424021234240214,
+        "beta_single_edge_density": 0.06449900464499005,
+        "cpu_threads": 16.0,
+        "log1p_determinant_cache_bytes": 14.411596576645124,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 17.569862300244623,
+        "log1p_n_configurations": 11.233555418386214,
+        "n_configurations": 75625
+      },
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "instance_id": "h2o::h2o-prefix-0275",
+      "median_wall_time_s": 10.966416295006638,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104610273689
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 75625,
+      "problem_instance": "h2o-prefix-0275",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3",
+        "2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43",
+        "71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71"
+      ],
+      "target_log1p_median_wall_time_s": 2.482104084184403
+    },
+    {
+      "backend": "gpu",
+      "basis": "cc-pVDZ",
+      "basis_status": "reported",
+      "candidate_name": "amd-l4-default",
+      "cpu_threads": 1,
+      "family_id": "h2o",
+      "feature_values": {
+        "alpha_double_edge_density": 0.39424021234240214,
+        "alpha_single_edge_density": 0.06449900464499005,
+        "backend_gpu": 1.0,
+        "beta_double_edge_density": 0.39424021234240214,
+        "beta_single_edge_density": 0.06449900464499005,
+        "cpu_threads": 1.0,
+        "log1p_determinant_cache_bytes": 14.411596576645124,
+        "log1p_gpu_guard_bytes": 20.21905127355048,
+        "log1p_method0_work_proxy": 17.569862300244623,
+        "log1p_n_configurations": 11.233555418386214,
+        "n_configurations": 75625
+      },
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "instance_id": "h2o::h2o-prefix-0275",
+      "median_wall_time_s": 1.6916769039962674,
+      "memory_caps": {
+        "gpu_cap_bytes": 18928055091,
+        "host_cap_bytes": 104610273689
+      },
+      "memory_guard": {
+        "gpu_guard_bytes": 603979776,
+        "gpu_host_guard_bytes": 603979776,
+        "host_guard_bytes": 603979776
+      },
+      "molecule": "H2O",
+      "n_configurations": 75625,
+      "problem_instance": "h2o-prefix-0275",
+      "repetitions": [
+        0,
+        1,
+        2
+      ],
+      "source_record_ids": [
+        "46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3",
+        "24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181",
+        "5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40"
+      ],
+      "target_log1p_median_wall_time_s": 0.9901643837756444
+    }
+  ],
+  "schema_version": 1,
+  "source_record_ids": [
+    "037d8d05c7a1c6aca8f52a193786cb433edcbbbdeb47b95edec66e3c03a584ef",
+    "08d7f7b90f30286a3b09dbd3142800bf43b772b70bf8e1777262e40a57832319",
+    "0a0a6d7eea361d0d2656eebb5942c1dece8a0a236a5b325b1c3300fbcef9d572",
+    "0c0708436752e56a3da2d45f508a6aeb42c9f2573612869402ce916334e5c47d",
+    "0d149660f9d880830f05303834f18916631f6c19c2e2f3bea411ff9caa6f06ab",
+    "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+    "1094d460be08be2090cb4ae7e78d57024ea2840a8dcfd3704f857ab84d07ca94",
+    "124596a13abd34f8614fa0a1bc54e3eb763741a220b30eef255c343db5fb98dd",
+    "13d5b988546e8bfea42def7f1dca6636d295cb1695b83bd246670c2761c4062b",
+    "17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36",
+    "1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530",
+    "18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868",
+    "196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f",
+    "1971d33da7db7c7dd5c1c71e21387a0ddabacc381a74361e64bed29f390bb856",
+    "1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f",
+    "1d330b936b8d6098f68e6958c333295851cd96b9b3960d77aa9314c97104c7f1",
+    "24c8de636e3439948a832a1f09c6c4b9256bc4dd31d5c96dea4eb244c6e85181",
+    "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+    "2b07a38d443ca1f2f1a20f6bbcd354909d091b774c59bc32a28b93fd0a35bd43",
+    "2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546",
+    "2f052e065eb84d076229a35a6fffddeb33eccd11c574343e3448e7ff73a99877",
+    "3036900e016395e8c36e67940610b06f99732ad2e4f7c0f2a387cd1f01ae2b70",
+    "36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a",
+    "37a037903b332422f696a11ae57df25ad3050efac169bf99ccbea267bc6b6ef3",
+    "3864801d362800f9cd759a6d5372ba6301707406fceb109728baa8cf837039b1",
+    "38aa7d5738a07fb8ee4fdf218a3ce8577d919ce1d6689d890dea8f13b60e2a40",
+    "397059c3d896f0f31712bd05ede893385fab17bcf8fb0d847fd5d767bf5f5a5a",
+    "3acea955b615644c703406ffb6b800259b30d66535f322a4fe253d9b2a0701a0",
+    "3b77cb65794ab766e0eaa5c0d4cc76b7ef7a0cd07d8c058d3090ef0ce91c7229",
+    "3cb36deef152a72c3bc5004d782b50a01a0659163a6c79db59eb151cdacdd9bf",
+    "3f6a6005b46b18cc6eef7f285058db3e37119e556812b7a0d39de2434ae72b64",
+    "4310ff0e7e0fc1c11f2c379338d18f1fdaec38f2d3bcc4120f8c1ccd91837613",
+    "434f9f108be40028b9d3a043be8237ddca827e78f5c49993d489ad0337b4497b",
+    "46c317e090b7163fdccec5e0daf0f0ac9062e65b1158d35f9e9a158da1b678e3",
+    "47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964",
+    "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0",
+    "4a2cf63d4456923274a11e19df59a61ada97d725068859ab19ba614d31fae241",
+    "5031530df7be7721bf6212c0a60811c54b0fece9819be7aa847433d518a0a9f9",
+    "516077e2b3797f0b606854a666e4d4adaf5df55fde04ffe58d55af7370e41fb0",
+    "5172c5ae7e421d21f24e8a0b0c4d22a0b17f333ce9147636fac28dcf34a6e56e",
+    "53bd165138d6a0aab06c16e7b296b8b2834f500dfe6851f750af488fe4b81c45",
+    "554e9873bc7f588495a0c8845b9d2360098c1352301ecb07cf52a0971770cc46",
+    "5730bfdcd3a2bde9e935426e09a4aaf7df5e03d1f77c211a316184f9fbc16bf7",
+    "59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8",
+    "59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad",
+    "5a753b6eb01311db3f1754c2f42eba6839ddad41241f568c41d268e19991fee0",
+    "5cd6f2cd8da1af42fa868b627829d35a12af5ddbd293f4cf3022822da87ea640",
+    "5db7ce68d7087cfcfdd35e6c9c0eafe8d4f6af8c69237ff7fe4a4aba49d62d40",
+    "60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8",
+    "63097306ec30613cf73460ff9bd4250fa3c42c37a60be7eee984cea6be765e7d",
+    "6421f689e8e9c4c7f5816ff2e1602bdc8e11cd849e05a255f68e91d013ffadf9",
+    "646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7",
+    "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+    "71503a2b5312643bed3c9dc1ec8253ad2470b441f1744f998ae7021f6d235d71",
+    "72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f",
+    "7f60ab54f50bf383cbb19af19dcf4dc1e2a62c3ac77d19e747adb7d563ca3370",
+    "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829",
+    "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+    "838fd5600be44b204460288dd0711b79cd78cf2fbdf6e15baf9026c81c49638e",
+    "87a4a07004286806a8949952edf8f1dcf3deb89424aeea654634e46d6f835e56",
+    "8873846ea1614eab0fa28ca88ce910d9b89f6493b31670c1ba9b9680f873535c",
+    "8c6372b2126d6157d234c9d4f895c2a86a391c99962fb29c1f9bb285b8c5e34c",
+    "8fef94e0a8a645e8409be5135008255db63b2a4e12d97e7f8e70f061d1e8b39b",
+    "94b35c68ec55cdede5510efefe391454fcfaec21fdb7b47f809f838d70944e1c",
+    "99e73c6eeb05935ab90fc5cfa97d58c2b5edb0c30a02a525161953b2de85e462",
+    "a144503ea2243461303c0fa3105fe474abc352c17fd050ec334cb868e36ddbe2",
+    "a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce",
+    "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9",
+    "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c",
+    "ab75586d5e84211264de38f247849e42e610428b8f2202af12ce9c0772feee31",
+    "acd4b5e3df8c31ee18002e97a018432660f9d20a1eb84767351f399411420d73",
+    "b1f6ee7ae44e8e7ed7184687808847828940473febed9353b9a8ef39ce146549",
+    "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+    "b6bd807cc952f732475d8249823c9a30a6230cd828fec767adc56bb2bd51655e",
+    "b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7",
+    "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+    "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+    "cbe42f483a8cd2304e300ce2f15864d22c47cb350915d9f223292566d0c8197a",
+    "cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6",
+    "d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9",
+    "d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf",
+    "db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23",
+    "e0dbffe289887127450fe4f859266661805df348c0a2a117f745871334cfa3b0",
+    "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11",
+    "eb300730e763371342c37c6f4e483bd7ee2a2bc8258a43240985ac818dee59bd",
+    "f03815a98e56af13025f0fa50ea683a03cb5b327095a59d3af4a945c86cf1956",
+    "f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195",
+    "f5751ff9b9699bc32ef8669ff5a0057c6aba31280c72587ce2558584fcb979fb",
+    "f75f2b6790b5f03b84e50ec19f7464a708eff82be0481506e56784a53cda9e2c",
+    "f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196"
+  ],
+  "target": "log1p(median end-to-end wall_time_s)"
+}
