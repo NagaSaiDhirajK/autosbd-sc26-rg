@@ -2556,3 +2556,54 @@ Current SVG hashes are policy-regret
 `54e2bfcb10bb8ddd57739948394d10fde093c12e4487052c5d1b06f06089819b`
 and instance-decisions
 `4a5f29c00ba66cc31437fe2b5739dba30ba49f52590a3595a63bed310984802d`.
+
+## 2026-08-01 — Measure multifamily deployment-selector overhead
+
+The code/evidence checkpoint was clean at
+`1a3ddf250497c122c3e7e9db68c11be5c52ceea6`. Preflight commands were:
+
+```bash
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader
+nvidia-smi --query-gpu=name,memory.free,memory.used,temperature.gpu,power.draw,utilization.gpu --format=csv,noheader,nounits
+uptime
+free -h
+git status --short
+git rev-parse HEAD
+```
+
+There were no GPU compute processes. The L4 reported 22,564 MiB free, 0 MiB
+used, 33 °C, 16.53 W, and 0% utilization; host load was 0.29/0.18/0.12 with
+121 GiB available. The bounded CPU-only timer was:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python \
+  scripts/measure_inference_overhead.py \
+  --models results/processed/stage5_multifamily/models.json \
+  --dataset results/processed/stage5_multifamily/balanced_dataset.json \
+  --raw-dir results/raw/inference_overhead_multifamily \
+  --output-dir results/processed/stage5_multifamily \
+  --hot-warmup 1000 --hot-iterations 10000 \
+  --cold-warmup 10 --cold-iterations 100
+```
+
+Exit status was `0` in 1.6 seconds. Hot median/p90/p95 were
+44.165/46.1573/48.9772 us, equal to 0.007273449840352077% of the shortest
+balanced SBD median. Object-cold median/p90/p95 were
+840.905/855.6013/859.7317 us; OS page cache was uncontrolled. All 15 instances
+were scheduled round-robin and selections were consumed into checksums. The
+immutable raw SHA is `bbc81eb1...6754`; processed JSON/CSV hashes are
+`a769997d...b652`/`b52db314...7f0e`. Subsequent strict structure/hash/coverage
+inspection and 21/21 focused tests passed. No SBD executable, GPU kernel,
+network action, or dependency change occurred.
+
+One combined internal-results patch failed atomically because an audit
+paragraph differed from its expected context. It changed nothing; smaller
+section-header patches then succeeded.
+
+The first final-attestation snippet then stopped before tests/staging because
+it incorrectly required the processed measurement object to equal the raw
+object byte-for-byte. The raw object intentionally contains all `samples_ns`,
+while the processed object contains derived microsecond summaries plus the same
+selection counts/checksum. Read-only schema inspection confirmed that design;
+the final check independently recomputes every reported percentile from the raw
+samples instead.

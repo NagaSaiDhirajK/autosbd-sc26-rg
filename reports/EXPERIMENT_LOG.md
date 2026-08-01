@@ -346,3 +346,13 @@
 - Latency boundary: no multifamily inference-overhead timing occurred before the clean checkpoint. The existing Fe₄S₄ timing remains separate preliminary evidence.
 - Phase C analysis readiness: the offline analyzer requires the complete future 144-record timing aggregate, recomputes it from explicit immutable raw IDs, enforces exact correctness/provenance/parameter geometry, and produces descriptive paired effects and family/size/candidate summaries without automatic pruning or model fitting.
 - Verification: 21/21 focused deployment/overhead tests, 5/5 parameter-analyzer tests, and 207/207 full repository tests passed. Dependency and diff checks passed. No SBD solver or GPU kernel ran.
+
+## 2026-08-01 — Multifamily deployment-selector inference overhead
+
+- Purpose: measure the deployed selection compute path for the separately marked all-15 full-feature model without using it for any held-out metric.
+- Clean source state: local checkpoint `1a3ddf250497c122c3e7e9db68c11be5c52ceea6`; multifamily models SHA `f5114b0a...c286`; balanced dataset SHA `ba6a5506...a846`.
+- Preflight: no GPU compute processes; L4 22,564 MiB free/0 MiB used, 33 °C, 16.53 W, 0% utilization; host load average 0.29/0.18/0.12 and 121 GiB available. The timer used CPU only.
+- Protocol: `perf_counter_ns`; 1,000 hot warmups + 10,000 hot iterations; 10 object-cold warmups + 100 object-cold iterations; all 15 instances round-robin; selections consumed into SHA-256 checksums.
+- Hot result: median `44.165 us`, p90 `46.1573 us`, p95 `48.9772 us`, range `41.334–157.348 us`; `0.007273449840352077%` of the shortest balanced SBD median (`0.6072084219922544 s`).
+- Object-cold result: median `840.905 us`, p90 `855.6013 us`, p95 `859.7317 us`, range `821.967–990.03 us`. Model-file I/O/deserialization is included; OS page cache is uncontrolled.
+- Evidence: immutable raw SHA `bbc81eb1...6754`; processed JSON SHA `a769997d...b652`; CSV SHA `b52db314...7f0e`. Focused loader/evaluator/artifact tests passed 21/21. No solver, GPU kernel, network operation, or package change occurred.

@@ -364,7 +364,8 @@
 ## D-043 — Separate the all-data deployment model from LOFO evidence
 
 - Date: 2026-08-01
-- Status: accepted and implemented; multifamily latency measurement pending
+- Status: accepted, implemented, and measured
 - Decision: Fit one deterministic full-feature tree on all 15 balanced instances solely to exercise the deployed selection path. Export it under a separate `deployment_models` namespace with exact 15-instance/90-source provenance and `used_for_heldout_metrics=false`. Keep the three training-family-only fold models unchanged and keep the deployment model out of `evaluation.json`, policy predictions, and every held-out metric.
 - Rationale: timing a single deployable selector is meaningful; timing a family-aware router among three LOFO models would measure an artificial mechanism and risk confusing latency evidence with generalization evidence. Training on all instances is acceptable only for this compute-latency microbenchmark, never for accuracy, regret, or speedup claims.
 - Gate: multifamily hot/cold timing may run only from a clean local checkpoint. The timed projection must contain only registered pre-execution features and feasibility data; family/chemistry identities, measured runtime, targets, and post-execution telemetry remain outside it.
+- Evidence: from clean checkpoint `1a3ddf250497c122c3e7e9db68c11be5c52ceea6`, hot median was `44.165 us` (`0.007273449840352077%` of the shortest balanced SBD median) and object-cold median was `840.905 us`; the latter has uncontrolled OS page-cache state. Raw SHA is `bbc81eb1...6754`. These latency values do not change or strengthen the held-out quality claim.

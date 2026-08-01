@@ -124,6 +124,38 @@ threshold misses Fe₄S₄ at 3,025 (CPU16 selected, GPU oracle; regret
 accuracy alone is insufficient: its H₂O full-size miss has normalized regret
 `5.482571387657153`.
 
+## Multifamily deployment-selector overhead
+
+The timer exercised the separately marked full-feature deployment tree across
+all 15 instances in deterministic round-robin order. It used
+`time.perf_counter_ns()`, 1,000 unrecorded hot warmups, 10,000 measured hot
+selections, 10 unrecorded object-cold warmups, and 100 measured object-cold
+load-plus-selections. Every choice was consumed into a checksum. The timed
+candidate projection contains only registered pre-execution features and
+feasibility fields; family identity, targets, measured runtimes, and
+post-execution telemetry are excluded.
+
+| Path | Median (us) | p90 (us) | p95 (us) | Minimum (us) | Maximum (us) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Hot loaded-model selection | `44.165` | `46.1573` | `48.9772` | `41.334` | `157.348` |
+| Object-cold load plus selection | `840.905` | `855.6013` | `859.7317` | `821.967` | `990.03` |
+
+The shortest balanced candidate median is H₂O-1024 CPU16 at
+`0.6072084219922544 s`; the hot median is
+`0.007273449840352077%` of that runtime. The cold diagnostic reads and strictly
+deserializes the complete models artifact on every iteration, but OS page-cache
+state is uncontrolled, so it is not a storage-cache-cold measurement.
+
+The immutable raw record is
+`results/raw/inference_overhead_multifamily/7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd.json`,
+SHA-256 `bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754`.
+Processed JSON/CSV hashes are
+`a769997d826fa63b44653eca492c8cdb6d5b9a92ff4567ace3495479625bb652`
+and `b52db314ce4f10d2a0dab8d77dc146990e9add83eff3af77dc8e26f871947f0e`.
+The measurement ran from clean local checkpoint
+`1a3ddf250497c122c3e7e9db68c11be5c52ceea6`; no SBD executable or GPU kernel
+ran.
+
 ## Hardening and interpretation
 
 The combined preproduction completion/evaluation suite passed 25 tests, and

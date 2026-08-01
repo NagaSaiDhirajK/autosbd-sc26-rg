@@ -1,0 +1,208 @@
+{
+  "artifact_type": "autosbd_inference_overhead_summary",
+  "comparison": {
+    "formula": "hot median microseconds / (shortest measured SBD median seconds * 1e6) * 100",
+    "hot_median_percent_of_shortest_sbd_runtime": 0.007273449840352077,
+    "shortest_candidate_name": "amd-cpu-16",
+    "shortest_measured_sbd_median_wall_time_s": 0.6072084219922544,
+    "shortest_problem_instance": "h2o-prefix-0032"
+  },
+  "config": {
+    "name": "stage5-amd-multifamily-selector-v1",
+    "path": "configs/stage5_multifamily.yaml",
+    "sha256": "5bcf87ce6cafe898412172c3f7a5bfd5299474719ae0940041f19b62f4d2cfa3",
+    "size_bytes": 2559
+  },
+  "measurements": {
+    "cold_load_plus_selection": {
+      "definition": "read and strictly deserialize the complete saved models artifact, retrieve the deployment full tree, then perform the hot selection path",
+      "includes_model_file_io": true,
+      "iteration_count": 100,
+      "maximum_us": 990.03,
+      "median_us": 840.905,
+      "minimum_us": 821.967,
+      "os_page_cache_controlled": false,
+      "p90_us": 855.6012999999999,
+      "p95_us": 859.7317,
+      "primary_overhead_measurement": false,
+      "selected_candidate_counts": {
+        "amd-cpu-16": 56,
+        "amd-l4-default": 44
+      },
+      "selection_checksum_sha256": "a24f77362ac22f86629565cf1d64dc4688603afa090eb5e4091a80cfc8d06988",
+      "unit": "microseconds",
+      "warmup_iterations": 10
+    },
+    "hot_selection": {
+      "definition": "pre-execution feature mapping to model vector, memory-feasibility filter, candidate tree predictions, and deterministic argmin with an already loaded deployment model",
+      "includes_model_file_io": false,
+      "iteration_count": 10000,
+      "maximum_us": 157.348,
+      "median_us": 44.165,
+      "minimum_us": 41.334,
+      "os_page_cache_controlled": null,
+      "p90_us": 46.157300000000006,
+      "p95_us": 48.977199999999996,
+      "primary_overhead_measurement": true,
+      "selected_candidate_counts": {
+        "amd-cpu-16": 5336,
+        "amd-l4-default": 4664
+      },
+      "selection_checksum_sha256": "d763b3562b9b36f79f6102536a08d340f4bcc9e7738e77f76115591b8fb1830e",
+      "unit": "microseconds",
+      "warmup_iterations": 1000
+    }
+  },
+  "protocol": {
+    "candidate_schedule": "all problem instances in ascending size/name order, round-robin",
+    "clock": "time.perf_counter_ns",
+    "cold_load_plus_selection": {
+      "definition": "read and strictly deserialize the complete saved models artifact, retrieve the deployment full tree, then perform the hot selection path",
+      "includes_model_file_io": true,
+      "interpretation": "model-object-cold diagnostic; not a storage-cache-cold measurement",
+      "measured_iterations": 100,
+      "os_page_cache_controlled": false,
+      "primary_overhead_measurement": false,
+      "warmup_iterations": 10
+    },
+    "hot_selection": {
+      "definition": "pre-execution feature mapping to model vector, memory-feasibility filter, candidate tree predictions, and deterministic argmin with an already loaded deployment model",
+      "includes_model_file_io": false,
+      "measured_iterations": 10000,
+      "primary_overhead_measurement": true,
+      "warmup_iterations": 1000
+    },
+    "percentile_method": "linear interpolation at zero-based position (n - 1) * p"
+  },
+  "run_id": "7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd",
+  "schema_version": 1,
+  "source_raw_record": {
+    "path": "results/raw/inference_overhead_multifamily/7d959e7f5eb8f3688adefa3367e810a60439ace9bc2fc4adfd49217099ac17cd.json",
+    "sha256": "bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754",
+    "size_bytes": 157533
+  },
+  "sources": {
+    "balanced_dataset": {
+      "path": "results/processed/stage5_multifamily/balanced_dataset.json",
+      "sha256": "ba6a5506af54df7c5b1f4b888117d34c8ecb86d300d305c834c31fe02e15a846",
+      "size_bytes": 74855
+    },
+    "models": {
+      "path": "results/processed/stage5_multifamily/models.json",
+      "sha256": "f5114b0a8c2ff5bef52940ddd673757eabbab85b893849a8e9d475462b49c286",
+      "size_bytes": 117140
+    }
+  },
+  "status": "complete",
+  "timestamp_utc": "2026-08-01T18:43:02.041637Z",
+  "workload": {
+    "candidates_per_selection": 2,
+    "comparison_denominator": "minimum candidate median end-to-end wall time in the balanced dataset",
+    "problem_instance_count": 15,
+    "problem_instances": [
+      {
+        "family_id": "fe4s4",
+        "instance_id": "fe4s4::fe4s4-prefix-0032",
+        "n_configurations": 1024,
+        "problem_instance": "fe4s4-prefix-0032"
+      },
+      {
+        "family_id": "h2o",
+        "instance_id": "h2o::h2o-prefix-0032",
+        "n_configurations": 1024,
+        "problem_instance": "h2o-prefix-0032"
+      },
+      {
+        "family_id": "n2",
+        "instance_id": "n2::n2-prefix-0032",
+        "n_configurations": 1024,
+        "problem_instance": "n2-prefix-0032"
+      },
+      {
+        "family_id": "fe4s4",
+        "instance_id": "fe4s4::fe4s4-prefix-0055",
+        "n_configurations": 3025,
+        "problem_instance": "fe4s4-prefix-0055"
+      },
+      {
+        "family_id": "h2o",
+        "instance_id": "h2o::h2o-prefix-0055",
+        "n_configurations": 3025,
+        "problem_instance": "h2o-prefix-0055"
+      },
+      {
+        "family_id": "n2",
+        "instance_id": "n2::n2-prefix-0055",
+        "n_configurations": 3025,
+        "problem_instance": "n2-prefix-0055"
+      },
+      {
+        "family_id": "fe4s4",
+        "instance_id": "fe4s4::fe4s4-prefix-0100",
+        "n_configurations": 10000,
+        "problem_instance": "fe4s4-prefix-0100"
+      },
+      {
+        "family_id": "h2o",
+        "instance_id": "h2o::h2o-prefix-0100",
+        "n_configurations": 10000,
+        "problem_instance": "h2o-prefix-0100"
+      },
+      {
+        "family_id": "n2",
+        "instance_id": "n2::n2-prefix-0100",
+        "n_configurations": 10000,
+        "problem_instance": "n2-prefix-0100"
+      },
+      {
+        "family_id": "fe4s4",
+        "instance_id": "fe4s4::fe4s4-prefix-0174",
+        "n_configurations": 30276,
+        "problem_instance": "fe4s4-prefix-0174"
+      },
+      {
+        "family_id": "h2o",
+        "instance_id": "h2o::h2o-prefix-0174",
+        "n_configurations": 30276,
+        "problem_instance": "h2o-prefix-0174"
+      },
+      {
+        "family_id": "n2",
+        "instance_id": "n2::n2-prefix-0174",
+        "n_configurations": 30276,
+        "problem_instance": "n2-prefix-0174"
+      },
+      {
+        "family_id": "n2",
+        "instance_id": "n2::n2-prefix-0239",
+        "n_configurations": 57121,
+        "problem_instance": "n2-prefix-0239"
+      },
+      {
+        "family_id": "fe4s4",
+        "instance_id": "fe4s4::fe4s4-prefix-0244",
+        "n_configurations": 59536,
+        "problem_instance": "fe4s4-prefix-0244"
+      },
+      {
+        "family_id": "h2o",
+        "instance_id": "h2o::h2o-prefix-0275",
+        "n_configurations": 75625,
+        "problem_instance": "h2o-prefix-0275"
+      }
+    ],
+    "shortest_measured_sbd_candidate_median": {
+      "candidate_name": "amd-cpu-16",
+      "family_id": "h2o",
+      "instance_id": "h2o::h2o-prefix-0032",
+      "median_wall_time_s": 0.6072084219922544,
+      "n_configurations": 1024,
+      "problem_instance": "h2o-prefix-0032",
+      "source_record_ids": [
+        "646bfafa6a1e5bb7555c22af06cd5661c1201d9586bc1962a796101281af91a7",
+        "1babc6f0a970a8003fd4262fad91f48b52ce92dae868c5685469b0eaf787eb5f",
+        "60e1f586a5e945e72cf7bed048abae7f6defeea0915052e61e0b064c7ffa25c8"
+      ]
+    }
+  }
+}

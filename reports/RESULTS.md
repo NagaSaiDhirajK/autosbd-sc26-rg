@@ -246,3 +246,21 @@ byte-identical to the original seal.
 With the deployment full tree already loaded, the measured hot path includes feature mapping, memory-feasibility filtering, both candidate predictions, and deterministic argmin. After 1,000 warmups, 10,000 iterations have median `38.65 us`, p90 `42.6673 us`, and p95 `48.7131 us`. The hot median is `0.002739337080263366%` of the shortest Stage 4 SBD median (`1.4109253030037507 s`).
 
 The object-cold diagnostic reads and strictly deserializes `models.json` before selection. Across 100 iterations after 10 warmups its median is `929.11 us`; OS page-cache state is uncontrolled, so this is not a storage-cache-cold claim. Immutable raw samples are `results/raw/inference_overhead/50b9351e5d3ab74fdb71a8915acdcd682891d736b58db1e86ef64d400c2fb6b4.json`, SHA-256 `ea293deabbd2c904e1b432a88075c750db9ef7eb595d58d8a45fc452e1c4d356`. Processed JSON and CSV hashes are `ddb33f39682d5c1318c3e2d65560bb8e9232309cc522324670565c928cee10cf` and `678b45509c1733ffd4d22541496be2644c77fbc81b922e8ba13c877982104fbc`.
+
+## Multifamily deployment selector inference overhead
+
+The current timer uses one separately marked all-15 full-feature deployment
+tree and does not reuse any model for held-out accuracy/regret evidence. In
+deterministic round-robin order across all 15 instances, 10,000 hot selections
+after 1,000 warmups have median `44.165 us`, p90 `46.1573 us`, and p95
+`48.9772 us`. This is `0.007273449840352077%` of the shortest balanced SBD
+candidate median, H₂O-1024 CPU16 at `0.6072084219922544 s`.
+
+Across 100 object-cold load-plus-selections after 10 warmups, the median is
+`840.905 us` and p95 is `859.7317 us`. This path rereads and strictly
+deserializes `models.json`, but the OS page cache is uncontrolled; it is not a
+storage-cache-cold claim. The immutable raw SHA is
+`bbc81eb128b9504d348d5bc1e5635ab9cbb27121af64671ce3a2788a69f66754`;
+processed JSON/CSV hashes are
+`a769997d826fa63b44653eca492c8cdb6d5b9a92ff4567ace3495479625bb652`
+and `b52db314ce4f10d2a0dab8d77dc146990e9add83eff3af77dc8e26f871947f0e`.

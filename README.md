@@ -30,6 +30,13 @@ The schema-v2 Fe₄S₄ CPU and GPU runs converged and agreed in energy, density
 
 The three primary Stage 5 folds hold out Fe₄S₄, N₂, and H₂O in turn, with all candidates and repetitions for a family excluded from training. Pooled over the 15 out-of-family instances, the full tree selects the oracle candidate for 13/15 instances and has geometric selected/oracle runtime `1.0229922425736244`, corresponding to geometric speedups `1.8328832288910508` versus fixed CPU16 and `1.0566826178825666` versus fixed GPU. The training-only threshold is also 13/15 with `1.0377461353348265`; the size-only tree is 12/15 with `1.1717731863098702`. There are no invalid selections or failures. These results support a narrow cross-family CPU16/L4 selector result on one node, not universal generalization, comprehensive autotuning, or multi-node behavior.
 
+The separately marked all-15 deployment tree is used only to measure selector
+latency, never held-out quality. Across all 15 instances, its hot selection
+median is `44.165 us` and its object-cold load-plus-selection median is
+`840.905 us`; the hot median is `0.007273449840352077%` of the shortest
+measured SBD candidate median. The cold diagnostic does not control OS page
+cache state.
+
 ## Reproduce the engineering checks
 
 The repository uses Python 3.10 and the project-local `.venv`; the complete runtime and analysis environment is pinned in `requirements-lock.txt`. From the repository root:
