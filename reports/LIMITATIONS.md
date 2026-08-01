@@ -13,7 +13,7 @@ This internal report records what the completed Stage 2 evidence does not establ
 ## Performance evidence
 
 - The schema-v2 CPU/GPU pair is correctness-only. It used zero warmups and one repetition per backend while the harness worktree was uncommitted, so both records are explicitly timing-ineligible.
-- The observed CPU and GPU durations must not be turned into a speedup claim. No randomized order, repetition distribution, median/IQR, near-crossover replication, or clean manifest-linked final protocol exists yet.
+- The observed correctness-calibration CPU and GPU durations must not be turned into a speedup claim. A clean manifest-linked bounded pilot is configured, but it has not yet run; no repetition distribution, median/IQR, near-crossover replication, or final protocol exists yet.
 - Only one GCP heterogeneous node has been exercised: 16 physical Intel Xeon cores/32 logical CPUs and one NVIDIA L4. Results cannot imply multi-node, other-accelerator, leadership-system, or exascale behavior.
 - Final CPU and GPU timing candidates must remain sequential. The node lock prevents overlap, but ambient VM variation still requires warmups, randomized order, repeated trials, and contemporaneous preflight telemetry.
 
@@ -21,7 +21,7 @@ This internal report records what the completed Stage 2 evidence does not establ
 
 - Correctness is strong cross-backend agreement on identical bytes, convergence, energy, iteration count, and density. It is not comparison against an independently certified exact Fe₄S₄ energy: upstream supplies only an approximate, non-asserted value.
 - The pinned upstream prints one density vector with a missing closing bracket. The parser performs one narrowly defined repair and records `density_bracket_repaired=true`; any other malformed output remains a parsing failure.
-- The validation manifest proves the exact checked artifacts and criteria. It does not retroactively make its zero-warmup source trials eligible for performance analysis.
+- The Stage 2 and five-input Stage 3 validation manifests prove the exact checked artifacts and criteria. They do not retroactively make their zero-warmup source trials eligible for performance analysis.
 
 ## Harness and selector maturity
 

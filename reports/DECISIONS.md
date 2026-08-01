@@ -153,3 +153,11 @@
 - Status: accepted and implemented after calibration exposed a resume defect
 - Decision: When computing the project source-tree dirty flag, ignore only untracked, real, regular lowercase `.json` files beneath `results/raw/`. Keep every tracked modification/deletion, symlink, other suffix/location, and all upstream checkout changes dirty. Do not add raw records to `.gitignore`; they remain visible and intentionally committed. Preserve the eight duplicate dirty-identity calibration records created before this fix and exclude them from calibration/timing evidence.
 - Rationale: A clean calibration creates its own immutable untracked outputs. Treating those outputs as a source change caused a new runner process to derive different logical identities and relaunch all eight trials instead of resuming. The narrow exception restores exact resume without hiding code/config/data changes or any modification to an already tracked record.
+
+## D-023 — Accept the five-size correctness manifest and admit a bounded pilot
+
+- Date: 2026-08-01
+- Status: accepted
+- Decision: Accept `reports/stage3_calibration_manifest.json` schema 2, SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`, as the correctness gate for sizes 32, 55, 100, 174, and 244. Configure the pilot with all five sizes, both official AMD CPU/GPU backends, one warmup and one measured repetition per candidate, sequential execution, and randomized trial order. Admit timing evidence only from measured records that remain clean and pass the exact validation manifest and all existing eligibility gates.
+- Rationale: The definitive calibration produced 10/10 clean correctness records at project commit `7bdb03d`; all five CPU/GPU pairs met the residual, energy, density, and exact-iteration agreement criteria, and an immediate resume launched 0 trials while reusing all 10 records. Correctness-run wall values remain diagnostic-only and do not establish speedup or crossover.
+- Upstream boundary: The active implementation remains the official pinned `AMD-HPC/amd-sbd` source, with CPU and NVIDIA OpenMP-offload GPU builds from the single NVIDIA HPC SDK 26.5 toolchain. Do not execute RIKEN for calibration, pilot, final measurement, training, or selection.

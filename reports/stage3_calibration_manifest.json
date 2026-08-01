@@ -1,0 +1,494 @@
+{
+  "candidate_artifacts": [
+    {
+      "backend": "cpu",
+      "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+      "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+      "size_bytes": 797304
+    },
+    {
+      "backend": "gpu",
+      "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+      "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+      "size_bytes": 2021216
+    }
+  ],
+  "criteria": {
+    "density_max_abs_tolerance": 1e-10,
+    "energy_relative_tolerance": 1e-10,
+    "exact_iteration_count_required": true,
+    "gpu_monitoring_and_device_assignment_required": true,
+    "input_integrity_required": true,
+    "maximum_final_residual": 1e-08,
+    "project_git_clean_required": true,
+    "run_artifact_hashes_verified": [
+      "stdout",
+      "stderr",
+      "resources"
+    ]
+  },
+  "passed": true,
+  "schema_version": 2,
+  "scope": {
+    "correctness_only": true,
+    "timing_evidence_used": false
+  },
+  "upstream": {
+    "commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "url": "https://github.com/AMD-HPC/amd-sbd"
+  },
+  "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+  "upstream_url": "https://github.com/AMD-HPC/amd-sbd",
+  "validated_inputs": [
+    {
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -326.5622181729457,
+        "cpu_final_residual": 7.283608621889206e-09,
+        "density_length": 36,
+        "density_max_abs_difference": 5.996869667512783e-13,
+        "energy_relative_error": 0.0,
+        "gpu_energy": -326.5622181729457,
+        "gpu_final_residual": 7.283630446862642e-09,
+        "iteration_count": 22
+      },
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "problem_instance": "fe4s4-prefix-0032",
+      "records": {
+        "cpu": {
+          "path": "results/raw/a3031aa22d1302ca125d623f528bf83e6e114c70daf5661971a4a2b3c38802a9.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/a3031aa22d1302ca125d623f528bf83e6e114c70daf5661971a4a2b3c38802a9.resources.csv",
+              "sha256": "2e21f6bcb963cadcfa676686727daa4ff46ec6db05809cfa0ee46039267db2c9",
+              "size_bytes": 462
+            },
+            "stderr": {
+              "path": "logs/trials/a3031aa22d1302ca125d623f528bf83e6e114c70daf5661971a4a2b3c38802a9.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/a3031aa22d1302ca125d623f528bf83e6e114c70daf5661971a4a2b3c38802a9.stdout.log",
+              "sha256": "4b16dbd9ff0e4493c32cbdaee593ee4ca67fd96ad475469fab150f4f4ef12cdc",
+              "size_bytes": 6013
+            }
+          },
+          "sha256": "af7490c6e8aa65e477ee13793e524c7177ff7e9ae898f1b4140749622d6d2f94",
+          "size_bytes": 19068,
+          "trial_id": "a3031aa22d1302ca125d623f528bf83e6e114c70daf5661971a4a2b3c38802a9"
+        },
+        "gpu": {
+          "path": "results/raw/36e8b30cd7a47395b4d77a35cb03076e5eeb71c5c1d50e86cda5616db7401c1a.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/36e8b30cd7a47395b4d77a35cb03076e5eeb71c5c1d50e86cda5616db7401c1a.resources.csv",
+              "sha256": "3a2ef0f30cbb4cbb759d4f625b0a3be7f0ffbaccb3300603226c73d0987b445e",
+              "size_bytes": 546
+            },
+            "stderr": {
+              "path": "logs/trials/36e8b30cd7a47395b4d77a35cb03076e5eeb71c5c1d50e86cda5616db7401c1a.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/36e8b30cd7a47395b4d77a35cb03076e5eeb71c5c1d50e86cda5616db7401c1a.stdout.log",
+              "sha256": "efc4631d41b0570a39dfd3d40279301421ebac516f8b22106d00f65cfc1aafac",
+              "size_bytes": 6043
+            }
+          },
+          "sha256": "682e39786f443989a3f063d061225f1b7c518e4c9e4513f21e2a3609586e9298",
+          "size_bytes": 19286,
+          "trial_id": "36e8b30cd7a47395b4d77a35cb03076e5eeb71c5c1d50e86cda5616db7401c1a"
+        }
+      },
+      "reference_value": -326.5622181729457,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "estimated_cache_bytes": 32768,
+        "estimated_work": 679168,
+        "n_alpha_strings": 32,
+        "n_beta_strings": 32,
+        "n_configurations": 1024,
+        "n_orbitals": 36,
+        "n_spin_orbitals": 72,
+        "name": "fe4s4-prefix-0032",
+        "problem_family": "stage3-amd-fe4s4-derived-calibration",
+        "problem_instance": "fe4s4-prefix-0032"
+      }
+    },
+    {
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -326.5689554798624,
+        "cpu_final_residual": 9.291046962750117e-09,
+        "density_length": 36,
+        "density_max_abs_difference": 8.046341370970822e-13,
+        "energy_relative_error": 5.221875923014356e-16,
+        "gpu_energy": -326.5689554798622,
+        "gpu_final_residual": 9.291036283317324e-09,
+        "iteration_count": 26
+      },
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "problem_instance": "fe4s4-prefix-0055",
+      "records": {
+        "cpu": {
+          "path": "results/raw/1a0b61f03bb70ef8b2f6fafe193332e9467a7a76ef4a9650c8905f0aff7bce6d.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/1a0b61f03bb70ef8b2f6fafe193332e9467a7a76ef4a9650c8905f0aff7bce6d.resources.csv",
+              "sha256": "ac25cf13fdb1dbf28d0921488356599acee16d59371a1ef2b444cf8f107d998d",
+              "size_bytes": 732
+            },
+            "stderr": {
+              "path": "logs/trials/1a0b61f03bb70ef8b2f6fafe193332e9467a7a76ef4a9650c8905f0aff7bce6d.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/1a0b61f03bb70ef8b2f6fafe193332e9467a7a76ef4a9650c8905f0aff7bce6d.stdout.log",
+              "sha256": "a960cf01033a59afd5fc46e1640fbcb638dd60994b532c8f1316a1c2e73cd463",
+              "size_bytes": 6491
+            }
+          },
+          "sha256": "919bb1d6365c8aa8c4d97ab19ffb8ec9e0e5b5be948c187bc4c1ae2ea23ac244",
+          "size_bytes": 19115,
+          "trial_id": "1a0b61f03bb70ef8b2f6fafe193332e9467a7a76ef4a9650c8905f0aff7bce6d"
+        },
+        "gpu": {
+          "path": "results/raw/e494bffc56fdeb6530acfd4073d71d3adc47d738369d742aecac17287c631c18.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/e494bffc56fdeb6530acfd4073d71d3adc47d738369d742aecac17287c631c18.resources.csv",
+              "sha256": "19a16b69d98bf35b0afb0c8ad902f0f2113429d1ca8b1e66712222f2ea38bf8c",
+              "size_bytes": 659
+            },
+            "stderr": {
+              "path": "logs/trials/e494bffc56fdeb6530acfd4073d71d3adc47d738369d742aecac17287c631c18.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/e494bffc56fdeb6530acfd4073d71d3adc47d738369d742aecac17287c631c18.stdout.log",
+              "sha256": "e14e689f0f7cad66177860ddad451a4a4dbd57fba66d94900a3feb5f1b3a72bf",
+              "size_bytes": 6530
+            }
+          },
+          "sha256": "64a05e67effe88253501b0941cdb7da7ba57837268030d73b0b6ae08c44e3259",
+          "size_bytes": 19361,
+          "trial_id": "e494bffc56fdeb6530acfd4073d71d3adc47d738369d742aecac17287c631c18"
+        }
+      },
+      "reference_value": -326.5689554798624,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "estimated_cache_bytes": 96800,
+        "estimated_work": 2782081,
+        "n_alpha_strings": 55,
+        "n_beta_strings": 55,
+        "n_configurations": 3025,
+        "n_orbitals": 36,
+        "n_spin_orbitals": 72,
+        "name": "fe4s4-prefix-0055",
+        "problem_family": "stage3-amd-fe4s4-derived-calibration",
+        "problem_instance": "fe4s4-prefix-0055"
+      }
+    },
+    {
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -326.5847957019396,
+        "cpu_final_residual": 5.66594816034344e-09,
+        "density_length": 36,
+        "density_max_abs_difference": 6.465938895416912e-13,
+        "energy_relative_error": 1.0443245296578948e-15,
+        "gpu_energy": -326.5847957019399,
+        "gpu_final_residual": 5.665888218777254e-09,
+        "iteration_count": 27
+      },
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "problem_instance": "fe4s4-prefix-0100",
+      "records": {
+        "cpu": {
+          "path": "results/raw/6ec823260f147f7e419270c013c72ac2136072eb5d993bdffd12c55979303bb3.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/6ec823260f147f7e419270c013c72ac2136072eb5d993bdffd12c55979303bb3.resources.csv",
+              "sha256": "47af1d22d2ac7fa514ab7ff53017e13f72a97e3525427cfa69ed00b65efd9e41",
+              "size_bytes": 1596
+            },
+            "stderr": {
+              "path": "logs/trials/6ec823260f147f7e419270c013c72ac2136072eb5d993bdffd12c55979303bb3.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/6ec823260f147f7e419270c013c72ac2136072eb5d993bdffd12c55979303bb3.stdout.log",
+              "sha256": "20a3c17a403a42830876cdf2986a5db5aaa44a59d2ba5a748ccfacb59931a86d",
+              "size_bytes": 6651
+            }
+          },
+          "sha256": "18c7d4f9c260b10fde2b57a3ed38f03dd872a7ac42d69b43e71de7f78a79227d",
+          "size_bytes": 19138,
+          "trial_id": "6ec823260f147f7e419270c013c72ac2136072eb5d993bdffd12c55979303bb3"
+        },
+        "gpu": {
+          "path": "results/raw/986ff28be901f37618522018fc1fb4221bf60577649eb9bbf99a1eb46355a2fb.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/986ff28be901f37618522018fc1fb4221bf60577649eb9bbf99a1eb46355a2fb.resources.csv",
+              "sha256": "6b71b87dbe7f4fc8544e75ee8cee92a1faaa22e89e6b1785fba415878901da84",
+              "size_bytes": 1051
+            },
+            "stderr": {
+              "path": "logs/trials/986ff28be901f37618522018fc1fb4221bf60577649eb9bbf99a1eb46355a2fb.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/986ff28be901f37618522018fc1fb4221bf60577649eb9bbf99a1eb46355a2fb.stdout.log",
+              "sha256": "51ecca980c651abdc715ad032571b532ff83e4778ac122fda10c5e471b8bce3d",
+              "size_bytes": 6701
+            }
+          },
+          "sha256": "6e702270ee0feabf117d1dad3b8e07b0129a8b6c7277f02a1dd0c205667104d3",
+          "size_bytes": 19355,
+          "trial_id": "986ff28be901f37618522018fc1fb4221bf60577649eb9bbf99a1eb46355a2fb"
+        }
+      },
+      "reference_value": -326.5847957019396,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "estimated_cache_bytes": 320000,
+        "estimated_work": 10284400,
+        "n_alpha_strings": 100,
+        "n_beta_strings": 100,
+        "n_configurations": 10000,
+        "n_orbitals": 36,
+        "n_spin_orbitals": 72,
+        "name": "fe4s4-prefix-0100",
+        "problem_family": "stage3-amd-fe4s4-derived-calibration",
+        "problem_instance": "fe4s4-prefix-0100"
+      }
+    },
+    {
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -326.6593248445312,
+        "cpu_final_residual": 8.240196052922062e-09,
+        "density_length": 36,
+        "density_max_abs_difference": 5.375144773722695e-13,
+        "energy_relative_error": 3.480287537351754e-16,
+        "gpu_energy": -326.6593248445311,
+        "gpu_final_residual": 8.23989518479222e-09,
+        "iteration_count": 46
+      },
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "problem_instance": "fe4s4-prefix-0174",
+      "records": {
+        "cpu": {
+          "path": "results/raw/1513df46ffcb2e05b099a477dc64382471ece1ddc1f8315748da7f2c166dc012.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/1513df46ffcb2e05b099a477dc64382471ece1ddc1f8315748da7f2c166dc012.resources.csv",
+              "sha256": "b14dc83b4e8009bf0b692a0785f9b3919103249be6403bd87bf80daa93bc6fd2",
+              "size_bytes": 8244
+            },
+            "stderr": {
+              "path": "logs/trials/1513df46ffcb2e05b099a477dc64382471ece1ddc1f8315748da7f2c166dc012.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/1513df46ffcb2e05b099a477dc64382471ece1ddc1f8315748da7f2c166dc012.stdout.log",
+              "sha256": "015e156394cc7c117f4baabef296e42f2fd00ce181735331fcd3adefe4f7b624",
+              "size_bytes": 8924
+            }
+          },
+          "sha256": "953fb5db20f660ba6f045f9f97244b0822186f75f21863eda00777be586bd19f",
+          "size_bytes": 19246,
+          "trial_id": "1513df46ffcb2e05b099a477dc64382471ece1ddc1f8315748da7f2c166dc012"
+        },
+        "gpu": {
+          "path": "results/raw/59767a40295039a8f168f73b4d671a7fb7ae419d9bf61317e0f733c9899664b5.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/59767a40295039a8f168f73b4d671a7fb7ae419d9bf61317e0f733c9899664b5.resources.csv",
+              "sha256": "e421eb5789c7d04bbf73f77f292309a28516068b270059a8e5b281b64471f44d",
+              "size_bytes": 3250
+            },
+            "stderr": {
+              "path": "logs/trials/59767a40295039a8f168f73b4d671a7fb7ae419d9bf61317e0f733c9899664b5.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/59767a40295039a8f168f73b4d671a7fb7ae419d9bf61317e0f733c9899664b5.stdout.log",
+              "sha256": "4dee63e9a44e24dfccb29f51e46441c0b42a29b963dbb3e4f795e09758319e53",
+              "size_bytes": 8951
+            }
+          },
+          "sha256": "2fe63309e984a9f7072208131f90a4450ef683bfe9113355f9b5ac1208ebeb54",
+          "size_bytes": 19482,
+          "trial_id": "59767a40295039a8f168f73b4d671a7fb7ae419d9bf61317e0f733c9899664b5"
+        }
+      },
+      "reference_value": -326.6593248445312,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "estimated_cache_bytes": 968832,
+        "estimated_work": 41977872,
+        "n_alpha_strings": 174,
+        "n_beta_strings": 174,
+        "n_configurations": 30276,
+        "n_orbitals": 36,
+        "n_spin_orbitals": 72,
+        "name": "fe4s4-prefix-0174",
+        "problem_family": "stage3-amd-fe4s4-derived-calibration",
+        "problem_instance": "fe4s4-prefix-0174"
+      }
+    },
+    {
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -326.6982536731583,
+        "cpu_final_residual": 8.931146441578446e-09,
+        "density_length": 36,
+        "density_max_abs_difference": 2.7017277304253184e-13,
+        "energy_relative_error": 6.959745663982201e-16,
+        "gpu_energy": -326.6982536731581,
+        "gpu_final_residual": 8.931494922593578e-09,
+        "iteration_count": 50
+      },
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "problem_instance": "fe4s4-prefix-0244",
+      "records": {
+        "cpu": {
+          "path": "results/raw/b126ad26ffb7456299d0dcddb0846fb43f98942c251a1fcd585c7fa7ca57dae9.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/b126ad26ffb7456299d0dcddb0846fb43f98942c251a1fcd585c7fa7ca57dae9.resources.csv",
+              "sha256": "049121aa3d4ea2a8a0bb20406295d34288f4d5cb94d4961bd5317d7ee151790d",
+              "size_bytes": 21824
+            },
+            "stderr": {
+              "path": "logs/trials/b126ad26ffb7456299d0dcddb0846fb43f98942c251a1fcd585c7fa7ca57dae9.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/b126ad26ffb7456299d0dcddb0846fb43f98942c251a1fcd585c7fa7ca57dae9.stdout.log",
+              "sha256": "d82118536299373223ac7cdb3c485459e98ec26f7a2a67325d5195eee831e048",
+              "size_bytes": 9469
+            }
+          },
+          "sha256": "01a4064a1b592ebd7da16b441b03c2074a211075d496e1308c464517b7808d07",
+          "size_bytes": 19285,
+          "trial_id": "b126ad26ffb7456299d0dcddb0846fb43f98942c251a1fcd585c7fa7ca57dae9"
+        },
+        "gpu": {
+          "path": "results/raw/e80924745e5090c1ba11868ac6f6bdf71a06f66f0a913527a4091a2ab6dbfa28.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/e80924745e5090c1ba11868ac6f6bdf71a06f66f0a913527a4091a2ab6dbfa28.resources.csv",
+              "sha256": "3be33fde1f22f9083d545bd84792cd03ff9141d080eb2ff855010b53bd784018",
+              "size_bytes": 6537
+            },
+            "stderr": {
+              "path": "logs/trials/e80924745e5090c1ba11868ac6f6bdf71a06f66f0a913527a4091a2ab6dbfa28.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/e80924745e5090c1ba11868ac6f6bdf71a06f66f0a913527a4091a2ab6dbfa28.stdout.log",
+              "sha256": "947378fc1f32564d4183023a6006d4f38eef05d66dbbb77421b00baa6885e9bf",
+              "size_bytes": 9488
+            }
+          },
+          "sha256": "534bb8d9de9cbc57899dbea1b3fe0fff93579586c40bec242c17f71da5e44794",
+          "size_bytes": 19526,
+          "trial_id": "e80924745e5090c1ba11868ac6f6bdf71a06f66f0a913527a4091a2ab6dbfa28"
+        }
+      },
+      "reference_value": -326.6982536731583,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "estimated_cache_bytes": 1905152,
+        "estimated_work": 105521536,
+        "n_alpha_strings": 244,
+        "n_beta_strings": 244,
+        "n_configurations": 59536,
+        "n_orbitals": 36,
+        "n_spin_orbitals": 72,
+        "name": "fe4s4-prefix-0244",
+        "problem_family": "stage3-amd-fe4s4-derived-calibration",
+        "problem_instance": "fe4s4-prefix-0244"
+      }
+    }
+  ]
+}

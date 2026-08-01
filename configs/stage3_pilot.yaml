@@ -1,0 +1,84 @@
+schema_version: 1
+name: stage3-amd-fe4s4-derived-pilot
+
+workloads:
+  - name: fe4s4-prefix-0032
+    fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
+    adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt
+    reference_value: -326.5622181729457
+    reference_source: reports/stage3_calibration_manifest.json
+  - name: fe4s4-prefix-0055
+    fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
+    adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt
+    reference_value: -326.5689554798624
+    reference_source: reports/stage3_calibration_manifest.json
+  - name: fe4s4-prefix-0100
+    fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
+    adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt
+    reference_value: -326.5847957019396
+    reference_source: reports/stage3_calibration_manifest.json
+  - name: fe4s4-prefix-0174
+    fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
+    adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt
+    reference_value: -326.6593248445312
+    reference_source: reports/stage3_calibration_manifest.json
+  - name: fe4s4-prefix-0244
+    fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
+    adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt
+    reference_value: -326.6982536731583
+    reference_source: reports/stage3_calibration_manifest.json
+
+candidates:
+  - name: amd-cpu-16
+    backend: cpu
+    executable: ../build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu
+    threads: 16
+    mpi_ranks: 1
+    compiler_flags:
+      - -std=c++17
+      - -O3
+      - -tp=native
+      - -mp
+      - -DSBD_TRADMODE
+      - -DUSE_DET_CACHE_OMP
+      - -lopenblas
+  - name: amd-l4-default
+    backend: gpu
+    executable: ../build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu
+    threads: 1
+    mpi_ranks: 1
+    compiler_flags:
+      - -std=c++17
+      - -O3
+      - -tp=native
+      - -mp=gpu
+      - -gpu=cc89
+      - -Minfo=mp
+      - -DSBD_TRADMODE
+      - -DUSE_GPU
+      - -DUSE_DET_CACHE_OMP
+      - -DUSE_HIJ_OMP_OFFLOAD
+      - -lopenblas
+
+solver:
+  method: 0
+  iteration: 6
+  block: 10
+  tolerance: 1.0e-8
+  max_time: 240
+  bit_length: 20
+  shuffle: 0
+  carryover_ratio: 0.5
+  rdm: 0
+  adet_comm_size: 1
+  bdet_comm_size: 1
+  task_comm_size: 1
+
+protocol:
+  warmups: 1
+  repetitions: 1
+  timeout_s: 300
+  seed: 1729
+  purpose: pilot
+  correctness_validated: true
+  validation_manifest: ../reports/stage3_calibration_manifest.json

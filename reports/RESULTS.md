@@ -1,4 +1,4 @@
-# Internal Stage 2 engineering and correctness results
+# Internal Stage 2 engineering and Stage 3 calibration results
 
 Status date: 2026-08-01
 
@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stage 2 is complete. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records.
+Stage 2 is complete. Stage 3 workload preparation and five-size correctness calibration are complete, and the bounded pilot is configured but not yet run. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records.
 
-The standard-library suite passes all 67 tests. Coverage includes strict config loading, feature extraction, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, and the validation-manifest timing gate.
+The standard-library suite passes all 89 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, and the calibration-manifest timing gate.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -45,4 +45,20 @@ Machine-readable comparison: `reports/stage2_amd_correctness.json`. Hash-linked 
 
 The durations above are correctness-smoke diagnostics, not benchmark results. These trials had zero warmups, protocol purpose `correctness`, and were executed against an uncommitted Stage 2 worktree before the correctness manifest was linked as prior protocol evidence. Schema v2 therefore records `timing_eligible=false` for both.
 
-No final CPU/GPU speedup, crossover, selector benefit, or headline performance claim can be derived from this pair. Stage 3 must first prepare the workload scale, run a bounded pilot, and freeze a clean manifest-linked timing protocol.
+No final CPU/GPU speedup, crossover, selector benefit, or headline performance claim can be derived from this pair. A bounded pilot and later repeated final protocol are still required before performance conclusions.
+
+## Definitive five-size correctness calibration
+
+Five exact nested prefixes of the official Fe₄S₄ alpha-determinant list were checked with the same FCIDUMP, solver identity, official AMD commit, and NVIDIA HPC SDK 26.5 CPU/GPU binaries. All ten clean records succeeded and converged. An immediate identical rerun returned `launched=0` and `reused=10`, proving exact cross-process resume after the narrow generated-record cleanliness fix.
+
+| Determinants | Configurations | Iterations | CPU energy (Ha) | Energy relative difference | Density max abs difference | Diagnostic wall CPU/GPU (s) |
+|---:|---:|---:|---:|---:|---:|---:|
+| 32 | 1,024 | 22 | `-326.5622181729457` | `0` | `5.997e-13` | `1.413 / 1.627` |
+| 55 | 3,025 | 26 | `-326.5689554798624` | `5.222e-16` | `8.046e-13` | `2.418 / 1.932` |
+| 100 | 10,000 | 27 | `-326.5847957019396` | `1.044e-15` | `6.466e-13` | `5.636 / 2.968` |
+| 174 | 30,276 | 46 | `-326.6593248445312` | `3.480e-16` | `5.375e-13` | `29.663 / 8.774` |
+| 244 | 59,536 | 50 | `-326.6982536731583` | `6.960e-16` | `2.702e-13` | `78.438 / 17.366` |
+
+Every residual is at most `1e-8`, CPU/GPU iteration counts match exactly, and GPU preflight, process monitoring, mandatory offload, device assignment, input integrity, binary identity, and run-artifact hashes all pass. The deterministic schema-v2 gate is `reports/stage3_calibration_manifest.json`, SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`.
+
+These wall values are correctness diagnostics only. All ten source records have `purpose=correctness` and `timing_eligible=false`; the table establishes no speedup or crossover claim. `configs/stage3_pilot.yaml` links each exact reference and input to the manifest and specifies one warmup plus one measured repetition for each backend, sequentially and in randomized order.

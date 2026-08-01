@@ -107,3 +107,15 @@
 - Timing boundary: diagnostic wall values ranged from 1.411/1.626 s at size 32 to 30.383/8.865 s at size 174 (CPU/GPU). Every record has `timing_eligible=false`; no speedup or benchmark conclusion is drawn.
 - Resume anomaly: the immediate new-process rerun saw the first eight untracked raw records as project dirt, derived new logical identities, and launched eight duplicates instead of reusing. Duplicate IDs are `9c0536bf...8246`, `1dd8836d...22f6`, `b412bebe...bb08`, `a17813d5...18a8`, `bdf7baac...4838`, `b37ffb07...bc52`, `0d9e1df5...4777`, and `47cc860c...1967`; all say `project_git_dirty=true` and are excluded.
 - Decision: Preserve all 16 immutable records. Fix and test the narrow source-dirty rule, commit it, then rerun the now-five-size calibration and prove `launched=0` on exact resume before creating pilot evidence.
+
+## 2026-08-01 — Definitive five-size official AMD CPU/GPU correctness calibration
+
+- Purpose: Establish the definitive correctness gate for all five Fe₄S₄ determinant-prefix sizes before any pilot timing evidence is admitted.
+- Configuration identifier: `stage3-amd-fe4s4-calibration`; project commit `7bdb03d`; official `AMD-HPC/amd-sbd` at pinned commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`; CPU and NVIDIA OpenMP-offload GPU executables built through the single NVIDIA HPC SDK 26.5 toolchain.
+- Scope and execution: sizes 32, 55, 100, 174, and 244 were each run on the CPU and GPU candidates for 10 total correctness trials. All 10 records were clean, successful, and numerically correct. The immediate exact resume launched 0 trials and reused all 10 immutable records.
+- Correctness manifest: `reports/stage3_calibration_manifest.json`, schema 2, SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`, validates all five identical-input CPU/GPU pairs.
+- Pairwise agreement: maximum energy relative error `1.044e-15`; maximum absolute density difference `8.046e-13`; every final residual was at most `1e-8`; CPU and GPU iteration counts matched exactly for every size.
+- Full-size check: at size 244, CPU energy was `-326.6982536731583 Ha`, GPU energy was `-326.6982536731581 Ha`, and both candidates completed 50 iterations.
+- Diagnostic-only walls (CPU/GPU seconds): size 32 `1.413/1.627`; size 55 `2.418/1.932`; size 100 `5.636/2.968`; size 174 `29.663/8.774`; size 244 `78.438/17.366`.
+- Timing boundary: these are correctness-run diagnostics only. They are not timing evidence and support no speedup, crossover, or performance claim.
+- Decision: Accept the schema-2 manifest as the correctness gate for the five-size pilot. Continue exclusively with the official AMD implementation; no RIKEN executable was used in this calibration.

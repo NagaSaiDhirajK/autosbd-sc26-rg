@@ -962,3 +962,92 @@ PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
   results/raw/cea5de6fa53517dcfcdb0065293bf06c01251f181ecda91af175f441072b6b69.json \
   --output /tmp/autosbd-stage3-initial-calibration.json
 ```
+
+## 2026-08-01 — Run definitive five-size calibration and validate pilot geometry
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Pre-run safety/provenance: the project tree was clean at commit `7bdb03d96508ccb38f2aa5f6ed8dc5c439db9322`; the official `AMD-HPC/amd-sbd` checkout was clean at pinned commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`.
+- First calibration sweep: exit code 0; `launched=10`, `reused=0`, `statuses={"success": 10}`. The ten sequential CPU16/GPU correctness trials produced the immutable IDs listed below.
+- Immediate identical resume: exit code 0; `launched=0`, `reused=10`, `statuses={"success": 10}`. This is the definitive clean-resume validation after the narrow untracked-raw-record Git-state fix.
+- Calibration-manifest builder: the first invocation exited 0 with `status=written, validated_inputs=5`; the immediate identical second invocation exited 0 with `status=unchanged, validated_inputs=5`. The resulting `reports/stage3_calibration_manifest.json` SHA-256 is `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`.
+- Scientific scope: this five-size calibration establishes CPU/GPU correctness references and resume behavior only. Its observed runtimes are diagnostic; this entry makes no timing, performance, or speedup claim.
+- Pilot validation: an initial read-only parser probe imported nonexistent `load_experiment_config` and exited 1 without changing files. The corrected `load_sweep_config` validator exited 0 and found 20 expanded pilot trials and 10 unique workload/candidate pairs, all valid with `errors=[]`.
+- State interpretation: project dirtiness during the post-run, pre-checkpoint validation was expected from pending project changes; it is distinct from the clean pre-run state recorded above and did not alter the immutable calibration records.
+
+The ten record paths, in manifest-builder order, are:
+
+1. `results/raw/a3031aa22d1302ca125d623f528bf83e6e114c70daf5661971a4a2b3c38802a9.json`
+2. `results/raw/36e8b30cd7a47395b4d77a35cb03076e5eeb71c5c1d50e86cda5616db7401c1a.json`
+3. `results/raw/1a0b61f03bb70ef8b2f6fafe193332e9467a7a76ef4a9650c8905f0aff7bce6d.json`
+4. `results/raw/e494bffc56fdeb6530acfd4073d71d3adc47d738369d742aecac17287c631c18.json`
+5. `results/raw/6ec823260f147f7e419270c013c72ac2136072eb5d993bdffd12c55979303bb3.json`
+6. `results/raw/986ff28be901f37618522018fc1fb4221bf60577649eb9bbf99a1eb46355a2fb.json`
+7. `results/raw/1513df46ffcb2e05b099a477dc64382471ece1ddc1f8315748da7f2c166dc012.json`
+8. `results/raw/59767a40295039a8f168f73b4d671a7fb7ae419d9bf61317e0f733c9899664b5.json`
+9. `results/raw/b126ad26ffb7456299d0dcddb0846fb43f98942c251a1fcd585c7fa7ca57dae9.json`
+10. `results/raw/e80924745e5090c1ba11868ac6f6bdf71a06f66f0a913527a4091a2ab6dbfa28.json`
+
+```bash
+git status --porcelain
+git rev-parse HEAD
+git -C external/amd-sbd status --porcelain
+git -C external/amd-sbd rev-parse HEAD
+
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_calibration.yaml --no-randomize --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_calibration.yaml --no-randomize --require-all-success
+
+PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
+  <ten explicit results/raw/...json paths enumerated above, in that order> \
+  --output reports/stage3_calibration_manifest.json
+# The immediately repeated builder invocation used the identical command and order.
+sha256sum reports/stage3_calibration_manifest.json
+```
+
+The failed read-only loader probe was:
+
+```bash
+PYTHONPATH=src .venv/bin/python - <<'PY'
+from autosbd.config import load_experiment_config
+PY
+```
+
+The corrected pilot-only validator was:
+
+```bash
+PYTHONPATH=src .venv/bin/python - <<'PY'
+from autosbd.config import enumerate_trials, load_sweep_config
+
+pilot = load_sweep_config("configs/stage3_pilot.yaml")
+trials = enumerate_trials(pilot, randomize=False)
+pairs = {(trial.workload.name, trial.candidate.name) for trial in trials}
+errors = []
+if len(trials) != 20:
+    errors.append(f"trial count={len(trials)}")
+if len(pairs) != 10:
+    errors.append(f"unique workload/candidate pairs={len(pairs)}")
+print({"trials": len(trials), "unique_pairs": len(pairs), "errors": errors})
+if errors:
+    raise SystemExit(1)
+PY
+```
+
+A documentation-side read-only validator initially combined the 10 calibration templates with the 20 pilot warmup/measured templates and exited 1 after reporting 30 total; it changed no files. The pilot-only command above corrected that counting scope once and exited 0.
+
+## 2026-08-01 — Verify the clean pre-pilot checkpoint
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0 for both parallel checks.
+- Outcome: The complete suite passed 89/89 tests in 6.738 s. The deterministic workload generator reported `changed_files=[]` and its existing manifest SHA-256. The Stage 3 calibration manifest parsed as JSON and retained SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`. The official AMD checkout remained clean at the required commit and origin. Neither active Stage 3 configuration nor the AMD-only build entry point contains a RIKEN path.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -q
+git diff --check
+.venv/bin/python scripts/prepare_workloads.py --check
+.venv/bin/python -m json.tool reports/stage3_calibration_manifest.json >/dev/null
+test "$(git -C external/amd-sbd rev-parse HEAD)" = "729cfa3a5011fb805eb9e686a7711f6919836dcb"
+test "$(git -C external/amd-sbd remote get-url origin)" = "https://github.com/AMD-HPC/amd-sbd.git"
+test -z "$(git -C external/amd-sbd status --porcelain)"
+! rg -ni 'riken|r-ccs-cms' configs/stage3_calibration.yaml configs/stage3_pilot.yaml scripts/build_upstream.sh
+sha256sum reports/stage3_calibration_manifest.json
+git status --short
+```

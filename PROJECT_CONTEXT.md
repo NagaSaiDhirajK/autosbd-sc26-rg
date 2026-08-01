@@ -4,7 +4,7 @@ Status date: 2026-08-01
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stage 2 harness implementation and hardening are complete. Stage 3 has generated and verified five exact nested determinant-count variants of the official AMD Fe₄S₄ input; cross-backend calibration and a bounded pilot are next. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit, and the final schema-v2 identical-input Fe₄S₄ residual, energy, iteration, and density validation passes. Earlier RIKEN builds and a CPU smoke run remain historical evidence only and are not used by the primary pipeline.
+Current phase: Stage 2 harness implementation and hardening are complete. Stage 3 has generated and verified five exact nested determinant-count variants of the official AMD Fe₄S₄ input and completed clean cross-backend calibration at every size; a bounded manifest-linked pilot is configured next. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit. All definitive schema-v2 calibration pairs pass residual, energy, iteration, and density checks, and exact rerun resumes all ten records without launching a solver. Earlier RIKEN builds and a CPU smoke run remain historical evidence only and are not used by the primary pipeline.
 
 ## Stage 2 implementation status
 
@@ -12,7 +12,7 @@ The primary upstream is the official `AMD-HPC/amd-sbd` repository at commit `729
 
 The harness now supports strict configuration validation, deterministic pre-execution features, exact provenance admission, fail-closed GPU-idle and memory checks, a node-wide single-run lock, monitored process-group timeouts, atomic immutable records, resumable sweeps, and distinct logical/attempt identities. Schema v2 re-hashes inputs before launch and after execution, hashes the three run artifacts, preserves failures and orphan evidence, and requires a hash-linked correctness manifest plus protocol conditions before marking any record timing-eligible.
 
-The Stage 2 standard-library harness suite passes 67 tests covering configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. Stage 3 workload preparation, calibration-manifest, multi-input validation, and clean-resume regressions bring the current total to 89. The authentic schema-v2 AMD Fe₄S₄ CPU/GPU correctness pair also passes. Both records deliberately have `timing_eligible=false` because they were zero-warmup correctness trials executed while the Stage 2 worktree was uncommitted; their durations must not be presented as final benchmark evidence.
+The Stage 2 standard-library harness suite passes 67 tests covering configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. Stage 3 workload preparation, calibration-manifest, multi-input validation, and clean-resume regressions bring the current total to 89. The definitive five-size schema-v2 AMD Fe₄S₄ calibration comprises ten clean CPU/GPU records; every pair passes and the deterministic schema-v2 manifest validates all five input hashes. Calibration records deliberately have `timing_eligible=false`, so their durations must not be presented as benchmark evidence.
 
 ## Research objective
 
@@ -87,7 +87,7 @@ Required metrics are end-to-end runtime, geometric-mean speedup, selection accur
 - Stage 0: audit and durable context; stop for installation/Stage 1 approval.
 - Stage 1: pin/inspect both upstreams, reproduce authentic CPU/GPU correctness, and record build provenance.
 - Stage 2: complete—implemented and tested immutable single-run and resumable sweep harnesses, schema-v2 provenance/safety hardening, and authentic AMD CPU/GPU correctness evidence.
-- Stage 3: catalog and prepare authentic workloads, then run an approved bounded geometric pilot.
+- Stage 3: workload preparation and five-size correctness calibration complete; run and analyze the bounded manifest-linked geometric pilot next.
 - Stage 4: freeze configuration and collect approved final data.
 - Stage 5: train and evaluate the leakage-safe tuner and baselines.
 - Stage 6: generate traceable engineering/scientific reports, tables, and figures; audit claims and reproducibility.
