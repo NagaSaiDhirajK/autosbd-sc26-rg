@@ -119,3 +119,26 @@
 - Diagnostic-only walls (CPU/GPU seconds): size 32 `1.413/1.627`; size 55 `2.418/1.932`; size 100 `5.636/2.968`; size 174 `29.663/8.774`; size 244 `78.438/17.366`.
 - Timing boundary: these are correctness-run diagnostics only. They are not timing evidence and support no speedup, crossover, or performance claim.
 - Decision: Accept the schema-2 manifest as the correctness gate for the five-size pilot. Continue exclusively with the official AMD implementation; no RIKEN executable was used in this calibration.
+
+## 2026-08-01 — Stage 3 five-size official AMD CPU/GPU pilot
+
+- Purpose: Run the warmup-enabled, manifest-gated five-size pilot needed to locate a provisional CPU/GPU crossover bracket and decide whether the candidate axis is ready to freeze for Stage 4.
+- Configuration identifier: `stage3-amd-fe4s4-derived-pilot`; project commit `2ddbb40953e36194531fcd48966ecacaefb09959`; official pinned `AMD-HPC/amd-sbd` CPU16 and NVIDIA OpenMP-offload GPU artifacts built through the single NVIDIA HPC SDK 26.5 toolchain.
+- Command: `PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_pilot.yaml --require-all-success`.
+- Initial execution: exit 0; `launched=20`, `reused=0`, and `success=20`.
+- Exact resume: the unchanged command exited 0 with `launched=0`, `reused=20`, and `success=20`; no solver was relaunched.
+- Evidence audit: all 20 immutable records are correct, manifest-valid, clean, input-stable, and linked to hash-valid record/build/stdout/stderr/resource artifacts. All GPU records additionally contain complete idle-preflight, mandatory-device, process-observation, allocation, and telemetry evidence.
+- Eligibility: all 10 warmups have `timing_eligible=false`; all 10 measured records have `timing_eligible=true` and satisfy every runner gate.
+- Blocking/randomization: CPU and GPU candidate order was randomized within each workload/phase block using the fixed protocol seed, while trials remained sequential under the node lock.
+
+| Product configurations | CPU wall (s) | GPU wall (s) | CPU/GPU wall ratio |
+| ---: | ---: | ---: | ---: |
+| 1,024 | 1.411638932 | 1.626366254 | 0.867971 |
+| 3,025 | 2.417824946 | 1.936307472 | 1.248678 |
+| 10,000 | 5.635352831 | 2.835080121 | 1.987723 |
+| 30,276 | 29.978079477 | 8.816812631 | 3.400104 |
+| 59,536 | 78.545336090 | 17.269417439 | 4.548233 |
+
+- Internal pilot observation: CPU had the lower measured wall time at 1,024 configurations and GPU had the lower measured wall time at 3,025 configurations, so the observed crossover bracket is 1,024–3,025 for these exact candidates and conditions only.
+- Limitations: each candidate has one measured repetition, so there is no uncertainty estimate and no final speedup claim. All five sizes are nested selected-subspace variants of one Fe₄S₄ family, not independent chemical families.
+- Decision: The Stage 3 exit criterion is met. Run the missing CPU thread-count pilot at sizes 32, 55, and 100 before freezing Stage 4 configurations; do not treat this pilot as final repeated timing evidence.

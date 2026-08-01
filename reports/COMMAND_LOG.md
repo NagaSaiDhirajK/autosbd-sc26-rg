@@ -1051,3 +1051,115 @@ test -z "$(git -C external/amd-sbd status --porcelain)"
 sha256sum reports/stage3_calibration_manifest.json
 git status --short
 ```
+
+## 2026-08-01 — Run, resume, audit, and aggregate the Stage 3 pilot
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Preflight exit status: 0. The project tree was clean at commit `2ddbb40953e36194531fcd48966ecacaefb09959`. The official `AMD-HPC/amd-sbd` checkout was clean at pinned commit `729cfa3a5011fb805eb9e686a7711f6919836dcb` and origin `https://github.com/AMD-HPC/amd-sbd.git`.
+- Exact artifacts: CPU SHA-256 `190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07`; GPU SHA-256 `8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07`; correctness-manifest SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`.
+- Initial safety state: the NVIDIA L4 was idle with no compute processes, 22,564 MiB free of 23,034 MiB, 0% utilization, 34 °C, and 16.52 W power draw. Available host memory was 130,886,766,592 bytes, one-minute load was 0.333984375, and the GPU allocation cap was 18,928,055,091 bytes under `min(20 GiB, 80% of preflight free VRAM)`.
+- First pilot invocation: exit code 0; `total=20`, `launched=20`, `reused=0`, `statuses={"success": 20}`.
+- Immediate exact rerun: exit code 0; `total=20`, `launched=0`, `reused=20`, `statuses={"success": 20}`. No solver was relaunched and no immutable record changed.
+- Eligibility and integrity: all 10 warmups have `timing_eligible=false`; all 10 measured records have `timing_eligible=true`. Schema/identity, official-source, exact-build, clean-tree, valid-manifest, correctness, input-stability, resource-monitoring, GPU-idle/device/process/allocation, and artifact size/SHA gates all passed.
+- Pilot-only observation: the CPU16/GPU measured ordering changes between 1,024 and 3,025 product configurations. This is a provisional crossover bracket from one measured repetition per candidate, not a final crossover, uncertainty, speedup, or headline performance claim.
+
+The 20 immutable record paths, in observed execution order, are:
+
+1. `results/raw/4d80b460ad16db719a8dd0d72efd5251aa6eb28c5ec28c0b6ae1fa8da578a8c1.json` — warmup, size 32, CPU16
+2. `results/raw/a5f77f629f419a4eb8b9e55bd49c71873ec790b9994713ccf108a88d7b699950.json` — warmup, size 32, GPU
+3. `results/raw/37e9df4031045fd854078dd88befde2de45109b744cd6fe3c26a21728adb37fb.json` — warmup, size 55, GPU
+4. `results/raw/1b2f7462ccd4ae032c9070557b579b1a14efb1394cca7893b77f6b726329900a.json` — warmup, size 55, CPU16
+5. `results/raw/95f18489b726822544d9b83103332471063cbbdf68551c6414fa16289771cf4c.json` — warmup, size 100, CPU16
+6. `results/raw/f35d82c34a6f8d94df53a6b955aa9501a279193ed7ba1e0091efb3cbe7f13c63.json` — warmup, size 100, GPU
+7. `results/raw/84c49de363351dce7ccea810c996051e72e494e7bb10792c7d2208565c4ac759.json` — warmup, size 174, CPU16
+8. `results/raw/88b8c3db069fa8bf7385bb15268ec339b85c701bfcc42ac8feedee3f6c9e7a16.json` — warmup, size 174, GPU
+9. `results/raw/8dcb1bd51f281ed82c5e8080a55c7d29d9e6624708aa48ac115b6709476a6519.json` — warmup, size 244, GPU
+10. `results/raw/77a5579d6a932531a8ba9cc7c01d3235ed7e5e98d7c5daa107df6f979b74f669.json` — warmup, size 244, CPU16
+11. `results/raw/c1f46570e5eb16916af4a3902ef799697b7e10a8226f9913797f64b237f239a1.json` — measured, size 32, GPU
+12. `results/raw/e059dbfc8ab402e395b41d467b03fe39cf1d601e4ed4db4162e92e96f31474b8.json` — measured, size 32, CPU16
+13. `results/raw/96582c3f7dcb942b9b091d34a47074f620f61e9d6c4a19c4bf1514077bea7197.json` — measured, size 55, GPU
+14. `results/raw/64af98614e64fe74146bdc2ba45760491f91d4eafb301c539b1a98d09e45a9e5.json` — measured, size 55, CPU16
+15. `results/raw/aadf64a56d1236b7026e197c600de37ea25117ef07e9cefb565d2add5b181087.json` — measured, size 100, CPU16
+16. `results/raw/13b9155ea6bc2817871d9822b0f710358e3bef163dcb740551321a520501f96a.json` — measured, size 100, GPU
+17. `results/raw/bbf148905993355e8fd89deb3a63a50c396cebe7c4d1056913b74c2b21e8fc07.json` — measured, size 174, CPU16
+18. `results/raw/718bbe4be95bce3c1c9d093c4d1141fa32ffd952927a138989216edfad0d74b9.json` — measured, size 174, GPU
+19. `results/raw/c674e42e6c0a774f3e659bc79dd6e2ea2c3463a2b75f53c7bcb8402157ecbc23.json` — measured, size 244, CPU16
+20. `results/raw/4ed99164c34929bf4fad80ffbd8a75e51ab9b56963d545a5aaea61a68097499f.json` — measured, size 244, GPU
+
+```bash
+git status --porcelain
+git rev-parse HEAD
+git -C external/amd-sbd status --porcelain
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd remote get-url origin
+sha256sum \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu \
+  reports/stage3_calibration_manifest.json
+nvidia-smi --query-gpu=index,name,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu --format=csv,noheader,nounits
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits
+free -b
+uptime
+
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_pilot.yaml --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_pilot.yaml --require-all-success
+```
+
+The read-only integrity audit loaded all 20 explicit records through `autosbd.records.load_record`, independently recomputed record/build/input/stdout/stderr/resource/manifest hashes and sizes, checked the exact 5-workload × 2-backend × 2-phase geometry, and reconstructed all current logical identities through `_load_expected_record`. The reconstruction returned `total=20`, `launched=0`, `reused=20`, `success=20`; it did not call `TrialRunner.run`, `run_sweep`, or `run_monitored`, and before/after raw-record sizes and mtimes were identical.
+
+The deterministic aggregator was invoked twice with the identical explicit order above:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/analyze_results.py \
+  <20 explicit results/raw/...json paths enumerated above, in that order> \
+  --output-json results/processed/stage3_pilot.json \
+  --output-csv results/processed/stage3_pilot.csv
+# The immediate second invocation used the identical command and record order.
+sha256sum results/processed/stage3_pilot.json results/processed/stage3_pilot.csv
+```
+
+- First aggregation: exit code 0; `input_records=20`, `included_records=10`, `excluded_records=10`, `json_changed=true`, `csv_changed=true`.
+- Immediate identical aggregation: exit code 0; the same 20/10/10 counts, `json_changed=false`, and `csv_changed=false`.
+- Deterministic outputs: JSON SHA-256 `0e5a6ce892377125f988a9cdc4a793e4071053d1cc8fefb151a8e324bbd001f6`; CSV SHA-256 `816a4c1afac501006ed4d0a656da12d7c83db0abc8bbc9620a17ff4a56f9d35c`. The CSV contains 20 data rows plus one header; warmups are retained as excluded rows rather than deleted.
+
+The CPU-thread pilot configuration was then validated read-only; no thread benchmark was launched:
+
+```bash
+PYTHONPATH=src .venv/bin/python - <<'PY'
+from autosbd.config import load_sweep_config
+
+config = load_sweep_config("configs/stage3_thread_pilot.yaml")
+trials = config.trial_templates(randomize=True)
+pairs = {(trial.workload.name, trial.candidate.name) for trial in trials}
+assert len(trials) == 18
+assert len(pairs) == 9
+print({"templates": len(trials), "unique_pairs": len(pairs), "errors": []})
+PY
+```
+
+Outcome: exit code 0; 18 templates, 9 unique workload/candidate pairs, and no validation errors.
+
+All integrity/resume audits were read-only and produced no record mutation. Two diagnostic assumptions were corrected once: the first deep audit looked for nonexistent `validation_evidence.passed` and `.upstream_commit` keys (exit 1), then used the actual `valid=true` and `errors=[]` contract; the first static identity probe guessed the project-origin owner incorrectly (exit 1 before record matching), then limited the check to the required commit/clean state and passed 20/20. A later aggregate projection requested nonexistent `summary`/`records` keys and printed null/0 without failing; the corrected `record_counts`/`rows` projection returned input/included/excluded counts 20/10/10. None of these probes invoked a benchmark or changed a file.
+
+## 2026-08-01 — Verify Stage 3 aggregation and thread-pilot checkpoint
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0.
+- Outcome: Focused aggregation tests passed 7/7 in 0.135 s and the full standard-library suite passed 96/96 in 6.848 s. Byte compilation and diff checks passed. The analysis layer now rejects explicitly supplied schema-v1 records with a clear fail-closed `AnalysisError`; the immutable record loader itself remains backward compatible. Processed pilot counts remain exactly 20 input, 10 included measurements, and 10 excluded warmups.
+- File SHA-256: thread pilot config `0ae526e8e009ba41a332f76cdffa29bcbe561f9b680c164cb09d73363cb71b3e`; analysis module `aa07b594223ab7a838d1fabf824ca9992d823ac9fa84ff81a7a745a353fd7c7d`; analysis CLI `842c91cef21b2a1e796ed6410adaa40f5a770f3c00616234142d36974b8d5b9d`; analysis tests `ffaedfe430b25e51855eff21fce6b190c0e33a3fd4f7ad69000f826e750224f7`.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_analysis.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -q
+git diff --check
+.venv/bin/python -m py_compile src/autosbd/analysis.py scripts/analyze_results.py tests/test_analysis.py
+.venv/bin/python -m json.tool results/processed/stage3_pilot.json >/dev/null
+test "$(($(wc -l < results/processed/stage3_pilot.csv)-1))" -eq 20
+sha256sum \
+  configs/stage3_thread_pilot.yaml \
+  src/autosbd/analysis.py \
+  scripts/analyze_results.py \
+  tests/test_analysis.py \
+  results/processed/stage3_pilot.json \
+  results/processed/stage3_pilot.csv
+```

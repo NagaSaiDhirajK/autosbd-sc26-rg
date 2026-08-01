@@ -1,0 +1,3824 @@
+{
+  "analysis_type": "autosbd_timing_aggregation",
+  "candidate_groups": [
+    {
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "problem_instance": "fe4s4-prefix-0032",
+      "record_ids": [
+        "e059dbfc8ab402e395b41d467b03fe39cf1d601e4ed4db4162e92e96f31474b8"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 0.260026,
+        "median": 0.260026,
+        "minimum": 0.260026,
+        "q1": 0.260026,
+        "q3": 0.260026
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 1.411638931997004,
+        "median": 1.411638931997004,
+        "minimum": 1.411638931997004,
+        "q1": 1.411638931997004,
+        "q3": 1.411638931997004
+      }
+    },
+    {
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "problem_instance": "fe4s4-prefix-0032",
+      "record_ids": [
+        "c1f46570e5eb16916af4a3902ef799697b7e10a8226f9913797f64b237f239a1"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 0.154056,
+        "median": 0.154056,
+        "minimum": 0.154056,
+        "q1": 0.154056,
+        "q3": 0.154056
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 1.6263662540004589,
+        "median": 1.6263662540004589,
+        "minimum": 1.6263662540004589,
+        "q1": 1.6263662540004589,
+        "q3": 1.6263662540004589
+      }
+    },
+    {
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "problem_instance": "fe4s4-prefix-0055",
+      "record_ids": [
+        "64af98614e64fe74146bdc2ba45760491f91d4eafb301c539b1a98d09e45a9e5"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 1.258032,
+        "median": 1.258032,
+        "minimum": 1.258032,
+        "q1": 1.258032,
+        "q3": 1.258032
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 2.4178249460019288,
+        "median": 2.4178249460019288,
+        "minimum": 2.4178249460019288,
+        "q1": 2.4178249460019288,
+        "q3": 2.4178249460019288
+      }
+    },
+    {
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "problem_instance": "fe4s4-prefix-0055",
+      "record_ids": [
+        "96582c3f7dcb942b9b091d34a47074f620f61e9d6c4a19c4bf1514077bea7197"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 0.448547,
+        "median": 0.448547,
+        "minimum": 0.448547,
+        "q1": 0.448547,
+        "q3": 0.448547
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 1.9363074720022269,
+        "median": 1.9363074720022269,
+        "minimum": 1.9363074720022269,
+        "q1": 1.9363074720022269,
+        "q3": 1.9363074720022269
+      }
+    },
+    {
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "problem_instance": "fe4s4-prefix-0100",
+      "record_ids": [
+        "aadf64a56d1236b7026e197c600de37ea25117ef07e9cefb565d2add5b181087"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 4.415712,
+        "median": 4.415712,
+        "minimum": 4.415712,
+        "q1": 4.415712,
+        "q3": 4.415712
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 5.635352830999182,
+        "median": 5.635352830999182,
+        "minimum": 5.635352830999182,
+        "q1": 5.635352830999182,
+        "q3": 5.635352830999182
+      }
+    },
+    {
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "problem_instance": "fe4s4-prefix-0100",
+      "record_ids": [
+        "13b9155ea6bc2817871d9822b0f710358e3bef163dcb740551321a520501f96a"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 1.443576,
+        "median": 1.443576,
+        "minimum": 1.443576,
+        "q1": 1.443576,
+        "q3": 1.443576
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 2.835080121003557,
+        "median": 2.835080121003557,
+        "minimum": 2.835080121003557,
+        "q1": 2.835080121003557,
+        "q3": 2.835080121003557
+      }
+    },
+    {
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "problem_instance": "fe4s4-prefix-0174",
+      "record_ids": [
+        "bbf148905993355e8fd89deb3a63a50c396cebe7c4d1056913b74c2b21e8fc07"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 28.278726,
+        "median": 28.278726,
+        "minimum": 28.278726,
+        "q1": 28.278726,
+        "q3": 28.278726
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 29.97807947700494,
+        "median": 29.97807947700494,
+        "minimum": 29.97807947700494,
+        "q1": 29.97807947700494,
+        "q3": 29.97807947700494
+      }
+    },
+    {
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "problem_instance": "fe4s4-prefix-0174",
+      "record_ids": [
+        "718bbe4be95bce3c1c9d093c4d1141fa32ffd952927a138989216edfad0d74b9"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 7.252559,
+        "median": 7.252559,
+        "minimum": 7.252559,
+        "q1": 7.252559,
+        "q3": 7.252559
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 8.816812630997447,
+        "median": 8.816812630997447,
+        "minimum": 8.816812630997447,
+        "q1": 8.816812630997447,
+        "q3": 8.816812630997447
+      }
+    },
+    {
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "problem_instance": "fe4s4-prefix-0244",
+      "record_ids": [
+        "c674e42e6c0a774f3e659bc79dd6e2ea2c3463a2b75f53c7bcb8402157ecbc23"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 75.974634,
+        "median": 75.974634,
+        "minimum": 75.974634,
+        "q1": 75.974634,
+        "q3": 75.974634
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 78.54533608999918,
+        "median": 78.54533608999918,
+        "minimum": 78.54533608999918,
+        "q1": 78.54533608999918,
+        "q3": 78.54533608999918
+      }
+    },
+    {
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "problem_instance": "fe4s4-prefix-0244",
+      "record_ids": [
+        "4ed99164c34929bf4fad80ffbd8a75e51ab9b56963d545a5aaea61a68097499f"
+      ],
+      "solver_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 15.491244,
+        "median": 15.491244,
+        "minimum": 15.491244,
+        "q1": 15.491244,
+        "q3": 15.491244
+      },
+      "wall_time_s": {
+        "count": 1,
+        "iqr": 0.0,
+        "maximum": 17.269417439005338,
+        "median": 17.269417439005338,
+        "minimum": 17.269417439005338,
+        "q1": 17.269417439005338,
+        "q3": 17.269417439005338
+      }
+    }
+  ],
+  "exclusion_reason_counting": "Each excluded record contributes once to every applicable reason.",
+  "exclusion_reason_counts": {
+    "timing_ineligible": 10,
+    "warmup": 10
+  },
+  "input_record_ids": [
+    "13b9155ea6bc2817871d9822b0f710358e3bef163dcb740551321a520501f96a",
+    "1b2f7462ccd4ae032c9070557b579b1a14efb1394cca7893b77f6b726329900a",
+    "37e9df4031045fd854078dd88befde2de45109b744cd6fe3c26a21728adb37fb",
+    "4d80b460ad16db719a8dd0d72efd5251aa6eb28c5ec28c0b6ae1fa8da578a8c1",
+    "4ed99164c34929bf4fad80ffbd8a75e51ab9b56963d545a5aaea61a68097499f",
+    "64af98614e64fe74146bdc2ba45760491f91d4eafb301c539b1a98d09e45a9e5",
+    "718bbe4be95bce3c1c9d093c4d1141fa32ffd952927a138989216edfad0d74b9",
+    "77a5579d6a932531a8ba9cc7c01d3235ed7e5e98d7c5daa107df6f979b74f669",
+    "84c49de363351dce7ccea810c996051e72e494e7bb10792c7d2208565c4ac759",
+    "88b8c3db069fa8bf7385bb15268ec339b85c701bfcc42ac8feedee3f6c9e7a16",
+    "8dcb1bd51f281ed82c5e8080a55c7d29d9e6624708aa48ac115b6709476a6519",
+    "95f18489b726822544d9b83103332471063cbbdf68551c6414fa16289771cf4c",
+    "96582c3f7dcb942b9b091d34a47074f620f61e9d6c4a19c4bf1514077bea7197",
+    "a5f77f629f419a4eb8b9e55bd49c71873ec790b9994713ccf108a88d7b699950",
+    "aadf64a56d1236b7026e197c600de37ea25117ef07e9cefb565d2add5b181087",
+    "bbf148905993355e8fd89deb3a63a50c396cebe7c4d1056913b74c2b21e8fc07",
+    "c1f46570e5eb16916af4a3902ef799697b7e10a8226f9913797f64b237f239a1",
+    "c674e42e6c0a774f3e659bc79dd6e2ea2c3463a2b75f53c7bcb8402157ecbc23",
+    "e059dbfc8ab402e395b41d467b03fe39cf1d601e4ed4db4162e92e96f31474b8",
+    "f35d82c34a6f8d94df53a6b955aa9501a279193ed7ba1e0091efb3cbe7f13c63"
+  ],
+  "record_counts": {
+    "excluded": 10,
+    "included": 10,
+    "input": 20
+  },
+  "rows": [
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.5622181729457,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+        "connectivity": {
+          "alpha": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "beta": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "pair_comparisons": 992
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 13.428625271005966,
+        "log1p_n_configurations": 6.932447891572509,
+        "method0_work_proxy": 679168,
+        "n_configurations": 1024
+      },
+      "finished_timestamp_utc": "2026-08-01T01:09:46.483335Z",
+      "included": false,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "iterations": 22,
+      "logical_trial_id": "862287a2b2060617ddc8f430978c3143bb485c433d09f69bbd458dc2490c6543",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.3984375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0032",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.0028250000000000003,
+        "matvec": null,
+        "solver": 0.268153,
+        "transfer": null,
+        "wall": 1.4122533120025764
+      },
+      "timestamp_utc": "2026-08-01T01:09:44.954219Z",
+      "trial_id": "4d80b460ad16db719a8dd0d72efd5251aa6eb28c5ec28c0b6ae1fa8da578a8c1"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.5622181729457,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+        "connectivity": {
+          "alpha": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "beta": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "pair_comparisons": 992
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 13.428625271005966,
+        "log1p_n_configurations": 6.932447891572509,
+        "method0_work_proxy": 679168,
+        "n_configurations": 1024
+      },
+      "finished_timestamp_utc": "2026-08-01T01:09:49.220596Z",
+      "included": false,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "iterations": 22,
+      "logical_trial_id": "c99e29b688042b85e7ca547ddea036e4c5740e7ece68bc3e8a64b87c070c0489",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.39453125,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0032",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.00039,
+        "matvec": null,
+        "solver": 0.154285,
+        "transfer": null,
+        "wall": 1.6348311969995848
+      },
+      "timestamp_utc": "2026-08-01T01:09:47.470718Z",
+      "trial_id": "a5f77f629f419a4eb8b9e55bd49c71873ec790b9994713ccf108a88d7b699950"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.5689554798622,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+        "connectivity": {
+          "alpha": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "beta": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "pair_comparisons": 2970
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 14.83871012622884,
+        "log1p_n_configurations": 8.0149968943483,
+        "method0_work_proxy": 2782081,
+        "n_configurations": 3025
+      },
+      "finished_timestamp_utc": "2026-08-01T01:09:52.176869Z",
+      "included": false,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "iterations": 26,
+      "logical_trial_id": "dfd5e4c0867460919ee06f84c187be3138142b8757c45ec16822c18a66f7b4a1",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 129.02734375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0055",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.000887,
+        "matvec": null,
+        "solver": 0.448145,
+        "transfer": null,
+        "wall": 1.8694728190021124
+      },
+      "timestamp_utc": "2026-08-01T01:09:50.197129Z",
+      "trial_id": "37e9df4031045fd854078dd88befde2de45109b744cd6fe3c26a21728adb37fb"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.5689554798624,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+        "connectivity": {
+          "alpha": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "beta": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "pair_comparisons": 2970
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 14.83871012622884,
+        "log1p_n_configurations": 8.0149968943483,
+        "method0_work_proxy": 2782081,
+        "n_configurations": 3025
+      },
+      "finished_timestamp_utc": "2026-08-01T01:09:55.677076Z",
+      "included": false,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "iterations": 26,
+      "logical_trial_id": "57b5f2efd4f9e143bb564badb97c601de8243307ef25da672206a827bc08bd0d",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.38671875,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0055",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.002792,
+        "matvec": null,
+        "solver": 1.238762,
+        "transfer": null,
+        "wall": 2.4170793240045896
+      },
+      "timestamp_utc": "2026-08-01T01:09:53.150526Z",
+      "trial_id": "1b2f7462ccd4ae032c9070557b579b1a14efb1394cca7893b77f6b726329900a"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.5847957019396,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+        "connectivity": {
+          "alpha": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "beta": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "pair_comparisons": 9900
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 16.146138839217606,
+        "log1p_n_configurations": 9.210440366976517,
+        "method0_work_proxy": 10284400,
+        "n_configurations": 10000
+      },
+      "finished_timestamp_utc": "2026-08-01T01:10:02.401932Z",
+      "included": false,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "iterations": 27,
+      "logical_trial_id": "3687f0f92d8ba91a5cccc05bfd6d5e4df455b8d0bcb9d6471e3aae0f105661e0",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.34765625,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0100",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.003098,
+        "matvec": null,
+        "solver": 4.388622,
+        "transfer": null,
+        "wall": 5.635392477001005
+      },
+      "timestamp_utc": "2026-08-01T01:09:56.651346Z",
+      "trial_id": "95f18489b726822544d9b83103332471063cbbdf68551c6414fa16289771cf4c"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.5847957019399,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+        "connectivity": {
+          "alpha": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "beta": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "pair_comparisons": 9900
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 16.146138839217606,
+        "log1p_n_configurations": 9.210440366976517,
+        "method0_work_proxy": 10284400,
+        "n_configurations": 10000
+      },
+      "finished_timestamp_utc": "2026-08-01T01:10:06.317463Z",
+      "included": false,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "iterations": 27,
+      "logical_trial_id": "7e5ac290b4c97676455c8284453bb823dc95eb5bcb14f39d750aabc619e428d5",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 131.21875,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0100",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.002671,
+        "matvec": null,
+        "solver": 1.442899,
+        "transfer": null,
+        "wall": 2.8197294040000997
+      },
+      "timestamp_utc": "2026-08-01T01:10:03.381154Z",
+      "trial_id": "f35d82c34a6f8d94df53a6b955aa9501a279193ed7ba1e0091efb3cbe7f13c63"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.6593248445312,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+        "connectivity": {
+          "alpha": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "beta": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "pair_comparisons": 30102
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 17.552653204088866,
+        "log1p_n_configurations": 10.318143627345878,
+        "method0_work_proxy": 41977872,
+        "n_configurations": 30276
+      },
+      "finished_timestamp_utc": "2026-08-01T01:10:37.393234Z",
+      "included": false,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "iterations": 46,
+      "logical_trial_id": "23f9337e378df380a32bb62563bec1ba8bb495fb1d0270ab0b5c6739b681800d",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.359375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0174",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.0045520000000000005,
+        "matvec": null,
+        "solver": 28.222129,
+        "transfer": null,
+        "wall": 29.97856978300115
+      },
+      "timestamp_utc": "2026-08-01T01:10:07.303974Z",
+      "trial_id": "84c49de363351dce7ccea810c996051e72e494e7bb10792c7d2208565c4ac759"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.6593248445311,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+        "connectivity": {
+          "alpha": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "beta": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "pair_comparisons": 30102
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 17.552653204088866,
+        "log1p_n_configurations": 10.318143627345878,
+        "method0_work_proxy": 41977872,
+        "n_configurations": 30276
+      },
+      "finished_timestamp_utc": "2026-08-01T01:10:47.247119Z",
+      "included": false,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "iterations": 46,
+      "logical_trial_id": "c956282713d28293016cb2d77a2614c2ff782aefad2f668b295530f31807e73b",
+      "peak_gpu_memory_mb": 196.0,
+      "peak_host_rss_mb": 137.77734375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0174",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.007469999999999999,
+        "matvec": null,
+        "solver": 7.249734999999999,
+        "transfer": null,
+        "wall": 8.756143974002043
+      },
+      "timestamp_utc": "2026-08-01T01:10:38.375504Z",
+      "trial_id": "88b8c3db069fa8bf7385bb15268ec339b85c701bfcc42ac8feedee3f6c9e7a16"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.6982536731581,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+        "connectivity": {
+          "alpha": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "beta": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "pair_comparisons": 59292
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 18.47442563222631,
+        "log1p_n_configurations": 10.994353247005408,
+        "method0_work_proxy": 105521536,
+        "n_configurations": 59536
+      },
+      "finished_timestamp_utc": "2026-08-01T01:11:05.444895Z",
+      "included": false,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "iterations": 50,
+      "logical_trial_id": "a30fc11d4342827303a0e220a82040604ef92d1a39ee132eafecb5a3cf52b6cb",
+      "peak_gpu_memory_mb": 198.0,
+      "peak_host_rss_mb": 145.10546875,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0244",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.014268,
+        "matvec": null,
+        "solver": 15.520033,
+        "transfer": null,
+        "wall": 17.11010351299774
+      },
+      "timestamp_utc": "2026-08-01T01:10:48.225305Z",
+      "trial_id": "8dcb1bd51f281ed82c5e8080a55c7d29d9e6624708aa48ac115b6709476a6519"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.6982536731583,
+      "exclusion_reasons": [
+        "timing_ineligible",
+        "warmup"
+      ],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+        "connectivity": {
+          "alpha": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "beta": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "pair_comparisons": 59292
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 18.47442563222631,
+        "log1p_n_configurations": 10.994353247005408,
+        "method0_work_proxy": 105521536,
+        "n_configurations": 59536
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:25.163252Z",
+      "included": false,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "iterations": 50,
+      "logical_trial_id": "db2745afcea914df0c0fe8489b4a4520da68e829d86b77d810c45832b18c0d1e",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 47.625,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0244",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.006527999999999999,
+        "matvec": null,
+        "solver": 75.931604,
+        "transfer": null,
+        "wall": 78.6394422930025
+      },
+      "timestamp_utc": "2026-08-01T01:11:06.415840Z",
+      "trial_id": "77a5579d6a932531a8ba9cc7c01d3235ed7e5e98d7c5daa107df6f979b74f669"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.5622181729457,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+        "connectivity": {
+          "alpha": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "beta": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "pair_comparisons": 992
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 13.428625271005966,
+        "log1p_n_configurations": 6.932447891572509,
+        "method0_work_proxy": 679168,
+        "n_configurations": 1024
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:27.888020Z",
+      "included": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "iterations": 22,
+      "logical_trial_id": "122649f06d397f85b62ab6d9927925e94ead91b189fee3086e0d0f847d071928",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.34375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.000354,
+        "matvec": null,
+        "solver": 0.154056,
+        "transfer": null,
+        "wall": 1.6263662540004589
+      },
+      "timestamp_utc": "2026-08-01T01:12:26.145987Z",
+      "trial_id": "c1f46570e5eb16916af4a3902ef799697b7e10a8226f9913797f64b237f239a1"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.5622181729457,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 32,
+          "file_bytes": 1184,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0032.txt",
+          "sha256": "5f2beadb720d61c467a3ee8ee9f127152e1a69b2edcdad3139d74888d5d4cbc8",
+          "unique_count": 32
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+        "connectivity": {
+          "alpha": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "beta": {
+            "determinants": 32,
+            "directed_double_edges": 208,
+            "directed_single_edges": 784,
+            "double_degree_max": 26,
+            "double_degree_mean": 6.5,
+            "double_degree_min": 0,
+            "double_edge_density": 0.20967741935483872,
+            "single_degree_max": 31,
+            "single_degree_mean": 24.5,
+            "single_degree_min": 5,
+            "single_edge_density": 0.7903225806451613,
+            "unordered_pair_comparisons": 496
+          },
+          "pair_comparisons": 992
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 13.428625271005966,
+        "log1p_n_configurations": 6.932447891572509,
+        "method0_work_proxy": 679168,
+        "n_configurations": 1024
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:30.379355Z",
+      "included": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "iterations": 22,
+      "logical_trial_id": "3cf633e6b2f139fd0c0ce5e68d4ea724de9b692dcece57e9c4cef9b89b9c5458",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.31640625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.0026539999999999997,
+        "matvec": null,
+        "solver": 0.260026,
+        "transfer": null,
+        "wall": 1.411638931997004
+      },
+      "timestamp_utc": "2026-08-01T01:12:28.859295Z",
+      "trial_id": "e059dbfc8ab402e395b41d467b03fe39cf1d601e4ed4db4162e92e96f31474b8"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.5689554798622,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+        "connectivity": {
+          "alpha": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "beta": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "pair_comparisons": 2970
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 14.83871012622884,
+        "log1p_n_configurations": 8.0149968943483,
+        "method0_work_proxy": 2782081,
+        "n_configurations": 3025
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:33.411793Z",
+      "included": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "iterations": 26,
+      "logical_trial_id": "ab418a13c3b7024cc84530396a22e0e498bb708196072d9fb8c72f219640d8b4",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 129.01953125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.000865,
+        "matvec": null,
+        "solver": 0.448547,
+        "transfer": null,
+        "wall": 1.9363074720022269
+      },
+      "timestamp_utc": "2026-08-01T01:12:31.360483Z",
+      "trial_id": "96582c3f7dcb942b9b091d34a47074f620f61e9d6c4a19c4bf1514077bea7197"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.5689554798624,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 55,
+          "file_bytes": 2035,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0055.txt",
+          "sha256": "2b296f3011a87e9bf7f9682b8de25e78442ac6bcb47942bf8003ecdeb65d3ef1",
+          "unique_count": 55
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+        "connectivity": {
+          "alpha": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "beta": {
+            "determinants": 55,
+            "directed_double_edges": 1404,
+            "directed_single_edges": 1566,
+            "double_degree_max": 26,
+            "double_degree_mean": 25.527272727272727,
+            "double_degree_min": 0,
+            "double_edge_density": 0.4727272727272727,
+            "single_degree_max": 54,
+            "single_degree_mean": 28.472727272727273,
+            "single_degree_min": 28,
+            "single_edge_density": 0.5272727272727272,
+            "unordered_pair_comparisons": 1485
+          },
+          "pair_comparisons": 2970
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 14.83871012622884,
+        "log1p_n_configurations": 8.0149968943483,
+        "method0_work_proxy": 2782081,
+        "n_configurations": 3025
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:36.921149Z",
+      "included": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "iterations": 26,
+      "logical_trial_id": "b770d93c2ddf8f980f6bb36802f4e2896b2534bea4f4ca7c471cfcf2e8b1853d",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.390625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.0028550000000000003,
+        "matvec": null,
+        "solver": 1.258032,
+        "transfer": null,
+        "wall": 2.4178249460019288
+      },
+      "timestamp_utc": "2026-08-01T01:12:34.395912Z",
+      "trial_id": "64af98614e64fe74146bdc2ba45760491f91d4eafb301c539b1a98d09e45a9e5"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.5847957019396,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+        "connectivity": {
+          "alpha": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "beta": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "pair_comparisons": 9900
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 16.146138839217606,
+        "log1p_n_configurations": 9.210440366976517,
+        "method0_work_proxy": 10284400,
+        "n_configurations": 10000
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:43.650537Z",
+      "included": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "iterations": 27,
+      "logical_trial_id": "c02feef5de088889374be75d1f5fc499ff097ee459113429031b34f89600d90c",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.39453125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.003296,
+        "matvec": null,
+        "solver": 4.415712,
+        "transfer": null,
+        "wall": 5.635352830999182
+      },
+      "timestamp_utc": "2026-08-01T01:12:37.899202Z",
+      "trial_id": "aadf64a56d1236b7026e197c600de37ea25117ef07e9cefb565d2add5b181087"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.5847957019399,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 100,
+          "file_bytes": 3700,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0100.txt",
+          "sha256": "2722d475430a07b416dce775f7daa5e084aa49f90d27b8cd756ecf45c4b96a8a",
+          "unique_count": 100
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+        "connectivity": {
+          "alpha": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "beta": {
+            "determinants": 100,
+            "directed_double_edges": 7020,
+            "directed_single_edges": 2880,
+            "double_degree_max": 78,
+            "double_degree_mean": 70.2,
+            "double_degree_min": 0,
+            "double_edge_density": 0.7090909090909091,
+            "single_degree_max": 99,
+            "single_degree_mean": 28.8,
+            "single_degree_min": 21,
+            "single_edge_density": 0.2909090909090909,
+            "unordered_pair_comparisons": 4950
+          },
+          "pair_comparisons": 9900
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 16.146138839217606,
+        "log1p_n_configurations": 9.210440366976517,
+        "method0_work_proxy": 10284400,
+        "n_configurations": 10000
+      },
+      "finished_timestamp_utc": "2026-08-01T01:12:47.577766Z",
+      "included": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "iterations": 27,
+      "logical_trial_id": "7171756bf622af79c166b70cdca29e660e83668dc8e0ea180c7413e189091e86",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 131.21875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.002552,
+        "matvec": null,
+        "solver": 1.443576,
+        "transfer": null,
+        "wall": 2.835080121003557
+      },
+      "timestamp_utc": "2026-08-01T01:12:44.626880Z",
+      "trial_id": "13b9155ea6bc2817871d9822b0f710358e3bef163dcb740551321a520501f96a"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.6593248445312,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+        "connectivity": {
+          "alpha": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "beta": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "pair_comparisons": 30102
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 17.552653204088866,
+        "log1p_n_configurations": 10.318143627345878,
+        "method0_work_proxy": 41977872,
+        "n_configurations": 30276
+      },
+      "finished_timestamp_utc": "2026-08-01T01:13:18.657502Z",
+      "included": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "iterations": 46,
+      "logical_trial_id": "dadaea1b6a07db28a33e06e5977bf40b1ae46aadf92dc0285fc94156e690f891",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.30078125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.004797,
+        "matvec": null,
+        "solver": 28.278726,
+        "transfer": null,
+        "wall": 29.97807947700494
+      },
+      "timestamp_utc": "2026-08-01T01:12:48.568241Z",
+      "trial_id": "bbf148905993355e8fd89deb3a63a50c396cebe7c4d1056913b74c2b21e8fc07"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.6593248445311,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 174,
+          "file_bytes": 6438,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt",
+          "sha256": "bad29cfa68e324ae9a63b22bf5d18e86f6766a2f251371ae92ab6080e1c33b67",
+          "unique_count": 174
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+        "connectivity": {
+          "alpha": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "beta": {
+            "determinants": 174,
+            "directed_double_edges": 24492,
+            "directed_single_edges": 5610,
+            "double_degree_max": 156,
+            "double_degree_mean": 140.75862068965517,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8136336456049432,
+            "single_degree_max": 173,
+            "single_degree_mean": 32.241379310344826,
+            "single_degree_min": 17,
+            "single_edge_density": 0.1863663543950568,
+            "unordered_pair_comparisons": 15051
+          },
+          "pair_comparisons": 30102
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 17.552653204088866,
+        "log1p_n_configurations": 10.318143627345878,
+        "method0_work_proxy": 41977872,
+        "n_configurations": 30276
+      },
+      "finished_timestamp_utc": "2026-08-01T01:13:28.598213Z",
+      "included": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "iterations": 46,
+      "logical_trial_id": "747d2fba238e032760afcbae3cf9b6bcb499fcf48a6469811a37f7e6140bb241",
+      "peak_gpu_memory_mb": 196.0,
+      "peak_host_rss_mb": 137.73828125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.007557,
+        "matvec": null,
+        "solver": 7.252559,
+        "transfer": null,
+        "wall": 8.816812630997447
+      },
+      "timestamp_utc": "2026-08-01T01:13:19.665304Z",
+      "trial_id": "718bbe4be95bce3c1c9d093c4d1141fa32ffd952927a138989216edfad0d74b9"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "energy_or_eigenvalue": -326.6982536731583,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+        "connectivity": {
+          "alpha": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "beta": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "pair_comparisons": 59292
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 18.47442563222631,
+        "log1p_n_configurations": 10.994353247005408,
+        "method0_work_proxy": 105521536,
+        "n_configurations": 59536
+      },
+      "finished_timestamp_utc": "2026-08-01T01:14:48.244213Z",
+      "included": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "iterations": 50,
+      "logical_trial_id": "cd2c0429375403e6aa8ecd7efb1ed68bf91fa1382a0b289feb95997ecf504664",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 47.5703125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.006506,
+        "matvec": null,
+        "solver": 75.974634,
+        "transfer": null,
+        "wall": 78.54533608999918
+      },
+      "timestamp_utc": "2026-08-01T01:13:29.590732Z",
+      "trial_id": "c674e42e6c0a774f3e659bc79dd6e2ea2c3463a2b75f53c7bcb8402157ecbc23"
+    },
+    {
+      "attempt_index": 0,
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "energy_or_eigenvalue": -326.6982536731581,
+      "exclusion_reasons": [],
+      "features": {
+        "alpha": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta": {
+          "bit_length": 36,
+          "count": 244,
+          "file_bytes": 9028,
+          "occupancy_max": 27,
+          "occupancy_mean": 27.0,
+          "occupancy_min": 27,
+          "occupancy_variance": 0.0,
+          "path": "/home/nagan/autosbd-sc26-rg/data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt",
+          "sha256": "b1aa7e60cfde6adc39f9271bb2c6d8d15774a694e746e66bab44db9842748f68",
+          "unique_count": 244
+        },
+        "beta_reuses_alpha": true,
+        "combined_input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+        "connectivity": {
+          "alpha": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "beta": {
+            "determinants": 244,
+            "directed_double_edges": 50544,
+            "directed_single_edges": 8748,
+            "double_degree_max": 208,
+            "double_degree_mean": 207.14754098360655,
+            "double_degree_min": 0,
+            "double_edge_density": 0.8524590163934426,
+            "single_degree_max": 243,
+            "single_degree_mean": 35.85245901639344,
+            "single_degree_min": 35,
+            "single_edge_density": 0.14754098360655737,
+            "unordered_pair_comparisons": 29646
+          },
+          "pair_comparisons": 59292
+        },
+        "connectivity_pair_limit": 1000000,
+        "fcidump": {
+          "compact_two_electron_slots": 222111,
+          "core_integrals": 1,
+          "exact_zero_integrals": 1,
+          "file_bytes": 9584950,
+          "integral_records": 222778,
+          "isym": 1,
+          "max_abs_integral": 13.43276387194341,
+          "ms2": 0,
+          "n_electrons": 54,
+          "n_orbitals": 36,
+          "one_electron_integrals": 666,
+          "orbsym": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "path": "/home/nagan/autosbd-sc26-rg/external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt",
+          "sha256": "9a74e2035f76218f1d02aa641a5be256c0b685f0382b1612fc261117dd1b6e93",
+          "source_integral_doubles": 229887,
+          "sum_abs_integrals": 1054.5633693506882,
+          "two_electron_fill_density": 1.0,
+          "two_electron_integrals": 222111
+        },
+        "log1p_method0_work_proxy": 18.47442563222631,
+        "log1p_n_configurations": 10.994353247005408,
+        "method0_work_proxy": 105521536,
+        "n_configurations": 59536
+      },
+      "finished_timestamp_utc": "2026-08-01T01:15:06.617134Z",
+      "included": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "iterations": 50,
+      "logical_trial_id": "c3a5cc0052e84bc48daad2fdd6b6afbc3feaf1e0dffa6fae88c5a4d25a085da0",
+      "peak_gpu_memory_mb": 198.0,
+      "peak_host_rss_mb": 145.11328125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "repetition": 0,
+      "times_s": {
+        "initialization": 0.014034999999999999,
+        "matvec": null,
+        "solver": 15.491244,
+        "transfer": null,
+        "wall": 17.269417439005338
+      },
+      "timestamp_utc": "2026-08-01T01:14:49.230505Z",
+      "trial_id": "4ed99164c34929bf4fad80ffbd8a75e51ab9b56963d545a5aaea61a68097499f"
+    }
+  ],
+  "schema_version": 1,
+  "statistics": {
+    "percentile_method": "linear interpolation on ascending values at zero-based position (n - 1) * p",
+    "quartile_probabilities": [
+      0.25,
+      0.75
+    ]
+  },
+  "workloads": [
+    {
+      "candidate_comparisons": [
+        {
+          "left_candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "median_solver_ratio_left_over_right": 1.6878667497533364,
+          "median_wall_ratio_left_over_right": 0.8679711156848718,
+          "right_candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        }
+      ],
+      "candidate_groups": [
+        {
+          "candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "record_ids": [
+            "e059dbfc8ab402e395b41d467b03fe39cf1d601e4ed4db4162e92e96f31474b8"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 0.260026,
+            "median": 0.260026,
+            "minimum": 0.260026,
+            "q1": 0.260026,
+            "q3": 0.260026
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 1.411638931997004,
+            "median": 1.411638931997004,
+            "minimum": 1.411638931997004,
+            "q1": 1.411638931997004,
+            "q3": 1.411638931997004
+          }
+        },
+        {
+          "candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          },
+          "record_ids": [
+            "c1f46570e5eb16916af4a3902ef799697b7e10a8226f9913797f64b237f239a1"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 0.154056,
+            "median": 0.154056,
+            "minimum": 0.154056,
+            "q1": 0.154056,
+            "q3": 0.154056
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 1.6263662540004589,
+            "median": 1.6263662540004589,
+            "minimum": 1.6263662540004589,
+            "q1": 1.6263662540004589,
+            "q3": 1.6263662540004589
+          }
+        }
+      ],
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "oracle": {
+        "candidates": [
+          {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          }
+        ],
+        "metric": "median_wall_time_s",
+        "minimum": 1.411638931997004
+      },
+      "problem_instance": "fe4s4-prefix-0032"
+    },
+    {
+      "candidate_comparisons": [
+        {
+          "left_candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "median_solver_ratio_left_over_right": 2.804682675394106,
+          "median_wall_ratio_left_over_right": 1.248678208890963,
+          "right_candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        }
+      ],
+      "candidate_groups": [
+        {
+          "candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "record_ids": [
+            "64af98614e64fe74146bdc2ba45760491f91d4eafb301c539b1a98d09e45a9e5"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 1.258032,
+            "median": 1.258032,
+            "minimum": 1.258032,
+            "q1": 1.258032,
+            "q3": 1.258032
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 2.4178249460019288,
+            "median": 2.4178249460019288,
+            "minimum": 2.4178249460019288,
+            "q1": 2.4178249460019288,
+            "q3": 2.4178249460019288
+          }
+        },
+        {
+          "candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          },
+          "record_ids": [
+            "96582c3f7dcb942b9b091d34a47074f620f61e9d6c4a19c4bf1514077bea7197"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 0.448547,
+            "median": 0.448547,
+            "minimum": 0.448547,
+            "q1": 0.448547,
+            "q3": 0.448547
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 1.9363074720022269,
+            "median": 1.9363074720022269,
+            "minimum": 1.9363074720022269,
+            "q1": 1.9363074720022269,
+            "q3": 1.9363074720022269
+          }
+        }
+      ],
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "oracle": {
+        "candidates": [
+          {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        ],
+        "metric": "median_wall_time_s",
+        "minimum": 1.9363074720022269
+      },
+      "problem_instance": "fe4s4-prefix-0055"
+    },
+    {
+      "candidate_comparisons": [
+        {
+          "left_candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "median_solver_ratio_left_over_right": 3.0588704716620394,
+          "median_wall_ratio_left_over_right": 1.9877226005889346,
+          "right_candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        }
+      ],
+      "candidate_groups": [
+        {
+          "candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "record_ids": [
+            "aadf64a56d1236b7026e197c600de37ea25117ef07e9cefb565d2add5b181087"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 4.415712,
+            "median": 4.415712,
+            "minimum": 4.415712,
+            "q1": 4.415712,
+            "q3": 4.415712
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 5.635352830999182,
+            "median": 5.635352830999182,
+            "minimum": 5.635352830999182,
+            "q1": 5.635352830999182,
+            "q3": 5.635352830999182
+          }
+        },
+        {
+          "candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          },
+          "record_ids": [
+            "13b9155ea6bc2817871d9822b0f710358e3bef163dcb740551321a520501f96a"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 1.443576,
+            "median": 1.443576,
+            "minimum": 1.443576,
+            "q1": 1.443576,
+            "q3": 1.443576
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 2.835080121003557,
+            "median": 2.835080121003557,
+            "minimum": 2.835080121003557,
+            "q1": 2.835080121003557,
+            "q3": 2.835080121003557
+          }
+        }
+      ],
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "oracle": {
+        "candidates": [
+          {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        ],
+        "metric": "median_wall_time_s",
+        "minimum": 2.835080121003557
+      },
+      "problem_instance": "fe4s4-prefix-0100"
+    },
+    {
+      "candidate_comparisons": [
+        {
+          "left_candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "median_solver_ratio_left_over_right": 3.8991376698900346,
+          "median_wall_ratio_left_over_right": 3.4001039527153383,
+          "right_candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        }
+      ],
+      "candidate_groups": [
+        {
+          "candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "record_ids": [
+            "bbf148905993355e8fd89deb3a63a50c396cebe7c4d1056913b74c2b21e8fc07"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 28.278726,
+            "median": 28.278726,
+            "minimum": 28.278726,
+            "q1": 28.278726,
+            "q3": 28.278726
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 29.97807947700494,
+            "median": 29.97807947700494,
+            "minimum": 29.97807947700494,
+            "q1": 29.97807947700494,
+            "q3": 29.97807947700494
+          }
+        },
+        {
+          "candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          },
+          "record_ids": [
+            "718bbe4be95bce3c1c9d093c4d1141fa32ffd952927a138989216edfad0d74b9"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 7.252559,
+            "median": 7.252559,
+            "minimum": 7.252559,
+            "q1": 7.252559,
+            "q3": 7.252559
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 8.816812630997447,
+            "median": 8.816812630997447,
+            "minimum": 8.816812630997447,
+            "q1": 8.816812630997447,
+            "q3": 8.816812630997447
+          }
+        }
+      ],
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "oracle": {
+        "candidates": [
+          {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        ],
+        "metric": "median_wall_time_s",
+        "minimum": 8.816812630997447
+      },
+      "problem_instance": "fe4s4-prefix-0174"
+    },
+    {
+      "candidate_comparisons": [
+        {
+          "left_candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "median_solver_ratio_left_over_right": 4.904359778982243,
+          "median_wall_ratio_left_over_right": 4.548233104412302,
+          "right_candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        }
+      ],
+      "candidate_groups": [
+        {
+          "candidate": {
+            "backend": "cpu",
+            "cpu_threads": 16,
+            "name": "amd-cpu-16"
+          },
+          "record_ids": [
+            "c674e42e6c0a774f3e659bc79dd6e2ea2c3463a2b75f53c7bcb8402157ecbc23"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 75.974634,
+            "median": 75.974634,
+            "minimum": 75.974634,
+            "q1": 75.974634,
+            "q3": 75.974634
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 78.54533608999918,
+            "median": 78.54533608999918,
+            "minimum": 78.54533608999918,
+            "q1": 78.54533608999918,
+            "q3": 78.54533608999918
+          }
+        },
+        {
+          "candidate": {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          },
+          "record_ids": [
+            "4ed99164c34929bf4fad80ffbd8a75e51ab9b56963d545a5aaea61a68097499f"
+          ],
+          "solver_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 15.491244,
+            "median": 15.491244,
+            "minimum": 15.491244,
+            "q1": 15.491244,
+            "q3": 15.491244
+          },
+          "wall_time_s": {
+            "count": 1,
+            "iqr": 0.0,
+            "maximum": 17.269417439005338,
+            "median": 17.269417439005338,
+            "minimum": 17.269417439005338,
+            "q1": 17.269417439005338,
+            "q3": 17.269417439005338
+          }
+        }
+      ],
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "oracle": {
+        "candidates": [
+          {
+            "backend": "gpu",
+            "cpu_threads": 1,
+            "name": "amd-l4-default"
+          }
+        ],
+        "metric": "median_wall_time_s",
+        "minimum": 17.269417439005338
+      },
+      "problem_instance": "fe4s4-prefix-0244"
+    }
+  ]
+}

@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stage 2 is complete. Stage 3 workload preparation and five-size correctness calibration are complete, and the bounded pilot is configured but not yet run. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records.
+Stage 2 is complete. Stage 3 workload preparation, five-size correctness calibration, and the bounded CPU16/GPU pilot are complete. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records.
 
-The standard-library suite passes all 89 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, and the calibration-manifest timing gate.
+The standard-library suite passes all 96 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, the calibration-manifest timing gate, and deterministic timing aggregation.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -62,3 +62,19 @@ Five exact nested prefixes of the official Fe₄S₄ alpha-determinant list were
 Every residual is at most `1e-8`, CPU/GPU iteration counts match exactly, and GPU preflight, process monitoring, mandatory offload, device assignment, input integrity, binary identity, and run-artifact hashes all pass. The deterministic schema-v2 gate is `reports/stage3_calibration_manifest.json`, SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`.
 
 These wall values are correctness diagnostics only. All ten source records have `purpose=correctness` and `timing_eligible=false`; the table establishes no speedup or crossover claim. `configs/stage3_pilot.yaml` links each exact reference and input to the manifest and specifies one warmup plus one measured repetition for each backend, sequentially and in randomized order.
+
+## Bounded Stage 3 crossover pilot
+
+The pilot ran from clean project commit `2ddbb40953e36194531fcd48966ecacaefb09959` with the same official AMD source, exact CPU/GPU binaries, calibrated references, and five-input validation manifest. All 20 sequential trials succeeded and passed correctness, input-integrity, monitoring, and provenance gates. Ten warmups are explicitly timing-ineligible; ten measured trials are eligible. An immediate exact rerun launched zero solvers and reused all 20 records.
+
+| Configurations | CPU16 wall (s) | L4 GPU wall (s) | CPU/GPU wall ratio | Pilot winner |
+|---:|---:|---:|---:|---|
+| 1,024 | `1.411639` | `1.626366` | `0.867971` | CPU16 |
+| 3,025 | `2.417825` | `1.936307` | `1.248678` | GPU |
+| 10,000 | `5.635353` | `2.835080` | `1.987723` | GPU |
+| 30,276 | `29.978079` | `8.816813` | `3.400104` | GPU |
+| 59,536 | `78.545336` | `17.269417` | `4.548233` | GPU |
+
+This single measured repetition locates an observed winner flip between 1,024 and 3,025 configurations. It provides no variance, IQR, confidence interval, exact threshold, or final speedup claim. Candidate order was randomized within each workload/phase block; sizes remained ascending and all warmups preceded measurements. The prefixes are correlated variants of one Fe₄S₄ family.
+
+The deterministic aggregation is `results/processed/stage3_pilot.json` (SHA-256 `0e5a6ce892377125f988a9cdc4a793e4071053d1cc8fefb151a8e324bbd001f6`) with companion `results/processed/stage3_pilot.csv` (SHA-256 `816a4c1afac501006ed4d0a656da12d7c83db0abc8bbc9620a17ff4a56f9d35c`). The next bounded step measures CPU 1/4/8-thread candidates at the three smallest sizes and prunes them under the predeclared rule in D-024 before final repetitions are frozen.
