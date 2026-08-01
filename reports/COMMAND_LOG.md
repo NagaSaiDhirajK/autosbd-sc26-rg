@@ -1863,3 +1863,89 @@ git diff --check
 Outcome: exit `0`; 155/155 tests passed in 16.173 seconds; dependencies were consistent; the 20-artifact source inventory passed; both derived-input and Fe₄S₄ registry checks were unchanged; both upstream trees were clean; and diff hygiene passed. Factual status was updated in `README.md`, `PROJECT_CONTEXT.md`, `reports/RESULTS.md`, `reports/LIMITATIONS.md`, and `reports/PHASE_B_COMPATIBILITY.md` without claiming unrun correctness/timing or creating student-submission prose. No solver or GPU kernel ran in this preparation/validation block.
 
 After the documentation review and one README clarification, the same full gate was repeated. Outcome: exit `0`; 155/155 tests passed in 16.143 seconds; `pip check` reported no broken requirements; the inventory, derived-prefix, registry, upstream-cleanliness, and diff checks all remained unchanged/passing.
+
+## 2026-08-01T15:49Z–16:01Z — Execute and attest the ten-input Phase B2 schema-v3 correctness gate
+
+Started from clean local project commit `477a132911bed1756d42e298ea3af69d7a10a9bb`. The active implementation remained the clean official `AMD-HPC/amd-sbd` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`; the RIKEN checkout supplied input bytes only. The frozen config SHA-256 was `d9ff3d497a0ba561016b5c22b12a29ad3db808b0fe3c2f68beef37ebb14fe99a`.
+
+Static admission used `load_sweep_config`, `extract_input_features`, and `estimate_source_memory` plus the following live checks before every individual trial:
+
+```bash
+git status --short
+nvidia-smi --query-gpu=index,name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw --format=csv,noheader
+nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_memory --format=csv,noheader
+cat /proc/loadavg
+awk '/MemAvailable:/ {print $2 " KiB available"}' /proc/meminfo
+```
+
+All ten inputs produced 603,979,776-byte CPU-host, GPU-host, and GPU guards. The L4 had 22,564 MiB free, giving an 18,928,055,091-byte admission cap; every candidate was admitted. Host availability remained about 122 GiB. Preflights showed no compute process, 0 MiB used, 0% utilization, 33–34 C, and 16.48–16.53 W.
+
+Four read-only verification mistakes failed without launching a solver or changing a project file and were not repeated unchanged:
+
+1. The first static preflight imported `estimate_source_memory` from nonexistent `autosbd.resources`; it exited `1` with `ImportError`. Source inspection corrected both estimator imports to `autosbd.features`.
+2. The next display block used nonexistent `WorkloadConfig.problem_instance`; it exited `1` with `AttributeError` after computing the first estimate. It was corrected to `workload.name` and the dataclass fields.
+3. The first post-CPU checker queried obsolete top-level aliases (`purpose`, `solver_source_commit`, `upstream_git_dirty`, `convergence`, `validation`, `features`, and `resource_summary`) and exited `1`. The schema-v3 record itself loaded successfully and remained unchanged.
+4. A second checker incorrectly required `correct=true` before pair-manifest construction and queried nonexistent nested cleanliness, `density_diagonal`, and `monitoring_complete` fields. It exited `1`; the corrected contract expects raw `correct=null`, uses `upstream_output.density`, `input_features.fcidump.n_orbitals`, and `host_complete`/`gpu_complete`, and verifies upstream cleanliness live.
+
+The corrected first CPU checker passed before its GPU pair was exposed. The campaign then advanced one immutable template at a time with this exact cumulative command, issued individually with `N` equal to each integer from `1` through `20`:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py \
+  configs/phaseb_n2_h2o_grid_correctness.yaml \
+  --no-randomize --max-trials N --require-all-success
+```
+
+After every CPU record, an inline `load_record` verifier checked schema 3, metadata, exact input/AMD/project identities, clean project state, correctness-purpose/timing-ineligible status, process/scientific success, convergence/residual, density length, unchanged inputs, CPU offload disablement, and host monitoring. Only after that passed was the paired GPU command issued. GPU verification additionally required mandatory offload, device assignment, GPU process observation, complete host/GPU monitoring, positive allocation, and CPU/GPU energy/density agreement. Every invocation exited `0`; cumulative resume reused all prior records and launched exactly one new record.
+
+Outcome: 20/20 terminal successes, ten CPU and ten GPU, with no timeout, OOM, launch, parse, process, convergence, input-integrity, monitoring, or offload failure. All are zero-warmup, one-repetition correctness records with raw `correct=null` and `timing_eligible=false`. Maximum energy relative error was `9.134172443598369e-16`; maximum density absolute difference `5.252048795867381e-14`; maximum final residual `9.746200382889772e-9`; paired iterations were exact; GPU allocation ranged from 18 to 196 MiB. Diagnostic wrapper wall fields summed to 39.519474 seconds but are not performance evidence.
+
+The manifest builder received the 20 explicit paths now embedded in `validated_inputs[].records`. Its exact command was:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
+  "${records[@]}" --output reports/phaseb_n2_h2o_grid_correctness_manifest.json
+```
+
+The first invocation wrote ten pairs; an immediate identical invocation reported `status=unchanged`. Both SHA-256 values were `ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`. An independent auditor reconstructed all combined hashes/identities, verified every record/stdout/stderr/resource hash and size, checked resource CSV row counts, and rebuilt byte-identical output. One delegated help probe omitted `PYTHONPATH` and emitted `ModuleNotFoundError` through a pipeline whose outer status was masked; it wrote nothing and was corrected with `PYTHONPATH=src`.
+
+## 2026-08-01 — Freeze and test the manifest-linked Phase B pilot
+
+Added `configs/phaseb_n2_h2o_grid_pilot.yaml` and `tests/test_phase_b_pilot_config.py`. Every workload retains the correctness grid's exact input/metadata, receives its exact schema-v3 manifest reference value, and points to that manifest. Candidates and solver settings are identical at the dataclass boundary. Protocol is one warmup, one measured repetition, purpose `pilot`, seed 1729, 300-second timeout, prior correctness required, and default deterministic candidate randomization within workload/phase blocks.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_phase_b_pilot_config \
+  tests.test_phase_b_grid_config \
+  tests.test_calibration_manifest -v
+.venv/bin/python -m py_compile tests/test_phase_b_pilot_config.py
+sha256sum configs/phaseb_n2_h2o_grid_pilot.yaml \
+  tests/test_phase_b_pilot_config.py
+git diff --check
+```
+
+Outcome: exit `0`; 19/19 focused tests passed in 0.467 seconds. Expansion is exactly 40 trials: 20 warmups and 20 measured, with deterministic randomized candidate order differing from nonrandomized order. Config SHA-256 is `3519b8fd4e45d9a412dd85a1fae9c586ddf865c078ae4cbfeaa43ee1a5091d70`; test SHA-256 is `4e3037f6ede6d6ef5a262a21ed3a18ba25a6fe29332dbc229e2a39ccd39c7dc7`.
+
+Final checkpoint validation used:
+
+```bash
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python -m unittest discover -s tests -q
+.venv/bin/python -m pip check
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/validate_phase_b_inputs.py
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/prepare_phase_b_workloads.py --check
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  .venv/bin/python scripts/build_family_registry.py --check
+mapfile -t records < <(jq -r \
+  '.validated_inputs[] | .records.cpu.path, .records.gpu.path' \
+  reports/phaseb_n2_h2o_grid_correctness_manifest.json)
+PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
+  "${records[@]}" --output reports/phaseb_n2_h2o_grid_correctness_manifest.json
+jq empty reports/phaseb_n2_h2o_grid_correctness_manifest.json "${records[@]}"
+git -C external/amd-sbd status --porcelain=v1 --untracked-files=all
+git -C external/riken-sbd status --porcelain=v1 --untracked-files=all
+git diff --check
+```
+
+Outcome: exit `0`; 158/158 tests passed in 16.110 seconds; dependencies were consistent; input inventory passed; prefix and Fe₄S₄ registry checks were unchanged; the schema-v3 manifest rebuilt unchanged at the expected SHA; all 20 JSON records parsed and retained `timing_eligible=false`; the pilot expanded to 40 templates; both upstream trees were clean; stale-status and diff-hygiene checks passed.

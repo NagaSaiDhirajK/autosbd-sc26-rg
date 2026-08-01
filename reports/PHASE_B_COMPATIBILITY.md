@@ -2,7 +2,7 @@
 
 **Status:** static unchanged-input compatibility **PASS**; smallest complete
 N₂/H₂O CPU/GPU correctness **PASS**; deterministic derived-size preparation
-**PASS**; derived-size runtime correctness and all timing are pending. This is
+**PASS**; all-ten-input schema-v3 CPU/GPU correctness **PASS**; timing is pending. This is
 an internal engineering record, not submission prose. The runtime portion used
 only the existing official AMD executables, and no timing evidence is created or
 admitted by this gate.
@@ -175,7 +175,7 @@ complete.  The combined schema-v2 manifest is
 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`.
 An immediate identical builder invocation reported the output unchanged.
 
-This PASS applies only to combined input hashes
+The Phase B1 PASS above applies only to combined input hashes
 `6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb`
 (N₂) and
 `ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d`
@@ -194,13 +194,29 @@ It records the parent/output/FCIDUMP hashes, prefix rule, family/molecule/basis,
 and official AMD commit for every workload. The two full variants are byte-
 identical to their pinned parents.
 
-Config schema 2 now requires `family_id`, molecule, and basis and emits raw
-schema 3 with those values in logical identity. The pending correctness-only
-protocol is `configs/phaseb_n2_h2o_grid_correctness.yaml`: ten workloads, CPU16
-then L4, zero warmups, one repetition, 300-second timeout, no timing validation.
-No derived-grid solver ran during preparation. The eight non-full combined
-hashes remain unvalidated, and even the full inputs will receive bounded v3
-records so one homogeneous family-aware manifest can gate the pilot.
+Config schema 2 requires `family_id`, molecule, and basis and emits raw schema 3
+with those values in logical identity. The correctness-only protocol
+`configs/phaseb_n2_h2o_grid_correctness.yaml` ran all ten workloads sequentially,
+CPU before GPU within each staged pair, with zero warmups, one repetition, a
+300-second timeout, and no timing authorization.
+
+All 20 records succeeded from clean project commit
+`477a132911bed1756d42e298ea3af69d7a10a9bb`. Across the ten pairs, the maximum
+energy relative error is `9.134172443598369e-16`, maximum density absolute
+difference is `5.252048795867381e-14`, and maximum final residual is
+`9.746200382889772e-9`; iteration counts match exactly and density lengths equal
+18 for N₂ and 24 for H₂O. Every GPU run used mandatory offload, recorded device
+assignment/process observation, and completed monitoring. The largest observed
+GPU allocation was 196 MiB.
+
+The deterministic manifest is
+`reports/phaseb_n2_h2o_grid_correctness_manifest.json`, schema 3, SHA-256
+`ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`;
+an immediate identical builder invocation reported unchanged bytes. It validates
+these ten exact hashes only. All 20 source records remain timing-ineligible, and
+their wall fields are excluded. The manifest-linked pilot is frozen at
+`configs/phaseb_n2_h2o_grid_pilot.yaml`; repeated timing and multifamily
+evaluation remain pending.
 
 ## Stop conditions
 

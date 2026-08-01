@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance, unchanged-input compatibility, and smallest-case N₂/H₂O CPU/GPU correctness also pass. Phase B2 preparation now provides ten deterministic N₂/H₂O workloads, family-aware future raw identities, and external Fe₄S₄ augmentation without rewriting history. The harness enforces official AMD source/build provenance and node safety, distinguishes process success from scientific success, and resumes exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. New-grid correctness, N₂/H₂O timing, and multifamily evaluation remain pending.
+Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance and unchanged-input compatibility pass, and the homogeneous Phase B2 schema-v3 manifest now validates all ten exact N₂/H₂O grid inputs. Phase B2 also provides family-aware future raw identities and external Fe₄S₄ augmentation without rewriting history. The harness enforces official AMD source/build provenance and node safety, distinguishes process success from scientific success, and resumes exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. N₂/H₂O pilot/repeated timing and multifamily evaluation remain pending.
 
-The standard-library suite passes all 155 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2/v3 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, family-aware calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input/provenance/registry validation, and density-length enforcement.
+The standard-library suite passes all 158 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2/v3 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, family-aware calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input/provenance/registry validation, the manifest-linked 40-template pilot contract, and density-length enforcement.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -65,13 +65,30 @@ The four immutable record IDs are:
 
 The deterministic combined gate is `reports/phaseb_n2_h2o_correctness_manifest.json`, SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`. An immediate identical builder invocation reported `status=unchanged`. These trials used zero warmups, one repetition, and purpose `correctness`; all have `timing_eligible=false`. Their diagnostic wall fields are excluded from performance analysis. The manifest validates only these two exact input hashes, not larger lists or future derived prefixes.
 
-## Phase B2 multifamily preparation (no new solver result)
+## Phase B2 ten-input family-aware correctness
 
-The N₂/6-31G and H₂O/cc-pVDZ determinant grids now contain nested counts `32, 55, 100, 174`, plus each full official smallest list (`239` and `275`). `data/derived/phase_b_prefixes/manifest.json`, SHA-256 `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`, binds every output to its exact parent, FCIDUMP, molecule/basis, electron/orbital counts, product configurations, license, input-data commit, and the official-AMD-only solver boundary.
+The N₂/6-31G and H₂O/cc-pVDZ determinant grids contain nested counts `32, 55, 100, 174`, plus each full official smallest list (`239` and `275`). `data/derived/phase_b_prefixes/manifest.json`, SHA-256 `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`, binds every output to its exact parent, FCIDUMP, molecule/basis, electron/orbital counts, product configurations, license, input-data commit, and the official-AMD-only solver boundary.
 
-Future config-schema-2 trials emit raw schema 3 and bind `family_id`, molecule, and basis into logical identity; all historical schema-v2 records remain unchanged. `reports/stage4_fe4s4_family_registry.json`, SHA-256 `cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d`, maps the 48 frozen Stage 4 records to five exact Fe₄S₄ workloads while recording its basis as null/`upstream_not_reported`. The prepared correctness protocol is `configs/phaseb_n2_h2o_grid_correctness.yaml`.
+Config-schema-2 trials emit raw schema 3 and bind `family_id`, molecule, and basis into logical identity; all historical schema-v2 records remain unchanged. `reports/stage4_fe4s4_family_registry.json`, SHA-256 `cfeb5f60e29d01068c68b9d348739fba4b4e204e5165edce899aff5dfa94395d`, maps the 48 frozen Stage 4 records to five exact Fe₄S₄ workloads while recording its basis as null/`upstream_not_reported`. The completed correctness protocol is `configs/phaseb_n2_h2o_grid_correctness.yaml`, SHA-256 `d9ff3d497a0ba561016b5c22b12a29ad3db808b0fe3c2f68beef37ebb14fe99a`.
 
-This section reports preparation only. No new derived-prefix solver run has occurred; the eight non-full hashes have no dynamic correctness evidence; all ten inputs require the homogeneous v3 CPU/GPU gate before the pilot; and no timing or cross-family selector claim is supported yet.
+All 20 schema-v3 records—one CPU16 and one L4 GPU correctness run for each exact input—completed successfully from clean project commit `477a132911bed1756d42e298ea3af69d7a10a9bb`. CPU/GPU iteration counts match exactly within every pair, residuals are at most `1e-8`, density lengths equal `NORB`, and the manifest's energy/density tolerances are satisfied.
+
+| Family | Configurations | Iterations | CPU energy (Ha) | Energy relative difference | Density max abs difference |
+|---|---:|---:|---:|---:|---:|
+| N₂ / 6-31G | 1,024 | 14 | `-108.9053043618977` | `9.1342e-16` | `5.2520e-14` |
+| N₂ / 6-31G | 3,025 | 14 | `-108.9094778983647` | `0` | `3.9968e-15` |
+| N₂ / 6-31G | 10,000 | 15 | `-108.9407606093665` | `0` | `3.9968e-15` |
+| N₂ / 6-31G | 30,276 | 18 | `-109.0075349193047` | `0` | `2.3981e-14` |
+| N₂ / 6-31G | 57,121 | 18 | `-109.0415109298453` | `0` | `3.1974e-14` |
+| H₂O / cc-pVDZ | 1,024 | 14 | `-76.07312514830402` | `3.7361e-16` | `1.3101e-14` |
+| H₂O / cc-pVDZ | 3,025 | 16 | `-76.10793303539987` | `5.6016e-16` | `8.3301e-15` |
+| H₂O / cc-pVDZ | 10,000 | 18 | `-76.14467787856537` | `1.8663e-16` | `1.9984e-15` |
+| H₂O / cc-pVDZ | 30,276 | 19 | `-76.1847839202865` | `5.5959e-16` | `4.8850e-15` |
+| H₂O / cc-pVDZ | 75,625 | 19 | `-76.23593762863838` | `5.5922e-16` | `1.9984e-14` |
+
+The campaign maximum energy relative error is `9.134172443598369e-16`, maximum density absolute difference is `5.252048795867381e-14`, and maximum final residual is `9.746200382889772e-9`. Every input remained unchanged; record/stdout/stderr/resource hashes verify; all GPU records show mandatory offload, exact device assignment, process observation, and complete monitoring. Peak allocation was 196 MiB, far below the contemporaneous admission cap.
+
+The deterministic correctness-only manifest is `reports/phaseb_n2_h2o_grid_correctness_manifest.json`, schema 3, SHA-256 `ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`; an immediate rebuild was byte-identical. All source records use zero warmups and one correctness repetition, have `timing_eligible=false`, and are excluded from performance analysis. Their raw `correct=null` is expected because the post-pair manifest—not a prior scalar reference—provides the authoritative gate. Prefix agreement does not independently certify each derived chemistry solution. The frozen pilot config is `configs/phaseb_n2_h2o_grid_pilot.yaml`, SHA-256 `3519b8fd4e45d9a412dd85a1fae9c586ddf865c078ae4cbfeaa43ee1a5091d70`; no N₂/H₂O timing or cross-family selector claim is made here.
 
 ## Definitive five-size correctness calibration
 

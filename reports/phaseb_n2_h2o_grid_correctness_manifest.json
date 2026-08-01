@@ -1,0 +1,1004 @@
+{
+  "candidate_artifacts": [
+    {
+      "backend": "cpu",
+      "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+      "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+      "size_bytes": 797304
+    },
+    {
+      "backend": "gpu",
+      "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+      "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+      "size_bytes": 2021216
+    }
+  ],
+  "criteria": {
+    "density_max_abs_tolerance": 1e-10,
+    "energy_relative_tolerance": 1e-10,
+    "exact_iteration_count_required": true,
+    "gpu_monitoring_and_device_assignment_required": true,
+    "input_integrity_required": true,
+    "maximum_final_residual": 1e-08,
+    "project_git_clean_required": true,
+    "run_artifact_hashes_verified": [
+      "stdout",
+      "stderr",
+      "resources"
+    ]
+  },
+  "passed": true,
+  "schema_version": 3,
+  "scope": {
+    "correctness_only": true,
+    "timing_evidence_used": false
+  },
+  "upstream": {
+    "commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "url": "https://github.com/AMD-HPC/amd-sbd"
+  },
+  "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+  "upstream_url": "https://github.com/AMD-HPC/amd-sbd",
+  "validated_inputs": [
+    {
+      "basis": "cc-pVDZ",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -76.07312514830402,
+        "cpu_final_residual": 5.32965402203442e-09,
+        "density_length": 24,
+        "density_max_abs_difference": 1.3100631690576847e-14,
+        "energy_relative_error": 3.736103831017339e-16,
+        "gpu_energy": -76.07312514830399,
+        "gpu_final_residual": 5.329650551146949e-09,
+        "iteration_count": 14
+      },
+      "family_id": "h2o",
+      "input_sha256": "bc8b7df3cfd9b36edc9a7de5e173ba97c6d3260c199b68c67f44ddff94624373",
+      "molecule": "H2O",
+      "problem_instance": "h2o-prefix-0032",
+      "records": {
+        "cpu": {
+          "path": "results/raw/e206db61a7c82632d0f4c085da4c74a842beb68dde2f735ef6a7babc6c08ff26.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/e206db61a7c82632d0f4c085da4c74a842beb68dde2f735ef6a7babc6c08ff26.resources.csv",
+              "sha256": "14ca33b1a5e5c33f32067b6b5afb4a62a6f99322341c30b38610fb1ce9594071",
+              "size_bytes": 246
+            },
+            "stderr": {
+              "path": "logs/trials/e206db61a7c82632d0f4c085da4c74a842beb68dde2f735ef6a7babc6c08ff26.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/e206db61a7c82632d0f4c085da4c74a842beb68dde2f735ef6a7babc6c08ff26.stdout.log",
+              "sha256": "4b4c1d0ff3adced7b63273737737ec579ea33fea72f76c157617fc1fdc39d35f",
+              "size_bytes": 4654
+            }
+          },
+          "sha256": "7fe6a19def34fcf62931ab4077299e1cc91a73d6de459de3f402f004e55fcdfc",
+          "size_bytes": 18433,
+          "trial_id": "e206db61a7c82632d0f4c085da4c74a842beb68dde2f735ef6a7babc6c08ff26"
+        },
+        "gpu": {
+          "path": "results/raw/9f1affde9a2cbcbe1c0c3ce3831159464f7a7dbbc41d6af434718dec81e4edad.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/9f1affde9a2cbcbe1c0c3ce3831159464f7a7dbbc41d6af434718dec81e4edad.resources.csv",
+              "sha256": "c85c026353c6c028bea109bf084f948a4b01e4772622e9dba2f6b7a1b726a7d2",
+              "size_bytes": 315
+            },
+            "stderr": {
+              "path": "logs/trials/9f1affde9a2cbcbe1c0c3ce3831159464f7a7dbbc41d6af434718dec81e4edad.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/9f1affde9a2cbcbe1c0c3ce3831159464f7a7dbbc41d6af434718dec81e4edad.stdout.log",
+              "sha256": "317b581ac163426d76d49bbd122a49d6fceb7a65009cfce0ad2651bdf23256d3",
+              "size_bytes": 4699
+            }
+          },
+          "sha256": "bf483781bc516fab59fbf3c228aaf40f08435a9d19d7f84ae33ab463f2ac8b1d",
+          "size_bytes": 18677,
+          "trial_id": "9f1affde9a2cbcbe1c0c3ce3831159464f7a7dbbc41d6af434718dec81e4edad"
+        }
+      },
+      "reference_value": -76.07312514830402,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "cc-pVDZ",
+        "estimated_cache_bytes": 24576,
+        "estimated_work": 140176,
+        "family_id": "h2o",
+        "molecule": "H2O",
+        "n_alpha_strings": 32,
+        "n_beta_strings": 32,
+        "n_configurations": 1024,
+        "n_orbitals": 24,
+        "n_spin_orbitals": 48,
+        "name": "h2o-prefix-0032",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "h2o-prefix-0032"
+      }
+    },
+    {
+      "basis": "cc-pVDZ",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -76.10793303539987,
+        "cpu_final_residual": 7.300212254354479e-09,
+        "density_length": 24,
+        "density_max_abs_difference": 8.330142131640628e-15,
+        "energy_relative_error": 5.601592691497274e-16,
+        "gpu_energy": -76.10793303539991,
+        "gpu_final_residual": 7.300218562766858e-09,
+        "iteration_count": 16
+      },
+      "family_id": "h2o",
+      "input_sha256": "d0872935a2dc0f51499913dbc2f2300c4158877041671b5eb2d7406276f4b6e4",
+      "molecule": "H2O",
+      "problem_instance": "h2o-prefix-0055",
+      "records": {
+        "cpu": {
+          "path": "results/raw/f4334478dbf0384a2a36b83141df3987ee31a4e04ff4d5cecdb882f93e32cb34.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/f4334478dbf0384a2a36b83141df3987ee31a4e04ff4d5cecdb882f93e32cb34.resources.csv",
+              "sha256": "0aa471f334f4ecc346476e20157df665012cb20505337e2ad47511fa7612bd55",
+              "size_bytes": 273
+            },
+            "stderr": {
+              "path": "logs/trials/f4334478dbf0384a2a36b83141df3987ee31a4e04ff4d5cecdb882f93e32cb34.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/f4334478dbf0384a2a36b83141df3987ee31a4e04ff4d5cecdb882f93e32cb34.stdout.log",
+              "sha256": "d454dfe0ca177a2dfeb2c0c42f7e48ae2d8581397a42e7b4bcde536505011be5",
+              "size_bytes": 4970
+            }
+          },
+          "sha256": "718b81b19e679d0ed5110214b6f536b9f54c2258cb24a69eb299b746fd27d986",
+          "size_bytes": 18551,
+          "trial_id": "f4334478dbf0384a2a36b83141df3987ee31a4e04ff4d5cecdb882f93e32cb34"
+        },
+        "gpu": {
+          "path": "results/raw/9da6a8f73b6b65a65cc5dc3f5867975195238778fd0fe964493045fb5a450781.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/9da6a8f73b6b65a65cc5dc3f5867975195238778fd0fe964493045fb5a450781.resources.csv",
+              "sha256": "ff0cbbdf0c0a6baea27ad79fb6b9a3131b43033b1e91bc0fdfac826687efa1f6",
+              "size_bytes": 359
+            },
+            "stderr": {
+              "path": "logs/trials/9da6a8f73b6b65a65cc5dc3f5867975195238778fd0fe964493045fb5a450781.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/9da6a8f73b6b65a65cc5dc3f5867975195238778fd0fe964493045fb5a450781.stdout.log",
+              "sha256": "8ca841e524796279b8a84518b96cd746ae2b1489cf600cfa3c2dd8b9a70fa797",
+              "size_bytes": 4998
+            }
+          },
+          "sha256": "368927390e7719884f5c60b6f330cfd5d2793f291e363278841dd2102d29274a",
+          "size_bytes": 18823,
+          "trial_id": "9da6a8f73b6b65a65cc5dc3f5867975195238778fd0fe964493045fb5a450781"
+        }
+      },
+      "reference_value": -76.10793303539987,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "cc-pVDZ",
+        "estimated_cache_bytes": 72600,
+        "estimated_work": 564481,
+        "family_id": "h2o",
+        "molecule": "H2O",
+        "n_alpha_strings": 55,
+        "n_beta_strings": 55,
+        "n_configurations": 3025,
+        "n_orbitals": 24,
+        "n_spin_orbitals": 48,
+        "name": "h2o-prefix-0055",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "h2o-prefix-0055"
+      }
+    },
+    {
+      "basis": "cc-pVDZ",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -76.14467787856537,
+        "cpu_final_residual": 4.166068496281445e-09,
+        "density_length": 24,
+        "density_max_abs_difference": 1.9984014443252818e-15,
+        "energy_relative_error": 1.86629651751437e-16,
+        "gpu_energy": -76.14467787856536,
+        "gpu_final_residual": 4.16606959363488e-09,
+        "iteration_count": 18
+      },
+      "family_id": "h2o",
+      "input_sha256": "8f6d951383efdfa90bdfdc8fc43e537f3e939861f6d1cd6b81d4217d95861751",
+      "molecule": "H2O",
+      "problem_instance": "h2o-prefix-0100",
+      "records": {
+        "cpu": {
+          "path": "results/raw/e1d299c972d4d9a3ba4a9fbd3a69d16872443bb8c2f1de7ebe1524bd15a46a9e.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/e1d299c972d4d9a3ba4a9fbd3a69d16872443bb8c2f1de7ebe1524bd15a46a9e.resources.csv",
+              "sha256": "2086afee0753e7c10bbc54f27ed309c1797edfb0196c305a1a6ff0959af7f71e",
+              "size_bytes": 435
+            },
+            "stderr": {
+              "path": "logs/trials/e1d299c972d4d9a3ba4a9fbd3a69d16872443bb8c2f1de7ebe1524bd15a46a9e.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/e1d299c972d4d9a3ba4a9fbd3a69d16872443bb8c2f1de7ebe1524bd15a46a9e.stdout.log",
+              "sha256": "da44415076b5733a80efdd5ce7285ac28abaddfb9ba32b141dc22f1046d18373",
+              "size_bytes": 5273
+            }
+          },
+          "sha256": "e21efca1a5ba9e27a7ee8802e1c899bb259dea49e7a1515668531a03b7e4625d",
+          "size_bytes": 18579,
+          "trial_id": "e1d299c972d4d9a3ba4a9fbd3a69d16872443bb8c2f1de7ebe1524bd15a46a9e"
+        },
+        "gpu": {
+          "path": "results/raw/1628f294a460b3e8f09dd4b45f52d574527dffbfb91c2c5610e47458d1a488f5.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/1628f294a460b3e8f09dd4b45f52d574527dffbfb91c2c5610e47458d1a488f5.resources.csv",
+              "sha256": "9bf8ee70714997060d2f66052a5aaef1ad7669112963fd72e8edd2db1ca13b0c",
+              "size_bytes": 371
+            },
+            "stderr": {
+              "path": "logs/trials/1628f294a460b3e8f09dd4b45f52d574527dffbfb91c2c5610e47458d1a488f5.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/1628f294a460b3e8f09dd4b45f52d574527dffbfb91c2c5610e47458d1a488f5.stdout.log",
+              "sha256": "f49439815e8761f31bdac6925328b56a18a6f64fd56bb695c2d284fa9ba05b97",
+              "size_bytes": 5312
+            }
+          },
+          "sha256": "9fee403f958c938a5fc7e0f1dc51eae4bf43406f1159536753a8b3a76a8e6c83",
+          "size_bytes": 18786,
+          "trial_id": "1628f294a460b3e8f09dd4b45f52d574527dffbfb91c2c5610e47458d1a488f5"
+        }
+      },
+      "reference_value": -76.14467787856537,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "cc-pVDZ",
+        "estimated_cache_bytes": 240000,
+        "estimated_work": 2899216,
+        "family_id": "h2o",
+        "molecule": "H2O",
+        "n_alpha_strings": 100,
+        "n_beta_strings": 100,
+        "n_configurations": 10000,
+        "n_orbitals": 24,
+        "n_spin_orbitals": 48,
+        "name": "h2o-prefix-0100",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "h2o-prefix-0100"
+      }
+    },
+    {
+      "basis": "cc-pVDZ",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -76.1847839202865,
+        "cpu_final_residual": 3.684899796524653e-09,
+        "density_length": 24,
+        "density_max_abs_difference": 4.884981308350689e-15,
+        "energy_relative_error": 5.595942122801479e-16,
+        "gpu_energy": -76.18478392028646,
+        "gpu_final_residual": 3.684897455269484e-09,
+        "iteration_count": 19
+      },
+      "family_id": "h2o",
+      "input_sha256": "54238461a8e4af6e254f60eecaa74512c6dee9fa209ca461041b5dea338aa659",
+      "molecule": "H2O",
+      "problem_instance": "h2o-prefix-0174",
+      "records": {
+        "cpu": {
+          "path": "results/raw/b45534f5f435b41cf05a938d6f5945aa9f25d83da4ab64f222fb547745b05cfb.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/b45534f5f435b41cf05a938d6f5945aa9f25d83da4ab64f222fb547745b05cfb.resources.csv",
+              "sha256": "2e7ee1eb0fbdae1e47969a91b32f0b3c649112fa0fdb84f83658c0130862a981",
+              "size_bytes": 1056
+            },
+            "stderr": {
+              "path": "logs/trials/b45534f5f435b41cf05a938d6f5945aa9f25d83da4ab64f222fb547745b05cfb.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/b45534f5f435b41cf05a938d6f5945aa9f25d83da4ab64f222fb547745b05cfb.stdout.log",
+              "sha256": "f70163f5ae8beb783851b1b123c2472034667c7fe00f458c202fd21724833565",
+              "size_bytes": 5476
+            }
+          },
+          "sha256": "55cac0e9bb5482b38c9b71730f0e25f5a2f1e4674946f33d7a142952ab9bcec6",
+          "size_bytes": 18692,
+          "trial_id": "b45534f5f435b41cf05a938d6f5945aa9f25d83da4ab64f222fb547745b05cfb"
+        },
+        "gpu": {
+          "path": "results/raw/45e19dacf73642ca1aeaa98b27691c7616c5e483931ded712a1da10201fd1e1c.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/45e19dacf73642ca1aeaa98b27691c7616c5e483931ded712a1da10201fd1e1c.resources.csv",
+              "sha256": "e2fb246b1d98aad98ba430f874f8c483e356c8d64d280f70619da127b5ff17ef",
+              "size_bytes": 483
+            },
+            "stderr": {
+              "path": "logs/trials/45e19dacf73642ca1aeaa98b27691c7616c5e483931ded712a1da10201fd1e1c.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/45e19dacf73642ca1aeaa98b27691c7616c5e483931ded712a1da10201fd1e1c.stdout.log",
+              "sha256": "6e56644ac9f9c5f56a2d25e2cd1f0b9d01e1087dddbf8a656464ac4ec65de881",
+              "size_bytes": 5509
+            }
+          },
+          "sha256": "9fa8e8fb68fb27c235d5a03b2c0772c2a12f93076d264b298d9852eba40790ba",
+          "size_bytes": 18933,
+          "trial_id": "45e19dacf73642ca1aeaa98b27691c7616c5e483931ded712a1da10201fd1e1c"
+        }
+      },
+      "reference_value": -76.1847839202865,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "cc-pVDZ",
+        "estimated_cache_bytes": 726624,
+        "estimated_work": 12665248,
+        "family_id": "h2o",
+        "molecule": "H2O",
+        "n_alpha_strings": 174,
+        "n_beta_strings": 174,
+        "n_configurations": 30276,
+        "n_orbitals": 24,
+        "n_spin_orbitals": 48,
+        "name": "h2o-prefix-0174",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "h2o-prefix-0174"
+      }
+    },
+    {
+      "basis": "cc-pVDZ",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -76.23593762863838,
+        "cpu_final_residual": 6.350718872392109e-09,
+        "density_length": 24,
+        "density_max_abs_difference": 1.9984014443252818e-14,
+        "energy_relative_error": 5.592187290104358e-16,
+        "gpu_energy": -76.23593762863834,
+        "gpu_final_residual": 6.35073213815826e-09,
+        "iteration_count": 19
+      },
+      "family_id": "h2o",
+      "input_sha256": "ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d",
+      "molecule": "H2O",
+      "problem_instance": "h2o-prefix-0275",
+      "records": {
+        "cpu": {
+          "path": "results/raw/add1431a96c24f669c4640d4bf923647646c6acd6b8db92f8c4a9e566d841736.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/add1431a96c24f669c4640d4bf923647646c6acd6b8db92f8c4a9e566d841736.resources.csv",
+              "sha256": "9427eb1ccec4a15968e1cc2eae4ba28741cb1ad1a51611f87ddc9730c9b2d38f",
+              "size_bytes": 3008
+            },
+            "stderr": {
+              "path": "logs/trials/add1431a96c24f669c4640d4bf923647646c6acd6b8db92f8c4a9e566d841736.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/add1431a96c24f669c4640d4bf923647646c6acd6b8db92f8c4a9e566d841736.stdout.log",
+              "sha256": "14b613c8a438429113528b9e63de99bd115753a3bfd2e23890f0b26a3ee45aa9",
+              "size_bytes": 5584
+            }
+          },
+          "sha256": "e0b83f18818c4ce769891f8e852d2856e1d66a2a660acadb7066880538500a9e",
+          "size_bytes": 18809,
+          "trial_id": "add1431a96c24f669c4640d4bf923647646c6acd6b8db92f8c4a9e566d841736"
+        },
+        "gpu": {
+          "path": "results/raw/34f11e6073c2dd8be51d4d6916675cb0b765d93db34384e0d19e5dd71c257fa2.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/34f11e6073c2dd8be51d4d6916675cb0b765d93db34384e0d19e5dd71c257fa2.resources.csv",
+              "sha256": "21ec21fc915d8ff1c46e9d9b8348b1927dd4d9dc44f09ad3dee27d0f9eb16a18",
+              "size_bytes": 651
+            },
+            "stderr": {
+              "path": "logs/trials/34f11e6073c2dd8be51d4d6916675cb0b765d93db34384e0d19e5dd71c257fa2.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/34f11e6073c2dd8be51d4d6916675cb0b765d93db34384e0d19e5dd71c257fa2.stdout.log",
+              "sha256": "814314bf068389f8602308167924f13c7c641bda8cfa3d0582884f0782c75d64",
+              "size_bytes": 5597
+            }
+          },
+          "sha256": "1cc1abffd4f7d620a0c3151f596dd9924bddc7df08989fffeb3b9289e759aa7b",
+          "size_bytes": 19016,
+          "trial_id": "34f11e6073c2dd8be51d4d6916675cb0b765d93db34384e0d19e5dd71c257fa2"
+        }
+      },
+      "reference_value": -76.23593762863838,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "cc-pVDZ",
+        "estimated_cache_bytes": 1815000,
+        "estimated_work": 42706525,
+        "family_id": "h2o",
+        "molecule": "H2O",
+        "n_alpha_strings": 275,
+        "n_beta_strings": 275,
+        "n_configurations": 75625,
+        "n_orbitals": 24,
+        "n_spin_orbitals": 48,
+        "name": "h2o-prefix-0275",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "h2o-prefix-0275"
+      }
+    },
+    {
+      "basis": "6-31G",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -108.9053043618977,
+        "cpu_final_residual": 1.820123318585093e-09,
+        "density_length": 18,
+        "density_max_abs_difference": 5.252048795867381e-14,
+        "energy_relative_error": 9.134172443598369e-16,
+        "gpu_energy": -108.9053043618978,
+        "gpu_final_residual": 1.820130785304596e-09,
+        "iteration_count": 14
+      },
+      "family_id": "n2",
+      "input_sha256": "ec17e257f65c7e916b64077cad82f26ee99ce1d11991cf89affedccaafd1aa76",
+      "molecule": "N2",
+      "problem_instance": "n2-prefix-0032",
+      "records": {
+        "cpu": {
+          "path": "results/raw/1012e694380dd2047f58c90fafe3d224d86fc3720faba942297259e0062dbfce.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/1012e694380dd2047f58c90fafe3d224d86fc3720faba942297259e0062dbfce.resources.csv",
+              "sha256": "7ce2a7690cb5f106c8fd766e30c0ed2b18060e000bdda89571eed55bd6116a4c",
+              "size_bytes": 246
+            },
+            "stderr": {
+              "path": "logs/trials/1012e694380dd2047f58c90fafe3d224d86fc3720faba942297259e0062dbfce.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/1012e694380dd2047f58c90fafe3d224d86fc3720faba942297259e0062dbfce.stdout.log",
+              "sha256": "08a9b337f4318db2571940585019865c51c6dff0ff3ffec614febfedf91fcf9f",
+              "size_bytes": 4566
+            }
+          },
+          "sha256": "62d577a0ff62f62ce447dc782512e7cb95cf04ee4a474b1071317157fe68f03a",
+          "size_bytes": 18242,
+          "trial_id": "1012e694380dd2047f58c90fafe3d224d86fc3720faba942297259e0062dbfce"
+        },
+        "gpu": {
+          "path": "results/raw/88a88c3a0aedf2e1d3bf5170df0d53e09e627ff08652952f1d3acce9d941ac89.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/88a88c3a0aedf2e1d3bf5170df0d53e09e627ff08652952f1d3acce9d941ac89.resources.csv",
+              "sha256": "82ccb05a66be599e4f90ab711a39ec0aff7f84f37f756d2514aae4393c3fda43",
+              "size_bytes": 318
+            },
+            "stderr": {
+              "path": "logs/trials/88a88c3a0aedf2e1d3bf5170df0d53e09e627ff08652952f1d3acce9d941ac89.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/88a88c3a0aedf2e1d3bf5170df0d53e09e627ff08652952f1d3acce9d941ac89.stdout.log",
+              "sha256": "97a02e7e4ae16a5065aea5ec35bffb51f406e69665b08938b890f5ccbe8796bf",
+              "size_bytes": 4631
+            }
+          },
+          "sha256": "7622a4ed6d15921d363c9b26b3e549c8dca5d6fd92618d4e9b379bd688b299bc",
+          "size_bytes": 18505,
+          "trial_id": "88a88c3a0aedf2e1d3bf5170df0d53e09e627ff08652952f1d3acce9d941ac89"
+        }
+      },
+      "reference_value": -108.9053043618977,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "6-31G",
+        "estimated_cache_bytes": 16384,
+        "estimated_work": 170180,
+        "family_id": "n2",
+        "molecule": "N2",
+        "n_alpha_strings": 32,
+        "n_beta_strings": 32,
+        "n_configurations": 1024,
+        "n_orbitals": 18,
+        "n_spin_orbitals": 36,
+        "name": "n2-prefix-0032",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "n2-prefix-0032"
+      }
+    },
+    {
+      "basis": "6-31G",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -108.9094778983647,
+        "cpu_final_residual": 5.264623325341492e-09,
+        "density_length": 18,
+        "density_max_abs_difference": 3.9968028886505635e-15,
+        "energy_relative_error": 0.0,
+        "gpu_energy": -108.9094778983647,
+        "gpu_final_residual": 5.264623147000215e-09,
+        "iteration_count": 14
+      },
+      "family_id": "n2",
+      "input_sha256": "4507b50dbe257a7a5d0b15b1536c16526f2f0ab957eead9d7e17d765571a3637",
+      "molecule": "N2",
+      "problem_instance": "n2-prefix-0055",
+      "records": {
+        "cpu": {
+          "path": "results/raw/ac59864935c0ad3c29ca2d804f987b64673baa04ce90ebb62cf022f9d5fc6060.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/ac59864935c0ad3c29ca2d804f987b64673baa04ce90ebb62cf022f9d5fc6060.resources.csv",
+              "sha256": "9b0901d9993298f0791b80a3aa36359c9212efd49a1998255563e15eb1276275",
+              "size_bytes": 273
+            },
+            "stderr": {
+              "path": "logs/trials/ac59864935c0ad3c29ca2d804f987b64673baa04ce90ebb62cf022f9d5fc6060.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/ac59864935c0ad3c29ca2d804f987b64673baa04ce90ebb62cf022f9d5fc6060.stdout.log",
+              "sha256": "dce45a01b1d008f85ee98453e317d6dc9e6e9bdec9beff7a288d0ccfbc7c43c5",
+              "size_bytes": 4632
+            }
+          },
+          "sha256": "80a2657c0b02f171a7efe9e7db6ee45a7164f7b1fa50808abc57295e39cd2ba4",
+          "size_bytes": 18290,
+          "trial_id": "ac59864935c0ad3c29ca2d804f987b64673baa04ce90ebb62cf022f9d5fc6060"
+        },
+        "gpu": {
+          "path": "results/raw/4ff6cb95dfd9432b1bcc068a5b999b0e123551bc681eb7dd34c52eda8c26661a.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/4ff6cb95dfd9432b1bcc068a5b999b0e123551bc681eb7dd34c52eda8c26661a.resources.csv",
+              "sha256": "06f27cfad8a4e043c4c75df834c7474595238569250bb9eee31301244d75e868",
+              "size_bytes": 318
+            },
+            "stderr": {
+              "path": "logs/trials/4ff6cb95dfd9432b1bcc068a5b999b0e123551bc681eb7dd34c52eda8c26661a.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/4ff6cb95dfd9432b1bcc068a5b999b0e123551bc681eb7dd34c52eda8c26661a.stdout.log",
+              "sha256": "cb7c781aefe6e117f441243b3a23b54f8cf25882476587b7dc71dccbda93763d",
+              "size_bytes": 4652
+            }
+          },
+          "sha256": "469c4fb691694caee33599c7ee9870bf14e09be89beeb194f54fd455aad86711",
+          "size_bytes": 18558,
+          "trial_id": "4ff6cb95dfd9432b1bcc068a5b999b0e123551bc681eb7dd34c52eda8c26661a"
+        }
+      },
+      "reference_value": -108.9094778983647,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "6-31G",
+        "estimated_cache_bytes": 48400,
+        "estimated_work": 712569,
+        "family_id": "n2",
+        "molecule": "N2",
+        "n_alpha_strings": 55,
+        "n_beta_strings": 55,
+        "n_configurations": 3025,
+        "n_orbitals": 18,
+        "n_spin_orbitals": 36,
+        "name": "n2-prefix-0055",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "n2-prefix-0055"
+      }
+    },
+    {
+      "basis": "6-31G",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -108.9407606093665,
+        "cpu_final_residual": 4.926727090924447e-09,
+        "density_length": 18,
+        "density_max_abs_difference": 3.9968028886505635e-15,
+        "energy_relative_error": 0.0,
+        "gpu_energy": -108.9407606093665,
+        "gpu_final_residual": 4.92673199940218e-09,
+        "iteration_count": 15
+      },
+      "family_id": "n2",
+      "input_sha256": "1d928136c75b5deedcb2c11db761ed345aaa597dd9fa947d1b41ee63cafa3f5f",
+      "molecule": "N2",
+      "problem_instance": "n2-prefix-0100",
+      "records": {
+        "cpu": {
+          "path": "results/raw/6189be8dd6d0d9524f3914f58155324cb3fe327062f25dd70a3817d8ec1e8b4b.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/6189be8dd6d0d9524f3914f58155324cb3fe327062f25dd70a3817d8ec1e8b4b.resources.csv",
+              "sha256": "514ea0b1c71567729459e76b31e25bcb17d6734f2a155002742f2403314635e7",
+              "size_bytes": 381
+            },
+            "stderr": {
+              "path": "logs/trials/6189be8dd6d0d9524f3914f58155324cb3fe327062f25dd70a3817d8ec1e8b4b.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/6189be8dd6d0d9524f3914f58155324cb3fe327062f25dd70a3817d8ec1e8b4b.stdout.log",
+              "sha256": "2712c864a859e48361b90ac08f2c2a386089df8dcaf9d6310158ebaa2a73667f",
+              "size_bytes": 4799
+            }
+          },
+          "sha256": "7925c9b84faaaef6c6f947bae619205e0bd0199da1b559d0bf80b2af2e2a06d0",
+          "size_bytes": 18372,
+          "trial_id": "6189be8dd6d0d9524f3914f58155324cb3fe327062f25dd70a3817d8ec1e8b4b"
+        },
+        "gpu": {
+          "path": "results/raw/2517c1e44ed225b41c43a4474d0798db00985c120167142d1589181e3992fec7.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/2517c1e44ed225b41c43a4474d0798db00985c120167142d1589181e3992fec7.resources.csv",
+              "sha256": "4f6eb3b9e8eb9bc4fc1299979ba7d15c0743a9766c9b31c59f16cd17f2ddad72",
+              "size_bytes": 361
+            },
+            "stderr": {
+              "path": "logs/trials/2517c1e44ed225b41c43a4474d0798db00985c120167142d1589181e3992fec7.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/2517c1e44ed225b41c43a4474d0798db00985c120167142d1589181e3992fec7.stdout.log",
+              "sha256": "13fe5a7bf066bcbf3f39d1610720c193a8a8f0aa96e0654927b7e2ecdd80746d",
+              "size_bytes": 4837
+            }
+          },
+          "sha256": "eae606f353188da962c44e33aca01f6e6d2ba8a172cdd72471129cf89ac3d26d",
+          "size_bytes": 18611,
+          "trial_id": "2517c1e44ed225b41c43a4474d0798db00985c120167142d1589181e3992fec7"
+        }
+      },
+      "reference_value": -108.9407606093665,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "6-31G",
+        "estimated_cache_bytes": 160000,
+        "estimated_work": 2963696,
+        "family_id": "n2",
+        "molecule": "N2",
+        "n_alpha_strings": 100,
+        "n_beta_strings": 100,
+        "n_configurations": 10000,
+        "n_orbitals": 18,
+        "n_spin_orbitals": 36,
+        "name": "n2-prefix-0100",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "n2-prefix-0100"
+      }
+    },
+    {
+      "basis": "6-31G",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -109.0075349193047,
+        "cpu_final_residual": 4.460311135994142e-09,
+        "density_length": 18,
+        "density_max_abs_difference": 2.398081733190338e-14,
+        "energy_relative_error": 0.0,
+        "gpu_energy": -109.0075349193047,
+        "gpu_final_residual": 4.460310999045844e-09,
+        "iteration_count": 18
+      },
+      "family_id": "n2",
+      "input_sha256": "d1155d168110c036ee82b3dc7b49f5ee983c34dd893b4504304b8b36a4e23818",
+      "molecule": "N2",
+      "problem_instance": "n2-prefix-0174",
+      "records": {
+        "cpu": {
+          "path": "results/raw/39d0e5fd1014104e49701dce40608f5ce217df6fc51a927cc101d6f32ab87f32.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/39d0e5fd1014104e49701dce40608f5ce217df6fc51a927cc101d6f32ab87f32.resources.csv",
+              "sha256": "30c9986583999a6d1ab057bccd9146896d7e3ae6f544373fbf2f4982cb7ce741",
+              "size_bytes": 894
+            },
+            "stderr": {
+              "path": "logs/trials/39d0e5fd1014104e49701dce40608f5ce217df6fc51a927cc101d6f32ab87f32.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/39d0e5fd1014104e49701dce40608f5ce217df6fc51a927cc101d6f32ab87f32.stdout.log",
+              "sha256": "4646ab60f79f60f853c33ad992953e651476a5d8320b31170889edcb7da81825",
+              "size_bytes": 5246
+            }
+          },
+          "sha256": "472746fc9a3ecec6cad9890c130842e9fccc315029dc0d0b1e48744f3b9d6401",
+          "size_bytes": 18513,
+          "trial_id": "39d0e5fd1014104e49701dce40608f5ce217df6fc51a927cc101d6f32ab87f32"
+        },
+        "gpu": {
+          "path": "results/raw/33396fcd8e1f3eeee0f6a9469e5ee2303223e787bb7b2010f00f1c7473bdf297.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/33396fcd8e1f3eeee0f6a9469e5ee2303223e787bb7b2010f00f1c7473bdf297.resources.csv",
+              "sha256": "9e05a9aa189a63380eaa397ee8759a04931af007a5c9a27c9de839df1f24fccb",
+              "size_bytes": 429
+            },
+            "stderr": {
+              "path": "logs/trials/33396fcd8e1f3eeee0f6a9469e5ee2303223e787bb7b2010f00f1c7473bdf297.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/33396fcd8e1f3eeee0f6a9469e5ee2303223e787bb7b2010f00f1c7473bdf297.stdout.log",
+              "sha256": "c7af44b7917e9f6f91ebade6933aa30b7c57eccd85751a336f45ff7ef942e440",
+              "size_bytes": 5278
+            }
+          },
+          "sha256": "eac12c77384813a941eb9c0783de6e929e6bbae9da2ed4a9cab816696dcbe195",
+          "size_bytes": 18726,
+          "trial_id": "33396fcd8e1f3eeee0f6a9469e5ee2303223e787bb7b2010f00f1c7473bdf297"
+        }
+      },
+      "reference_value": -109.0075349193047,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "6-31G",
+        "estimated_cache_bytes": 484416,
+        "estimated_work": 12076200,
+        "family_id": "n2",
+        "molecule": "N2",
+        "n_alpha_strings": 174,
+        "n_beta_strings": 174,
+        "n_configurations": 30276,
+        "n_orbitals": 18,
+        "n_spin_orbitals": 36,
+        "name": "n2-prefix-0174",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "n2-prefix-0174"
+      }
+    },
+    {
+      "basis": "6-31G",
+      "comparison": {
+        "converged": true,
+        "cpu_energy": -109.0415109298453,
+        "cpu_final_residual": 9.746157909431254e-09,
+        "density_length": 18,
+        "density_max_abs_difference": 3.197442310920451e-14,
+        "energy_relative_error": 0.0,
+        "gpu_energy": -109.0415109298453,
+        "gpu_final_residual": 9.746200382889772e-09,
+        "iteration_count": 18
+      },
+      "family_id": "n2",
+      "input_sha256": "6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb",
+      "molecule": "N2",
+      "problem_instance": "n2-prefix-0239",
+      "records": {
+        "cpu": {
+          "path": "results/raw/d58dcb56a29f90bbd6762b1a44a56585fa9613253d6e2f14570dac657317fb96.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/d58dcb56a29f90bbd6762b1a44a56585fa9613253d6e2f14570dac657317fb96.resources.csv",
+              "sha256": "6d9daf2df5808d80115909aa460efaceb557e9a552018af8ec8518583b51c4f6",
+              "size_bytes": 1650
+            },
+            "stderr": {
+              "path": "logs/trials/d58dcb56a29f90bbd6762b1a44a56585fa9613253d6e2f14570dac657317fb96.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/d58dcb56a29f90bbd6762b1a44a56585fa9613253d6e2f14570dac657317fb96.stdout.log",
+              "sha256": "182f00a75d5ac6741c530c58229fbbd57def795f393d3f161908c66cf33f5702",
+              "size_bytes": 5278
+            }
+          },
+          "sha256": "6ca4e73dd61e6e60a964c09988f8d2ec76ff746d4641ad17882e542f45815a4a",
+          "size_bytes": 18518,
+          "trial_id": "d58dcb56a29f90bbd6762b1a44a56585fa9613253d6e2f14570dac657317fb96"
+        },
+        "gpu": {
+          "path": "results/raw/9137bf68044832f07a10611671909cbb835a66893f5fcb59942725c318b60851.json",
+          "run_artifacts": {
+            "resources": {
+              "path": "logs/trials/9137bf68044832f07a10611671909cbb835a66893f5fcb59942725c318b60851.resources.csv",
+              "sha256": "f00ca9dd36d9cfb33f8565ebe512cf23e145e6a365011eafd0f1a13c7e868bc5",
+              "size_bytes": 485
+            },
+            "stderr": {
+              "path": "logs/trials/9137bf68044832f07a10611671909cbb835a66893f5fcb59942725c318b60851.stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            "stdout": {
+              "path": "logs/trials/9137bf68044832f07a10611671909cbb835a66893f5fcb59942725c318b60851.stdout.log",
+              "sha256": "9acead04ae4c5a18a8c9aa61b3848b4b1666db466f4ef7a22969451f9f66ed5d",
+              "size_bytes": 5291
+            }
+          },
+          "sha256": "62590b0b43a028dcfed6bb70b20f1f174e1b2c8708a2ad1cc0776322c190b801",
+          "size_bytes": 18739,
+          "trial_id": "9137bf68044832f07a10611671909cbb835a66893f5fcb59942725c318b60851"
+        }
+      },
+      "reference_value": -109.0415109298453,
+      "solver": {
+        "adet_comm_size": 1,
+        "bdet_comm_size": 1,
+        "bit_length": 20,
+        "block": 10,
+        "carryover_ratio": 0.5,
+        "iteration": 6,
+        "max_time": 240.0,
+        "method": 0,
+        "rdm": 0,
+        "shuffle": 0,
+        "task_comm_size": 1,
+        "tolerance": 1e-08
+      },
+      "workload": {
+        "basis": "6-31G",
+        "estimated_cache_bytes": 913936,
+        "estimated_work": 26354153,
+        "family_id": "n2",
+        "molecule": "N2",
+        "n_alpha_strings": 239,
+        "n_beta_strings": 239,
+        "n_configurations": 57121,
+        "n_orbitals": 18,
+        "n_spin_orbitals": 36,
+        "name": "n2-prefix-0239",
+        "problem_family": "phaseb-amd-n2-h2o-grid-correctness",
+        "problem_instance": "n2-prefix-0239"
+      }
+    }
+  ]
+}

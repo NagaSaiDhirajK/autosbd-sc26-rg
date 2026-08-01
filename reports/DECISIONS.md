@@ -253,8 +253,17 @@
 ## D-035 — Use a homogeneous raw-v3 correctness gate for all ten Phase B grid inputs
 
 - Date: 2026-08-01
-- Status: accepted; config frozen, execution pending
+- Status: accepted and implemented
 - Decision: Retain the four B1 schema-v2 full-size correctness records and manifest unchanged as historical compatibility evidence, but do not mix them into the new family-aware gate. Run one correctness-only CPU/GPU pair for each of the ten N₂/H₂O grid workloads under config schema 2/raw schema 3, including bounded full-size repeats, and build one all-v3 manifest. Only after that manifest passes and regenerates unchanged may a one-warmup/one-measured pilot run.
 - Rationale: the calibration builder intentionally rejects mixed v2/v3 evidence. A bridge would omit identity-bound family metadata for the two full cases, while the four bounded full-size v3 repeats add only about 33 conservative seconds and create a simple fail-closed contract across every exact pilot input.
 - Frozen protocol: `configs/phaseb_n2_h2o_grid_correctness.yaml`, SHA-256 `d9ff3d497a0ba561016b5c22b12a29ad3db808b0fe3c2f68beef37ebb14fe99a`; exact deterministic input manifest SHA-256 `852c6c99b279610b413e29472e4839fc178fc63e094b01275f4bf3aaae57d373`.
 - Approval boundary: correctness plus pilot are conservatively estimated at 4.64 minutes and about `USD 0.134`, below repository gates. After the pilot, replace projections with measured family-specific runtime/cost and stop for explicit approval before any broad three-/five-repetition final timing.
+
+## D-036 — Accept the exact schema-v3 grid gate and permit only the bounded pilot
+
+- Date: 2026-08-01
+- Status: accepted; correctness complete and pilot config frozen
+- Decision: Accept `reports/phaseb_n2_h2o_grid_correctness_manifest.json`, schema 3, SHA-256 `ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`, as the correctness gate for exactly the ten N₂/H₂O combined input hashes it names. Preserve all 20 immutable source records. Permit the manifest-linked config `configs/phaseb_n2_h2o_grid_pilot.yaml`, SHA-256 `3519b8fd4e45d9a412dd85a1fae9c586ddf865c078ae4cbfeaa43ee1a5091d70`, with one excluded warmup and one measured repetition per candidate/input, sequential execution, and deterministic randomized candidate order.
+- Evidence: all 20 runs used clean project commit `477a132911bed1756d42e298ea3af69d7a10a9bb`, the exact official AMD commit and CPU/GPU artifacts, stable inputs, complete monitoring, and required GPU offload/device evidence. All ten CPU/GPU pairs passed exact iteration parity, residual `<=1e-8`, energy relative tolerance `1e-10`, density tolerance `1e-10`, and density-length checks. The manifest rebuilt byte-identically.
+- Raw-state interpretation: `correct=null` and a non-required prior validation manifest are expected on the zero-reference correctness source records; the post-pair manifest is the authoritative correctness attestation. These records remain `timing_eligible=false` and none enters performance analysis.
+- Claim/approval boundary: this gate supports only exact-input CPU/GPU correctness and admission to the bounded pilot. It does not complete Phase B, establish N₂/H₂O speedup/crossover, provide variance, or support leave-one-family-out selector claims. After the pilot, calculate measured repeated-campaign runtime/cost and stop for explicit approval before broad three-/five-repetition timing.
