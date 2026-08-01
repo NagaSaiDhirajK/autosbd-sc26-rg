@@ -15,7 +15,7 @@ Exact source, compiler, flags, binary hashes, and license provenance are recorde
 
 ## Current status
 
-Stages 0–2 are complete: the machine and upstream builds are documented, identical-input AMD CPU/GPU correctness passes, and the schema-v2 single-run/resumable-sweep harness is implemented. The current suite has 74 passing tests, including seven Stage 3 workload-preparation tests.
+Stages 0–2 are complete: the machine and upstream builds are documented, identical-input AMD CPU/GPU correctness passes, and the schema-v2 single-run/resumable-sweep harness is implemented. The current suite has 89 passing tests, including Stage 3 workload, calibration-manifest, multi-input, and clean-resume coverage.
 
 The hardened runner provides:
 

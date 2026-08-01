@@ -14,6 +14,9 @@ workloads:
   - name: fe4s4-prefix-0174
     fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
     adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0174.txt
+  - name: fe4s4-prefix-0244
+    fcidump: ../external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt
+    adetfile: ../data/derived/amd_fe4s4_prefixes/AlphaDets_n0244.txt
 
 candidates:
   - name: amd-cpu-16

@@ -146,3 +146,10 @@
 - Status: accepted and implemented
 - Decision: Derive determinant-count variants `32`, `55`, `100`, `174`, and `244` as byte-exact nested prefixes of the pinned official AMD `AlphaDets.txt`, while keeping the exact official FCIDUMP read-only. Require the generator to verify the live official origin/commit/cleanliness, source hashes and structure, deterministic output hashes, atomic/idempotent writes, and a manifest that states `family_count=1` and `distinct_chemical_families=false`. Calibrate each non-full prefix with identical-input CPU/GPU agreement before it can enter a timing protocol.
 - Rationale: The pinned artifact tree contains only one usable authentic chemistry dataset. Prefixes provide controlled size variation for locating a device crossover, but the selected subspace and energy change with prefix length. Calling them independent chemical families or reusing the full-space energy would create false generalization/correctness claims.
+
+## D-022 — Exclude generated raw records from source-dirty identity only
+
+- Date: 2026-08-01
+- Status: accepted and implemented after calibration exposed a resume defect
+- Decision: When computing the project source-tree dirty flag, ignore only untracked, real, regular lowercase `.json` files beneath `results/raw/`. Keep every tracked modification/deletion, symlink, other suffix/location, and all upstream checkout changes dirty. Do not add raw records to `.gitignore`; they remain visible and intentionally committed. Preserve the eight duplicate dirty-identity calibration records created before this fix and exclude them from calibration/timing evidence.
+- Rationale: A clean calibration creates its own immutable untracked outputs. Treating those outputs as a source change caused a new runner process to derive different logical identities and relaunch all eight trials instead of resuming. The narrow exception restores exact resume without hiding code/config/data changes or any modification to an already tracked record.

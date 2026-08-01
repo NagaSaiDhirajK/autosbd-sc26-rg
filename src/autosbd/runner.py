@@ -6,6 +6,7 @@ import csv
 import fcntl
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
@@ -169,7 +170,10 @@ class TrialRunner:
             raise RunnerError("reference_rtol must be positive")
         self.connectivity_pair_limit = connectivity_pair_limit
         self.reference_rtol = reference_rtol
-        self.project_state = git_state(self.project_root)
+        self.project_state = git_state(
+            self.project_root,
+            ignore_untracked_json_under=Path("results/raw"),
+        )
         self.upstream_state = git_state(self.upstream_root)
         self._assert_official_upstream()
         self.cuda_toolkit_version = (
@@ -683,10 +687,56 @@ class TrialRunner:
             errors.append("manifest upstream URL mismatch")
         if payload.get("upstream_git_commit") != OFFICIAL_UPSTREAM_COMMIT:
             errors.append("manifest upstream commit mismatch")
-        if payload.get("input_sha256") != features.combined_input_sha256:
-            errors.append("manifest input hash mismatch")
-        if payload.get("solver") != _solver_identity(template.solver):
-            errors.append("manifest solver settings mismatch")
+        schema_version = payload.get("schema_version", 1)
+        if isinstance(schema_version, bool) or not isinstance(schema_version, int):
+            errors.append(f"unsupported manifest schema_version: {schema_version!r}")
+        elif schema_version == 1:
+            if payload.get("input_sha256") != features.combined_input_sha256:
+                errors.append("manifest input hash mismatch")
+            if payload.get("solver") != _solver_identity(template.solver):
+                errors.append("manifest solver settings mismatch")
+        elif schema_version == 2:
+            validated_inputs = payload.get("validated_inputs")
+            matching_inputs: list[Mapping[str, Any]] = []
+            if isinstance(validated_inputs, list):
+                matching_inputs = [
+                    item
+                    for item in validated_inputs
+                    if isinstance(item, dict)
+                    and item.get("input_sha256")
+                    == features.combined_input_sha256
+                ]
+            else:
+                errors.append("manifest validated_inputs must be a list")
+
+            if not matching_inputs:
+                errors.append("manifest has no matching validated input")
+            elif len(matching_inputs) > 1:
+                errors.append("manifest has duplicate matching validated inputs")
+            else:
+                matching_input = matching_inputs[0]
+                if matching_input.get("solver") != _solver_identity(template.solver):
+                    errors.append("manifest validated input solver settings mismatch")
+                manifest_reference = matching_input.get("reference_value")
+                reference_is_finite = False
+                if (
+                    not isinstance(manifest_reference, bool)
+                    and isinstance(manifest_reference, (int, float))
+                ):
+                    try:
+                        reference_is_finite = math.isfinite(float(manifest_reference))
+                    except (OverflowError, ValueError):
+                        reference_is_finite = False
+                if not reference_is_finite:
+                    errors.append(
+                        "manifest validated input reference_value is missing or nonfinite"
+                    )
+                elif template.workload.reference_value is None:
+                    errors.append("workload reference_value is missing")
+                elif manifest_reference != template.workload.reference_value:
+                    errors.append("manifest validated input reference_value mismatch")
+        else:
+            errors.append(f"unsupported manifest schema_version: {schema_version!r}")
         candidates = payload.get("candidate_artifacts")
         matching_candidate = False
         if isinstance(candidates, list):

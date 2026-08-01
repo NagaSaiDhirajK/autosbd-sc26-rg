@@ -906,3 +906,59 @@ PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_prepare_w
 .venv/bin/python scripts/prepare_workloads.py --help >/dev/null
 .venv/bin/python scripts/prepare_workloads.py --check
 ```
+
+## 2026-08-01T00:39Z–00:40Z — Run four-size derived correctness calibration
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Duration: about 60 s for eight sequential trials
+- Outcome: All eight official AMD CPU16/GPU records completed with status `success`; `launched=8`, `reused=0`. The safety query showed a clean project/upstream, an idle L4 with 22,564 MiB free at 34 °C, about 122 GiB available host memory, and load average 0.04. Subsequent schema/artifact/input and cross-backend verification passed every pair.
+
+```bash
+git status --porcelain
+git -C external/amd-sbd status --porcelain
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd remote get-url origin
+sha256sum build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu
+nvidia-smi --query-gpu=index,name,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu --format=csv,noheader,nounits
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits
+free -b
+uptime
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_calibration.yaml --no-randomize --require-all-success
+```
+
+## 2026-08-01T00:40Z–00:42Z — Discover and preserve clean-resume anomaly
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: An inline verifier accepted the first four clean CPU/GPU pairs, then the exact sweep command below unexpectedly launched eight new trials. Root cause: the new untracked `results/raw/*.json` files made the second `TrialRunner` report `project_git_dirty=true`, changing logical identities. The duplicate sweep remained safe/sequential and completed successfully. All eight duplicate records are preserved but excluded; none is timing eligible.
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_calibration.yaml --no-randomize --require-all-success
+pgrep -af 'scripts/run_sweep.py configs/stage3_calibration.yaml' || true
+ps -eo pid,ppid,stat,etime,cmd | rg 'run_sweep.py|diag_(cpu|gpu)' || true
+```
+
+## 2026-08-01T00:42Z–00:47Z — Harden resume and multi-input calibration evidence
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0 for corrected commands
+- Outcome: Added a narrowly opt-in Git-state filter, schema-v2 multi-input manifest validation, and a deterministic correctness-only calibration-manifest builder. The integrated suite passed 89/89 tests in 6.765 s. A real four-input temporary manifest was written and an identical second invocation returned `unchanged`; it contains no timing or speedup fields. The calibration config now enumerates ten trials across all five prefix sizes.
+- Diagnostic corrections: delegated verification initially used the absent `python` alias, unavailable `pytest`, or omitted `PYTHONPATH=src`; those invocations ran no applicable tests and changed no files. Each was corrected once with the commands below and no package installation.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -q
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_system.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_runner.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_calibration_manifest.py' -v
+PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
+  results/raw/a09754871cf59de3125e3420bb067412c69bf279ef7d8c016b71d4b600ecc57d.json \
+  results/raw/2681cbbbe0c0e713991c47f797cf73f5b123c7e36070cc4aa53069e42db4d143.json \
+  results/raw/51132580237331aff79401fd6578d5f144b4090064eb92162bc6cfe3b81cb338.json \
+  results/raw/ee44ef1c9053626aef785e9a311ba10272ec1c0dd5bf67c9ae9af1a71636c933.json \
+  results/raw/7e9ff4feb43bc2092d6c0d224c419fdfd935d7e41f058b5a9a04b83498c25186.json \
+  results/raw/a24a1104865795e9ad6d25c498c17a91fdbfbf7532f6d638aa9c64d60aa3fca7.json \
+  results/raw/d2dc37a2d170636e27915c71f129a01a9055496823468e6e6c67c6c1f26f3439.json \
+  results/raw/cea5de6fa53517dcfcdb0065293bf06c01251f181ecda91af175f441072b6b69.json \
+  --output /tmp/autosbd-stage3-initial-calibration.json
+```

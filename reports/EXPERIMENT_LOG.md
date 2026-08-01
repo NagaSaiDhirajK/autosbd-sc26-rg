@@ -96,3 +96,14 @@
 - Geometry: 1,024; 3,025; 10,000; 30,276; and 59,536 product configurations respectively. These are one Fe₄S₄ family with altered selected subspaces, not independent chemical families.
 - Outcome: generation and immediate read-only `--check` passed; no solver, GPU kernel, timing, or energy reference was produced in this step.
 - Decision: Commit the generator, manifest, data, tests, and correctness-only calibration config before running calibration so the runner captures a clean project state.
+
+## 2026-08-01 — Initial derived-size CPU/GPU correctness calibration and resume anomaly
+
+- Purpose: Establish identical-input CPU/GPU convergence, energy, iteration, and density agreement for the four non-full Fe₄S₄ prefixes before any timing protocol.
+- Configuration identifier: `stage3-amd-fe4s4-derived-calibration`; official AMD commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`; NVIDIA HPC SDK 26.5 CPU16/GPU binaries; method 0, block 10, iteration allowance 6, tolerance `1e-8`, no reference value, zero warmups, one correctness repetition.
+- Safety: project/upstream were clean; L4 was idle with 22,564 MiB free, 34 °C, and 0% utilization; host load was 0.04 with about 122 GiB available. All eight trials ran sequentially under the node lock.
+- Clean accepted record pairs: size 32 `a0975487...c57d`/`2681cbbb...d143`; size 55 `51132580...b338`/`ee44ef1c...c933`; size 100 `7e9ff4fe...5186`/`a24a1104...fca7`; size 174 `d2dc37a2...f3439`/`cea5de6f...6b69` (CPU/GPU).
+- Outcomes: all records have `project_git_dirty=false`, status/scientific success true, unchanged inputs, verified artifacts, complete host monitoring, and GPU process/device observation. Iteration counts match by pair: 22, 26, 27, and 46. CPU reference energies are `-326.5622181729457`, `-326.5689554798624`, `-326.5847957019396`, and `-326.6593248445312 Ha`. Maximum pairwise energy relative error is `1.044324529657896e-15`; maximum density absolute difference is `8.046341370970822e-13`; all residuals are at most `1e-8`.
+- Timing boundary: diagnostic wall values ranged from 1.411/1.626 s at size 32 to 30.383/8.865 s at size 174 (CPU/GPU). Every record has `timing_eligible=false`; no speedup or benchmark conclusion is drawn.
+- Resume anomaly: the immediate new-process rerun saw the first eight untracked raw records as project dirt, derived new logical identities, and launched eight duplicates instead of reusing. Duplicate IDs are `9c0536bf...8246`, `1dd8836d...22f6`, `b412bebe...bb08`, `a17813d5...18a8`, `bdf7baac...4838`, `b37ffb07...bc52`, `0d9e1df5...4777`, and `47cc860c...1967`; all say `project_git_dirty=true` and are excluded.
+- Decision: Preserve all 16 immutable records. Fix and test the narrow source-dirty rule, commit it, then rerun the now-five-size calibration and prove `launched=0` on exact resume before creating pilot evidence.

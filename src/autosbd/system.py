@@ -8,6 +8,7 @@ import json
 import math
 import os
 import socket
+import stat
 import subprocess
 from collections.abc import Mapping
 from pathlib import Path
@@ -56,16 +57,88 @@ def combined_input_sha256(input_files: list[dict[str, Any]]) -> str:
     return hashlib.sha256(canonical_json(semantic).encode("utf-8")).hexdigest()
 
 
-def git_state(path: Path) -> dict[str, Any]:
+def git_state(
+    path: Path,
+    *,
+    ignore_untracked_json_under: Path | None = None,
+) -> dict[str, Any]:
+    status = _command_output(
+        [
+            "git",
+            "-C",
+            str(path),
+            "status",
+            "--porcelain=v1",
+            "-z",
+            "--untracked-files=all",
+        ],
+        allow_empty=True,
+    )
+    repository_root = path.resolve()
+    if ignore_untracked_json_under is not None:
+        repository_root = Path(
+            _command_output(["git", "-C", str(path), "rev-parse", "--show-toplevel"])
+        ).resolve()
     return {
         "commit": _command_output(["git", "-C", str(path), "rev-parse", "HEAD"]),
-        "dirty": bool(
-            _command_output(["git", "-C", str(path), "status", "--porcelain"], allow_empty=True)
+        "dirty": _git_status_is_dirty(
+            status,
+            repository_root=repository_root,
+            ignore_untracked_json_under=ignore_untracked_json_under,
         ),
         "url": _command_output(
             ["git", "-C", str(path), "remote", "get-url", "origin"], allow_empty=True
         ),
     }
+
+
+def _git_status_is_dirty(
+    status: str,
+    *,
+    repository_root: Path,
+    ignore_untracked_json_under: Path | None,
+) -> bool:
+    """Return whether porcelain status contains a non-ignored change.
+
+    The optional exception is deliberately narrow: only untracked (``??``),
+    regular files with a literal ``.json`` suffix beneath the requested
+    repository-local directory are ignored. Tracked changes and symlinks are
+    always dirty.
+    """
+
+    if not status:
+        return False
+    if ignore_untracked_json_under is None:
+        return True
+
+    ignored_root = ignore_untracked_json_under
+    if not ignored_root.is_absolute():
+        ignored_root = repository_root / ignored_root
+    ignored_root = ignored_root.resolve()
+    try:
+        ignored_root.relative_to(repository_root)
+    except ValueError as error:
+        raise ValueError(
+            "ignored untracked JSON directory must be inside repository"
+        ) from error
+
+    for entry in status.split("\0"):
+        if not entry:
+            continue
+        if not entry.startswith("?? "):
+            return True
+        relative_path = Path(entry[3:])
+        if relative_path.is_absolute() or relative_path.suffix != ".json":
+            return True
+        candidate = repository_root / relative_path
+        try:
+            candidate.resolve(strict=True).relative_to(ignored_root)
+            mode = candidate.lstat().st_mode
+        except (FileNotFoundError, OSError, ValueError):
+            return True
+        if not stat.S_ISREG(mode):
+            return True
+    return False
 
 
 def static_system_snapshot(cuda_toolkit_version: str | None) -> dict[str, Any]:

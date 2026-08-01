@@ -95,7 +95,7 @@ class TrialRunnerTests(unittest.TestCase):
             "machine_fingerprint": "f" * 64,
         }
 
-        def fake_git_state(path: Path) -> dict[str, object]:
+        def fake_git_state(path: Path, **_kwargs: object) -> dict[str, object]:
             resolved = Path(path).resolve()
             if resolved == self.upstream_root.resolve():
                 return {
@@ -164,10 +164,12 @@ class TrialRunnerTests(unittest.TestCase):
         warmups: int = 0,
         validation_manifest: Path | None = None,
         phase: str = "measured",
+        workload: WorkloadConfig | None = None,
     ) -> tuple[SweepConfig, TrialTemplate]:
+        selected_workload = self.workload if workload is None else workload
         config = SweepConfig(
             name="runner-test",
-            workloads=(self.workload,),
+            workloads=(selected_workload,),
             candidates=(candidate,),
             solver=self.solver,
             protocol=ProtocolConfig(
@@ -182,7 +184,7 @@ class TrialRunnerTests(unittest.TestCase):
         )
         template = TrialTemplate(
             sweep_name=config.name,
-            workload=self.workload,
+            workload=selected_workload,
             candidate=candidate,
             solver=self.solver,
             phase=phase,
@@ -197,7 +199,9 @@ class TrialRunnerTests(unittest.TestCase):
         upstream_commit: str = UPSTREAM_COMMIT,
         upstream_url: str = OFFICIAL_UPSTREAM_URL,
     ) -> TrialRunner:
-        def git_state_for_test(path: Path) -> dict[str, object]:
+        def git_state_for_test(
+            path: Path, **_kwargs: object
+        ) -> dict[str, object]:
             if Path(path).resolve() == self.upstream_root.resolve():
                 return {
                     "commit": upstream_commit,
@@ -274,6 +278,53 @@ class TrialRunnerTests(unittest.TestCase):
         path = self.root / f"{label}.validation.json"
         path.write_text(
             json.dumps(manifest, allow_nan=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return path
+
+    def write_validation_manifest_v2(
+        self,
+        candidate: CandidateConfig,
+        label: str,
+        validated_inputs: list[dict[str, object]],
+        *,
+        candidate_artifact_sha256: str | None = None,
+        candidate_backend: str | None = None,
+        allow_nan: bool = False,
+    ) -> Path:
+        artifact_sha256 = hashlib.sha256(
+            "\0".join(candidate.mock_argv).encode()
+        ).hexdigest()
+        manifest = {
+            "schema_version": 2,
+            "passed": True,
+            "upstream_url": OFFICIAL_UPSTREAM_URL,
+            "upstream_git_commit": UPSTREAM_COMMIT,
+            "validated_inputs": validated_inputs,
+            "candidate_artifacts": [
+                {
+                    "backend": (
+                        candidate.backend
+                        if candidate_backend is None
+                        else candidate_backend
+                    ),
+                    "sha256": (
+                        artifact_sha256
+                        if candidate_artifact_sha256 is None
+                        else candidate_artifact_sha256
+                    ),
+                }
+            ],
+        }
+        path = self.root / f"{label}.validation.json"
+        path.write_text(
+            json.dumps(
+                manifest,
+                allow_nan=allow_nan,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
             encoding="utf-8",
         )
         return path
@@ -620,6 +671,165 @@ class TrialRunnerTests(unittest.TestCase):
                 reference_value=REFERENCE_ENERGY,
             )
         monitored.assert_not_called()
+
+    def _referenced_workloads(self) -> tuple[WorkloadConfig, WorkloadConfig]:
+        second_determinants = self.input_dir / "AlphaDets-second.txt"
+        second_determinants.write_text(
+            "0" + "1" + "0" * 34 + "\n", encoding="ascii"
+        )
+        return (
+            WorkloadConfig(
+                name="tiny-36-first",
+                fcidump=self.fcidump,
+                adetfile=self.determinants,
+                reference_value=REFERENCE_ENERGY,
+                reference_source="runner test fixture",
+            ),
+            WorkloadConfig(
+                name="tiny-36-second",
+                fcidump=self.fcidump,
+                adetfile=second_determinants,
+                reference_value=REFERENCE_ENERGY,
+                reference_source="runner test fixture",
+            ),
+        )
+
+    def _validated_input(
+        self, workload: WorkloadConfig
+    ) -> dict[str, object]:
+        features = extract_input_features(workload.fcidump, workload.adetfile)
+        return {
+            "input_sha256": features.combined_input_sha256,
+            "solver": self.solver_identity(),
+            "reference_value": workload.reference_value,
+        }
+
+    def test_schema_v2_manifest_validates_two_inputs(self) -> None:
+        candidate = self.mock_candidate("success")
+        workloads = self._referenced_workloads()
+        validated_inputs = [
+            self._validated_input(workload) for workload in workloads
+        ]
+        manifest = self.write_validation_manifest_v2(
+            candidate, "v2-two-inputs", validated_inputs
+        )
+
+        for workload in workloads:
+            with self.subTest(workload=workload.name):
+                config, template = self.trial(
+                    candidate,
+                    purpose="pilot",
+                    warmups=1,
+                    correctness_validated=True,
+                    validation_manifest=manifest,
+                    workload=workload,
+                )
+                record = self.assert_durable_valid_record(
+                    self.runner.run(template, config=config)
+                )
+                self.assertTrue(record["validation_evidence"]["valid"])
+                self.assertEqual(record["validation_evidence"]["errors"], [])
+                self.assertTrue(record["timing_eligible"])
+
+    def test_schema_v2_manifest_rejects_invalid_input_bindings(self) -> None:
+        candidate = self.mock_candidate("success")
+        workload, other_workload = self._referenced_workloads()
+        valid_entry = self._validated_input(workload)
+        other_entry = self._validated_input(other_workload)
+
+        duplicate_entries = [copy.deepcopy(valid_entry), copy.deepcopy(valid_entry)]
+        wrong_solver = copy.deepcopy(valid_entry)
+        wrong_solver["solver"] = {**self.solver_identity(), "block": 2}
+        missing_reference = copy.deepcopy(valid_entry)
+        missing_reference.pop("reference_value")
+        nonfinite_reference = copy.deepcopy(valid_entry)
+        nonfinite_reference["reference_value"] = float("nan")
+        oversized_reference = copy.deepcopy(valid_entry)
+        oversized_reference["reference_value"] = 10**400
+        wrong_reference = copy.deepcopy(valid_entry)
+        wrong_reference["reference_value"] = -1.0
+
+        invalid_cases = (
+            (
+                "missing-input",
+                [other_entry],
+                {},
+                "manifest has no matching validated input",
+            ),
+            (
+                "duplicate-input",
+                duplicate_entries,
+                {},
+                "manifest has duplicate matching validated inputs",
+            ),
+            (
+                "wrong-solver-v2",
+                [wrong_solver],
+                {},
+                "manifest validated input solver settings mismatch",
+            ),
+            (
+                "missing-reference-v2",
+                [missing_reference],
+                {},
+                "manifest validated input reference_value is missing or nonfinite",
+            ),
+            (
+                "nonfinite-reference-v2",
+                [nonfinite_reference],
+                {"allow_nan": True},
+                "manifest validated input reference_value is missing or nonfinite",
+            ),
+            (
+                "oversized-reference-v2",
+                [oversized_reference],
+                {},
+                "manifest validated input reference_value is missing or nonfinite",
+            ),
+            (
+                "wrong-reference-v2",
+                [wrong_reference],
+                {},
+                "manifest validated input reference_value mismatch",
+            ),
+            (
+                "wrong-artifact-v2",
+                [valid_entry],
+                {"candidate_artifact_sha256": "0" * 64},
+                "manifest has no matching backend artifact hash",
+            ),
+            (
+                "wrong-backend-v2",
+                [valid_entry],
+                {"candidate_backend": "gpu"},
+                "manifest has no matching backend artifact hash",
+            ),
+        )
+        for label, entries, manifest_kwargs, expected_error in invalid_cases:
+            with self.subTest(manifest_error=expected_error):
+                manifest = self.write_validation_manifest_v2(
+                    candidate,
+                    label,
+                    entries,
+                    **manifest_kwargs,
+                )
+                config, template = self.trial(
+                    candidate,
+                    purpose="pilot",
+                    warmups=1,
+                    correctness_validated=True,
+                    validation_manifest=manifest,
+                    workload=workload,
+                )
+                record = self.assert_durable_valid_record(
+                    self.runner.run(template, config=config)
+                )
+                self.assertFalse(record["validation_evidence"]["valid"])
+                self.assertIn(
+                    expected_error,
+                    record["validation_evidence"]["errors"],
+                )
+                self.assertFalse(record["timing_eligible"])
 
     def test_timing_eligibility_requires_every_scientific_gate(self) -> None:
         candidate = self.mock_candidate("success")

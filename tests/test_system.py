@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest import mock
@@ -85,6 +86,128 @@ class SemanticInputHashTests(unittest.TestCase):
             system.combined_input_sha256(first),
             system.combined_input_sha256(swapped),
         )
+
+
+class GitStateTests(unittest.TestCase):
+    @staticmethod
+    def git(repository: Path, *arguments: str) -> None:
+        subprocess.run(
+            ["git", *arguments],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    def make_repository(self, root: Path, *, tracked_raw_json: bool = False) -> Path:
+        repository = root / "repository"
+        repository.mkdir()
+        self.git(repository, "init", "--quiet")
+        self.git(repository, "config", "user.name", "AutoSBD Test")
+        self.git(repository, "config", "user.email", "autosbd-test@example.invalid")
+        self.git(repository, "remote", "add", "origin", "https://example.invalid/test.git")
+        (repository / "seed.txt").write_text("seed\n", encoding="utf-8")
+        if tracked_raw_json:
+            raw = repository / "results" / "raw"
+            raw.mkdir(parents=True)
+            (raw / "tracked.json").write_text('{"state":"original"}\n', encoding="utf-8")
+        self.git(repository, "add", ".")
+        self.git(repository, "commit", "--quiet", "-m", "initial")
+        return repository
+
+    def test_optional_filter_ignores_only_untracked_raw_json_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            repository = self.make_repository(Path(temporary_directory))
+            raw = repository / "results" / "raw"
+            nested = raw / "nested"
+            nested.mkdir(parents=True)
+            (raw / "direct.json").write_text("{}\n", encoding="utf-8")
+            (nested / "record.json").write_text("{}\n", encoding="utf-8")
+
+            self.assertTrue(system.git_state(repository)["dirty"])
+            self.assertFalse(
+                system.git_state(
+                    repository,
+                    ignore_untracked_json_under=Path("results/raw"),
+                )["dirty"]
+            )
+
+    def test_filter_keeps_other_untracked_files_dirty(self) -> None:
+        cases = (
+            Path("results/raw/record.txt"),
+            Path("results/raw/record.JSON"),
+            Path("elsewhere/record.json"),
+        )
+        for relative_path in cases:
+            with (
+                self.subTest(path=str(relative_path)),
+                tempfile.TemporaryDirectory() as temporary_directory,
+            ):
+                repository = self.make_repository(Path(temporary_directory))
+                path = repository / relative_path
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("{}\n", encoding="utf-8")
+
+                self.assertTrue(
+                    system.git_state(
+                        repository,
+                        ignore_untracked_json_under=Path("results/raw"),
+                    )["dirty"]
+                )
+
+    def test_filter_keeps_untracked_symlink_dirty(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            repository = self.make_repository(root)
+            raw = repository / "results" / "raw"
+            raw.mkdir(parents=True)
+            target = root / "target.json"
+            target.write_text("{}\n", encoding="utf-8")
+            (raw / "record.json").symlink_to(target)
+
+            self.assertTrue(
+                system.git_state(
+                    repository,
+                    ignore_untracked_json_under=Path("results/raw"),
+                )["dirty"]
+            )
+
+    def test_filter_rejects_directory_outside_repository(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            repository = self.make_repository(root)
+            raw = repository / "results" / "raw"
+            raw.mkdir(parents=True)
+            (raw / "record.json").write_text("{}\n", encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "inside repository"):
+                system.git_state(
+                    repository,
+                    ignore_untracked_json_under=root / "outside",
+                )
+
+    def test_filter_keeps_tracked_raw_json_changes_dirty(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            repository = self.make_repository(
+                Path(temporary_directory), tracked_raw_json=True
+            )
+            tracked = repository / "results" / "raw" / "tracked.json"
+            tracked.write_text('{"state":"modified"}\n', encoding="utf-8")
+            self.assertTrue(
+                system.git_state(
+                    repository,
+                    ignore_untracked_json_under=Path("results/raw"),
+                )["dirty"]
+            )
+
+            tracked.write_text('{"state":"original"}\n', encoding="utf-8")
+            tracked.unlink()
+            self.assertTrue(
+                system.git_state(
+                    repository,
+                    ignore_untracked_json_under=Path("results/raw"),
+                )["dirty"]
+            )
 
 
 class SystemSnapshotTests(unittest.TestCase):
