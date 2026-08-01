@@ -13,6 +13,7 @@ Commands are recorded in UTC. Credentials and tokens must be redacted. Timings b
 sed -n '1,240p' AutoSBD_SC26_Codex_Handoff.md
 ```
 
+
 ## 2026-07-31T22:03Z — Read project handoff, part 2
 
 - Working directory: `/home/nagan/autosbd-sc26-rg`
@@ -1163,3 +1164,178 @@ sha256sum \
   results/processed/stage3_pilot.json \
   results/processed/stage3_pilot.csv
 ```
+
+## 2026-08-01 — Run the CPU-thread pilot and freeze Stage 4
+
+Purpose: execute the predeclared single-repetition CPU-thread pilot, prove immutable resume behavior, combine it with the Stage 3 CPU16/GPU pilot, apply decision D-024, and freeze the bounded Stage 4 protocol before any final measurements. No final benchmark was run in this block.
+
+### Preflight and provenance
+
+Commands:
+
+```bash
+git status --porcelain
+git rev-parse HEAD
+git -C external/amd-sbd status --porcelain
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd remote get-url origin
+sha256sum build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu \
+  reports/stage3_calibration_manifest.json \
+  configs/stage3_thread_pilot.yaml
+nvidia-smi --query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw --format=csv,noheader,nounits
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits
+free -b
+uptime
+```
+
+Exit status: `0` for the preflight batch. Evidence:
+
+- Project checkout: clean at `63c7fba3dcfc50a09dd849b1ada539ce31073cc9` before launch.
+- Official upstream: clean at AMD-HPC/amd-sbd commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`, origin `https://github.com/AMD-HPC/amd-sbd.git`.
+- CPU executable: `build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu`, 797304 bytes, SHA-256 `190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07`.
+- Validation manifest: 20337 bytes, SHA-256 `6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec`.
+- Thread-pilot config: SHA-256 `0ae526e8e009ba41a332f76cdffa29bcbe561f9b680c164cb09d73363cb71b3e`.
+- GPU: NVIDIA L4, 23034 MiB total, 0 MiB used, 22564 MiB free, 0% utilization, 34 C, 16.53 W, and no compute processes; the runner recorded `gpu_idle=true`, a successful query, and a 18928055091-byte GPU allocation cap.
+- Host: 130794508288 bytes available, 104635606630-byte allocation cap, and load average 0.37548828125 at the first trial preflight.
+
+### Thread-pilot launch and immediate immutable resume
+
+Commands, issued twice without alteration:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_thread_pilot.yaml --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_thread_pilot.yaml --require-all-success
+```
+
+Exit status and outcomes:
+
+- First invocation: exit `0`; total 18, launched 18, reused 0, successful 18; wall time approximately 4.1 minutes.
+- Immediate identical invocation: exit `0`; total 18, launched 0, reused 18, successful 18.
+
+The seeded execution order and immutable raw paths were:
+
+```text
+results/raw/29a0703af2205a8b2f70142de4335cfb1a701ed7e862a37ac29ae7ddbc934668.json
+results/raw/8c258492f94fd50789df2b02b183226f6d99f64bdfd1b6580f98ede2e4c5d28a.json
+results/raw/c2b69d0d191668bce244a4370fe3b33c005c4c9b2b4db985f3b0e952068730b3.json
+results/raw/6bf4c3c57b6ae4380df445f1aa44915a1b27d52922a18358bccf28c30a0c2934.json
+results/raw/dfebd88d09cd5c0479d1a4c83d32c8f614690556776e009039d4c627acd5438e.json
+results/raw/13c8406ef2ff8c8ffcc882ba39786b4a17b1d0b455525f24afa5340e7aa41f4c.json
+results/raw/a3813a2a15d364dd01854c705fb44820ebf1cf6b0ff3e0f3d652c97c15b24f75.json
+results/raw/562537935652247f81ce5a4e90b0af1c00490a0807242e758349557314c44626.json
+results/raw/6f9a0f85142d640f00fa9696372f6799da430568ab6601e16317e4084258732d.json
+results/raw/088ed9672fdad73d3fb37731783332ada8e5cfb958efca1cefd6434e131128a2.json
+results/raw/55745400d3e298ad4d35dfcc7230b57a66db2ef6eee00e8479e9bc43d1514b51.json
+results/raw/5946ae3cd24970c92f5af44e06971b65e48d39d48251837f790a00d5e97b738b.json
+results/raw/e35dcf729319e3b3b988d3aee2f2c8126253eee6800748896f5afc50d5c13de5.json
+results/raw/3e2289629882c1912081e4814befe970d0112d42c35c4564e64ed19bc9face5d.json
+results/raw/4125b7a769ea05c1022a5af1f71e20a8b89319ffc695f2aa8cc9e7ebbe458f24.json
+results/raw/5c573ef9d6d47255466c095aae2a14613015b896b8051cf9a1f0157643b149df.json
+results/raw/a285e83eef4e35374b28b391fa19bae0deba12204d92c411cd66c5b595fe7004.json
+results/raw/21aad203bbd88774c7f17335048a5b65197e84b14f26715d1311799248c91d1d.json
+```
+
+The first nine paths are warm-ups with `timing_eligible=false`; the final nine are measured trials with `timing_eligible=true`. All 18 records passed schema, identity, filename, attempt-0, provenance, correctness, success, stable-input, monitoring, and linked-artifact hash/size checks. Static logical-identity reconstruction found all 18 records and predicted launched 0/reused 18 without invoking the runner. Before/after `(size, mtime_ns, SHA-256)` tuples were identical for every raw record.
+
+Measured wall times, combined with the previously recorded Stage 3 CPU16/GPU baselines:
+
+| Configurations | Prefix | CPU1 (s) | CPU4 (s) | CPU8 (s) | CPU16 (s) | GPU (s) | Winner |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| 1024 | 32 | 4.825855235998461 | 2.2148800249997294 | 1.6123988079998526 | 1.411638931997004 | 1.6263662540004589 | CPU16 |
+| 3025 | 55 | 18.586236787996313 | 5.5287907120000455 | 3.319506758998614 | 2.4178249460019288 | 1.9363074720022269 | GPU |
+| 10000 | 100 | 67.1935004170009 | 17.88604694699461 | 9.549780615998316 | 5.635352830999182 | 2.835080121003557 | GPU |
+
+Applying the predeclared D-024 rule—retain an alternate CPU thread count only if it is at least 10% faster than CPU16 or changes the full candidate-set winner—pruned CPU1, CPU4, and CPU8. Their CPU16-normalized wall-time ratios at prefixes 32/55/100 were respectively CPU1 `3.418619/7.687172/11.923566`, CPU4 `1.569013/2.286679/3.173900`, and CPU8 `1.142218/1.372931/1.694620`; all were dominated. CPU16 and GPU were retained. This is one-repetition pilot evidence for candidate pruning, not a final performance claim; D-025 records the accepted outcome.
+
+One read-only audit refinement was necessary: a broad commit-difference probe flagged newly added `src/autosbd/analysis.py`, which is not in the execution path. A narrowed comparison of the actual runner, config, feature, process, monitoring, and identity modules confirmed those execution paths were unchanged between the baseline and thread-pilot commits. No raw record or source file was modified by the audit.
+
+### Combine and verify the Stage 3 evidence
+
+Commands:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/analyze_results.py <38 explicit paths: 20 Stage3 paths above followed by 18 paths above> --output-json results/processed/stage3_candidate_pilot.json --output-csv results/processed/stage3_candidate_pilot.csv
+PYTHONPATH=src .venv/bin/python scripts/analyze_results.py <38 explicit paths: 20 Stage3 paths above followed by 18 paths above> --output-json results/processed/stage3_candidate_pilot.json --output-csv results/processed/stage3_candidate_pilot.csv
+sha256sum results/processed/stage3_candidate_pilot.json results/processed/stage3_candidate_pilot.csv
+```
+
+Exit status: `0`. The first aggregation reported input 38, included 19, excluded 19, `json_changed=true`, and `csv_changed=true`. Its immediate identical rerun reported the same counts with `json_changed=false` and `csv_changed=false`. The JSON contains 38 rows; the CSV contains 39 lines including its header. All 19 exclusions are warm-up/timing-ineligible records.
+
+- JSON SHA-256: `3e066afa35217cddba203df33b294966ce24227fa59d3e2267b64fc4ac36d17c`.
+- CSV SHA-256: `b381cff4d7df939a9a5d593f4304ff4a6b4e253faeb728284ee91400eb479dee`.
+
+### Freeze and validate the Stage 4 protocol
+
+Frozen artifacts:
+
+- `configs/stage4_final_crossover.yaml`: SHA-256 `e87e5ba6957b1f054a4973199a5ecad92ebca630093fb5d6bee6c5f3d00d8b70`; prefixes 32/55; one warm-up and five measured repetitions per CPU16/GPU candidate; 24 trials (4 warm-up, 20 measured); estimated 1.09 minutes.
+- `configs/stage4_final_mid.yaml`: SHA-256 `f2dca217bd21c215ef708445c98e1d7994f6f9d0854022454ced19273f51a6bd`; prefixes 100/174; one warm-up and three measured repetitions per candidate; 16 trials (4 warm-up, 12 measured); estimated 4.11 minutes.
+- `configs/stage4_final_large.yaml`: SHA-256 `784e8b3cecbdd010e526ade2b301a91a1b7b8ceefd151e9c20d59d8f39a62cac`; prefix 244; one warm-up and three measured repetitions per candidate; 8 trials (2 warm-up, 6 measured); estimated 8.15 minutes.
+- `reports/stage4_protocol.json`: SHA-256 `29431c68e84cee75a280c5b5faf3d2a15f1eb2ec2c16f4f5ce37796ef5f307f6`; status `frozen_before_measurement`.
+
+All shards use experiment name `stage4-amd-fe4s4-final-v1`, purpose `final`, seed 1729, timeout 300 seconds, and the validated correctness manifest. The protocol explicitly preserves separate reporting views to prevent double-counting the two configurations that also appeared in the pilot.
+
+Validation command:
+
+```bash
+PYTHONPATH=src .venv/bin/python - <<'PY'
+import hashlib
+import json
+from pathlib import Path
+from autosbd.config import load_sweep_config
+protocol = json.load(open('reports/stage4_protocol.json'))
+assert protocol['status'] == 'frozen_before_measurement'
+total = warmup = measured = 0
+semantic_keys = set()
+for shard in protocol['shards']:
+    path = Path(shard['path'])
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == shard['sha256']
+    config = load_sweep_config(path)
+    assert config.name == protocol['name']
+    templates = config.trial_templates(randomize=True)
+    assert len(templates) == shard['expected_total_records']
+    assert sum(t.phase == 'warmup' for t in templates) == shard['expected_warmup_records']
+    assert sum(t.phase == 'measured' for t in templates) == shard['expected_measured_records']
+    keys = {t.semantic_key for t in templates}
+    assert not semantic_keys.intersection(keys)
+    semantic_keys.update(keys)
+    total += len(templates)
+    warmup += sum(t.phase == 'warmup' for t in templates)
+    measured += sum(t.phase == 'measured' for t in templates)
+for evidence_key in ('correctness_gate', 'candidate_pruning_evidence'):
+    evidence = protocol[evidence_key]
+    path = Path(evidence['path'])
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == evidence['sha256']
+assert {'warmup': warmup, 'measured': measured, 'total': total} == protocol['expected_campaign_records']
+print({'shards': len(protocol['shards']), 'unique_semantic_keys': len(semantic_keys), 'warmup': warmup, 'measured': measured, 'total': total, 'status': 'PASS'})
+PY
+.venv/bin/python -m json.tool reports/stage4_protocol.json >/dev/null
+sha256sum reports/stage4_protocol.json \
+  configs/stage4_final_crossover.yaml \
+  configs/stage4_final_mid.yaml \
+  configs/stage4_final_large.yaml \
+  results/processed/stage3_candidate_pilot.json \
+  results/processed/stage3_candidate_pilot.csv
+git diff --check
+```
+
+Exit status: `0`.
+
+```text
+{'shards': 3, 'unique_semantic_keys': 48, 'warmup': 10, 'measured': 38, 'total': 48, 'status': 'PASS'}
+```
+
+Documentation-check correction: the first post-edit validation batch exited `127` only because it invoked unavailable system `python`; its preceding heading, diff, and status checks passed. The command was not repeated unchanged; subsequent validation used the repository-local `.venv/bin/python`.
+
+Final verification commands:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_stage4_protocol.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -q
+```
+
+Exit status: `0`. The protocol-freeze test passed, and the complete standard-library suite passed 97/97.
+
+An independent runner-identity audit also confirmed 48 unique logical identities and all 10 workload/backend correctness-manifest pairs.
+
+Interpretation: the Stage 4 plan is frozen as three bounded, non-overlapping shards with 48 unique semantic/logical trials—10 warm-ups and 38 measured trials—and valid correctness provenance. No Stage 4 measurement was started in this block.

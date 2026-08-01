@@ -170,3 +170,13 @@
 - Rationale: The pilot completed 20/20 successful records and exact resume reused all 20. Its single measured repetition per candidate places the observed CPU16/GPU wall-time crossover between 1,024 and 3,025 configurations, but provides neither uncertainty nor a final speedup estimate. Testing only the missing CPU thread counts at the three smallest sizes closes the minimum selector axis from D-005 without expanding into an unfocused sweep.
 - Evidence boundary: The ratios `0.867971`, `1.248678`, `1.987723`, `3.400104`, and `4.548233` are internal single-repetition pilot observations. The workloads are nested sizes from one Fe₄S₄ family, and final claims require the frozen Stage 4 protocol and repeated held-out measurements.
 - Upstream boundary: Continue with the official pinned `AMD-HPC/amd-sbd` CPU/GPU artifacts built through the single NVIDIA HPC SDK toolchain. Do not execute or promote RIKEN.
+
+## D-025 — Prune alternate CPU threads and freeze the three-shard Stage 4 protocol
+
+- Date: 2026-08-01
+- Status: accepted
+- Decision: Prune CPU1, CPU4, and CPU8; retain only CPU16 and the GPU candidate. Freeze Stage 4 into three named shards: `cross` covers determinant-prefix sizes 32 and 55 with five measured repetitions per candidate; `mid` covers sizes 100 and 174 with three measured repetitions; `large` covers size 244 with three measured repetitions. Each shard uses one warmup, protocol purpose `final`, sequential execution, and the existing default seeded backend-order randomization within workload/phase blocks. Do not reopen the candidate axis without new evidence.
+- Rationale: CPU16 was the fastest CPU at all three thread-pilot sizes. CPU1/CPU16 wall ratios were `3.418619`, `7.687172`, and `11.923566`; CPU4 ratios were `1.569013`, `2.286679`, and `3.173900`; CPU8 ratios were `1.142218`, `1.372931`, and `1.694620`. No alternate was at least 10% faster than CPU16, and no alternate changed the candidate-set CPU/GPU oracle at a tested workload, so every alternate meets D-024's pruning condition.
+- Configuration state: Stage 4 configuration creation is in progress. This decision fixes shard names, workloads, repetitions, warmup count, purpose, candidates, sequencing, and randomization policy, but asserts no unfinished file or configuration hash.
+- Evidence boundary: The thread pilot used one measured repetition per candidate and separate baseline/thread batches; all workloads are nested sizes from one Fe₄S₄ family. Stage 4 repeated measurements remain necessary, and this decision is not a final performance claim.
+- Upstream boundary: Continue exclusively with the official pinned `AMD-HPC/amd-sbd` CPU/GPU artifacts built through NVIDIA HPC SDK 26.5. Do not execute, train on, select, or promote RIKEN.

@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stage 2 is complete. Stage 3 workload preparation, five-size correctness calibration, and the bounded CPU16/GPU pilot are complete. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records.
+Stage 2 is complete. Stage 3 workload preparation, five-size correctness calibration, bounded CPU16/GPU crossover pilot, CPU-thread pruning, and Stage 4 protocol freeze are complete. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records.
 
-The standard-library suite passes all 96 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, the calibration-manifest timing gate, and deterministic timing aggregation.
+The standard-library suite passes all 97 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, the calibration-manifest timing gate, deterministic timing aggregation, and frozen Stage 4 protocol hashes/geometry.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -77,4 +77,18 @@ The pilot ran from clean project commit `2ddbb40953e36194531fcd48966ecacaefb0995
 
 This single measured repetition locates an observed winner flip between 1,024 and 3,025 configurations. It provides no variance, IQR, confidence interval, exact threshold, or final speedup claim. Candidate order was randomized within each workload/phase block; sizes remained ascending and all warmups preceded measurements. The prefixes are correlated variants of one Fe₄S₄ family.
 
-The deterministic aggregation is `results/processed/stage3_pilot.json` (SHA-256 `0e5a6ce892377125f988a9cdc4a793e4071053d1cc8fefb151a8e324bbd001f6`) with companion `results/processed/stage3_pilot.csv` (SHA-256 `816a4c1afac501006ed4d0a656da12d7c83db0abc8bbc9620a17ff4a56f9d35c`). The next bounded step measures CPU 1/4/8-thread candidates at the three smallest sizes and prunes them under the predeclared rule in D-024 before final repetitions are frozen.
+The deterministic aggregation is `results/processed/stage3_pilot.json` (SHA-256 `0e5a6ce892377125f988a9cdc4a793e4071053d1cc8fefb151a8e324bbd001f6`) with companion `results/processed/stage3_pilot.csv` (SHA-256 `816a4c1afac501006ed4d0a656da12d7c83db0abc8bbc9620a17ff4a56f9d35c`).
+
+## CPU-thread pruning pilot
+
+The missing CPU1/4/8 layer was measured at the three smallest sizes from clean project commit `63c7fba3dcfc50a09dd849b1ada539ce31073cc9`. All 18 records succeeded and passed the same manifest, correctness, integrity, provenance, monitoring, and timing-eligibility gates. Nine warmups are excluded and nine measurements are included; exact rerun launched zero solvers and reused all 18 records.
+
+| Configurations | CPU1 wall (s) | CPU4 wall (s) | CPU8 wall (s) | CPU16 wall (s) | GPU wall (s) | Candidate-set oracle |
+|---:|---:|---:|---:|---:|---:|---|
+| 1,024 | `4.825855` | `2.214880` | `1.612399` | `1.411639` | `1.626366` | CPU16 |
+| 3,025 | `18.586237` | `5.528791` | `3.319507` | `2.417825` | `1.936307` | GPU |
+| 10,000 | `67.193500` | `17.886047` | `9.549781` | `5.635353` | `2.835080` | GPU |
+
+CPU16 is the fastest CPU at every tested size. Relative to CPU16, CPU8 is 14.2%, 37.3%, and 69.5% slower; CPU4 and CPU1 are slower still. None is at least 10% faster, and adding any dominated alternate changes no full candidate-set CPU/GPU winner. D-025 therefore prunes CPU1/4/8 and retains CPU16 plus the L4 GPU.
+
+The combined 38-record pilot aggregation is `results/processed/stage3_candidate_pilot.json` (SHA-256 `3e066afa35217cddba203df33b294966ce24227fa59d3e2267b64fc4ac36d17c`) with companion CSV SHA-256 `b381cff4d7df939a9a5d593f4304ff4a6b4e253faeb728284ee91400eb479dee`. This is still single-repetition pruning evidence. The frozen Stage 4 design is `reports/stage4_protocol.json` (SHA-256 `29431c68e84cee75a280c5b5faf3d2a15f1eb2ec2c16f4f5ce37796ef5f307f6`): five measured repetitions at sizes 32/55, three at sizes 100/174/244, and one excluded warmup per workload/candidate.

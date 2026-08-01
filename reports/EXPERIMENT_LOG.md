@@ -142,3 +142,23 @@
 - Internal pilot observation: CPU had the lower measured wall time at 1,024 configurations and GPU had the lower measured wall time at 3,025 configurations, so the observed crossover bracket is 1,024–3,025 for these exact candidates and conditions only.
 - Limitations: each candidate has one measured repetition, so there is no uncertainty estimate and no final speedup claim. All five sizes are nested selected-subspace variants of one Fe₄S₄ family, not independent chemical families.
 - Decision: The Stage 3 exit criterion is met. Run the missing CPU thread-count pilot at sizes 32, 55, and 100 before freezing Stage 4 configurations; do not treat this pilot as final repeated timing evidence.
+
+## 2026-08-01 — Stage 3 official AMD CPU-thread pilot and exact resume
+
+- Purpose: Close the missing CPU thread-count axis required by D-024 and decide which CPU candidates enter the frozen Stage 4 protocol.
+- Configuration identifier: `stage3-amd-fe4s4-derived-thread-pilot`; clean project commit `63c7fba3dcfc50a09dd849b1ada539ce31073cc9`; official pinned `AMD-HPC/amd-sbd` CPU artifact built with NVIDIA HPC SDK 26.5; CPU candidates use 1, 4, and 8 threads at determinant-prefix sizes 32, 55, and 100.
+- Command: `PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage3_thread_pilot.yaml --require-all-success`.
+- Initial execution: exit 0 after approximately 4.1 minutes; `launched=18`, `reused=0`, and `success=18`.
+- Exact resume: the unchanged command exited 0 with `launched=0`, `reused=18`, and `success=18`; no solver was relaunched.
+- Eligibility and integrity: all nine warmups have `timing_eligible=false`; all nine measured records have `timing_eligible=true`. Every record is successful, correct, clean, manifest-valid, input-stable, completely host-monitored, and bound to the official AMD/NVHPC provenance.
+
+| Determinant count | CPU1 wall (s) | CPU4 wall (s) | CPU8 wall (s) | CPU16 pilot wall (s) | GPU pilot wall (s) |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 32 | 4.825855236 | 2.214880025 | 1.612398808 | 1.411638932 | 1.626366254 |
+| 55 | 18.586236788 | 5.528790712 | 3.319506759 | 2.417824946 | 1.936307472 |
+| 100 | 67.193500417 | 17.886046947 | 9.549780616 | 5.635352831 | 2.835080121 |
+
+- Alternate/CPU16 wall ratios by size 32/55/100: CPU1 `3.418619/7.687172/11.923566`; CPU4 `1.569013/2.286679/3.173900`; CPU8 `1.142218/1.372931/1.694620`.
+- D-024 audit: CPU16 is the fastest CPU at all three tested sizes. No alternate is at least 10% faster than CPU16, and adding any dominated alternate leaves the candidate-set CPU/GPU oracle unchanged. At size 32, CPU1 and CPU4 individually lose to GPU while CPU16 wins; this substitution does not change the full candidate-set oracle because CPU16 remains available and faster.
+- Limitations: each candidate has one measured repetition, the CPU16/GPU baseline and thread pilot are separate committed batches, and all sizes are nested variants of one Fe₄S₄ family. These values support candidate pruning only, not a final timing or general performance claim.
+- Decision: Prune CPU1, CPU4, and CPU8; retain CPU16 and GPU; freeze the Stage 4 candidate axis. No RIKEN executable was used.

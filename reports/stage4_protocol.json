@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_measurement",
+  "name": "stage4-amd-fe4s4-final-v1",
+  "scope": {
+    "upstream_url": "https://github.com/AMD-HPC/amd-sbd",
+    "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "toolchain": "NVIDIA HPC SDK 26.5",
+    "problem_family_count": 1,
+    "distinct_chemical_families": false,
+    "purpose": "final",
+    "sequential_execution_required": true,
+    "default_seeded_candidate_randomization_required": true
+  },
+  "correctness_gate": {
+    "path": "reports/stage3_calibration_manifest.json",
+    "sha256": "6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec",
+    "validated_inputs": 5
+  },
+  "candidate_pruning_evidence": {
+    "path": "results/processed/stage3_candidate_pilot.json",
+    "sha256": "3e066afa35217cddba203df33b294966ce24227fa59d3e2267b64fc4ac36d17c",
+    "rule": "Retain an alternate CPU thread count only if it is at least 10 percent faster than CPU16 or changes the full candidate-set CPU/GPU winner.",
+    "retained_candidates": [
+      "amd-cpu-16",
+      "amd-l4-default"
+    ],
+    "pruned_candidates": [
+      "amd-cpu-1",
+      "amd-cpu-4",
+      "amd-cpu-8"
+    ]
+  },
+  "protocol": {
+    "warmups_per_workload_candidate": 1,
+    "timeout_s": 300,
+    "seed": 1729,
+    "correctness_validated": true,
+    "primary_metric": "end_to_end_wall_time_s",
+    "summary_statistics": [
+      "median",
+      "q1",
+      "q3",
+      "iqr"
+    ]
+  },
+  "shards": [
+    {
+      "role": "crossover",
+      "path": "configs/stage4_final_crossover.yaml",
+      "sha256": "e87e5ba6957b1f054a4973199a5ecad92ebca630093fb5d6bee6c5f3d00d8b70",
+      "workloads": [
+        "fe4s4-prefix-0032",
+        "fe4s4-prefix-0055"
+      ],
+      "measured_repetitions": 5,
+      "expected_warmup_records": 4,
+      "expected_measured_records": 20,
+      "expected_total_records": 24,
+      "conservative_runtime_minutes": 1.09
+    },
+    {
+      "role": "mid",
+      "path": "configs/stage4_final_mid.yaml",
+      "sha256": "f2dca217bd21c215ef708445c98e1d7994f6f9d0854022454ced19273f51a6bd",
+      "workloads": [
+        "fe4s4-prefix-0100",
+        "fe4s4-prefix-0174"
+      ],
+      "measured_repetitions": 3,
+      "expected_warmup_records": 4,
+      "expected_measured_records": 12,
+      "expected_total_records": 16,
+      "conservative_runtime_minutes": 4.11
+    },
+    {
+      "role": "large",
+      "path": "configs/stage4_final_large.yaml",
+      "sha256": "784e8b3cecbdd010e526ade2b301a91a1b7b8ceefd151e9c20d59d8f39a62cac",
+      "workloads": [
+        "fe4s4-prefix-0244"
+      ],
+      "measured_repetitions": 3,
+      "expected_warmup_records": 2,
+      "expected_measured_records": 6,
+      "expected_total_records": 8,
+      "conservative_runtime_minutes": 8.15
+    }
+  ],
+  "expected_campaign_records": {
+    "warmup": 10,
+    "measured": 38,
+    "total": 48
+  },
+  "analysis_views": {
+    "primary_final": "Use all five measured repetitions at the two crossover workloads and all three measured repetitions at the other workloads; aggregate each workload/candidate once.",
+    "balanced_broad_sensitivity": "Use measured repetition indices 0 through 2 at every workload.",
+    "crossover": "Use measured repetition indices 0 through 4 at determinant-prefix sizes 32 and 55.",
+    "no_double_count": "A raw trial ID may occur in multiple named analysis views but may contribute at most once to any one statistic, policy row, or model input."
+  },
+  "claim_boundary": {
+    "pilot_records_are_final_evidence": false,
+    "profiled_records_are_timing_evidence": false,
+    "one_family_generalization_claim_allowed": false
+  }
+}

@@ -14,6 +14,7 @@ This internal report records what the completed Stage 2 evidence does not establ
 
 - The schema-v2 CPU/GPU pair is correctness-only. It used zero warmups and one repetition per backend while the harness worktree was uncommitted, so both records are explicitly timing-ineligible.
 - The one-repetition manifest-linked pilot brackets an observed CPU16/GPU winner flip, but it has no repetition distribution, median/IQR, confidence interval, or exact threshold. Its ratios are pilot diagnostics, not final speedup claims; near-crossover replication and the final protocol have not run yet.
+- CPU1/4/8 pruning also uses one measured repetition at only the three smallest sizes. It justifies retaining the consistently faster CPU16 candidate for the frozen deadline-bounded protocol, but it is not a general CPU scaling study.
 - Only one GCP heterogeneous node has been exercised: 16 physical Intel Xeon cores/32 logical CPUs and one NVIDIA L4. Results cannot imply multi-node, other-accelerator, leadership-system, or exascale behavior.
 - Final CPU and GPU timing candidates must remain sequential. The node lock prevents overlap, but ambient VM variation still requires warmups, randomized order, repeated trials, and contemporaneous preflight telemetry.
 

@@ -4,7 +4,7 @@ Status date: 2026-08-01
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stage 2 harness implementation and hardening are complete. Stage 3 has generated and verified five exact nested determinant-count variants of the official AMD Fe₄S₄ input, completed clean cross-backend calibration at every size, and completed the bounded manifest-linked CPU16/GPU pilot. The single-repetition pilot brackets the observed crossover between 1,024 and 3,025 configurations; it is a locator without uncertainty, not final performance evidence. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit. A CPU 1/4/8-thread pruning pilot is configured next, after which Stage 4 repeated timing will be frozen. Earlier RIKEN builds and a CPU smoke run remain historical evidence only and are not used by the primary pipeline.
+Current phase: Stage 2 harness implementation and hardening are complete. Stage 3 has generated and verified five exact nested determinant-count variants of the official AMD Fe₄S₄ input, completed clean cross-backend calibration at every size, completed the bounded manifest-linked CPU16/GPU pilot, and pruned CPU1/4/8 after a follow-up thread pilot. The single-repetition evidence brackets the observed crossover between 1,024 and 3,025 configurations and selects CPU16 as the retained CPU candidate; it is a pilot decision without uncertainty, not final performance evidence. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit. The three-shard Stage 4 repeated protocol is frozen and ready to run. Earlier RIKEN builds and a CPU smoke run remain historical evidence only and are not used by the primary pipeline.
 
 ## Stage 2 implementation status
 
@@ -12,7 +12,7 @@ The primary upstream is the official `AMD-HPC/amd-sbd` repository at commit `729
 
 The harness now supports strict configuration validation, deterministic pre-execution features, exact provenance admission, fail-closed GPU-idle and memory checks, a node-wide single-run lock, monitored process-group timeouts, atomic immutable records, resumable sweeps, and distinct logical/attempt identities. Schema v2 re-hashes inputs before launch and after execution, hashes the three run artifacts, preserves failures and orphan evidence, and requires a hash-linked correctness manifest plus protocol conditions before marking any record timing-eligible.
 
-The Stage 2 standard-library harness suite passes 67 tests covering configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. Stage 3 workload preparation, calibration-manifest, multi-input validation, clean-resume, and deterministic aggregation regressions bring the current total to 96. The definitive five-size schema-v2 AMD Fe₄S₄ calibration comprises ten clean CPU/GPU records; every pair passes and the deterministic schema-v2 manifest validates all five input hashes. The pilot adds ten excluded warmups and ten eligible measurements, preserved row-by-row in tracked JSON/CSV outputs.
+The Stage 2 standard-library harness suite passes 67 tests covering configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. Stage 3 workload preparation, calibration-manifest, multi-input validation, clean-resume, deterministic aggregation, and frozen-protocol regressions bring the current total to 97. The definitive five-size schema-v2 AMD Fe₄S₄ calibration comprises ten clean CPU/GPU records; every pair passes and the deterministic schema-v2 manifest validates all five input hashes. Pilot warmups and eligible measurements are preserved row-by-row in tracked JSON/CSV outputs.
 
 ## Research objective
 
@@ -87,8 +87,8 @@ Required metrics are end-to-end runtime, geometric-mean speedup, selection accur
 - Stage 0: audit and durable context; stop for installation/Stage 1 approval.
 - Stage 1: pin/inspect both upstreams, reproduce authentic CPU/GPU correctness, and record build provenance.
 - Stage 2: complete—implemented and tested immutable single-run and resumable sweep harnesses, schema-v2 provenance/safety hardening, and authentic AMD CPU/GPU correctness evidence.
-- Stage 3: workload preparation, five-size correctness calibration, and CPU16/GPU pilot complete; run the bounded CPU-thread pruning pilot and freeze Stage 4 configs next.
-- Stage 4: freeze configuration and collect approved final data.
+- Stage 3: complete—workload preparation, five-size correctness calibration, CPU16/GPU crossover pilot, CPU-thread pruning, and Stage 4 protocol freeze.
+- Stage 4: frozen three-shard protocol ready; collect and aggregate 38 eligible repeated measurements next.
 - Stage 5: train and evaluate the leakage-safe tuner and baselines.
 - Stage 6: generate traceable engineering/scientific reports, tables, and figures; audit claims and reproducibility.
 - Stages 7–8 submission authorship: reserved for the student. Codex may organize evidence and checklists, but must not write or generate the abstract, summary, poster, or other submission content.
