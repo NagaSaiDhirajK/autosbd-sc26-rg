@@ -214,9 +214,33 @@ The deterministic manifest is
 `ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`;
 an immediate identical builder invocation reported unchanged bytes. It validates
 these ten exact hashes only. All 20 source records remain timing-ineligible, and
-their wall fields are excluded. The manifest-linked pilot is frozen at
-`configs/phaseb_n2_h2o_grid_pilot.yaml`; repeated timing and multifamily
-evaluation remain pending.
+their wall fields are excluded.
+
+## Phase B pilot and final timing gate
+
+The manifest-linked pilot at `configs/phaseb_n2_h2o_grid_pilot.yaml` completed
+40/40 sequential trials from clean project commit
+`f584f144a4bff480559ffeb57824a07b66ec6734`: 20 excluded warmups and 20
+eligible single-repetition measurements. Every identity, artifact, input,
+correctness, monitoring, preflight, and offload check passed. Peak GPU allocation
+was 196 MiB and peak host RSS was 138.1875 MiB. The campaign spanned 171.188519
+seconds without overlap.
+
+The deterministic family-aware aggregate is
+`results/processed/phaseb_n2_h2o_grid_pilot.json`, SHA-256
+`576e87b67be2cb964bd1786bb754a7b619800523a3e29971bad97615199c9f5a`,
+with companion CSV SHA-256
+`f224bbf934cda56ae65cbc5eb2d56e2431cd4f61c8e8f2094dbca53116117a16`.
+Both N₂ and H₂O show CPU16 wins at 1,024/3,025 configurations and L4 wins at
+10,000/30,276/full in this one measured repetition. This brackets rather than
+interpolates the flip and is not final repeated evidence.
+
+The frozen final protocol is `reports/phaseb_final_protocol.json`. Its three
+shards plan 104 records—20 warmups and 84 measurements—with five repetitions at
+the four crossover-adjacent and two full-size headline workloads and three at
+the other four. The pilot-based 25%-buffered estimate is 9.43829 minutes and
+approximately USD 0.27283. Per decisions D-035/D-036, this campaign remains
+blocked until the user explicitly approves it.
 
 ## Stop conditions
 

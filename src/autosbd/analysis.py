@@ -24,6 +24,8 @@ from .records import RecordError, canonical_json, load_record
 
 
 ANALYSIS_SCHEMA_VERSION = 1
+FAMILY_AWARE_ANALYSIS_SCHEMA_VERSION = 2
+_SUPPORTED_TIMING_RECORD_SCHEMA_VERSIONS = frozenset({2, 3})
 PERCENTILE_METHOD = (
     "linear interpolation on ascending values at zero-based position "
     "(n - 1) * p"
@@ -58,6 +60,13 @@ _CSV_FIELDS = (
     "peak_host_rss_mb",
     "peak_gpu_memory_mb",
     "input_features_json",
+)
+_FAMILY_AWARE_CSV_FIELDS = (
+    *_CSV_FIELDS[:9],
+    "family_id",
+    "molecule",
+    "basis",
+    *_CSV_FIELDS[9:],
 )
 
 
@@ -157,6 +166,18 @@ def aggregate_records(record_paths: Sequence[str | os.PathLike[str]]) -> dict[st
         _validate_timing_shape(record)
         loaded.append(record)
 
+    record_schema_versions = {record["schema_version"] for record in loaded}
+    if len(record_schema_versions) != 1:
+        versions = ", ".join(str(value) for value in sorted(record_schema_versions))
+        raise AnalysisError(
+            "timing aggregation requires homogeneous record schema versions; "
+            f"found {versions}"
+        )
+    record_schema_version = next(iter(record_schema_versions))
+    family_aware = record_schema_version == 3
+    if family_aware:
+        _validate_family_contract(loaded)
+
     classified: list[tuple[dict[str, Any], dict[str, Any]]] = []
     reason_counts: Counter[str] = Counter()
     for record in loaded:
@@ -172,7 +193,11 @@ def aggregate_records(record_paths: Sequence[str | os.PathLike[str]]) -> dict[st
     rows = [row for _, row in classified]
 
     result = {
-        "schema_version": ANALYSIS_SCHEMA_VERSION,
+        "schema_version": (
+            FAMILY_AWARE_ANALYSIS_SCHEMA_VERSION
+            if family_aware
+            else ANALYSIS_SCHEMA_VERSION
+        ),
         "analysis_type": "autosbd_timing_aggregation",
         "statistics": {
             "percentile_method": PERCENTILE_METHOD,
@@ -192,6 +217,21 @@ def aggregate_records(record_paths: Sequence[str | os.PathLike[str]]) -> dict[st
         "candidate_groups": groups,
         "workloads": workloads,
     }
+    if family_aware:
+        result.update(
+            {
+                "record_schema_version": 3,
+                "grouping_fields": [
+                    "family_id",
+                    "molecule",
+                    "basis",
+                    "problem_instance",
+                    "input_sha256",
+                    "candidate",
+                ],
+                "families": _family_summaries(rows),
+            }
+        )
     # This also rejects any accidental non-finite derived value.
     canonical_json(result)
     return result
@@ -245,9 +285,9 @@ def aggregate_and_write(
 
 
 def _validate_timing_shape(record: Mapping[str, Any]) -> None:
-    if record.get("schema_version") != 2:
+    if record.get("schema_version") not in _SUPPORTED_TIMING_RECORD_SCHEMA_VERSIONS:
         raise AnalysisError(
-            "timing aggregation requires schema_version 2 records"
+            "timing aggregation requires schema_version 2 or 3 records"
         )
     if record.get("warmup_or_measured") not in _TIMING_PHASES:
         return
@@ -280,6 +320,25 @@ def _validate_timing_shape(record: Mapping[str, Any]) -> None:
     if candidate.get("threads") != record.get("cpu_threads"):
         raise AnalysisError(f"record {trial_id} candidate thread mismatch")
 
+    if record.get("schema_version") == 3:
+        for field in ("family_id", "molecule", "basis"):
+            value = record.get(field)
+            if not isinstance(value, str) or not value or value != value.strip():
+                raise AnalysisError(f"record {trial_id} has invalid {field}")
+            if logical_identity.get(field) != value:
+                raise AnalysisError(
+                    f"record {trial_id} {field} does not match logical identity"
+                )
+        if candidate.get("mpi_ranks") != record.get("mpi_ranks"):
+            raise AnalysisError(f"record {trial_id} candidate MPI-rank mismatch")
+        build_id = candidate.get("build_id")
+        if not isinstance(build_id, str) or not build_id:
+            raise AnalysisError(f"record {trial_id} has invalid candidate build_id")
+        if not _is_sha256(candidate.get("artifact_sha256")):
+            raise AnalysisError(
+                f"record {trial_id} has invalid candidate artifact_sha256"
+            )
+
     features = record.get("input_features")
     if not isinstance(features, Mapping):
         raise AnalysisError(f"record {trial_id} lacks input_features")
@@ -309,8 +368,8 @@ def _validate_timing_shape(record: Mapping[str, Any]) -> None:
 def _exclusion_reasons(record: Mapping[str, Any]) -> list[str]:
     reasons: list[str] = []
     schema_version = record.get("schema_version")
-    if schema_version != 2:
-        reasons.append("schema_version_not_2")
+    if schema_version not in _SUPPORTED_TIMING_RECORD_SCHEMA_VERSIONS:
+        reasons.append("schema_version_not_2_or_3")
 
     phase = record.get("warmup_or_measured")
     if phase == "warmup":
@@ -392,7 +451,7 @@ def _record_row(
     record: Mapping[str, Any], reasons: Sequence[str]
 ) -> dict[str, Any]:
     features = record.get("input_features")
-    return {
+    row = {
         "trial_id": record["trial_id"],
         "logical_trial_id": record["logical_trial_id"],
         "attempt_index": record["attempt_index"],
@@ -422,6 +481,15 @@ def _record_row(
         "peak_gpu_memory_mb": record["peak_gpu_memory_mb"],
         "features": features if isinstance(features, Mapping) else None,
     }
+    if record.get("schema_version") == 3:
+        row.update(
+            {
+                "family_id": record["family_id"],
+                "molecule": record["molecule"],
+                "basis": record["basis"],
+            }
+        )
+    return row
 
 
 def _candidate_groups(
@@ -431,50 +499,54 @@ def _candidate_groups(
         defaultdict(list)
     )
     for record, row in included:
+        family_identity = _family_identity(record)
+        candidate = _candidate_identity(record)
         key = (
+            family_identity,
             record["problem_instance"],
             record["input_sha256"],
-            _candidate_name(record),
-            record["backend"],
-            record["cpu_threads"],
+            _candidate_sort_key(candidate),
         )
         grouped[key].append((record, row))
 
     summaries: list[dict[str, Any]] = []
     for key in sorted(grouped):
-        problem_instance, input_sha256, name, backend, threads = key
+        family_identity, problem_instance, input_sha256, _ = key
         members = sorted(
             grouped[key], key=lambda item: (item[1]["timestamp_utc"], item[1]["trial_id"])
         )
+        candidate = _candidate_identity(members[0][0])
         wall_values = [float(record["wall_time_s"]) for record, _ in members]
         solver_values = [float(record["solver_time_s"]) for record, _ in members]
-        summaries.append(
-            {
-                "problem_instance": problem_instance,
-                "input_sha256": input_sha256,
-                "candidate": {
-                    "name": name,
-                    "backend": backend,
-                    "cpu_threads": threads,
-                },
-                "record_ids": [row["trial_id"] for _, row in members],
-                "wall_time_s": summarize_values(wall_values),
-                "solver_time_s": summarize_values(solver_values),
-            }
-        )
+        summary = {
+            "problem_instance": problem_instance,
+            "input_sha256": input_sha256,
+            "candidate": candidate,
+            "record_ids": [row["trial_id"] for _, row in members],
+            "wall_time_s": summarize_values(wall_values),
+            "solver_time_s": summarize_values(solver_values),
+        }
+        _add_family_identity(summary, family_identity)
+        summaries.append(summary)
     return summaries
 
 
 def _workload_comparisons(
     groups: Sequence[Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
-    by_workload: dict[tuple[str, str], list[Mapping[str, Any]]] = defaultdict(list)
+    by_workload: dict[tuple[Any, ...], list[Mapping[str, Any]]] = defaultdict(list)
     for group in groups:
-        by_workload[(group["problem_instance"], group["input_sha256"])].append(group)
+        by_workload[
+            (
+                _family_identity(group),
+                group["problem_instance"],
+                group["input_sha256"],
+            )
+        ].append(group)
 
     workloads: list[dict[str, Any]] = []
     for workload_key in sorted(by_workload):
-        problem_instance, input_sha256 = workload_key
+        family_identity, problem_instance, input_sha256 = workload_key
         candidates = sorted(
             by_workload[workload_key], key=lambda item: _candidate_sort_key(item["candidate"])
         )
@@ -502,27 +574,27 @@ def _workload_comparisons(
                     ),
                 }
             )
-        workloads.append(
-            {
-                "problem_instance": problem_instance,
-                "input_sha256": input_sha256,
-                "candidate_groups": [
-                    {
-                        "candidate": candidate["candidate"],
-                        "record_ids": candidate["record_ids"],
-                        "wall_time_s": candidate["wall_time_s"],
-                        "solver_time_s": candidate["solver_time_s"],
-                    }
-                    for candidate in candidates
-                ],
-                "oracle": {
-                    "metric": "median_wall_time_s",
-                    "minimum": minimum,
-                    "candidates": oracle_candidates,
-                },
-                "candidate_comparisons": comparisons,
-            }
-        )
+        workload = {
+            "problem_instance": problem_instance,
+            "input_sha256": input_sha256,
+            "candidate_groups": [
+                {
+                    "candidate": candidate["candidate"],
+                    "record_ids": candidate["record_ids"],
+                    "wall_time_s": candidate["wall_time_s"],
+                    "solver_time_s": candidate["solver_time_s"],
+                }
+                for candidate in candidates
+            ],
+            "oracle": {
+                "metric": "median_wall_time_s",
+                "minimum": minimum,
+                "candidates": oracle_candidates,
+            },
+            "candidate_comparisons": comparisons,
+        }
+        _add_family_identity(workload, family_identity)
+        workloads.append(workload)
     return workloads
 
 
@@ -537,11 +609,113 @@ def _candidate_name(record: Mapping[str, Any]) -> str | None:
     return name if isinstance(name, str) and name else None
 
 
-def _candidate_sort_key(candidate: Mapping[str, Any]) -> tuple[str, str, int]:
+def _candidate_identity(record: Mapping[str, Any]) -> dict[str, Any]:
+    candidate = {
+        "name": _candidate_name(record),
+        "backend": record["backend"],
+        "cpu_threads": record["cpu_threads"],
+    }
+    if record.get("schema_version") == 3:
+        logical_identity = record["logical_identity"]
+        source = logical_identity["candidate"]
+        candidate.update(
+            {
+                "mpi_ranks": record["mpi_ranks"],
+                "build_id": source["build_id"],
+                "artifact_sha256": source["artifact_sha256"],
+            }
+        )
+    return candidate
+
+
+def _family_identity(record: Mapping[str, Any]) -> tuple[str, ...]:
+    family_id = record.get("family_id")
+    molecule = record.get("molecule")
+    basis = record.get("basis")
+    if all(isinstance(value, str) and value for value in (family_id, molecule, basis)):
+        return (family_id, molecule, basis)
+    return ()
+
+
+def _add_family_identity(target: dict[str, Any], identity: tuple[str, ...]) -> None:
+    if identity:
+        target.update(
+            {
+                "family_id": identity[0],
+                "molecule": identity[1],
+                "basis": identity[2],
+            }
+        )
+
+
+def _validate_family_contract(records: Sequence[Mapping[str, Any]]) -> None:
+    metadata_by_family: dict[str, tuple[str, str]] = {}
+    identity_by_instance: dict[tuple[str, str], tuple[str, str, str]] = {}
+    features_by_workload: dict[tuple[str, str, str], str] = {}
+    for record in records:
+        family_id, molecule, basis = _family_identity(record)
+        metadata = (molecule, basis)
+        previous_metadata = metadata_by_family.setdefault(family_id, metadata)
+        if previous_metadata != metadata:
+            raise AnalysisError(
+                f"family_id {family_id!r} has inconsistent molecule/basis metadata"
+            )
+
+        instance = record["problem_instance"]
+        input_sha256 = record["input_sha256"]
+        instance_key = (family_id, instance)
+        identity = (molecule, basis, input_sha256)
+        previous_identity = identity_by_instance.setdefault(instance_key, identity)
+        if previous_identity != identity:
+            raise AnalysisError(
+                f"family/workload {family_id}/{instance} maps to inconsistent "
+                "metadata or input hashes"
+            )
+
+        workload_key = (family_id, instance, input_sha256)
+        feature_identity = canonical_json(record["input_features"])
+        previous_features = features_by_workload.setdefault(
+            workload_key, feature_identity
+        )
+        if previous_features != feature_identity:
+            raise AnalysisError(
+                f"family/workload {family_id}/{instance} has inconsistent "
+                "pre-execution features"
+            )
+
+
+def _family_summaries(rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[tuple[str, str, str], list[Mapping[str, Any]]] = defaultdict(list)
+    for row in rows:
+        grouped[
+            (str(row["family_id"]), str(row["molecule"]), str(row["basis"]))
+        ].append(row)
+    summaries: list[dict[str, Any]] = []
+    for identity in sorted(grouped):
+        members = grouped[identity]
+        summaries.append(
+            {
+                "family_id": identity[0],
+                "molecule": identity[1],
+                "basis": identity[2],
+                "input_records": len(members),
+                "included_records": sum(row["included"] is True for row in members),
+                "problem_instances": sorted(
+                    {str(row["problem_instance"]) for row in members}
+                ),
+            }
+        )
+    return summaries
+
+
+def _candidate_sort_key(candidate: Mapping[str, Any]) -> tuple[Any, ...]:
     return (
         str(candidate["name"]),
         str(candidate["backend"]),
         int(candidate["cpu_threads"]),
+        int(candidate.get("mpi_ranks", -1)),
+        str(candidate.get("build_id", "")),
+        str(candidate.get("artifact_sha256", "")),
     )
 
 
@@ -570,7 +744,11 @@ def _safe_ratio(numerator: float, denominator: float) -> float | None:
 def _validate_analysis_for_output(analysis: Mapping[str, Any]) -> None:
     if not isinstance(analysis, Mapping):
         raise AnalysisError("analysis output must be an object")
-    if analysis.get("schema_version") != ANALYSIS_SCHEMA_VERSION:
+    schema_version = analysis.get("schema_version")
+    if schema_version not in {
+        ANALYSIS_SCHEMA_VERSION,
+        FAMILY_AWARE_ANALYSIS_SCHEMA_VERSION,
+    }:
         raise AnalysisError("unsupported analysis schema_version")
     rows = analysis.get("rows")
     counts = analysis.get("record_counts")
@@ -578,6 +756,18 @@ def _validate_analysis_for_output(analysis: Mapping[str, Any]) -> None:
         raise AnalysisError("analysis output lacks rows or record_counts")
     if counts.get("input") != len(rows):
         raise AnalysisError("analysis row count does not match record_counts")
+    if schema_version == FAMILY_AWARE_ANALYSIS_SCHEMA_VERSION:
+        if analysis.get("record_schema_version") != 3:
+            raise AnalysisError("family-aware analysis requires record_schema_version 3")
+        for index, row in enumerate(rows):
+            if not isinstance(row, Mapping):
+                raise AnalysisError(f"analysis row {index} is not an object")
+            for field in ("family_id", "molecule", "basis"):
+                value = row.get(field)
+                if not isinstance(value, str) or not value:
+                    raise AnalysisError(
+                        f"family-aware analysis row {index} has invalid {field}"
+                    )
     try:
         canonical_json(analysis)
     except (RecordError, TypeError, ValueError) as error:
@@ -586,9 +776,12 @@ def _validate_analysis_for_output(analysis: Mapping[str, Any]) -> None:
 
 def _render_csv(analysis: Mapping[str, Any]) -> str:
     stream = io.StringIO(newline="")
+    family_aware = (
+        analysis.get("schema_version") == FAMILY_AWARE_ANALYSIS_SCHEMA_VERSION
+    )
     writer = csv.DictWriter(
         stream,
-        fieldnames=_CSV_FIELDS,
+        fieldnames=_FAMILY_AWARE_CSV_FIELDS if family_aware else _CSV_FIELDS,
         extrasaction="raise",
         lineterminator="\n",
     )
@@ -597,39 +790,46 @@ def _render_csv(analysis: Mapping[str, Any]) -> str:
         candidate = row["candidate"]
         times = row["times_s"]
         features = row["features"]
-        writer.writerow(
-            {
-                "trial_id": row["trial_id"],
-                "logical_trial_id": row["logical_trial_id"],
-                "attempt_index": row["attempt_index"],
-                "timestamp_utc": row["timestamp_utc"],
-                "finished_timestamp_utc": row["finished_timestamp_utc"],
-                "included": "true" if row["included"] else "false",
-                "exclusion_reasons": ";".join(row["exclusion_reasons"]),
-                "phase": row["phase"],
-                "repetition": row["repetition"],
-                "problem_instance": row["problem_instance"],
-                "input_sha256": row["input_sha256"],
-                "candidate_name": candidate["name"] or "",
-                "backend": candidate["backend"],
-                "cpu_threads": candidate["cpu_threads"],
-                "wall_time_s": _csv_value(times["wall"]),
-                "solver_time_s": _csv_value(times["solver"]),
-                "initialization_time_s": _csv_value(times["initialization"]),
-                "matvec_time_s": _csv_value(times["matvec"]),
-                "transfer_time_s": _csv_value(times["transfer"]),
-                "n_orbitals": _feature_value(features, "fcidump", "n_orbitals"),
-                "n_alpha_strings": _feature_value(features, "alpha", "count"),
-                "n_beta_strings": _feature_value(features, "beta", "count"),
-                "n_configurations": _feature_value(features, "n_configurations"),
-                "estimated_work": _feature_value(features, "method0_work_proxy"),
-                "peak_host_rss_mb": _csv_value(row["peak_host_rss_mb"]),
-                "peak_gpu_memory_mb": _csv_value(row["peak_gpu_memory_mb"]),
-                "input_features_json": (
-                    canonical_json(features) if isinstance(features, Mapping) else ""
-                ),
-            }
-        )
+        csv_row = {
+            "trial_id": row["trial_id"],
+            "logical_trial_id": row["logical_trial_id"],
+            "attempt_index": row["attempt_index"],
+            "timestamp_utc": row["timestamp_utc"],
+            "finished_timestamp_utc": row["finished_timestamp_utc"],
+            "included": "true" if row["included"] else "false",
+            "exclusion_reasons": ";".join(row["exclusion_reasons"]),
+            "phase": row["phase"],
+            "repetition": row["repetition"],
+            "problem_instance": row["problem_instance"],
+            "input_sha256": row["input_sha256"],
+            "candidate_name": candidate["name"] or "",
+            "backend": candidate["backend"],
+            "cpu_threads": candidate["cpu_threads"],
+            "wall_time_s": _csv_value(times["wall"]),
+            "solver_time_s": _csv_value(times["solver"]),
+            "initialization_time_s": _csv_value(times["initialization"]),
+            "matvec_time_s": _csv_value(times["matvec"]),
+            "transfer_time_s": _csv_value(times["transfer"]),
+            "n_orbitals": _feature_value(features, "fcidump", "n_orbitals"),
+            "n_alpha_strings": _feature_value(features, "alpha", "count"),
+            "n_beta_strings": _feature_value(features, "beta", "count"),
+            "n_configurations": _feature_value(features, "n_configurations"),
+            "estimated_work": _feature_value(features, "method0_work_proxy"),
+            "peak_host_rss_mb": _csv_value(row["peak_host_rss_mb"]),
+            "peak_gpu_memory_mb": _csv_value(row["peak_gpu_memory_mb"]),
+            "input_features_json": (
+                canonical_json(features) if isinstance(features, Mapping) else ""
+            ),
+        }
+        if family_aware:
+            csv_row.update(
+                {
+                    "family_id": row["family_id"],
+                    "molecule": row["molecule"],
+                    "basis": row["basis"],
+                }
+            )
+        writer.writerow(csv_row)
     return stream.getvalue()
 
 

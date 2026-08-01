@@ -1949,3 +1949,196 @@ git diff --check
 ```
 
 Outcome: exit `0`; 158/158 tests passed in 16.110 seconds; dependencies were consistent; input inventory passed; prefix and Fe₄S₄ registry checks were unchanged; the schema-v3 manifest rebuilt unchanged at the expected SHA; all 20 JSON records parsed and retained `timing_eligible=false`; the pilot expanded to 40 templates; both upstream trees were clean; stale-status and diff-hygiene checks passed.
+
+## 2026-08-01T16:18Z–16:41Z — Run, audit, aggregate, and close out the Phase B pilot
+
+The 40-trial pilot began from clean project commit
+`f584f144a4bff480559ffeb57824a07b66ec6734`. The outer driver exposed one new
+template at a time by running the following cumulative command with `N` equal
+to every integer from 1 through 40, in the frozen default randomized order:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py \
+  configs/phaseb_n2_h2o_grid_pilot.yaml \
+  --max-trials N --require-all-success
+```
+
+Before each invocation, the driver recorded and checked:
+
+```bash
+nvidia-smi --query-gpu=index,name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw --format=csv,noheader
+nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_memory --format=csv,noheader
+cat /proc/loadavg
+awk '/MemAvailable:/ {print $2 " KiB available"}' /proc/meminfo
+df --output=avail -B1 .
+```
+
+After every cumulative invocation, an inline Python validator loaded the newly
+exposed immutable record and required schema-v3 identity/provenance, exact
+correctness-manifest reference and hashes, clean pilot project state, stable
+inputs, successful process/science/correctness, resource/offload evidence, and
+the exact warmup/measured eligibility rule. It stopped on the first invalid
+record. The complete driver output is
+`logs/phaseb_n2_h2o_grid_pilot_driver.log`; runner summaries are in
+`logs/phaseb_n2_h2o_grid_pilot_runner.jsonl`.
+
+Outcome: every invocation exited `0`. The final summary was
+`launched=1,reused=39,total=40,statuses.success=40`. Exactly 20 warmups are
+ineligible and 20 measured records are eligible. The campaign span was
+171.188519 seconds, all process wall fields summed to 78.95812100195326 seconds,
+and no trial intervals overlapped. Raw-record peaks were 196 MiB GPU allocation
+and 138.1875 MiB host RSS. No timeout, OOM, skip, launch, parse, convergence,
+correctness, monitoring, input, or provenance failure occurred.
+
+Post-pilot inspection and independent audit used these read-only commands and a
+strict `load_record`/identity/artifact verifier:
+
+```bash
+git status --short --branch
+git log -5 --oneline --decorate
+stat -c '%y %s %n' AutoSBD_SC26_Codex_Handoff.md AutoSBD_SC26_Completion_Handoff_v2.md
+wc -l AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '1,220p' AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '221,520p' AutoSBD_SC26_Completion_Handoff_v2.md
+sed -n '521,836p' AutoSBD_SC26_Completion_Handoff_v2.md
+rg -l 'phaseb-amd-n2-h2o-grid-pilot' configs reports results/raw | sort
+git rev-parse HEAD
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd status --porcelain
+git -C external/amd-sbd remote get-url origin
+git -C external/riken-sbd rev-parse HEAD
+git -C external/riken-sbd status --porcelain
+git -C external/riken-sbd remote get-url origin
+sha256sum build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu \
+  configs/phaseb_n2_h2o_grid_pilot.yaml \
+  reports/phaseb_n2_h2o_grid_correctness_manifest.json
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src .venv/bin/python - <<'PY'
+# Strict read-only config-template/raw/artifact/manifest/offload audit.
+PY
+```
+
+The independent audit passed all 40 records and rebuilt the correctness
+manifest object- and byte-identically. It verified 40 unique physical/logical
+IDs, exact 10-workload × 2-backend × 2-phase geometry, official clean AMD
+commit/builds, every input/run-artifact byte and hash, validation binding,
+resource CSV row counts, sequential timestamps, reference/correctness fields,
+and CPU/GPU energy/density/iteration agreement. It did not invoke a solver or
+modify a file.
+
+Two harmless read-only path probes failed and were not repeated unchanged:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/aggregate_results.py --help
+sed -n '1,360p' configs/stage4_protocol.yaml
+```
+
+Both exited `2`: the canonical aggregator is `scripts/analyze_results.py`, and
+the Stage 4 protocol is `reports/stage4_protocol.json`. Focused inspection used
+those real paths. A combined long handoff/log read was display-truncated, so the
+newer 836-line handoff was reread in the three non-overlapping chunks above.
+
+Family-aware aggregation, fail-fast orchestration, and final-protocol tests used:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_analysis.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_sweep.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_phase_b_final_config.py' -v
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py --help
+git diff --check
+```
+
+Outcome: 10/10 analysis, 3/3 sweep, and 4/4 final-protocol tests passed. The
+schema-v3 aggregation extension preserves family/molecule/basis through rows,
+groups, workloads, summaries, and CSV, rejects mixed/ambiguous input, and leaves
+historical schema-v2 JSON/CSV byte-identical. `--stop-on-non-success` is exposed
+and tested while legacy continuation remains the default. An independent full
+suite run at this point passed 167/167 tests.
+
+The pilot aggregate was generated twice with the identical explicit 40-path
+array:
+
+```bash
+mapfile -t pilot_records < <(rg -l \
+  '"problem_family": "phaseb-amd-n2-h2o-grid-pilot"' \
+  results/raw/*.json | sort)
+test "${#pilot_records[@]}" -eq 40
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python scripts/analyze_results.py "${pilot_records[@]}" \
+  --output-json results/processed/phaseb_n2_h2o_grid_pilot.json \
+  --output-csv results/processed/phaseb_n2_h2o_grid_pilot.csv
+# Immediate second invocation: identical command and explicit paths.
+sha256sum results/processed/phaseb_n2_h2o_grid_pilot.json \
+  results/processed/phaseb_n2_h2o_grid_pilot.csv
+```
+
+First invocation: `input=40,included=20,excluded=20`, both outputs changed.
+Second invocation: identical counts and both `changed=false`. JSON SHA-256 is
+`576e87b67be2cb964bd1786bb754a7b619800523a3e29971bad97615199c9f5a`;
+CSV SHA-256 is
+`f224bbf934cda56ae65cbc5eb2d56e2431cd4f61c8e8f2094dbca53116117a16`.
+
+Pilot timing/cost arithmetic read the exact 40 records and used their earliest
+start/latest finish. At the repository-recorded USD 1.734376528/hour rate, the
+pilot span is USD 0.0824737. The frozen 104-record final plan projects
+453.037815 seconds/USD 0.218261; a 25% buffer is 9.438288 minutes/USD 0.272826.
+`reports/PHASE_B_PILOT_AUDIT.md` and
+`reports/phaseb_final_protocol.json` record the formulas, exact artifact/config
+hashes, three shard counts, safety controls, and explicit approval gate. No
+final timing command was launched.
+
+The first attempt to append this command-log block itself made no file change:
+`apply_patch` rejected a missing patch-prefix marker on the `df` line. The
+corrected split patch above was used instead; no scientific command was retried.
+
+Final pre-checkpoint validation used:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python -m unittest discover -s tests -q
+.venv/bin/python -m pip check
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python scripts/validate_phase_b_inputs.py
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python scripts/prepare_phase_b_workloads.py --check
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python scripts/build_family_registry.py --check
+mapfile -t correctness_records < <(jq -r \
+  '.validated_inputs[] | .records.cpu.path, .records.gpu.path' \
+  reports/phaseb_n2_h2o_grid_correctness_manifest.json)
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python scripts/build_calibration_manifest.py \
+  "${correctness_records[@]}" \
+  --output reports/phaseb_n2_h2o_grid_correctness_manifest.json
+mapfile -t pilot_records < <(jq -r \
+  '.input_record_ids[] | "results/raw/" + . + ".json"' \
+  results/processed/phaseb_n2_h2o_grid_pilot.json)
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src \
+  .venv/bin/python scripts/analyze_results.py "${pilot_records[@]}" \
+  --output-json results/processed/phaseb_n2_h2o_grid_pilot.json \
+  --output-csv results/processed/phaseb_n2_h2o_grid_pilot.csv
+jq empty reports/phaseb_final_protocol.json \
+  results/processed/phaseb_n2_h2o_grid_pilot.json
+git -C external/amd-sbd status --porcelain=v1 --untracked-files=all
+git -C external/riken-sbd status --porcelain=v1 --untracked-files=all
+nvidia-smi --query-gpu=index,name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw --format=csv,noheader
+nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_memory --format=csv,noheader
+df -h .
+git diff --check
+```
+
+Outcome: every command exited `0`; 168/168 tests passed in 16.217 seconds;
+`pip check` found no broken requirements; the 20-artifact source inventory, ten
+derived prefixes, and 48-record Fe₄S₄ registry passed unchanged. The correctness
+manifest rebuilt unchanged at `ba6bf82...2829`; the pilot aggregate regenerated
+with `json_changed=false,csv_changed=false` at `576e87b...9f5a` and
+`f224bbf...7a16`. Both upstream trees were clean at exact commits. The L4 was
+idle with 22,564 MiB free, 34 °C, and 16.53 W; the repository filesystem had
+59 GiB free. JSON and diff hygiene passed. No solver or GPU kernel ran.
+
+One later read-only raw-scope check exited `2` because nested shell quotes were
+malformed (`unexpected EOF while looking for matching quote`). It wrote nothing
+and was not repeated unchanged. The corrected check used
+`rg -l phaseb-amd-n2-h2o-grid-pilot results/raw/*.json` plus the aggregate's
+`input_record_ids`; both counts were exactly 40, and every aggregate-derived
+path existed.

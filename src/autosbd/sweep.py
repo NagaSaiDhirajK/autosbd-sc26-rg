@@ -35,8 +35,15 @@ def run_sweep(
     attempt_index: int = 0,
     max_trials: int | None = None,
     randomize: bool = True,
+    stop_on_non_success: bool = False,
 ) -> SweepRunSummary:
-    """Run trials one at a time; final timing is never concurrent."""
+    """Run trials one at a time; final timing is never concurrent.
+
+    When ``stop_on_non_success`` is true, return immediately after recording
+    the first result whose status is not ``success``.  The failing result is
+    included in the summary, so callers can distinguish a clean completion
+    from a fail-fast stop without losing its immutable evidence path.
+    """
 
     if max_trials is not None and max_trials < 1:
         raise ValueError("max_trials must be positive")
@@ -45,14 +52,15 @@ def run_sweep(
         templates = templates[:max_trials]
     results: list[TrialRunResult] = []
     for template in templates:
-        results.append(
-            runner.run(
-                template,
-                config=config,
-                attempt_index=attempt_index,
-                reference_value=template.workload.reference_value,
-            )
+        result = runner.run(
+            template,
+            config=config,
+            attempt_index=attempt_index,
+            reference_value=template.workload.reference_value,
         )
+        results.append(result)
+        if stop_on_non_success and result.record["status"] != "success":
+            break
     statuses = Counter(result.record["status"] for result in results)
     return SweepRunSummary(
         total=len(results),

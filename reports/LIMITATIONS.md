@@ -6,7 +6,7 @@ This internal report records what the completed engineering, repeated-timing, an
 
 ## Workload coverage
 
-- The timed and evaluated corpus currently contains one authentic chemistry family: Fe₄S₄. All ten exact N₂/H₂O grid hashes now have same-official-AMD CPU/GPU correctness evidence, but neither family yet contributes warmup-enabled repeated timing or selector-evaluation rows.
+- The repeated and selector-evaluated corpus currently contains one authentic chemistry family: Fe₄S₄. All ten exact N₂/H₂O grid hashes have same-official-AMD CPU/GPU correctness plus one warmup-enabled pilot measurement per candidate, but neither family yet contributes repeated timing medians or selector-evaluation rows.
 - Determinant-prefix sizes derived from Fe₄S₄ can locate a size crossover, but they change the selected subspace and energy and are not independent chemical families. Evaluation must label them as size-held-out, not family-held-out.
 - With only one family, leave-one-family-out generalization is impossible. The current evaluation groups all repetitions and candidates for a derived instance together, but its largest-size holdout and leave-one-instance-out folds remain size-based evidence rather than independent-family generalization.
 
@@ -15,7 +15,7 @@ This internal report records what the completed engineering, repeated-timing, an
 - The schema-v2 CPU/GPU pair is correctness-only. It used zero warmups and one repetition per backend while the harness worktree was uncommitted, so both records are explicitly timing-ineligible.
 - The four Phase B1 N₂/H₂O records also use zero warmups, one repetition, and protocol purpose `correctness`. Their diagnostic wall fields cannot establish cross-family speedup, crossover, or selector benefit and remain `timing_eligible=false` even though the combined correctness manifest passes.
 - The 20 homogeneous Phase B2 grid records likewise use zero warmups and one correctness repetition. All are `timing_eligible=false`; their diagnostic duration fields are excluded and provide no N₂/H₂O speedup, crossover, variance, or selector evidence.
-- The one-repetition manifest-linked pilot remains pruning evidence only. Stage 4 adds repeated medians and IQRs, using five measurements per candidate at the two smallest sizes and three at the other sizes, but it does not provide confidence intervals or independent-machine replication.
+- The completed one-repetition manifest-linked N₂/H₂O pilot remains planning and crossover-bracketing evidence only. It cannot establish variability, a final median, or selector generalization. Stage 4 adds repeated Fe₄S₄ medians and IQRs, using five measurements per candidate at the two smallest sizes and three at the other sizes, but it does not provide confidence intervals or independent-machine replication.
 - CPU1/4/8 pruning also uses one measured repetition at only the three smallest sizes. It justifies retaining the consistently faster CPU16 candidate for the frozen deadline-bounded protocol, but it is not a general CPU scaling study.
 - Only one GCP heterogeneous node has been exercised: 16 physical Intel Xeon cores/32 logical CPUs and one NVIDIA L4. Results cannot imply multi-node, other-accelerator, leadership-system, or exascale behavior.
 - Stage 4 kept CPU and GPU timing candidates sequential under the node lock and used warmups, seeded randomized candidate order, repeated trials, and contemporaneous preflight telemetry. Ambient VM variation and single-node execution remain limitations.

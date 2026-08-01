@@ -15,20 +15,20 @@ Exact source, compiler, flags, binary hashes, and license provenance are recorde
 
 ## Current status
 
-Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and all ten exact N₂/H₂O Phase B grid inputs. Phase B2 now has ten deterministic size variants, config-v2/raw-v3 family identity, a 20-record schema-v3 correctness gate, and a strict external registry for the immutable Fe₄S₄ records. The frozen Stage 4 campaign remains 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 158 tests. Warmup-enabled N₂/H₂O timing and multifamily evaluation are still pending.
+Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and all ten exact N₂/H₂O Phase B grid inputs. Phase B2 now has ten deterministic size variants, config-v2/raw-v3 family identity, a 20-record schema-v3 correctness gate, a strict external registry for the immutable Fe₄S₄ records, and a completed 40-record N₂/H₂O pilot with 20 excluded warmups and 20 eligible single-repetition measurements. The frozen Stage 4 campaign remains 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 168 tests. Repeated N₂/H₂O timing is frozen but awaiting explicit approval; multifamily evaluation remains pending.
 
 The hardened runner provides:
 
 - strict YAML configuration and pre-execution FCIDUMP/determinant features;
 - admission checks for the exact official upstream commit, clean upstream tree, expected binaries, build flags, and NVHPC compiler;
-- a node-wide run lock, fail-closed GPU-idle checks, CPU-core and GPU-memory guards, bounded process-group execution, and host/GPU resource sampling;
+- a node-wide run lock, fail-closed GPU-idle checks, CPU-core and GPU-memory guards, bounded process-group execution, host/GPU resource sampling, and optional stop-on-first-non-success sweep execution;
 - immutable atomic JSON records with preserved schema-v2 history and family-aware schema-v3 logical/attempt identity, input re-hashing, artifact hashes, claims, and exact resume behavior;
 - explicit process, scientific-correctness, monitoring, and timing-eligibility states; and
 - a validation-manifest gate that prevents correctness smoke runs from silently becoming benchmark evidence.
 
 The schema-v2 Fe₄S₄ CPU and GPU runs converged and agreed in energy, density, and iteration count at all five determinant-prefix sizes. Every calibration record has `timing_eligible=false`; its wall time is diagnostic only and is not a final performance result. See [`reports/RESULTS.md`](reports/RESULTS.md) and [`reports/LIMITATIONS.md`](reports/LIMITATIONS.md).
 
-The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These remain size-held-out timing results from one Fe₄S₄ family, not cross-family performance evidence. The schema-v3 Phase B gate validates all ten exact N₂/H₂O grid hashes on the same official AMD CPU/GPU binaries through 20 timing-ineligible correctness records. The manifest-linked one-warmup/one-measured pilot, repeated timing, and cross-family evaluation remain pending.
+The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These remain size-held-out timing results from one Fe₄S₄ family, not cross-family performance evidence. The schema-v3 Phase B gate validates all ten exact N₂/H₂O grid hashes on the same official AMD CPU/GPU binaries through 20 timing-ineligible correctness records. The completed one-repetition pilot brackets a CPU/GPU flip between 3,025 and 10,000 configurations in both families, but it is planning evidence rather than final repeated timing. The frozen 104-record final campaign is awaiting explicit approval; cross-family evaluation remains pending.
 
 ## Reproduce the engineering checks
 
@@ -90,6 +90,10 @@ Use `scripts/run_sweep.py` for a sequential resumable configuration sweep. The r
 - [`configs/phaseb_n2_h2o_grid_correctness.yaml`](configs/phaseb_n2_h2o_grid_correctness.yaml): completed all-v3 ten-workload correctness protocol
 - [`reports/phaseb_n2_h2o_grid_correctness_manifest.json`](reports/phaseb_n2_h2o_grid_correctness_manifest.json): deterministic 20-record, ten-input schema-v3 correctness gate
 - [`configs/phaseb_n2_h2o_grid_pilot.yaml`](configs/phaseb_n2_h2o_grid_pilot.yaml): frozen one-warmup/one-measured Phase B pilot protocol
+- [`results/processed/phaseb_n2_h2o_grid_pilot.json`](results/processed/phaseb_n2_h2o_grid_pilot.json): deterministic family-aware pilot aggregation
+- [`results/processed/phaseb_n2_h2o_grid_pilot.csv`](results/processed/phaseb_n2_h2o_grid_pilot.csv): companion row-level pilot table
+- [`reports/PHASE_B_PILOT_AUDIT.md`](reports/PHASE_B_PILOT_AUDIT.md): pilot integrity, diagnostic crossover, resource, cost, and claim-boundary audit
+- [`reports/phaseb_final_protocol.json`](reports/phaseb_final_protocol.json): frozen 104-record final shards, hashes, estimates, safety controls, and approval gate
 - [`results/processed/stage4_final.json`](results/processed/stage4_final.json): deterministic repeated-timing aggregation
 - [`configs/stage5_size_heldout.yaml`](configs/stage5_size_heldout.yaml): leakage-safe single-family evaluation protocol
 - [`results/processed/stage5/evaluation.json`](results/processed/stage5/evaluation.json): corrected held-out predictions, metrics, models, and claim boundary

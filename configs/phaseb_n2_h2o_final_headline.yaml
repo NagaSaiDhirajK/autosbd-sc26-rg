@@ -1,0 +1,75 @@
+schema_version: 2
+name: phaseb-amd-n2-h2o-grid-final-v1
+
+workloads:
+  - name: n2-prefix-0239
+    family_id: n2
+    molecule: N2
+    basis: 6-31G
+    fcidump: ../external/riken-sbd/data/n2/fcidump.txt
+    adetfile: ../data/derived/phase_b_prefixes/n2/AlphaDets_n0239.txt
+    reference_value: -109.0415109298453
+    reference_source: reports/phaseb_n2_h2o_grid_correctness_manifest.json
+  - name: h2o-prefix-0275
+    family_id: h2o
+    molecule: H2O
+    basis: cc-pVDZ
+    fcidump: ../external/riken-sbd/data/h2o/fcidump.txt
+    adetfile: ../data/derived/phase_b_prefixes/h2o/AlphaDets_n0275.txt
+    reference_value: -76.23593762863838
+    reference_source: reports/phaseb_n2_h2o_grid_correctness_manifest.json
+
+candidates:
+  - name: amd-cpu-16
+    backend: cpu
+    executable: ../build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu
+    threads: 16
+    mpi_ranks: 1
+    compiler_flags:
+      - -std=c++17
+      - -O3
+      - -tp=native
+      - -mp
+      - -DSBD_TRADMODE
+      - -DUSE_DET_CACHE_OMP
+      - -lopenblas
+  - name: amd-l4-default
+    backend: gpu
+    executable: ../build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu
+    threads: 1
+    mpi_ranks: 1
+    compiler_flags:
+      - -std=c++17
+      - -O3
+      - -tp=native
+      - -mp=gpu
+      - -gpu=cc89
+      - -Minfo=mp
+      - -DSBD_TRADMODE
+      - -DUSE_GPU
+      - -DUSE_DET_CACHE_OMP
+      - -DUSE_HIJ_OMP_OFFLOAD
+      - -lopenblas
+
+solver:
+  method: 0
+  iteration: 6
+  block: 10
+  tolerance: 1.0e-8
+  max_time: 240
+  bit_length: 20
+  shuffle: 0
+  carryover_ratio: 0.5
+  rdm: 0
+  adet_comm_size: 1
+  bdet_comm_size: 1
+  task_comm_size: 1
+
+protocol:
+  warmups: 1
+  repetitions: 5
+  timeout_s: 300
+  seed: 1729
+  purpose: final
+  correctness_validated: true
+  validation_manifest: ../reports/phaseb_n2_h2o_grid_correctness_manifest.json

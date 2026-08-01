@@ -1,0 +1,182 @@
+{
+  "analysis_views": {
+    "balanced_broad": {
+      "description": "Use measured repetition indices 0, 1, and 2 for every workload and candidate.",
+      "repetitions": [
+        0,
+        1,
+        2
+      ]
+    },
+    "crossover": {
+      "description": "Use measured repetition indices 0 through 4 at the N2/H2O 55- and 100-half-determinant workloads.",
+      "repetitions": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "headline": {
+      "description": "Use measured repetition indices 0 through 4 at the full N2-239 and H2O-275 workloads.",
+      "repetitions": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "no_double_count": "A raw trial ID may appear in multiple named views but may contribute at most once to any one statistic, policy row, model input, table, or plotted value."
+  },
+  "approval_gate": {
+    "explicit_user_approval_required_before_launch": true,
+    "reason": "Decisions D-035 and D-036 require a fresh approval after replacing projections with measured pilot runtime and cost.",
+    "status_at_freeze": "awaiting_approval"
+  },
+  "claim_boundary": {
+    "pilot_records_are_final_timing_evidence": false,
+    "profiled_records_are_timing_evidence": false,
+    "repeated_records_required_for_final_medians": true,
+    "selector_family_holdout_allowed_before_phase_b_completion": false,
+    "universal_or_multi_node_claim_allowed": false
+  },
+  "correctness_gate": {
+    "path": "reports/phaseb_n2_h2o_grid_correctness_manifest.json",
+    "schema_version": 3,
+    "sha256": "ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829",
+    "validated_inputs": 10
+  },
+  "execution_controls": {
+    "candidate_order": "default deterministic seeded randomization within workload/phase blocks",
+    "gpu_memory_policy": "min(20 GiB, 80% of current free VRAM)",
+    "planned_cli_flags": [
+      "--stop-on-non-success",
+      "--require-all-success"
+    ],
+    "preflight_before_every_trial": true,
+    "preserve_failures_and_skips": true,
+    "sequential_node_lock": true,
+    "timeout_s_per_trial": 300
+  },
+  "expected_campaign_records": {
+    "measured": 84,
+    "total": 104,
+    "warmup": 20
+  },
+  "name": "phaseb-amd-n2-h2o-grid-final-v1",
+  "pilot_evidence": {
+    "aggregate_csv": {
+      "path": "results/processed/phaseb_n2_h2o_grid_pilot.csv",
+      "sha256": "f224bbf934cda56ae65cbc5eb2d56e2431cd4f61c8e8f2094dbca53116117a16"
+    },
+    "aggregate_json": {
+      "path": "results/processed/phaseb_n2_h2o_grid_pilot.json",
+      "sha256": "576e87b67be2cb964bd1786bb754a7b619800523a3e29971bad97615199c9f5a"
+    },
+    "campaign_span_s": 171.188519,
+    "config": {
+      "path": "configs/phaseb_n2_h2o_grid_pilot.yaml",
+      "sha256": "3519b8fd4e45d9a412dd85a1fae9c586ddf865c078ae4cbfeaa43ee1a5091d70"
+    },
+    "included_measured_records": 20,
+    "raw_chain_definition": "sha256(canonical JSON of aggregate-sorted [{trial_id,path,size_bytes,sha256}])",
+    "raw_chain_sha256": "8f9c93a036f74b6852d0388868883b6d8beeb6d1765f67af5f8a268836a61a78",
+    "raw_record_bytes": 747294,
+    "raw_records": 40,
+    "solver_process_wall_sum_s": 78.95812100195326,
+    "warmup_records": 20
+  },
+  "projection": {
+    "buffer_factor": 1.25,
+    "buffered_cost_usd": 0.2728257472,
+    "buffered_minutes": 9.4382878031,
+    "method": "Pilot measured candidate/workload wall times multiplied by planned warmup-plus-repetition counts, plus the pilot's conservative staged-driver overhead per record.",
+    "pilot_overhead_per_record_s": 2.305759949951169,
+    "projected_cost_usd": 0.2182605977,
+    "projected_orchestration_overhead_s": 239.79903479492158,
+    "projected_process_wall_s": 213.23877975382492,
+    "projected_total_minutes": 7.5506302425,
+    "projected_total_s": 453.0378145487465,
+    "rate_note": "Repository-recorded GCP list rate; not independently refreshed during this audit.",
+    "rate_usd_per_hour": 1.734376528
+  },
+  "protocol": {
+    "correctness_validated": true,
+    "primary_metric": "end_to_end_wall_time_s",
+    "purpose": "final",
+    "seed": 1729,
+    "summary_statistics": [
+      "median",
+      "q1",
+      "q3",
+      "iqr"
+    ],
+    "warmups_per_workload_candidate": 1
+  },
+  "schema_version": 1,
+  "scope": {
+    "candidates": [
+      "amd-cpu-16",
+      "amd-l4-default"
+    ],
+    "distinct_chemistry_families": [
+      "n2",
+      "h2o"
+    ],
+    "nvidia_toolchain": "NVIDIA HPC SDK 26.5",
+    "official_primary_only": true,
+    "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "upstream_url": "https://github.com/AMD-HPC/amd-sbd"
+  },
+  "shards": [
+    {
+      "expected_measured_records": 40,
+      "expected_total_records": 48,
+      "expected_warmup_records": 8,
+      "measured_repetitions": 5,
+      "path": "configs/phaseb_n2_h2o_final_crossover.yaml",
+      "projected_total_minutes": 2.6146933976,
+      "role": "crossover",
+      "sha256": "f9aedb1eb33d419f7a7ff0103e284259926aa522e139845a11b3d4a68abcd990",
+      "workloads": [
+        "n2-prefix-0055",
+        "n2-prefix-0100",
+        "h2o-prefix-0055",
+        "h2o-prefix-0100"
+      ]
+    },
+    {
+      "expected_measured_records": 24,
+      "expected_total_records": 32,
+      "expected_warmup_records": 8,
+      "measured_repetitions": 3,
+      "path": "configs/phaseb_n2_h2o_final_broad.yaml",
+      "projected_total_minutes": 2.0345475178,
+      "role": "broad",
+      "sha256": "755ccfa48ae7830d494d6b0c0a3617df82eb5a86c79fae6a0deb00c0c6425398",
+      "workloads": [
+        "n2-prefix-0032",
+        "n2-prefix-0174",
+        "h2o-prefix-0032",
+        "h2o-prefix-0174"
+      ]
+    },
+    {
+      "expected_measured_records": 20,
+      "expected_total_records": 24,
+      "expected_warmup_records": 4,
+      "measured_repetitions": 5,
+      "path": "configs/phaseb_n2_h2o_final_headline.yaml",
+      "projected_total_minutes": 2.9013893271,
+      "role": "headline",
+      "sha256": "1807f183eab5d4732ae28ef8a7c3bf9becb17013870246e4d03eda9969519c2e",
+      "workloads": [
+        "n2-prefix-0239",
+        "h2o-prefix-0275"
+      ]
+    }
+  ],
+  "status": "frozen_before_measurement"
+}

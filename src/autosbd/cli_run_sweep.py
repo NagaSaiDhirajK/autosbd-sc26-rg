@@ -20,6 +20,14 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--attempt-index", type=int, default=0)
     parser.add_argument("--max-trials", type=int)
     parser.add_argument("--no-randomize", action="store_true")
+    parser.add_argument(
+        "--stop-on-non-success",
+        action="store_true",
+        help=(
+            "stop after preserving the first non-success record instead of "
+            "continuing with later templates"
+        ),
+    )
     parser.add_argument("--require-all-success", action="store_true")
     return parser
 
@@ -38,6 +46,7 @@ def main(argv: list[str] | None = None) -> int:
         attempt_index=arguments.attempt_index,
         max_trials=arguments.max_trials,
         randomize=not arguments.no_randomize,
+        stop_on_non_success=arguments.stop_on_non_success,
     )
     print(json.dumps(summary.to_dict(), sort_keys=True))
     successful = summary.statuses.get("success", 0)

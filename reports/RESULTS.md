@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance and unchanged-input compatibility pass, and the homogeneous Phase B2 schema-v3 manifest now validates all ten exact N₂/H₂O grid inputs. Phase B2 also provides family-aware future raw identities and external Fe₄S₄ augmentation without rewriting history. The harness enforces official AMD source/build provenance and node safety, distinguishes process success from scientific success, and resumes exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. N₂/H₂O pilot/repeated timing and multifamily evaluation remain pending.
+Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance and unchanged-input compatibility pass, and the homogeneous Phase B2 schema-v3 manifest validates all ten exact N₂/H₂O grid inputs. The 40-record Phase B pilot is complete, audited, and deterministically aggregated, with 20 excluded warmups and 20 eligible single-repetition measurements. Phase B2 also provides family-aware raw identities and external Fe₄S₄ augmentation without rewriting history. The harness enforces official AMD source/build provenance and node safety, distinguishes process success from scientific success, and resumes exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. Repeated N₂/H₂O timing is frozen but awaiting explicit approval; multifamily evaluation remains pending.
 
-The standard-library suite passes all 158 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2/v3 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, family-aware calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input/provenance/registry validation, the manifest-linked 40-template pilot contract, and density-length enforcement.
+The standard-library suite passes all 168 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2/v3 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, family-aware calibration-manifest timing gates, schema-v2-byte-compatible/schema-v3-family-aware aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input/provenance/registry validation, the completed 40-record pilot, frozen 104-record final geometry/protocol hashes, fail-fast sweep control, and density-length enforcement.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -88,7 +88,28 @@ All 20 schema-v3 records—one CPU16 and one L4 GPU correctness run for each exa
 
 The campaign maximum energy relative error is `9.134172443598369e-16`, maximum density absolute difference is `5.252048795867381e-14`, and maximum final residual is `9.746200382889772e-9`. Every input remained unchanged; record/stdout/stderr/resource hashes verify; all GPU records show mandatory offload, exact device assignment, process observation, and complete monitoring. Peak allocation was 196 MiB, far below the contemporaneous admission cap.
 
-The deterministic correctness-only manifest is `reports/phaseb_n2_h2o_grid_correctness_manifest.json`, schema 3, SHA-256 `ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`; an immediate rebuild was byte-identical. All source records use zero warmups and one correctness repetition, have `timing_eligible=false`, and are excluded from performance analysis. Their raw `correct=null` is expected because the post-pair manifest—not a prior scalar reference—provides the authoritative gate. Prefix agreement does not independently certify each derived chemistry solution. The frozen pilot config is `configs/phaseb_n2_h2o_grid_pilot.yaml`, SHA-256 `3519b8fd4e45d9a412dd85a1fae9c586ddf865c078ae4cbfeaa43ee1a5091d70`; no N₂/H₂O timing or cross-family selector claim is made here.
+The deterministic correctness-only manifest is `reports/phaseb_n2_h2o_grid_correctness_manifest.json`, schema 3, SHA-256 `ba6bf82b63c9a8bdf2a5a513df914a9f1446605a0d4939cb53f7921527222829`; an immediate rebuild was byte-identical. All source records use zero warmups and one correctness repetition, have `timing_eligible=false`, and are excluded from performance analysis. Their raw `correct=null` is expected because the post-pair manifest—not a prior scalar reference—provides the authoritative gate. Prefix agreement does not independently certify each derived chemistry solution. The pilot uses the same exact gate and inputs; it does not retroactively change correctness-record eligibility.
+
+## Phase B N₂/H₂O pilot planning evidence
+
+The manifest-linked pilot ran sequentially from clean project commit `f584f144a4bff480559ffeb57824a07b66ec6734`. All 40 schema-v3 records succeeded: 20 warmups are excluded and 20 measured records are timing-eligible. The independent audit found no duplicate identity, overlap, timeout, OOM, skip, correctness, input-integrity, provenance, monitoring, resource, or offload failure. The exact raw files total 747,294 bytes and are named by the aggregate.
+
+| Family | Configurations | CPU16 wall (s) | L4 wall (s) | CPU/GPU | Pilot winner |
+| --- | ---: | ---: | ---: | ---: | --- |
+| N₂ | 1,024 | 0.608429 | 0.883288 | 0.688823 | CPU16 |
+| N₂ | 3,025 | 0.708497 | 0.863529 | 0.820467 | CPU16 |
+| N₂ | 10,000 | 1.110155 | 1.000671 | 1.109410 | L4 |
+| N₂ | 30,276 | 3.021159 | 1.173929 | 2.573544 | L4 |
+| N₂ | 57,121 | 5.836347 | 1.328953 | 4.391689 | L4 |
+| H₂O | 1,024 | 0.607913 | 0.843161 | 0.720993 | CPU16 |
+| H₂O | 3,025 | 0.707753 | 1.002912 | 0.705698 | CPU16 |
+| H₂O | 10,000 | 1.312102 | 0.995236 | 1.318383 | L4 |
+| H₂O | 30,276 | 3.624827 | 1.309427 | 2.768254 | L4 |
+| H₂O | 75,625 | 10.860245 | 1.765309 | 6.152036 | L4 |
+
+Both families bracket a candidate flip between 3,025 and 10,000 configurations. These are one-repetition diagnostics, not repeated medians or a final performance claim. The deterministic aggregate JSON/CSV SHAs are `576e87b67be2cb964bd1786bb754a7b619800523a3e29971bad97615199c9f5a` and `f224bbf934cda56ae65cbc5eb2d56e2431cd4f61c8e8f2094dbca53116117a16`. The complete integrity and cost evidence is in `reports/PHASE_B_PILOT_AUDIT.md`.
+
+`reports/phaseb_final_protocol.json` freezes 104 new records: 20 excluded warmups and 84 measurements, with five repetitions at the four crossover-adjacent and two full-size headline workloads and three at the remaining four workloads. Pilot-based projection is 7.55063 minutes/approximately USD 0.21826, or 9.43829 minutes/USD 0.27283 with a 25% buffer. The campaign has not run and requires fresh explicit approval.
 
 ## Definitive five-size correctness calibration
 

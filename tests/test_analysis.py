@@ -175,6 +175,57 @@ def make_timing_record(
     }
 
 
+def make_family_timing_record(
+    serial: int,
+    *,
+    family_id: str,
+    molecule: str,
+    basis: str,
+    wall_time_s: float = 2.0,
+    backend: str = "cpu",
+    candidate_name: str | None = None,
+    problem_instance: str = "shared-workload",
+    input_sha256: str = "c" * 64,
+) -> dict[str, object]:
+    """Return one complete family-aware schema-v3 timing record."""
+
+    record = make_timing_record(
+        serial,
+        wall_time_s=wall_time_s,
+        backend=backend,
+        candidate_name=candidate_name,
+        problem_instance=problem_instance,
+        input_sha256=input_sha256,
+    )
+    logical_identity = dict(record["logical_identity"])
+    logical_identity.update(
+        {
+            "schema_version": 3,
+            "sweep_name": record["problem_family"],
+            "workload": problem_instance,
+            "family_id": family_id,
+            "molecule": molecule,
+            "basis": basis,
+        }
+    )
+    logical_trial_id = make_trial_id(logical_identity)
+    trial_id = make_trial_id(
+        {"logical_trial_id": logical_trial_id, "attempt_index": 0}
+    )
+    record.update(
+        {
+            "schema_version": 3,
+            "logical_identity": logical_identity,
+            "logical_trial_id": logical_trial_id,
+            "trial_id": trial_id,
+            "family_id": family_id,
+            "molecule": molecule,
+            "basis": basis,
+        }
+    )
+    return record
+
+
 class AnalysisTests(unittest.TestCase):
     def setUp(self) -> None:
         temporary_directory = tempfile.TemporaryDirectory()
@@ -321,6 +372,200 @@ class AnalysisTests(unittest.TestCase):
             analysis["statistics"]["percentile_method"],
             "linear interpolation on ascending values at zero-based position (n - 1) * p",
         )
+        self.assertEqual(analysis["schema_version"], 1)
+        self.assertNotIn("record_schema_version", analysis)
+        self.assertNotIn("family_id", analysis["rows"][0])
+
+    def test_schema3_multifamily_identity_is_preserved_without_collapsing(self) -> None:
+        records = [
+            make_family_timing_record(
+                10,
+                family_id="family-a",
+                molecule="Molecule A",
+                basis="basis-a",
+                wall_time_s=4.0,
+                candidate_name="amd-cpu",
+            ),
+            make_family_timing_record(
+                11,
+                family_id="family-a",
+                molecule="Molecule A",
+                basis="basis-a",
+                wall_time_s=2.0,
+                backend="gpu",
+                candidate_name="amd-gpu",
+            ),
+            make_family_timing_record(
+                12,
+                family_id="family-b",
+                molecule="Molecule B",
+                basis="basis-b",
+                wall_time_s=1.0,
+                candidate_name="amd-cpu",
+            ),
+            make_family_timing_record(
+                13,
+                family_id="family-b",
+                molecule="Molecule B",
+                basis="basis-b",
+                wall_time_s=3.0,
+                backend="gpu",
+                candidate_name="amd-gpu",
+            ),
+        ]
+        paths = [self.write_record(record) for record in records]
+
+        analysis = aggregate_records(list(reversed(paths)))
+
+        self.assertEqual(analysis["schema_version"], 2)
+        self.assertEqual(analysis["record_schema_version"], 3)
+        self.assertEqual(analysis["record_counts"], {"input": 4, "included": 4, "excluded": 0})
+        self.assertEqual(
+            analysis["grouping_fields"],
+            [
+                "family_id",
+                "molecule",
+                "basis",
+                "problem_instance",
+                "input_sha256",
+                "candidate",
+            ],
+        )
+        self.assertEqual(
+            [family["family_id"] for family in analysis["families"]],
+            ["family-a", "family-b"],
+        )
+        self.assertEqual(len(analysis["candidate_groups"]), 4)
+        self.assertEqual(len(analysis["workloads"]), 2)
+        self.assertEqual(
+            {workload["family_id"] for workload in analysis["workloads"]},
+            {"family-a", "family-b"},
+        )
+        self.assertTrue(
+            all(
+                set(("family_id", "molecule", "basis")).issubset(row)
+                for row in analysis["rows"]
+            )
+        )
+        self.assertTrue(
+            all(
+                set(("build_id", "artifact_sha256", "mpi_ranks")).issubset(
+                    group["candidate"]
+                )
+                for group in analysis["candidate_groups"]
+            )
+        )
+        oracle_by_family = {
+            workload["family_id"]: workload["oracle"]["candidates"][0]["name"]
+            for workload in analysis["workloads"]
+        }
+        self.assertEqual(
+            oracle_by_family,
+            {"family-a": "amd-gpu", "family-b": "amd-cpu"},
+        )
+
+    def test_schema3_outputs_are_deterministic_and_family_aware(self) -> None:
+        paths = [
+            self.write_record(
+                make_family_timing_record(
+                    20,
+                    family_id="family-a",
+                    molecule="Molecule A",
+                    basis="basis-a",
+                )
+            ),
+            self.write_record(
+                make_family_timing_record(
+                    21,
+                    family_id="family-b",
+                    molecule="Molecule B",
+                    basis="basis-b",
+                )
+            ),
+        ]
+        output_json = self.root / "family-aware.json"
+        output_csv = self.root / "family-aware.csv"
+
+        first, first_status = aggregate_and_write(
+            list(reversed(paths)), output_json, output_csv
+        )
+        json_bytes = output_json.read_bytes()
+        csv_bytes = output_csv.read_bytes()
+        second, second_status = aggregate_and_write(paths, output_json, output_csv)
+
+        self.assertEqual(second, first)
+        self.assertTrue(first_status["json_changed"])
+        self.assertTrue(first_status["csv_changed"])
+        self.assertFalse(second_status["json_changed"])
+        self.assertFalse(second_status["csv_changed"])
+        self.assertEqual(output_json.read_bytes(), json_bytes)
+        self.assertEqual(output_csv.read_bytes(), csv_bytes)
+        with output_csv.open(newline="", encoding="utf-8") as stream:
+            rows = list(csv.DictReader(stream))
+        self.assertEqual(
+            [rows[0]["family_id"], rows[0]["molecule"], rows[0]["basis"]],
+            ["family-a", "Molecule A", "basis-a"],
+        )
+
+    def test_rejects_mixed_record_schemas_and_inconsistent_family_contracts(self) -> None:
+        legacy = self.write_record(make_timing_record(30))
+        family = self.write_record(
+            make_family_timing_record(
+                31,
+                family_id="family-a",
+                molecule="Molecule A",
+                basis="basis-a",
+            )
+        )
+        with self.assertRaisesRegex(AnalysisError, "homogeneous record schema"):
+            aggregate_records([legacy, family])
+
+        inconsistent_metadata = [
+            self.write_record(
+                make_family_timing_record(
+                    32,
+                    family_id="shared-family",
+                    molecule="Molecule A",
+                    basis="basis-a",
+                    problem_instance="workload-a",
+                )
+            ),
+            self.write_record(
+                make_family_timing_record(
+                    33,
+                    family_id="shared-family",
+                    molecule="Molecule B",
+                    basis="basis-a",
+                    problem_instance="workload-b",
+                )
+            ),
+        ]
+        with self.assertRaisesRegex(AnalysisError, "inconsistent molecule/basis"):
+            aggregate_records(inconsistent_metadata)
+
+        inconsistent_hash = [
+            self.write_record(
+                make_family_timing_record(
+                    34,
+                    family_id="hash-family",
+                    molecule="Molecule H",
+                    basis="basis-h",
+                    input_sha256="1" * 64,
+                )
+            ),
+            self.write_record(
+                make_family_timing_record(
+                    35,
+                    family_id="hash-family",
+                    molecule="Molecule H",
+                    basis="basis-h",
+                    input_sha256="2" * 64,
+                )
+            ),
+        ]
+        with self.assertRaisesRegex(AnalysisError, "inconsistent metadata or input hashes"):
+            aggregate_records(inconsistent_hash)
+
 
     def test_percentile_validation_and_direct_summary(self) -> None:
         self.assertEqual(linear_percentile([7.0], 0.25), 7.0)
