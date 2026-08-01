@@ -69,8 +69,23 @@ class EvaluationArtifactTests(unittest.TestCase):
             self.assertEqual(evaluation["status"], "complete")
             predictions = (output / "policy_predictions.csv").read_text().splitlines()
             summaries = (output / "policy_summary.csv").read_text().splitlines()
-            self.assertEqual(len(predictions), 43)
-            self.assertEqual(len(summaries), 15)
+            self.assertEqual(len(predictions), 37)
+            self.assertEqual(len(summaries), 13)
+            policy_summary = json.loads((output / "policy_summary.json").read_text())
+            self.assertEqual(
+                policy_summary["policy_aliases"], {"upstream_default": "fixed_gpu"}
+            )
+            self.assertNotIn(
+                "upstream_default",
+                {row["policy"] for row in policy_summary["rows"]},
+            )
+            for row in policy_summary["rows"]:
+                self.assertIsInstance(row["requested_instances"], int)
+                self.assertIsInstance(row["failure_instances"], int)
+                self.assertIsInstance(
+                    row["geometric_mean_speedup_vs_oracle_inverse_valid_only"],
+                    float,
+                )
 
     def test_config_hash_and_completion_status_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory(dir=ROOT) as name:
@@ -81,6 +96,16 @@ class EvaluationArtifactTests(unittest.TestCase):
             path = directory / "bad.yaml"
             path.write_text(config)
             with self.assertRaisesRegex(EvaluationArtifactError, "max_depth"):
+                build_evaluation_package(path, repository_root=ROOT)
+
+        with tempfile.TemporaryDirectory(dir=ROOT) as name:
+            directory = Path(name)
+            config = CONFIG.read_text().replace(
+                "    - always_gpu", "    - unregistered_sentinel"
+            )
+            path = directory / "bad-threshold.yaml"
+            path.write_text(config)
+            with self.assertRaisesRegex(EvaluationArtifactError, "candidate_kinds"):
                 build_evaluation_package(path, repository_root=ROOT)
 
         malformed = deepcopy(self.package)

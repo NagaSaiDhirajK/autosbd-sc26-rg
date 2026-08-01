@@ -1,0 +1,135 @@
+{
+  "artifact_type": "autosbd_inference_overhead_summary",
+  "comparison": {
+    "formula": "hot median microseconds / (shortest measured SBD median seconds * 1e6) * 100",
+    "hot_median_percent_of_shortest_sbd_runtime": 0.002739337080263366,
+    "shortest_candidate_name": "amd-cpu-16",
+    "shortest_measured_sbd_median_wall_time_s": 1.4109253030037507,
+    "shortest_problem_instance": "fe4s4-prefix-0032"
+  },
+  "config": {
+    "name": "stage5-amd-fe4s4-selector-v1",
+    "path": "configs/stage5_size_heldout.yaml",
+    "sha256": "21ad73381a156d424cd762a18a2fb3b897e074824665d96d6e631837021eb0f1"
+  },
+  "measurements": {
+    "cold_load_plus_selection": {
+      "definition": "read and strictly deserialize the complete saved models artifact, retrieve the deployment full tree, then perform the hot selection path",
+      "includes_model_file_io": true,
+      "iteration_count": 100,
+      "maximum_us": 948.61,
+      "median_us": 929.1099999999999,
+      "minimum_us": 909.477,
+      "os_page_cache_controlled": false,
+      "p90_us": 936.1551000000001,
+      "p95_us": 939.67855,
+      "primary_overhead_measurement": false,
+      "selected_candidate_counts": {
+        "amd-cpu-16": 60,
+        "amd-l4-default": 40
+      },
+      "selection_checksum_sha256": "2c7771b0aeabcd435b3742cc0fcca7d76d7644160db1b0e17642d154f89ae3e8",
+      "unit": "microseconds",
+      "warmup_iterations": 10
+    },
+    "hot_selection": {
+      "definition": "pre-execution feature mapping to model vector, memory-feasibility filter, candidate tree predictions, and deterministic argmin with an already loaded deployment model",
+      "includes_model_file_io": false,
+      "iteration_count": 10000,
+      "maximum_us": 214.577,
+      "median_us": 38.65,
+      "minimum_us": 37.701,
+      "os_page_cache_controlled": null,
+      "p90_us": 42.667300000000004,
+      "p95_us": 48.71309999999999,
+      "primary_overhead_measurement": true,
+      "selected_candidate_counts": {
+        "amd-cpu-16": 6000,
+        "amd-l4-default": 4000
+      },
+      "selection_checksum_sha256": "bb968d15ea964a8d16916f4419484bdd436dc2efc83465b1bf1f86623d3d2cd8",
+      "unit": "microseconds",
+      "warmup_iterations": 1000
+    }
+  },
+  "protocol": {
+    "candidate_schedule": "all problem instances in ascending size/name order, round-robin",
+    "clock": "time.perf_counter_ns",
+    "cold_load_plus_selection": {
+      "definition": "read and strictly deserialize the complete saved models artifact, retrieve the deployment full tree, then perform the hot selection path",
+      "includes_model_file_io": true,
+      "interpretation": "model-object-cold diagnostic; not a storage-cache-cold measurement",
+      "measured_iterations": 100,
+      "os_page_cache_controlled": false,
+      "primary_overhead_measurement": false,
+      "warmup_iterations": 10
+    },
+    "hot_selection": {
+      "definition": "pre-execution feature mapping to model vector, memory-feasibility filter, candidate tree predictions, and deterministic argmin with an already loaded deployment model",
+      "includes_model_file_io": false,
+      "measured_iterations": 10000,
+      "primary_overhead_measurement": true,
+      "warmup_iterations": 1000
+    },
+    "percentile_method": "linear interpolation at zero-based position (n - 1) * p"
+  },
+  "run_id": "50b9351e5d3ab74fdb71a8915acdcd682891d736b58db1e86ef64d400c2fb6b4",
+  "schema_version": 1,
+  "source_raw_record": {
+    "path": "results/raw/inference_overhead/50b9351e5d3ab74fdb71a8915acdcd682891d736b58db1e86ef64d400c2fb6b4.json",
+    "sha256": "ea293deabbd2c904e1b432a88075c750db9ef7eb595d58d8a45fc452e1c4d356",
+    "size_bytes": 155300
+  },
+  "sources": {
+    "balanced_dataset": {
+      "path": "results/processed/stage5/balanced_dataset.json",
+      "sha256": "7c71c1abdab856b066dbe9e1652cbf1e696e2c1e798fb11ac66326c8cbce90d3",
+      "size_bytes": 22825
+    },
+    "models": {
+      "path": "results/processed/stage5/models.json",
+      "sha256": "85f8a84e1d40163b9971ba8d9d9fab47dd049adf036b95c5f0b8f6c11884eb1c",
+      "size_bytes": 108238
+    }
+  },
+  "status": "complete",
+  "timestamp_utc": "2026-08-01T14:06:13.742330Z",
+  "workload": {
+    "candidates_per_selection": 2,
+    "comparison_denominator": "minimum candidate median end-to-end wall time in the balanced dataset",
+    "problem_instance_count": 5,
+    "problem_instances": [
+      {
+        "n_configurations": 1024,
+        "problem_instance": "fe4s4-prefix-0032"
+      },
+      {
+        "n_configurations": 3025,
+        "problem_instance": "fe4s4-prefix-0055"
+      },
+      {
+        "n_configurations": 10000,
+        "problem_instance": "fe4s4-prefix-0100"
+      },
+      {
+        "n_configurations": 30276,
+        "problem_instance": "fe4s4-prefix-0174"
+      },
+      {
+        "n_configurations": 59536,
+        "problem_instance": "fe4s4-prefix-0244"
+      }
+    ],
+    "shortest_measured_sbd_candidate_median": {
+      "candidate_name": "amd-cpu-16",
+      "median_wall_time_s": 1.4109253030037507,
+      "n_configurations": 1024,
+      "problem_instance": "fe4s4-prefix-0032",
+      "source_record_ids": [
+        "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+        "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+        "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9"
+      ]
+    }
+  }
+}

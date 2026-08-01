@@ -180,3 +180,32 @@
 - Configuration state: Stage 4 configuration creation is in progress. This decision fixes shard names, workloads, repetitions, warmup count, purpose, candidates, sequencing, and randomization policy, but asserts no unfinished file or configuration hash.
 - Evidence boundary: The thread pilot used one measured repetition per candidate and separate baseline/thread batches; all workloads are nested sizes from one Fe₄S₄ family. Stage 4 repeated measurements remain necessary, and this decision is not a final performance claim.
 - Upstream boundary: Continue exclusively with the official pinned `AMD-HPC/amd-sbd` CPU/GPU artifacts built through NVIDIA HPC SDK 26.5. Do not execute, train on, select, or promote RIKEN.
+
+## D-026 — Use explicit static-threshold sentinels and geometric boundaries
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: Fit on training instances only with candidates in exact registered order: `always_gpu`, geometric midpoints between adjacent unique training configuration counts, then `always_cpu`. Represent sentinel thresholds as JSON `null`, dispatch them by explicit `kind`, and retain the first registered candidate on an objective tie.
+- Rationale: observed-size integers are not true between-size boundaries and are ambiguous stand-ins for unconditional policies. Explicit kinds are deterministic, JSON-safe, and testable on unseen sizes.
+
+## D-027 — Treat upstream default as provenance, not a seventh baseline
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: Keep `upstream_default: fixed_gpu` in provenance metadata, but exclude the alias from predictions, metrics, summaries, and plots. Report six unique policies: fixed CPU16, fixed GPU, static threshold, size-only tree, full AutoSBD tree, and measured feasible oracle.
+- Rationale: upstream default and fixed GPU are identical here. Counting the alias independently duplicates evidence.
+
+## D-028 — Measure hot selection and object-cold load-plus-selection overhead
+
+- Date: 2026-08-01
+- Status: accepted and implemented
+- Decision: Time the exported full-tree path with `perf_counter_ns`. Hot timing includes feasibility filtering, feature-vector construction, prediction, and argmin for at least 10,000 iterations after warmup. Cold timing additionally reads/parses `models.json` and looks up the model for at least 100 iterations. Consume every selection, preserve immutable raw samples, emit processed JSON/CSV summaries, and compare hot median with the shortest measured SBD median.
+- Rationale: this covers the deployed selection path without conflating it with FCIDUMP parsing or solver runtime. OS page-cache state remains uncontrolled and is stated explicitly.
+- Evidence: immutable raw SHA `ea293deabbd2c904e1b432a88075c750db9ef7eb595d58d8a45fc452e1c4d356`; hot median `38.65 us`, equal to `0.002739337080263366%` of the shortest measured SBD median; load-plus-selection median `929.11 us`.
+
+## D-029 — Permit RIKEN-origin inputs only as data for the official AMD path
+
+- Date: 2026-08-01
+- Status: accepted policy; Phase B execution remains approval-gated
+- Decision: The active CPU/GPU solver remains the same exact official `AMD-HPC/amd-sbd` commit and NVIDIA HPC SDK toolchain. A pinned RIKEN repository may supply authentic N2/H2O input files only after license, provenance, format-compatibility, and identical-input correctness gates. Do not build, execute, time, train on, or promote the RIKEN solver. Stop if the data format is incompatible rather than adapting the scientific input silently.
+- Rationale: this follows the completion handoff's multifamily data plan without violating the user-directed official upstream implementation path or creating a cross-solver comparison.

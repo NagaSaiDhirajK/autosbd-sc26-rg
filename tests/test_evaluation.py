@@ -21,6 +21,7 @@ from autosbd.evaluation import (
     make_leave_one_instance_out_splits,
     make_primary_split,
     normalized_regret,
+    select_with_static_threshold,
     select_with_tree,
     summarize_policy_predictions,
     tree_model_json,
@@ -230,10 +231,36 @@ class ModelAndPolicyTests(unittest.TestCase):
 
     def test_static_threshold_is_train_only_with_deterministic_tie_break(self) -> None:
         fitted = fit_static_threshold(self.train_rows)
-        self.assertEqual(fitted["threshold_n_configurations"], 16)
+        self.assertEqual(fitted["kind"], "geometric_midpoint")
+        self.assertAlmostEqual(
+            fitted["threshold_n_configurations"], math.sqrt(16 * 32)
+        )
+        candidates = fitted["candidate_objectives"]
+        self.assertEqual(
+            [candidate["kind"] for candidate in candidates],
+            [
+                "always_gpu",
+                "geometric_midpoint",
+                "geometric_midpoint",
+                "geometric_midpoint",
+                "always_cpu",
+            ],
+        )
+        self.assertEqual(
+            [candidate["threshold_n_configurations"] for candidate in candidates],
+            [
+                None,
+                math.sqrt(16 * 32),
+                math.sqrt(32 * 64),
+                math.sqrt(64 * 128),
+                None,
+            ],
+        )
         self.assertEqual(
             fitted["training_instance_ids"], sorted(self.primary["train_instance_ids"])
         )
+        self.assertEqual(select_with_static_threshold(fitted, 22), CPU_CANDIDATE)
+        self.assertEqual(select_with_static_threshold(fitted, 23), GPU_CANDIDATE)
 
         changed_test = deepcopy(self.test_rows)
         for row in changed_test:
@@ -254,10 +281,13 @@ class ModelAndPolicyTests(unittest.TestCase):
                 ]
         changed_evaluation = evaluate_fold(changed_dataset, self.primary)
         self.assertEqual(
-            fitted["threshold_n_configurations"],
-            changed_evaluation["models"]["static_size_threshold"][
-                "threshold_n_configurations"
-            ],
+            (fitted["kind"], fitted["threshold_n_configurations"]),
+            (
+                changed_evaluation["models"]["static_size_threshold"]["kind"],
+                changed_evaluation["models"]["static_size_threshold"][
+                    "threshold_n_configurations"
+                ],
+            ),
         )
 
         tied = deepcopy(self.train_rows)
@@ -265,8 +295,16 @@ class ModelAndPolicyTests(unittest.TestCase):
             row["median_wall_time_s"] = 1.0
             row["target_log1p_median_wall_time_s"] = math.log1p(1.0)
         tied_model = fit_static_threshold(tied)
-        self.assertEqual(tied_model["threshold_n_configurations"], 15)
-        self.assertIn("smallest threshold", tied_model["tie_break"])
+        self.assertEqual(tied_model["kind"], "always_gpu")
+        self.assertIsNone(tied_model["threshold_n_configurations"])
+        self.assertIn("registered candidate order", tied_model["tie_break"])
+        self.assertEqual(select_with_static_threshold(tied_model, 1_000), GPU_CANDIDATE)
+        self.assertEqual(
+            select_with_static_threshold(
+                {"kind": "always_cpu", "threshold_n_configurations": None}, 1
+            ),
+            CPU_CANDIDATE,
+        )
 
     def test_tree_export_is_deterministic_and_uses_fixed_depth_two(self) -> None:
         first = fit_runtime_tree(self.train_rows, feature_names=FULL_FEATURE_NAMES)
@@ -328,15 +366,28 @@ class ModelAndPolicyTests(unittest.TestCase):
         result = evaluate_selector(self.dataset)
         primary = result["primary"]
         self.assertEqual(len(primary["split"]["train_instance_ids"]), 4)
-        self.assertEqual(len(primary["predictions"]), 7)
+        self.assertEqual(len(primary["predictions"]), 6)
         self.assertEqual(
             primary["policy_aliases"]["upstream_default"], "fixed_gpu"
         )
+        self.assertEqual(
+            [row["policy"] for row in primary["predictions"]],
+            [
+                "fixed_cpu16",
+                "fixed_gpu",
+                "static_size_threshold",
+                "size_only_tree_ablation",
+                "autosbd_full_tree",
+                "measured_feasible_oracle",
+            ],
+        )
+        self.assertNotIn("upstream_default", primary["metrics"])
         self.assertTrue(primary["models"][POLICY_FULL_TREE]["tree"]["nodes"])
         self.assertEqual(len(primary["training_source_record_ids"]), 24)
         secondary = result["secondary_leave_one_instance_out"]
         self.assertEqual(len(secondary["folds"]), 5)
-        self.assertEqual(len(secondary["predictions"]), 35)
+        self.assertEqual(len(secondary["predictions"]), 30)
+        self.assertNotIn("upstream_default", secondary["metrics"])
 
 
 class MetricTests(unittest.TestCase):

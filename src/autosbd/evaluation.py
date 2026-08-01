@@ -58,10 +58,9 @@ POLICY_ORACLE = "measured_feasible_oracle"
 POLICY_ORDER = (
     POLICY_FIXED_CPU,
     POLICY_FIXED_GPU,
-    POLICY_UPSTREAM_DEFAULT,
     POLICY_THRESHOLD,
-    POLICY_FULL_TREE,
     POLICY_SIZE_TREE,
+    POLICY_FULL_TREE,
     POLICY_ORACLE,
 )
 
@@ -356,27 +355,40 @@ def validate_split(dataset: Mapping[str, Any], split: Mapping[str, Any]) -> None
 def fit_static_threshold(candidate_rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     """Fit CPU-if-size<=T/GPU-otherwise using training rows only.
 
-    Candidate thresholds are ``min(size)-1`` (always GPU) followed by each
-    observed training size.  The objective is the equal-instance geometric
-    mean of selected/oracle median wall time.  Exact objective ties choose the
-    smallest threshold, a deterministic GPU-favoring tie break.
+    Candidates are always-GPU, geometric midpoints between adjacent unique
+    training sizes, and always-CPU, in that registered order.  The objective
+    is the equal-instance geometric mean of selected/oracle median wall time.
+    Objective ties retain the first registered candidate deterministically.
     """
 
     by_instance = _validate_candidate_rows(candidate_rows)
     sizes = sorted(
         {int(rows[0]["n_configurations"]) for rows in by_instance.values()}
     )
-    thresholds = [sizes[0] - 1, *sizes]
+    threshold_candidates: list[dict[str, Any]] = [
+        {"kind": "always_gpu", "threshold_n_configurations": None}
+    ]
+    threshold_candidates.extend(
+        {
+            "kind": "geometric_midpoint",
+            "threshold_n_configurations": math.sqrt(lower * upper),
+            "adjacent_training_sizes": [lower, upper],
+        }
+        for lower, upper in zip(sizes, sizes[1:])
+    )
+    threshold_candidates.append(
+        {"kind": "always_cpu", "threshold_n_configurations": None}
+    )
     objectives: list[dict[str, Any]] = []
-    best_threshold: int | None = None
+    best_candidate: dict[str, Any] | None = None
     best_objective: float | None = None
-    for threshold in thresholds:
+    for threshold_candidate in threshold_candidates:
         normalized_runtimes: list[float] = []
         for rows in by_instance.values():
             candidates = {row["candidate_name"]: row for row in rows}
             n_configurations = int(rows[0]["n_configurations"])
-            selected_name = (
-                CPU_CANDIDATE if n_configurations <= threshold else GPU_CANDIDATE
+            selected_name = select_with_static_threshold(
+                threshold_candidate, n_configurations
             )
             selected_time = _positive_float(
                 candidates[selected_name].get("median_wall_time_s"),
@@ -390,29 +402,33 @@ def fit_static_threshold(candidate_rows: Sequence[Mapping[str, Any]]) -> dict[st
         objective = geometric_mean(normalized_runtimes)
         objectives.append(
             {
-                "threshold_n_configurations": threshold,
+                **threshold_candidate,
                 "training_geometric_mean_selected_over_oracle": objective,
             }
         )
         if (
             best_objective is None
-            or objective < best_objective
             or (
-                math.isclose(objective, best_objective, rel_tol=1e-15, abs_tol=0.0)
-                and (best_threshold is None or threshold < best_threshold)
+                objective < best_objective
+                and not math.isclose(
+                    objective, best_objective, rel_tol=1e-15, abs_tol=0.0
+                )
             )
         ):
-            best_threshold = threshold
+            best_candidate = threshold_candidate
             best_objective = objective
-    assert best_threshold is not None and best_objective is not None
+    assert best_candidate is not None and best_objective is not None
     result = {
         "schema_version": EVALUATION_SCHEMA_VERSION,
         "policy_type": "training_only_static_size_threshold",
-        "rule": "select amd-cpu-16 when n_configurations <= T; otherwise select amd-l4-default",
-        "threshold_n_configurations": best_threshold,
+        "rule": "finite midpoint selects amd-cpu-16 at or below T and amd-l4-default above T; sentinel kinds select one backend unconditionally",
+        "kind": best_candidate["kind"],
+        "threshold_n_configurations": best_candidate[
+            "threshold_n_configurations"
+        ],
         "training_objective": "geometric mean of selected/oracle median wall time",
         "training_objective_value": best_objective,
-        "tie_break": "smallest threshold (GPU-favoring) on equal objective",
+        "tie_break": "registered candidate order on equal objective: always_gpu, geometric midpoints ascending, always_cpu",
         "candidate_objectives": objectives,
         "training_instance_ids": sorted(by_instance),
         "training_source_record_ids": sorted(
@@ -424,6 +440,32 @@ def fit_static_threshold(candidate_rows: Sequence[Mapping[str, Any]]) -> dict[st
     }
     _validate_jsonable(result, "static threshold")
     return result
+
+
+def select_with_static_threshold(
+    model: Mapping[str, Any], n_configurations: int
+) -> str:
+    """Select a candidate using a fitted finite or sentinel threshold."""
+
+    if not isinstance(model, Mapping):
+        raise EvaluationError("static threshold model must be an object")
+    size = _positive_int(n_configurations, "n_configurations")
+    kind = _required_string(model, "kind", "static threshold model")
+    threshold = model.get("threshold_n_configurations")
+    if kind == "always_gpu":
+        if threshold is not None:
+            raise EvaluationError("always_gpu threshold must be null")
+        return GPU_CANDIDATE
+    if kind == "always_cpu":
+        if threshold is not None:
+            raise EvaluationError("always_cpu threshold must be null")
+        return CPU_CANDIDATE
+    if kind == "geometric_midpoint":
+        finite_threshold = _positive_float(
+            threshold, "threshold_n_configurations"
+        )
+        return CPU_CANDIDATE if size <= finite_threshold else GPU_CANDIDATE
+    raise EvaluationError(f"unsupported static threshold kind {kind!r}")
 
 
 def fit_runtime_tree(
@@ -813,25 +855,20 @@ def evaluate_fold(
             oracle_time = None
 
         n_configurations = int(rows[0]["n_configurations"])
-        threshold_name = (
-            CPU_CANDIDATE
-            if n_configurations <= threshold["threshold_n_configurations"]
-            else GPU_CANDIDATE
-        )
+        threshold_name = select_with_static_threshold(threshold, n_configurations)
         full_selection = select_with_tree(full_model, rows, memory_caps=caps)
         size_selection = select_with_tree(size_model, rows, memory_caps=caps)
         decisions = {
             POLICY_FIXED_CPU: (CPU_CANDIDATE, None),
             POLICY_FIXED_GPU: (GPU_CANDIDATE, None),
-            POLICY_UPSTREAM_DEFAULT: (GPU_CANDIDATE, None),
             POLICY_THRESHOLD: (threshold_name, None),
-            POLICY_FULL_TREE: (
-                full_selection["selected_candidate_name"],
-                full_selection["predictions"],
-            ),
             POLICY_SIZE_TREE: (
                 size_selection["selected_candidate_name"],
                 size_selection["predictions"],
+            ),
+            POLICY_FULL_TREE: (
+                full_selection["selected_candidate_name"],
+                full_selection["predictions"],
             ),
             POLICY_ORACLE: (
                 min((row["candidate_name"] for row in oracle_rows), default=None),

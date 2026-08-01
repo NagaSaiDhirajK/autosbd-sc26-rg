@@ -1517,3 +1517,118 @@ six==1.17.0
 ```
 
 `pip check` passed with `No broken requirements found.` The full standard-library suite remained green at 97/97. The filesystem retained 59 GiB free. No system package, compiler, upstream source, raw record, or GPU state was changed by this virtual-environment installation. Model development and figure generation had not yet been performed or completed in this block.
+
+## 2026-08-01 — Ingest completion handoff and gate preliminary Stage 5
+
+Read and hash-identified `AGENTS.md` and `AutoSBD_SC26_Completion_Handoff_v2.md`, then checked Git state, the official AMD origin/commit/cleanliness, Stage 4 artifact hashes, host capacity, and L4 state with `wc`, `sha256sum`, `sed`, `git`, `nvidia-smi`, `uptime`, and `free`. Outcome: exit `0`; official source was clean at `729cfa3a5011fb805eb9e686a7711f6919836dcb`, recorded Stage 4 hashes matched, and the L4 was idle with 22,564 MiB free, 34 C, and no compute process. No solver was launched.
+
+## 2026-08-01 — Run, repair, and verify the preliminary Stage 5 evaluator
+
+The initial command failed before writing artifacts because the wrapper requested an absent `split_id` key:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/evaluate_tuner.py \
+  --config configs/stage5_size_heldout.yaml \
+  --output-dir results/processed/stage5
+```
+
+Outcome: nonzero with `KeyError: 'split_id'`; no partial Stage 5 file remained. The unchanged failing command was not repeated. After replacing the two wrapper references with `split.name`, the focused artifact tests passed 3/3, Python compilation passed, and `git diff --check` passed. The repaired evaluation then ran with:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/evaluate_tuner.py \
+  --config configs/stage5_size_heldout.yaml \
+  --output-dir results/processed/stage5 2>&1 | tee logs/stage5_evaluator_retry.log
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q \
+  2>&1 | tee logs/stage5_full_tests_after_retry.log
+```
+
+Outcome: exit `0`; eight preliminary artifacts reported 30 balanced measurements, 10 candidate rows, one primary held-out instance, and five sensitivity folds. The complete suite passed 118/118 in 10.734 seconds.
+
+## 2026-08-01 — Audit preliminary Stage 5 and implement Phase A3/A4
+
+Read-only output/source inspection used `sha256sum`, `wc`, `jq`, `sed`, and `rg`; detailed outputs are saved in `logs/stage5_preliminary_structure_inspection.log`, `logs/stage5_preliminary_decision_inspection.log`, `logs/stage5_overhead_implementation_mapping.log`, `logs/phase_a_threshold_alias_diff_review.log`, and `logs/phase_a_traceability_format_and_validation_review.log`. Outcome: all JSON parsed, source hashes matched, split source-ID intersections were empty, and model copies agreed. One exploratory `jq` query assumed the wrong secondary nesting and emitted a diagnostic; corrected queries succeeded and changed nothing.
+
+`apply_patch` changed threshold candidates to explicit always-GPU/geometric-midpoint/always-CPU kinds, retained JSON-null sentinels, centralized threshold dispatch, made registered order the deterministic tie break, reduced emitted policies to six, and retained the upstream-default mapping only as provenance. Validation used:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_evaluation tests.test_evaluation_artifacts -v
+PYTHONPATH=src .venv/bin/python -m py_compile \
+  src/autosbd/evaluation.py tests/test_evaluation.py \
+  tests/test_evaluation_artifacts.py
+git diff --check
+```
+
+Outcome: exit `0`; 12/12 focused tests passed. A subsequent review found that YAML carried but did not fail-close on the new threshold declaration, so explicit config validation and a mutation test were added. One combined append patch failed on a report anchor and changed no file; it was split into verified narrow patches rather than repeated unchanged.
+
+## 2026-08-01 — Complete Phase A validation and regenerate corrected Stage 5
+
+The threshold/config/alias integration and new inference-overhead implementation were validated without running the timer:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q
+PYTHONPATH=src .venv/bin/python -m unittest tests.test_inference_overhead -v
+PYTHONPATH=src .venv/bin/python -m py_compile \
+  src/autosbd/inference_overhead.py scripts/measure_inference_overhead.py \
+  tests/test_inference_overhead.py
+git diff --check
+```
+
+Outcome: exit `0`; the complete suite passed 123/123 and the overhead-focused suite passed 5/5. The strict loader accepted the real model/dataset artifacts and resolved five candidate groups plus the shortest `1.4109253030037507 s` denominator.
+
+The evaluator was run twice after A3/A4 changes:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/evaluate_tuner.py \
+  --config configs/stage5_size_heldout.yaml \
+  --output-dir results/processed/stage5
+# Immediate identical second invocation.
+sha256sum results/processed/stage5/*
+wc -l results/processed/stage5/*.csv
+```
+
+Outcome: exit `0`; the first invocation updated behavior-bound files, while the second reported `changed=false` for all eight artifacts. Counts became 36 predictions and 12 summaries plus headers. Corrected sensitivity changed the threshold result from the superseded preliminary 5/5 to 3/5, while both trees remained 4/5.
+
+Inspection then found three null summary columns caused by wrapper/core key-name mismatches. `apply_patch` mapped `instances_total`, `failure_count`, and `geometric_mean_oracle_over_selected_valid_only` into the established artifact columns and added typed non-null assertions. An attempted temporary-output check was rejected before execution because its cleanup trap contained recursive removal; no file changed and the command was not repeated. Focused tests passed 3/3, and canonical regeneration produced 12 rows with no null fields. Final non-overhead Stage 5 hashes are recorded in `reports/STAGE5_PRELIMINARY_AUDIT.md`.
+
+## 2026-08-01T14:06Z — Measure hot and load-plus-selection overhead
+
+Preflight and the bounded CPU-only measurement used:
+
+```bash
+nvidia-smi --query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu,temperature.gpu,power.draw,power.limit --format=csv,noheader,nounits
+nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits
+uptime
+free -h
+sha256sum results/processed/stage5/models.json \
+  results/processed/stage5/balanced_dataset.json
+/usr/bin/time -v env PYTHONPATH=src .venv/bin/python \
+  scripts/measure_inference_overhead.py
+```
+
+Outcome: exit `0`; pre/post L4 state was 0 MiB used, 0% utilization, 22,564 MiB free, 34 C, and no compute process. One-minute CPU load was 0.00 and 122 GiB host memory was available. The run took 1.53 seconds with 114,560 KiB peak RSS and created exactly one immutable raw record. Hot 10,000-iteration median/p90/p95 were `38.65/42.6673/48.7131 us`; cold 100-iteration load-plus-selection median/p90/p95 were `929.11/936.1551/939.67855 us`. The hot median was `0.002739337080263366%` of the shortest measured SBD median. Raw and processed SHA claims were independently rehashed and matched.
+
+## 2026-08-01 — Refresh internal documentation and verify Phase A
+
+Updated only `README.md`, `PROJECT_CONTEXT.md`, `reports/RESULTS.md`, and `reports/LIMITATIONS.md` to replace stale Stage 4/5 status with hash-verified facts. Created the internal `reports/STAGE5_PRELIMINARY_AUDIT.md`; no abstract, summary, poster, poster source/copy, or other student submission content was created. Read-only `jq` probes with two guessed Stage 4 layouts returned null projections; direct schema inspection corrected the queries and no artifact changed.
+
+Final verification used:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q
+.venv/bin/python -m pip check
+git diff --check
+jq empty results/processed/stage5/*.json \
+  results/raw/inference_overhead/*.json
+git -C external/amd-sbd remote get-url origin
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd status --short
+sha256sum reports/stage4_protocol.json reports/stage4_completion.json \
+  results/processed/stage4_final.json configs/stage5_size_heldout.yaml \
+  results/processed/stage5/* results/raw/inference_overhead/*.json
+PYTHONPATH=src .venv/bin/python scripts/evaluate_tuner.py \
+  --config configs/stage5_size_heldout.yaml \
+  --output-dir results/processed/stage5
+```
+
+Outcome: exit `0`; 123/123 tests passed, dependencies were consistent, all JSON parsed, Markdown/diff hygiene passed, every audit size/hash matched, all train/test record overlaps were zero, the official AMD checkout remained clean at `729cfa3a5011fb805eb9e686a7711f6919836dcb`, and the final evaluator reported `changed=false` for all eight deterministic artifacts. The reviewed local checkpoint scope contains the unchanged completion handoff, Phase A code/tests/config, internal reports/logs, ten processed Stage 5 files, and one immutable overhead raw record. Nothing has been pushed.

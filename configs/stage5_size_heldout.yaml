@@ -71,16 +71,19 @@ static_threshold:
   rule: cpu_if_feature_lte_threshold_else_gpu
   fit_scope: training_instances_only
   objective: minimum_geometric_mean_normalized_runtime
-  candidate_thresholds: training_size_geometric_midpoints_plus_always_cpu_and_always_gpu
-  tie_break: lowest_objective_then_smallest_threshold
+  candidate_kinds:
+    - always_gpu
+    - adjacent_unique_training_size_geometric_midpoints
+    - always_cpu
+  sentinel_threshold_n_configurations: null
+  tie_break: lowest_objective_then_registered_candidate_order
 
 policies:
   - fixed_cpu16
   - fixed_gpu
-  - upstream_default
   - static_size_threshold
-  - autosbd_full_tree
   - size_only_tree_ablation
+  - autosbd_full_tree
   - measured_feasible_oracle
 policy_aliases:
   upstream_default: fixed_gpu

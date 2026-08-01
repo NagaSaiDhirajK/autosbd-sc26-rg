@@ -162,3 +162,26 @@
 - D-024 audit: CPU16 is the fastest CPU at all three tested sizes. No alternate is at least 10% faster than CPU16, and adding any dominated alternate leaves the candidate-set CPU/GPU oracle unchanged. At size 32, CPU1 and CPU4 individually lose to GPU while CPU16 wins; this substitution does not change the full candidate-set oracle because CPU16 remains available and faster.
 - Limitations: each candidate has one measured repetition, the CPU16/GPU baseline and thread pilot are separate committed batches, and all sizes are nested variants of one Fe₄S₄ family. These values support candidate pruning only, not a final timing or general performance claim.
 - Decision: Prune CPU1, CPU4, and CPU8; retain CPU16 and GPU; freeze the Stage 4 candidate axis. No RIKEN executable was used.
+
+## 2026-08-01 — Preliminary Stage 5 single-family held-out evaluation
+
+- Purpose: execute and inspect the frozen selector evaluation before applying completion-handoff Phase A hardening.
+- Inputs: 30 immutable timing-eligible Stage 4 measurements: five nested Fe4S4 determinant-prefix sizes, two official AMD candidates, and repetitions 0–2 only.
+- Split integrity: primary training uses four instances/24 records and holds out `fe4s4-prefix-0244`/6 records; five leave-one-instance-out folds each use 24/6 records; every train/test record-ID intersection is empty.
+- Preliminary primary outcome: at 59,536 configurations, CPU median wall time is `78.40097830099694 s` and GPU median is `17.261023300001398 s`. GPU, threshold, both trees, and oracle have zero regret; fixed-CPU normalized regret is `3.542081714297355`.
+- Preliminary sensitivity outcome: the threshold is correct on 5/5 instances with zero regret. Full and size-only trees make identical choices, are correct on 4/5, and miss only the 3,025-configuration GPU winner; maximum normalized regret is `0.25943483534277495` and geometric selected/oracle runtime is `1.0472132783479557`.
+- Validity: zero invalid selections and zero failures. The full-feature tree does not outperform the size-only tree on this dataset.
+- Defects found: threshold candidates used implicit observed-size boundaries instead of explicit sentinels/geometric midpoints, and `upstream_default` was emitted as a seventh policy identical to fixed GPU.
+- Evidence status: these preliminary artifact hashes are superseded by the Phase A correction run and are not final Stage 5 evidence. No new SBD solver benchmark ran.
+
+## 2026-08-01 — Corrected Stage 5 held-out evaluation and inference overhead
+
+- Purpose: complete Phase A with exact threshold semantics, six nonduplicated policies, complete summary fields, and deployment-overhead evidence.
+- Data: unchanged balanced view of 30 immutable Stage 4 measurements, 10 candidate medians, five nested Fe4S4 sizes, and one authentic problem family. All splits remain grouped by instance with zero train/test record overlap.
+- Primary largest-size holdout: at 59,536 configurations, fixed GPU, the 1,760-configuration training-only threshold, both trees, and oracle select GPU with zero regret. Fixed CPU has normalized regret `3.542081714297355`. Every policy decision is valid and no failure occurs.
+- Corrected leave-one-instance-out sensitivity: fixed GPU is correct on 4/5 with geometric selected/oracle runtime `1.0297715282069095` and maximum regret `0.15798890949019462`; static threshold is 3/5 with geometric ratio `1.078390418002942` and maximum regret `0.25943483534277495`; both full and size-only trees are 4/5 with geometric ratio `1.0472132783479557` and maximum regret `0.25943483534277495`. Full and size-only tree decisions are identical, so richer features show no measured benefit in this dataset.
+- Threshold representation: candidates are explicit always-GPU, adjacent geometric midpoints, and always-CPU; sentinel thresholds are JSON null. Deployment and primary training select midpoint 1,760.
+- Overhead protocol: 1,000/10,000 hot warmup/measured iterations and 10/100 load-plus-selection warmup/measured iterations. Hot median/p90/p95 are `38.65/42.6673/48.7131 us`; cold diagnostic median/p90/p95 are `929.11/936.1551/939.67855 us`. Hot median is `0.002739337080263366%` of the shortest `1.4109253030037507 s` SBD median.
+- Resources: overhead run wall time `1.53 s`, maximum RSS `114,560 KiB`, no GPU use; L4 remained idle before and after.
+- Evidence: evaluation SHA `9b2f163e6267f2ec3b3eb2c04f76405ca96c30f16dcfbf1c789a1173cb1e3b6e`; models SHA `85f8a84e1d40163b9971ba8d9d9fab47dd049adf036b95c5f0b8f6c11884eb1c`; policy-summary SHA `7bfff41c644886884b6524d64a16e41df542b79a7767484a28c94474d1ddd9c0`; immutable overhead raw SHA `ea293deabbd2c904e1b432a88075c750db9ef7eb595d58d8a45fc452e1c4d356`; processed overhead JSON/CSV SHAs `ddb33f39682d5c1318c3e2d65560bb8e9232309cc522324670565c928cee10cf` and `678b45509c1733ffd4d22541496be2644c77fbc81b922e8ba13c877982104fbc`.
+- Boundary: these results describe one heterogeneous node and one authentic family. Leave-one-instance-out is sensitivity evidence, not independent-family generalization.

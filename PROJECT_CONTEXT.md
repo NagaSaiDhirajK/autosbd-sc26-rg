@@ -4,15 +4,15 @@ Status date: 2026-08-01
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stage 2 harness implementation and hardening are complete. Stage 3 has generated and verified five exact nested determinant-count variants of the official AMD Fe₄S₄ input, completed clean cross-backend calibration at every size, completed the bounded manifest-linked CPU16/GPU pilot, and pruned CPU1/4/8 after a follow-up thread pilot. The single-repetition evidence brackets the observed crossover between 1,024 and 3,025 configurations and selects CPU16 as the retained CPU candidate; it is a pilot decision without uncertainty, not final performance evidence. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit. The three-shard Stage 4 repeated protocol is frozen and ready to run. Earlier RIKEN builds and a CPU smoke run remain historical evidence only and are not used by the primary pipeline.
+Current phase: Stages 0–4 and the current single-family Stage 5 evaluation are complete. The frozen Stage 4 protocol produced 48 immutable records, including 38 timing-eligible measurements, through the official AMD CPU16 and NVIDIA OpenMP-offload L4 executables built from the same unmodified commit with NVIDIA HPC SDK 26.5. Corrected Stage 5 artifacts evaluate six unique policies with grouped, training-only fits and no invalid selection or failure; hot and diagnostic cold inference overhead are measured separately. Phase B is approval-gated. If authorized, pinned N₂/H₂O files may be checked only as data inputs to the same official AMD binaries; the RIKEN executable remains historical and is not a primary or comparison backend.
 
-## Stage 2 implementation status
+## Implementation and evidence status
 
 The primary upstream is the official `AMD-HPC/amd-sbd` repository at commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`. Both the CPU and NVIDIA OpenMP-offload GPU binaries come from this exact AMD source and a single NVIDIA HPC SDK 26.5 compiler/MPI/CUDA path. RIKEN `v1.3.0` is not a second active backend.
 
 The harness now supports strict configuration validation, deterministic pre-execution features, exact provenance admission, fail-closed GPU-idle and memory checks, a node-wide single-run lock, monitored process-group timeouts, atomic immutable records, resumable sweeps, and distinct logical/attempt identities. Schema v2 re-hashes inputs before launch and after execution, hashes the three run artifacts, preserves failures and orphan evidence, and requires a hash-linked correctness manifest plus protocol conditions before marking any record timing-eligible.
 
-The Stage 2 standard-library harness suite passes 67 tests covering configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. Stage 3 workload preparation, calibration-manifest, multi-input validation, clean-resume, deterministic aggregation, and frozen-protocol regressions bring the current total to 97. The definitive five-size schema-v2 AMD Fe₄S₄ calibration comprises ten clean CPU/GPU records; every pair passes and the deterministic schema-v2 manifest validates all five input hashes. Pilot warmups and eligible measurements are preserved row-by-row in tracked JSON/CSV outputs.
+The current suite passes all 123 tests. Coverage extends from strict configuration, feature extraction, parsing, process cleanup, telemetry, immutable records, provenance admission, correctness manifests, resume, and deterministic timing aggregation through grouped selector evaluation, explicit static-threshold sentinels and geometric boundaries, unique-policy artifacts, and inference-overhead accounting. The definitive five-size calibration validates ten clean CPU/GPU correctness records. Stage 4 preserves 48 raw records and aggregates only its 38 eligible measurements; Stage 5 deliberately uses a balanced 30-measurement view for held-out evaluation.
 
 ## Research objective
 
@@ -20,10 +20,10 @@ AutoSBD asks whether inexpensive features available before execution can select 
 
 The minimum contribution is:
 
-1. a reproducible harness around existing, cited SBD implementations;
+1. a reproducible harness around an existing, cited SBD implementation;
 2. a structure-aware feature representation and deterministic feasibility guard;
 3. a small interpretable runtime selector;
-4. held-out comparison against fixed CPU, fixed GPU, upstream/default, a training-only static threshold, and the measured oracle; and
+4. held-out comparison among six unique policies: fixed CPU16, fixed GPU, a training-only static threshold, a size-only tree, the full tree, and the measured oracle; the upstream default remains a provenance alias for fixed GPU; and
 5. analysis of crossover behavior, normalized regret, memory safety, correctness, and inference overhead on one CPU/L4 node.
 
 This is not a new SBD solver, a claim to the upstream GPU port, a deep-learning project, a real-QPU experiment, or a multi-node scalability study.
@@ -64,7 +64,7 @@ Correctness precedes performance. CPU and GPU must run the same authentic input 
 
 Every process invocation must produce one atomic, immutable JSON record containing trial identity, timestamps, repository/upstream/build provenance, hardware/software identity, input SHA-256, workload features, candidate settings, command, timings, numerical result/correctness, resource peaks, timeout/OOM/exit state, and log paths. Failed and skipped candidates remain data.
 
-The initial candidate layer is CPU threads `{1, 4, 8, 16}` after affinity validation and one upstream-default GPU candidate. Cache, `bit_length`, shuffle, decomposition, MPI, or other axes are added only after the CPU/GPU pipeline is complete and only when the selected upstream source truly exposes them.
+The Stage 3 pilot evaluated CPU threads `{1, 4, 8, 16}` and one upstream-default GPU candidate. The evidence-based pruning rule retained CPU16 and the L4 GPU for Stage 4 and Stage 5. Cache, `bit_length`, shuffle, decomposition, MPI, or other axes require separate authentic support and a bounded approved protocol.
 
 Workloads should come from upstream tests/examples or associated authentic chemistry inputs. Prefer at least three independent families; otherwise use grouped instances plus a strict largest-size holdout and disclose the limitation. Scale geometrically to find the crossover without spending credits only on larger GPU-dominant cases.
 
@@ -78,19 +78,20 @@ Each training row represents:
 
 A deterministic memory/validity guard filters candidates first. The primary model is a shallow `DecisionTreeRegressor`; an ensemble is optional and secondary. Enumerate feasible candidates and select the lowest predicted runtime while measuring inference overhead.
 
-Keep repetitions grouped. Prefer leave-one-family-out, otherwise `GroupKFold` by instance, plus largest-size extrapolation. Fit all preprocessing, thresholds, and model choices using training data only.
+Keep repetitions grouped. Prefer leave-one-family-out, otherwise grouped evaluation by instance, plus largest-size extrapolation. Fit all preprocessing, thresholds, and model choices using training data only. The current one-family evaluation uses one strict largest-size holdout as primary evidence and five leave-one-instance-out folds as sensitivity analysis.
 
 Required metrics are end-to-end runtime, geometric-mean speedup, selection accuracy with near-tie caveat, normalized regret, median/high-percentile regret, invalid/OOM selection rate, inference overhead, correctness failure rate, and generalization by held-out family/size.
 
 ## Staged execution and stopping points
 
-- Stage 0: audit and durable context; stop for installation/Stage 1 approval.
-- Stage 1: pin/inspect both upstreams, reproduce authentic CPU/GPU correctness, and record build provenance.
+- Stage 0: complete—audited the environment and established durable scope and safety rules.
+- Stage 1: complete—pinned upstream sources, reproduced authentic correctness, and recorded build provenance.
 - Stage 2: complete—implemented and tested immutable single-run and resumable sweep harnesses, schema-v2 provenance/safety hardening, and authentic AMD CPU/GPU correctness evidence.
 - Stage 3: complete—workload preparation, five-size correctness calibration, CPU16/GPU crossover pilot, CPU-thread pruning, and Stage 4 protocol freeze.
-- Stage 4: frozen three-shard protocol ready; collect and aggregate 38 eligible repeated measurements next.
-- Stage 5: train and evaluate the leakage-safe tuner and baselines.
-- Stage 6: generate traceable engineering/scientific reports, tables, and figures; audit claims and reproducibility.
+- Stage 4: complete—48 immutable records, including 10 warmups and 38 eligible repeated measurements, audited and deterministically aggregated.
+- Stage 5 Phase A: complete—corrected six-policy grouped evaluation plus hot and diagnostic cold inference-overhead measurement.
+- Phase B: approval-gated—inventory and test additional authentic data only through the same official AMD CPU/GPU executables; no new workload run is authorized by Phase A completion.
+- Stage 6: in progress—maintain traceable internal reports, tables, and figures and audit claims and reproducibility.
 - Stages 7–8 submission authorship: reserved for the student. Codex may organize evidence and checklists, but must not write or generate the abstract, summary, poster, or other submission content.
 
 ## Minimum engineering definition of done

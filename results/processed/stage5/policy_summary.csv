@@ -1,0 +1,13 @@
+view,policy,requested_instances,valid_instances,invalid_instances,failure_instances,selection_accuracy,within_5pct_oracle_rate,invalid_rate,failure_rate,geometric_mean_selected_over_oracle_valid_only,geometric_mean_speedup_vs_oracle_inverse_valid_only,median_normalized_regret_valid_only,p90_normalized_regret_valid_only,maximum_normalized_regret_valid_only,geometric_mean_speedup_vs_fixed_cpu_valid_only,geometric_mean_speedup_vs_fixed_gpu_valid_only
+primary_largest_size_holdout,fixed_cpu16,1,1,0,0,0.0,0.0,0.0,0.0,4.542081714297355,0.2201633662494988,3.542081714297355,3.542081714297355,3.542081714297355,1.0,0.2201633662494988
+primary_largest_size_holdout,fixed_gpu,1,1,0,0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,4.542081714297355,1.0
+primary_largest_size_holdout,static_size_threshold,1,1,0,0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,4.542081714297355,1.0
+primary_largest_size_holdout,size_only_tree_ablation,1,1,0,0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,4.542081714297355,1.0
+primary_largest_size_holdout,autosbd_full_tree,1,1,0,0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,4.542081714297355,1.0
+primary_largest_size_holdout,measured_feasible_oracle,1,1,0,0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,4.542081714297355,1.0
+secondary_leave_one_instance_out,fixed_cpu16,5,5,0,0,0.2,0.2,0.0,0.0,2.0779687720600366,0.4812391858077009,0.9834842404051707,3.0910759721114305,3.542081714297355,1.0,0.4955664118022451
+secondary_leave_one_instance_out,fixed_gpu,5,5,0,0,0.8,0.8,0.0,0.0,1.0297715282069095,0.9710891907656941,0.0,0.09479334569411678,0.15798890949019462,2.0178930132961637,1.0
+secondary_leave_one_instance_out,static_size_threshold,5,5,0,0,0.6,0.6,0.0,0.0,1.078390418002942,0.9273079427503517,0.0,0.21885646500174283,0.25943483534277495,1.9269169471184666,0.954915317324435
+secondary_leave_one_instance_out,size_only_tree_ablation,5,5,0,0,0.8,0.8,0.0,0.0,1.0472132783479557,0.954915317324435,0.0,0.155660901205665,0.25943483534277495,1.9842842093619764,0.9833446056293694
+secondary_leave_one_instance_out,autosbd_full_tree,5,5,0,0,0.8,0.8,0.0,0.0,1.0472132783479557,0.954915317324435,0.0,0.155660901205665,0.25943483534277495,1.9842842093619764,0.9833446056293694
+secondary_leave_one_instance_out,measured_feasible_oracle,5,5,0,0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,2.0779687720600366,1.0297715282069095

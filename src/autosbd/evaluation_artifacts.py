@@ -222,7 +222,7 @@ def write_evaluation_artifacts(
         "primary": evaluation["primary"]["models"],
         "secondary_leave_one_instance_out": [
             {
-                "split_id": fold["split"]["split_id"],
+                "split_name": fold["split"]["name"],
                 "models": fold["models"],
             }
             for fold in evaluation["secondary_leave_one_instance_out"]["folds"]
@@ -372,6 +372,25 @@ def _validate_config(config: Mapping[str, Any]) -> None:
         raise EvaluationArtifactError("unexpected sensitivity split")
     if _nested(splits, "sensitivity", "folds") != 5:
         raise EvaluationArtifactError("sensitivity split must have five folds")
+    static_threshold = _mapping(config.get("static_threshold"), "static_threshold")
+    expected_static_threshold = {
+        "feature": "n_configurations",
+        "rule": "cpu_if_feature_lte_threshold_else_gpu",
+        "fit_scope": "training_instances_only",
+        "objective": "minimum_geometric_mean_normalized_runtime",
+        "candidate_kinds": [
+            "always_gpu",
+            "adjacent_unique_training_size_geometric_midpoints",
+            "always_cpu",
+        ],
+        "sentinel_threshold_n_configurations": None,
+        "tie_break": "lowest_objective_then_registered_candidate_order",
+    }
+    for key, value in expected_static_threshold.items():
+        if static_threshold.get(key) != value:
+            raise EvaluationArtifactError(
+                f"Stage 5 static-threshold config mismatch: {key}"
+            )
     if config.get("policy_aliases") != {"upstream_default": "fixed_gpu"}:
         raise EvaluationArtifactError("upstream-default alias must equal fixed GPU")
     policies = config.get("policies")
@@ -389,7 +408,7 @@ def _prediction_rows(evaluation: Mapping[str, Any]) -> list[dict[str, Any]]:
         for fold in evaluation["secondary_leave_one_instance_out"]["folds"]
     ]
     for view, fold in sources:
-        fold_id = fold["split"]["split_id"]
+        fold_id = fold["split"]["name"]
         for prediction in fold["predictions"]:
             rows.append(
                 {
@@ -438,10 +457,10 @@ def _summary_rows(evaluation: Mapping[str, Any]) -> list[dict[str, Any]]:
                 {
                     "view": view,
                     "policy": policy,
-                    "requested_instances": value.get("requested_instances"),
+                    "requested_instances": value.get("instances_total"),
                     "valid_instances": value.get("valid_instances"),
                     "invalid_instances": value.get("invalid_instances"),
-                    "failure_instances": value.get("failure_instances"),
+                    "failure_instances": value.get("failure_count"),
                     "selection_accuracy": value.get("selection_accuracy"),
                     "within_5pct_oracle_rate": value.get("within_5pct_oracle_rate"),
                     "invalid_rate": value.get("invalid_rate"),
@@ -450,7 +469,7 @@ def _summary_rows(evaluation: Mapping[str, Any]) -> list[dict[str, Any]]:
                         "geometric_mean_selected_over_oracle_valid_only"
                     ),
                     "geometric_mean_speedup_vs_oracle_inverse_valid_only": value.get(
-                        "geometric_mean_speedup_vs_oracle_inverse_valid_only"
+                        "geometric_mean_oracle_over_selected_valid_only"
                     ),
                     "median_normalized_regret_valid_only": value.get(
                         "median_normalized_regret_valid_only"
