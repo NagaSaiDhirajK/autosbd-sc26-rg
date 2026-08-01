@@ -1,0 +1,1855 @@
+{
+  "analysis_views": {
+    "balanced_broad_sensitivity": {
+      "description": "Use measured repetition indices 0 through 2 at every workload.",
+      "record_count": 30,
+      "record_ids": [
+        "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+        "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+        "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9",
+        "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+        "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+        "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829",
+        "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11",
+        "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+        "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0",
+        "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+        "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+        "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c",
+        "196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f",
+        "47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964",
+        "2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546",
+        "17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36",
+        "1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530",
+        "db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23",
+        "a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce",
+        "72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f",
+        "d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf",
+        "f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196",
+        "36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a",
+        "b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7",
+        "18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868",
+        "cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6",
+        "59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8",
+        "d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9",
+        "59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad",
+        "f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195"
+      ]
+    },
+    "crossover": {
+      "description": "Use measured repetition indices 0 through 4 at determinant-prefix sizes 32 and 55.",
+      "record_count": 20,
+      "record_ids": [
+        "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+        "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+        "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9",
+        "2d7af29017a3bd241e7b73c2504be82e8419e9e1124daafb0b0d3aa37ddfa1fa",
+        "2682ab52f394aa3332c4ce384f0eeb099e5222b30aa6512a2750213e61c8f025",
+        "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+        "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+        "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829",
+        "c847995688ac6961210aae0e1e5ee7eebc93301404e744ca672adbfebfdfd029",
+        "c0fe60a66c19a581b8d1b3223116c9a54071125fbce6a427bd926fc9ab747496",
+        "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11",
+        "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+        "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0",
+        "2a3761bfb0e7d1da032304ab608bcd13e898bade945269c386049b8db2764dd4",
+        "364c2dd8099b484e6fdeab99d39197da5051c4918f40a31faf02b059eb3e9699",
+        "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+        "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+        "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c",
+        "3e678c24f0557fc0944c95780b793b32d2ad68a8ee3d842fb1db37ad16ea494a",
+        "3242dcd76554d7c4a5771d59336b4ae5566bc9918edcada17184593dca344522"
+      ]
+    },
+    "no_double_count": {
+      "description": "A raw trial ID may occur in multiple named analysis views but may contribute at most once to any one statistic, policy row, or model input.",
+      "validated_within_each_view": true
+    },
+    "primary_final": {
+      "description": "Use all five measured repetitions at the two crossover workloads and all three measured repetitions at the other workloads; aggregate each workload/candidate once.",
+      "record_count": 38,
+      "record_ids": [
+        "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+        "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+        "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9",
+        "2d7af29017a3bd241e7b73c2504be82e8419e9e1124daafb0b0d3aa37ddfa1fa",
+        "2682ab52f394aa3332c4ce384f0eeb099e5222b30aa6512a2750213e61c8f025",
+        "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+        "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+        "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829",
+        "c847995688ac6961210aae0e1e5ee7eebc93301404e744ca672adbfebfdfd029",
+        "c0fe60a66c19a581b8d1b3223116c9a54071125fbce6a427bd926fc9ab747496",
+        "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11",
+        "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+        "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0",
+        "2a3761bfb0e7d1da032304ab608bcd13e898bade945269c386049b8db2764dd4",
+        "364c2dd8099b484e6fdeab99d39197da5051c4918f40a31faf02b059eb3e9699",
+        "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+        "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+        "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c",
+        "3e678c24f0557fc0944c95780b793b32d2ad68a8ee3d842fb1db37ad16ea494a",
+        "3242dcd76554d7c4a5771d59336b4ae5566bc9918edcada17184593dca344522",
+        "196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f",
+        "47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964",
+        "2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546",
+        "17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36",
+        "1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530",
+        "db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23",
+        "a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce",
+        "72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f",
+        "d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf",
+        "f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196",
+        "36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a",
+        "b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7",
+        "18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868",
+        "cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6",
+        "59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8",
+        "d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9",
+        "59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad",
+        "f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195"
+      ]
+    }
+  },
+  "attestation_type": "autosbd_stage4_completion",
+  "campaign_counts": {
+    "by_backend": {
+      "cpu": 24,
+      "gpu": 24
+    },
+    "by_workload": {
+      "fe4s4-prefix-0032": 12,
+      "fe4s4-prefix-0055": 12,
+      "fe4s4-prefix-0100": 8,
+      "fe4s4-prefix-0174": 8,
+      "fe4s4-prefix-0244": 8
+    },
+    "correct": 48,
+    "measured": 38,
+    "records": 48,
+    "success": 48,
+    "timing_eligible": 38,
+    "unique_logical_trial_ids": 48,
+    "unique_trial_ids": 48,
+    "warmup": 10
+  },
+  "consistency": {
+    "harness_sha256": "df98d337247740970e52e6d1db9142c6736ccb74fc291a3f9c02a580e80799ef",
+    "hostname": "instance-20260731-140922",
+    "machine_fingerprint": "37271488aa0cf91c3b79fd6e6bfba01cbe06a18898d2f98069a88ad84af6bbf8",
+    "project_git_commit": "8ba1a0e98c4807ddeec1bc0d196a401d7de0fe79",
+    "project_git_dirty": false
+  },
+  "experiment": {
+    "candidates": [
+      {
+        "backend": "cpu",
+        "build_id": "amd-cpu-16-190525bd05ff",
+        "cpu_threads": 16,
+        "mpi_ranks": 1,
+        "name": "amd-cpu-16"
+      },
+      {
+        "backend": "gpu",
+        "build_id": "amd-l4-default-8f1481b6bcb4",
+        "cpu_threads": 1,
+        "mpi_ranks": 1,
+        "name": "amd-l4-default"
+      }
+    ],
+    "compiler_identity": "/opt/nvidia/hpc_sdk/Linux_x86_64/26.5/compilers/bin/nvc++: nvc++ 26.5-0 64-bit target on x86-64 Linux -tp cascadelake",
+    "name": "stage4-amd-fe4s4-final-v1",
+    "problem_family": "stage4-amd-fe4s4-final-v1",
+    "purpose": "final",
+    "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+    "upstream_url": "https://github.com/AMD-HPC/amd-sbd"
+  },
+  "records": [
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "d0c9e86c9a6d6307c486b173b1135262d0280f77f26b8535b0f69fee78de21dd",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.34765625,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/4ef3e18770524d630983b87dc94e44eaf78bb19c51dde3badccdd25fb20ea1d3.json",
+        "sha256": "c5b9bf20885c2e387425fce89c0c45e35f36007fbdbb191ea4dd722d3592da5b",
+        "size_bytes": 19084
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "4ef3e18770524d630983b87dc94e44eaf78bb19c51dde3badccdd25fb20ea1d3",
+      "wall_time_s": 1.410186731001886
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "dbcdc24d1d45c28ff0bc644d65e0b4b5eb376359b6cb69f30df2bcb43e36350d",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.21484375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68.json",
+        "sha256": "5c0de874475b28795bff1eefc267e95a4cec2a4b289d7af47f5760b56bcdec6c",
+        "size_bytes": 19099
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "c81319dfb3791ad00d4d559c0d9b09dd424a602ce7c629f8e52dfc91e0ec6e68",
+      "wall_time_s": 1.4109253030037507
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "1766e1109d829eb36f7a070ff237e2f58618d08a5e4050aab7a835b8a5e848d3",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.2421875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8.json",
+        "sha256": "7047f17cca6468222dc09560b37e3dbdb5c52a26a0ac537bc1e9d0574271068f",
+        "size_bytes": 19085
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "107fbe8a96874d48fbf6cf07d9f91c5add6ca9602bfddb399a2fe261c997a3d8",
+      "wall_time_s": 1.4105689610005356
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "72c681ac39258b47e1ba0d2b08a80ddf3612eee217094d12d742796eb9e260fa",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.33203125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9.json",
+        "sha256": "f5497d6a5f9e5fba0cc823c6384aa4b9dfadfd6a7ba6e179dbbda014610f749f",
+        "size_bytes": 19086
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "a91ca983f96b931e6b837c868a483aa1696fc238577613fbe51f281e3b3b7ab9",
+      "wall_time_s": 1.4120800509990659
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "662bcd9d9599118fa9ad4e9d90cce7afc7625acbd915a460c60f394d21f2b911",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.2421875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/2d7af29017a3bd241e7b73c2504be82e8419e9e1124daafb0b0d3aa37ddfa1fa.json",
+        "sha256": "29a30c5db970f04f0fee2d77a3e7ddf9f7297f75fd14640b77558353cb82c6ea",
+        "size_bytes": 19084
+      },
+      "repetition": 3,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "2d7af29017a3bd241e7b73c2504be82e8419e9e1124daafb0b0d3aa37ddfa1fa",
+      "wall_time_s": 1.410908539997763
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "2b7274a23798afc70ef73a12d415249075ce85b528d4469a4398767eaec4d034",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.3671875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/2682ab52f394aa3332c4ce384f0eeb099e5222b30aa6512a2750213e61c8f025.json",
+        "sha256": "db423c9fb0123fa13a40ca930da0d877018d4ae9671d0045caca6f1705c99c72",
+        "size_bytes": 19082
+      },
+      "repetition": 4,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "2682ab52f394aa3332c4ce384f0eeb099e5222b30aa6512a2750213e61c8f025",
+      "wall_time_s": 1.411648305998824
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "178f75b9948a5a2098a2c48dab23a554734113d82ea8af1cbf667104919f49d9",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.28515625,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/f16ec20bbfcfcc9cc28a1f90b9a114d9686f69f98ac1567e7b47b97ae7a21a7e.json",
+        "sha256": "8d8b3811b4fade6b8d8dd6f0e5d4c475cdae9c234f9f43e1ec0bdcfabb328ab6",
+        "size_bytes": 19331
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "f16ec20bbfcfcc9cc28a1f90b9a114d9686f69f98ac1567e7b47b97ae7a21a7e",
+      "wall_time_s": 1.6343316979982774
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "d9d3bd7162bd2a9e184a6861800957720ace8343d94d951a8e4c916ff116506d",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.40625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8.json",
+        "sha256": "0dc2faf9d5d2b51f9dd6216a08d250cc202a362a83cd129027003236e19e6aa7",
+        "size_bytes": 19331
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "6bd677d64c28fdab2b1199ebdc0d85cb655d6e1a91ffbc0a77298bf5e9e4fee8",
+      "wall_time_s": 1.6338358529974357
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "d3344f6ae7a902d64dea9fc1a730bf78e5331419db38c4a11b16f55c36984b3a",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.359375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa.json",
+        "sha256": "fe6713f253c085e1edc9c4215ff844a9fc0e06c9132e36c1d0ea619433f9fa32",
+        "size_bytes": 19358
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "82ebcc264c25541f0a13ba78c4e1ba3fd63fc78df7334b1c1fce1fe53d5cefaa",
+      "wall_time_s": 1.628517176999594
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "0213231eea4aa017d1e80c64ca0672477afbbaf456b32fccafd38d9e455833e7",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.37109375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829.json",
+        "sha256": "4e1c1f454719f33fb38b804419c0491fb86176d65f77624d8c2c53720391d881",
+        "size_bytes": 19332
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "8087a3105880ca163d7ebda8fa4893be8dcb3f4c77b1cd7dd9639553bd50f829",
+      "wall_time_s": 1.6364258149988018
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "32e4fe3dcda4e92e509e0b49eb27ed536e2e2d6aa7b5b9e8194758e0408928f8",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.390625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/c847995688ac6961210aae0e1e5ee7eebc93301404e744ca672adbfebfdfd029.json",
+        "sha256": "0ad8374a49f3ecea00993c82e431020f9632e888ffb536788733b5be3bb7006d",
+        "size_bytes": 19316
+      },
+      "repetition": 3,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "c847995688ac6961210aae0e1e5ee7eebc93301404e744ca672adbfebfdfd029",
+      "wall_time_s": 1.566750982994563
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "f103fd51dd08c7654df2db110936ac379bd103b817b518083fa50ae85cc66390",
+      "logical_trial_id": "d45d05783928c36e7c30ce4781db49e37735e6cbff140db92187023202240e61",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.35546875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0032",
+      "raw_record": {
+        "path": "results/raw/c0fe60a66c19a581b8d1b3223116c9a54071125fbce6a427bd926fc9ab747496.json",
+        "sha256": "5e98e5fe8deea40cf7cbbd7d789067e0f864c3e657a7ceee423159ebadc1f640",
+        "size_bytes": 19344
+      },
+      "repetition": 4,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "c0fe60a66c19a581b8d1b3223116c9a54071125fbce6a427bd926fc9ab747496",
+      "wall_time_s": 1.6251503250023234
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "6d7264c45b97fba1558aa7285fef3aacfb08e33b9741f4bac426f2ec45835e0a",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.33203125,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/469f3e9e0bfed5ce886a3fc8912e382ca839c3b15b28d04e8ef0188ccf02d85a.json",
+        "sha256": "0c84ae74e4312beed8726bd8515936ddea332edfe32e8cf3c4897dedb47834a2",
+        "size_bytes": 19148
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "469f3e9e0bfed5ce886a3fc8912e382ca839c3b15b28d04e8ef0188ccf02d85a",
+      "wall_time_s": 2.4159194809981273
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "6c8c31dddea4edec22359dd0f0b194cdabd4b6b16a8f864d3a91cbce3795ab60",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.265625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11.json",
+        "sha256": "e8c63be771deea3f8cd336218ca093f525e7a5b01dae227cc3b3192478b7ad70",
+        "size_bytes": 19146
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "e42646e72c03542753e41340f3aec8e5eb26c6326da06afbd3aa7faa69026a11",
+      "wall_time_s": 2.416199424995284
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "704d837a58c791f553cd030b48aa472de2b42dbf64a9e61912904cfe321805e0",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.34375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5.json",
+        "sha256": "068c6e5c9e68bbb0a5bbdf69e06f7f3c29538b08d849004f2548061f22a9c808",
+        "size_bytes": 19172
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "b1fb7cbf40909cb1b119bcb1a118af06caa1af2d6fb6535a8fd5065b151b2de5",
+      "wall_time_s": 2.41789160999906
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "5174c0918015b9b5b959b78a5f7d2e59cd7adbf97209340406de7041c355a407",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.32421875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0.json",
+        "sha256": "c2b43cb4d7959889b88af10bcfa5901917aa91053886b83b6454fd4337dc7ff8",
+        "size_bytes": 19176
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "49bdc6528a387317d71ad181d2781bc5da2c6c32ae7424737064f4bda960c4e0",
+      "wall_time_s": 2.4183522559978883
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "bc2d98e66b316cd2c72cd326c0bce015ce223d9af9bf1feedc2bbed81e7d47fb",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.18359375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/2a3761bfb0e7d1da032304ab608bcd13e898bade945269c386049b8db2764dd4.json",
+        "sha256": "e83aaa5a7e70909613ebf3eb0e7e00fbca10a9b1b6d48d431f644555564689b5",
+        "size_bytes": 19151
+      },
+      "repetition": 3,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "2a3761bfb0e7d1da032304ab608bcd13e898bade945269c386049b8db2764dd4",
+      "wall_time_s": 2.4161540099958074
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "fb58e8890d15d6508b29d4757d3d081787d5fde8dbc67808d36f338e063c9c7f",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.26953125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/364c2dd8099b484e6fdeab99d39197da5051c4918f40a31faf02b059eb3e9699.json",
+        "sha256": "c267526dec3e19524eb47c0cd26a19364d8838de69a7895c3e9e2db480f8339e",
+        "size_bytes": 19148
+      },
+      "repetition": 4,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "364c2dd8099b484e6fdeab99d39197da5051c4918f40a31faf02b059eb3e9699",
+      "wall_time_s": 2.4149097339977743
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "9e6762dfe97cbfeea91eaf3c9115f72686c46159d4cc4bfd440abdefd7dfff68",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 129.01171875,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/e284853e26527ba397dc55b81bf3e41aaa6e49bb07a1c9219172743b8918a976.json",
+        "sha256": "d094847f0f1306306de733457ef0f312b60bf8e05eef253a058662b05db17ff6",
+        "size_bytes": 19405
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "e284853e26527ba397dc55b81bf3e41aaa6e49bb07a1c9219172743b8918a976",
+      "wall_time_s": 1.9241060669955914
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "8e7c3ac6c48a6f3957311edd1c3bd496db534ef90ac295f189fa8f5c7084f382",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.9296875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5.json",
+        "sha256": "cc1dd71274b8cb7df67646695e60571d6e6798b0a53ee22900ee8231e0cf837b",
+        "size_bytes": 19409
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "26e34d766211ea7fffb19b527451db1d4e0e2fec45fc802a620584d36f0c94c5",
+      "wall_time_s": 1.9206987360012135
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "499c7962c7ea3ea18895d701ee407a64a6a214a18224285dd20366142f57575c",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 129.015625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf.json",
+        "sha256": "f43fd52ab500396a1e80e3d205e87cc2c3ed6fcc55646c81aefb15693d573116",
+        "size_bytes": 19407
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "bb355684dbac68a98351d6f79de503a41f210d047d6cf0446a5696e13a6542bf",
+      "wall_time_s": 1.9190878600056749
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "8042cc816c13b7506ec2557104eba97061f36faa10b62c7da7119e98c2a1f384",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.96484375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c.json",
+        "sha256": "2154e52257c4a742a833e641c5d9bd5621344e1c48570c4d2f7bc1c037cb64d9",
+        "size_bytes": 19398
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "ab0ae4126a47916620b0128fe8b3a0459b49dae9dfac87301427564b7c24744c",
+      "wall_time_s": 1.9198227190063335
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "412798d0f6d25a76ff33476f5a885fedd34724814f6171f5f30c0bf568d1ffc3",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 129.03125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/3e678c24f0557fc0944c95780b793b32d2ad68a8ee3d842fb1db37ad16ea494a.json",
+        "sha256": "c513ab51482a02065ba9f374c806656bfbe7fe1403f95efaee366c92b5be7f16",
+        "size_bytes": 19395
+      },
+      "repetition": 3,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "3e678c24f0557fc0944c95780b793b32d2ad68a8ee3d842fb1db37ad16ea494a",
+      "wall_time_s": 1.9298950240045087
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "crossover"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "9e7200c65761a843b0d95d70dc1680653805434675077bb83579fcfa0852bba7",
+      "logical_trial_id": "0098499b27171883f72116170b8b02207012d361f2969cfd2eb9fa3d640a6ee5",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 128.94921875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0055",
+      "raw_record": {
+        "path": "results/raw/3242dcd76554d7c4a5771d59336b4ae5566bc9918edcada17184593dca344522.json",
+        "sha256": "807cc5a1b2266d87df780c5de42759c0de4a5a3757034f0ab60ad411df8f0fc9",
+        "size_bytes": 19396
+      },
+      "repetition": 4,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "3242dcd76554d7c4a5771d59336b4ae5566bc9918edcada17184593dca344522",
+      "wall_time_s": 1.9225722430055612
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "518903409b0e2bb5934b2fcb5625c53e9fb91b17e066472f083ae07a85c2ac33",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.38671875,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/f3efd5c43424129519dfefe1f302cf742615d7225ab2a20a3451709a53000514.json",
+        "sha256": "21d2e6ce496c2c9aad86e3bf9c7fa0a11ab0db5d0af7a841d7332acf7dd21b69",
+        "size_bytes": 19155
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "f3efd5c43424129519dfefe1f302cf742615d7225ab2a20a3451709a53000514",
+      "wall_time_s": 5.63123232700309
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "c1a90d9d95cc1c4c28c9b0d7a970d51354e90ac651a45dff5d49c471edff1c35",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.359375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f.json",
+        "sha256": "3ad7b070429f7acd13d684f4e4ada823fd6f51a9d999d386ba32a2bba7474371",
+        "size_bytes": 19143
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "196b3131f5336aad7cd9c4ee5e7f3d8f515890d6f6134e6d7111bbc3a63edf7f",
+      "wall_time_s": 5.633911507997254
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "125abcf16ce46e96d9d623c57eb3472bcbd7399c588964cd6cf740756cd19ecc",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.2890625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964.json",
+        "sha256": "514edb71c5e77dd8f9bf9b960c56d25fcf678f7b68f6b936f64cb8c27daa4a4b",
+        "size_bytes": 19163
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "47c38818e4f6fe169e436aae1d5d7c8dd0b7fbae6a43d7041ef5d7da7292e964",
+      "wall_time_s": 5.632598222000524
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "447b2d642190b84cdc9b7e1dc3fd88d5cce7ad5728a1b966290ee4c74d121478",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.3203125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546.json",
+        "sha256": "ad887be4b3c5e13761fa87bb121275b61bab5d9ee300bc44cf9cbb836d4709a0",
+        "size_bytes": 19147
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "2b1a872d08adf4dae18780d39c3bb3b6a633aff19b57e0eb4a78a70cea406546",
+      "wall_time_s": 5.6352666829989175
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "cdab0bf6bc53f331a1380a36bdb78311c700f62582edae9021640f656ee80438",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 131.24609375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/23c4bddd74dad174b71b7f603de6217283774f0e6ec3a76238bfcbd37322649a.json",
+        "sha256": "884b2a46e261807c1d81dd14eb73b3a4a924e4b8a3faad04d8320e085860f917",
+        "size_bytes": 19444
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "23c4bddd74dad174b71b7f603de6217283774f0e6ec3a76238bfcbd37322649a",
+      "wall_time_s": 2.8172036549949553
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "6e9f06b12d939772fe893e13548cb76145944673f0f5779ee8cf2db4a78b5134",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 131.2578125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36.json",
+        "sha256": "4c7c58a95224d50b5c294c2eb90cca8245ab5940126b90d795756fd621e0801d",
+        "size_bytes": 19392
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "17e441c1533540b70cc0cbe73299b02f7941e2db8d1107b82f1b796123fa5b36",
+      "wall_time_s": 2.8404115309967892
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "eababe0edcda82a9f61a6ffcc3cfd5352b49fce1f2c6d039be534e4d2f88527c",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 131.23828125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530.json",
+        "sha256": "cba3409b2a45f31418c339b79daa2ff453c5a9e5af0c23c1a6f9a60bdaac1a16",
+        "size_bytes": 19407
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "1828d00372451f8eed4e72f9b7618f1ea567f653f0649955db96b3c730392530",
+      "wall_time_s": 2.8257592849986395
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "8388d0e2a075126004890ad88c3680722226870440793d7d97242885ebfc7eda",
+      "logical_trial_id": "97b065bffb7234737ae15ed378cee020d088b296bb3ea8979aa681efd582f548",
+      "peak_gpu_memory_mb": 194.0,
+      "peak_host_rss_mb": 131.26171875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0100",
+      "raw_record": {
+        "path": "results/raw/db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23.json",
+        "sha256": "83ccbf52e2c92dabd17764d302eea82c484e8e38dfc7275bcaaef6434509585d",
+        "size_bytes": 19421
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "db2fd96b503d553e02bbd35e981f2e0c1019ed2f4ac603b664b7a5e8a551ac23",
+      "wall_time_s": 2.968008463001752
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "68b3a7c07ce5d43b46d5824b7eb9025a68b8ea50e3c51211015741cc8eaba56a",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.390625,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/6311fb33ec3ecab681770bfc3f96fa6eef26c0ccab9ef12375dd11afbdca9dad.json",
+        "sha256": "3e069a7167baeb15532c1b1f7e3a78eeba41c3b51049f8facf17582b8f8bd9ad",
+        "size_bytes": 19275
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "6311fb33ec3ecab681770bfc3f96fa6eef26c0ccab9ef12375dd11afbdca9dad",
+      "wall_time_s": 29.86193546099821
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "9cf9a12e754b52b73cf2e9ba9ec83e46c40d1b624d2cbc30f8fc0068b1c06c8c",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.1015625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce.json",
+        "sha256": "5b442441f59bb88df83cac261ab1763d62bcf824dd6ddfac6fba4e9f9749c4e8",
+        "size_bytes": 19264
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "a618280b1095aa1a879e8464877c7bb17f9ee0026f3fe2a5dba71822171ec9ce",
+      "wall_time_s": 29.96792640900094
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "615db1452ceebd0da231a9bcba7cf0fcca5e5e7b143ea5876ebd0df5568cc317",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.296875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f.json",
+        "sha256": "9d787dc0f085d4baa20a8bed8c9bac3294313d01df7a10baea0d723c9ff2ea8b",
+        "size_bytes": 19266
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "72d9ccb479bf5b08848e2ed58e403ab1f019fa2f4184bdb45f81e21df2de558f",
+      "wall_time_s": 29.97067791300651
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "09ff696308608227b0084a5a1e4415556765c71b334e04feb68bb4131376c330",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 43.26171875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf.json",
+        "sha256": "3bc345fc06b21414b7205d9e77cbff6d691e0a63974f966f5cb773754a065658",
+        "size_bytes": 19269
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "d9c7fa3c1087bd7d2da569a80803ed1313da2b42ddd302b61876387828a2dfcf",
+      "wall_time_s": 29.969004751001194
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "9226be36d7916dc5d05759339d6e7508e50ac40c33cb8eecaf8e5d83d11e7f09",
+      "peak_gpu_memory_mb": 196.0,
+      "peak_host_rss_mb": 137.68359375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/5ff4896b2b15bec48961a74f8f9cda4c142e834dbea71dfec53c874f6a06e29c.json",
+        "sha256": "e3ccf3aec393115f5c6da53667d9460b397fb60640361f6ce8eabcc4ac8ed289",
+        "size_bytes": 19521
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "5ff4896b2b15bec48961a74f8f9cda4c142e834dbea71dfec53c874f6a06e29c",
+      "wall_time_s": 8.883494089001033
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "1b24a604a757625063cd4d99ef16d52acfb7a0282a87e73bba59d2d138c2405a",
+      "peak_gpu_memory_mb": 196.0,
+      "peak_host_rss_mb": 137.63671875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196.json",
+        "sha256": "a21b50248f83cd0c729e1dff07a3a62f265c24296de977d492af7ce9d8f758ee",
+        "size_bytes": 19539
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "f8061e07c0be9a2a0dc834b4f1e8bd4eff5b91ce2585374c02bb56c0f6945196",
+      "wall_time_s": 8.77523887999996
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "355d75c2530d32cb96355952f9a727a263424fd587c30080d5e5885b59b9b293",
+      "peak_gpu_memory_mb": 196.0,
+      "peak_host_rss_mb": 137.6875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a.json",
+        "sha256": "daddf7e41c12975c6a09ff9d9924104b37e76f24a6129daf4eb4389c0121cd8b",
+        "size_bytes": 19509
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "36681c01f7984b94d63ba440ab7f22e2bd94707f838c4369380f9801b45b684a",
+      "wall_time_s": 8.776808773000084
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "b4c93c6609f07ed1321fab96ec8683bd081fbfb8bd8682e97882a624a0ec6e77",
+      "logical_trial_id": "1e9b50671c6e6ac01e1543f651f5f04834d91fafe2ace6c9028a54b7e643f2c9",
+      "peak_gpu_memory_mb": 196.0,
+      "peak_host_rss_mb": 137.71875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0174",
+      "raw_record": {
+        "path": "results/raw/b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7.json",
+        "sha256": "845aa8a991287baf2d2b0782cb6f53b308407c31ad2fc56db0662da43793075e",
+        "size_bytes": 19547
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "b8463cd42b6ac55dacdc5abac5e9affc0e65c84a59dd084467ef3ce085673ca7",
+      "wall_time_s": 8.788708236003004
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "b4e83dd7644d1d261aab3884e05aa31ec827d6e8452a467bd4b752d07ccd1c21",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 47.640625,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/bd327b11319cb72a7d8c74312308cfb091c9e37318ea64ff16af05aa93575ed4.json",
+        "sha256": "ba84347b69c1fad19f2a9006cc6f85522ca7bfc75bc94b4ba931ad299de3a653",
+        "size_bytes": 19289
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "bd327b11319cb72a7d8c74312308cfb091c9e37318ea64ff16af05aa93575ed4",
+      "wall_time_s": 78.63424446700083
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "a82dbdaea9b6808f2d3f97c8e01fef8f67e6d229251a6e7c7c2834cb63e4b694",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 47.6484375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868.json",
+        "sha256": "007dab8efa714c68e46520e2890c6b6f898bd86f281b4148190abefe2b854f14",
+        "size_bytes": 19328
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "18eec5181ee67326db2ebe31045cb90612c516eb73cfa75094b803c43e54a868",
+      "wall_time_s": 78.62944741499814
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "ebd64ea61531b3df7511f5cc05de6ac35f84d636d34c3d754f41ccfcc38976cb",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 47.68359375,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6.json",
+        "sha256": "bfdd1b1a104fb7c781643c0d2b428ee66c5a5a42e6e638423f1d43c69a1f07bf",
+        "size_bytes": 19319
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "cd0fdd6068cb653f83090725dc598e16ed902e1d0425fac8e3638dfdccb126f6",
+      "wall_time_s": 78.40097830099694
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      "candidate": {
+        "backend": "cpu",
+        "cpu_threads": 16,
+        "name": "amd-cpu-16"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "87a22eeafa450844752460a2066737543e3be88934ed36debed04e72f505c421",
+      "peak_gpu_memory_mb": null,
+      "peak_host_rss_mb": 47.71875,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8.json",
+        "sha256": "6e592add519a1e741824e80ef66f2f49c11a5311b3e80e2b868394aae9f031e0",
+        "size_bytes": 19304
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "59b9121a07f1615d994aedf7c68b836687b0eb1ad1e262a5d1a9a79a1e4d52c8",
+      "wall_time_s": 78.31708765999792
+    },
+    {
+      "analysis_views": [],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "4d679678cbf39c6b3d5f0f6fd8a919f8ab0129090a988ff004084481d11e5bd7",
+      "peak_gpu_memory_mb": 198.0,
+      "peak_host_rss_mb": 145.12109375,
+      "phase": "warmup",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/b8d1a6bd46a949791192ab58d59fcf8898313ce93ee5495004a6014ecfa428f3.json",
+        "sha256": "be990d0fc665d72c54dc214f559916c6819ec1eb9658eb260a3d7a2a36a4a7e9",
+        "size_bytes": 19552
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": false,
+      "trial_id": "b8d1a6bd46a949791192ab58d59fcf8898313ce93ee5495004a6014ecfa428f3",
+      "wall_time_s": 17.299822752996988
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "085a563022fa0383de696a588e291042de07a1e64bef108e05a6cf6c088eae63",
+      "peak_gpu_memory_mb": 198.0,
+      "peak_host_rss_mb": 144.91015625,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9.json",
+        "sha256": "21872ffc0b3adb62cf814408eb230ec6909884a58db8eeda3267c41d9976ed80",
+        "size_bytes": 19592
+      },
+      "repetition": 0,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "d844fde93f05fe4bc4904139680868b4975fdf90f53e8e2e94ab73d0191b2af9",
+      "wall_time_s": 17.28929579900432
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "df5832739e6822f5c34aa00cdb30d5622593d75c90c852a19dd0185cb3383cc0",
+      "peak_gpu_memory_mb": 198.0,
+      "peak_host_rss_mb": 145.125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad.json",
+        "sha256": "ecbf049f82a7044fe9ccf655f243532d90aa3cda13c46e2d1a1a583d6d55703e",
+        "size_bytes": 19552
+      },
+      "repetition": 1,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "59d3cbb3055441d0d7168152439e2498c621d47c40ce248ed863243e538039ad",
+      "wall_time_s": 17.261023300001398
+    },
+    {
+      "analysis_views": [
+        "primary_final",
+        "balanced_broad_sensitivity"
+      ],
+      "attempt_index": 0,
+      "build_artifact": {
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      },
+      "candidate": {
+        "backend": "gpu",
+        "cpu_threads": 1,
+        "name": "amd-l4-default"
+      },
+      "correct": true,
+      "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+      "logical_trial_id": "8a976934e3456ea41f68ee9a670ab259d7aa96aebd22842c664cc83b4cb8b303",
+      "peak_gpu_memory_mb": 198.0,
+      "peak_host_rss_mb": 145.08203125,
+      "phase": "measured",
+      "problem_instance": "fe4s4-prefix-0244",
+      "raw_record": {
+        "path": "results/raw/f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195.json",
+        "sha256": "4b791b2345cac5753f9862a0db44ec3580a3f8e085deb47a69e8169d07087687",
+        "size_bytes": 19578
+      },
+      "repetition": 2,
+      "status": "success",
+      "timing_eligible": true,
+      "trial_id": "f304cde049ba0b9a8dd4a4598e3b2597b47dad11c306546a1a8753b8ad54b195",
+      "wall_time_s": 17.16303656299715
+    }
+  ],
+  "schema_version": 1,
+  "source_artifacts": {
+    "aggregate": {
+      "path": "results/processed/stage4_final.json",
+      "sha256": "58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa",
+      "size_bytes": 265132
+    },
+    "candidate_artifacts": [
+      {
+        "backend": "cpu",
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+        "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+        "size_bytes": 797304
+      },
+      {
+        "backend": "gpu",
+        "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+        "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+        "size_bytes": 2021216
+      }
+    ],
+    "candidate_pruning_evidence": {
+      "path": "results/processed/stage3_candidate_pilot.json",
+      "sha256": "3e066afa35217cddba203df33b294966ce24227fa59d3e2267b64fc4ac36d17c",
+      "size_bytes": 236930
+    },
+    "configs": [
+      {
+        "expected_total_records": 24,
+        "path": "configs/stage4_final_crossover.yaml",
+        "role": "crossover",
+        "sha256": "e87e5ba6957b1f054a4973199a5ecad92ebca630093fb5d6bee6c5f3d00d8b70",
+        "size_bytes": 1717,
+        "workloads": [
+          "fe4s4-prefix-0032",
+          "fe4s4-prefix-0055"
+        ]
+      },
+      {
+        "expected_total_records": 16,
+        "path": "configs/stage4_final_mid.yaml",
+        "role": "mid",
+        "sha256": "f2dca217bd21c215ef708445c98e1d7994f6f9d0854022454ced19273f51a6bd",
+        "size_bytes": 1717,
+        "workloads": [
+          "fe4s4-prefix-0100",
+          "fe4s4-prefix-0174"
+        ]
+      },
+      {
+        "expected_total_records": 8,
+        "path": "configs/stage4_final_large.yaml",
+        "role": "large",
+        "sha256": "784e8b3cecbdd010e526ade2b301a91a1b7b8ceefd151e9c20d59d8f39a62cac",
+        "size_bytes": 1427,
+        "workloads": [
+          "fe4s4-prefix-0244"
+        ]
+      }
+    ],
+    "correctness_manifest": {
+      "path": "reports/stage3_calibration_manifest.json",
+      "sha256": "6fcc273d84f65d20185c0abcba9b750a29c2d64a87c982e500a4be5cdd93bdec",
+      "size_bytes": 20337
+    },
+    "protocol": {
+      "path": "reports/stage4_protocol.json",
+      "sha256": "29431c68e84cee75a280c5b5faf3d2a15f1eb2ec2c16f4f5ce37796ef5f307f6",
+      "size_bytes": 3633
+    }
+  },
+  "status": "complete"
+}

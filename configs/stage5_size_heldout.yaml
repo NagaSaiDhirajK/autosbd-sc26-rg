@@ -1,0 +1,109 @@
+schema_version: 1
+name: stage5-amd-fe4s4-selector-v1
+
+sources:
+  stage4_protocol:
+    path: reports/stage4_protocol.json
+    sha256: 29431c68e84cee75a280c5b5faf3d2a15f1eb2ec2c16f4f5ce37796ef5f307f6
+  stage4_completion:
+    path: reports/stage4_completion.json
+    sha256: 7fefb110d29b0bfae2ece24a3506bd6fa53e6e81257f57779ce2067e9910ee36
+  stage4_aggregate:
+    path: results/processed/stage4_final.json
+    sha256: 58c6b6bc2454de9237a102a3d3d6b3628d0bb98b0f0758cf0353d9edc64885aa
+  raw_directory: results/raw
+
+dataset:
+  source_view: balanced_broad_sensitivity
+  phase: measured
+  repetitions: [0, 1, 2]
+  aggregation: median_wall_time_per_problem_instance_and_candidate
+  group_key: problem_instance
+  expected_measurements: 30
+  expected_candidate_rows: 10
+  expected_problem_instances: 5
+  expected_candidates_per_instance: 2
+  pilot_records_allowed: false
+  post_execution_selection_features_allowed: false
+
+splits:
+  primary:
+    type: largest_size_holdout
+    holdout_largest_instances: 1
+    role: strict_size_extrapolation
+  sensitivity:
+    type: leave_one_problem_instance_out
+    folds: 5
+    role: small_sample_grouped_sensitivity
+  leakage_rule: all_candidates_and_repetitions_for_an_instance_remain_in_one_split
+
+feasibility_filter:
+  order: before_runtime_prediction
+  cpu: host_guard_bytes_lte_host_cap_bytes
+  gpu: gpu_host_guard_bytes_lte_host_cap_bytes_and_gpu_guard_bytes_lte_gpu_cap_bytes
+  gpu_cap_policy: min_20_GiB_or_80_percent_preflight_free_VRAM
+
+model:
+  implementation: sklearn.tree.DecisionTreeRegressor
+  sklearn_version: 1.7.1
+  target: log1p_median_end_to_end_wall_time_s
+  max_depth: 2
+  min_samples_leaf: 1
+  random_state: 1729
+  heldout_hyperparameter_tuning: false
+  full_features:
+    - log1p_n_configurations
+    - backend_gpu
+    - log1p_method0_work_proxy
+    - log1p_determinant_cache_bytes
+    - log1p_gpu_guard_bytes
+    - alpha_single_edge_density
+    - alpha_double_edge_density
+    - beta_single_edge_density
+    - beta_double_edge_density
+    - cpu_threads
+  size_only_ablation_features:
+    - log1p_n_configurations
+    - backend_gpu
+
+static_threshold:
+  feature: n_configurations
+  rule: cpu_if_feature_lte_threshold_else_gpu
+  fit_scope: training_instances_only
+  objective: minimum_geometric_mean_normalized_runtime
+  candidate_thresholds: training_size_geometric_midpoints_plus_always_cpu_and_always_gpu
+  tie_break: lowest_objective_then_smallest_threshold
+
+policies:
+  - fixed_cpu16
+  - fixed_gpu
+  - upstream_default
+  - static_size_threshold
+  - autosbd_full_tree
+  - size_only_tree_ablation
+  - measured_feasible_oracle
+policy_aliases:
+  upstream_default: fixed_gpu
+
+metrics:
+  - selected_end_to_end_wall_time_s
+  - normalized_runtime
+  - normalized_regret
+  - geometric_mean_normalized_runtime
+  - geometric_mean_speedup_vs_fixed_cpu
+  - geometric_mean_speedup_vs_fixed_gpu
+  - selection_accuracy
+  - within_5_percent_oracle_rate
+  - median_regret
+  - p90_regret
+  - invalid_selection_rate
+  - correctness_failure_rate
+  - inference_overhead
+
+claim_boundary:
+  authentic_problem_families: 1
+  variants: five_nested_Fe4S4_determinant_prefix_sizes
+  broad_family_generalization_claim_allowed: false
+  primary_result_is_single_largest_size_holdout: true
+  leave_one_out_is_sensitivity_not_independent_family_evidence: true
+  model_may_fail_to_outperform_static_threshold: report_without_cherry_picking
