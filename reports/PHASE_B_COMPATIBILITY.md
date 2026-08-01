@@ -1,9 +1,10 @@
 # Phase B N₂/H₂O Compatibility Gate
 
-**Status:** static unchanged-input compatibility **PASS**; CPU/GPU correctness is
-still pending.  This is an internal engineering record, not submission prose.
-No solver was built or executed to produce this report, and no timing evidence is
-created or admitted by this gate.
+**Status:** static unchanged-input compatibility **PASS**; smallest complete
+N₂/H₂O CPU/GPU correctness **PASS**; derived-size correctness and all timing are
+pending.  This is an internal engineering record, not submission prose.  The
+runtime portion used only the existing official AMD executables, and no timing
+evidence is created or admitted by this gate.
 
 ## Scope and implementation boundary
 
@@ -148,8 +149,37 @@ Each N₂ and H₂O pair passes only when all of the following are true:
    and both exact input hashes and reports the pair as passed.
 
 Correctness runs remain timing-ineligible regardless of any wall or solver time
-printed in their records.  No N₂/H₂O timing may be admitted until the
-validation manifest covers the exact input hashes to be timed.
+printed in their records.  No N₂/H₂O timing may be admitted until a validation
+manifest covers every exact input hash to be timed.
+
+## Smallest-pair runtime outcome
+
+The staged official-AMD correctness run completed from clean project commit
+`b0324dd011b87c13a0902ada46f5a44f62a543a6`.  CPU ran first for each family;
+the matching GPU ran only after the CPU record passed inspection.  Both GPU
+preflights found an idle L4 with 22,564 MiB free, and both guarded estimates were
+below 608 MiB.  All four records are correctness-purpose and timing-ineligible.
+
+| Family | CPU/GPU records | Iterations | CPU/GPU final residual | Energy relative error | Density length / max absolute difference | GPU peak allocation |
+|---|---|---:|---:|---:|---:|---:|
+| N₂ | `16cda115...36f0a8` / `3c190b27...70af23` | 18 / 18 | `9.7461579e-9 / 9.7462004e-9` | `0` | `18 / 3.1974e-14` | 194 MiB |
+| H₂O | `52b394f9...748d0` / `15c1e429...0de716` | 19 / 19 | `6.3507189e-9 / 6.3507321e-9` | `5.5922e-16` | `24 / 1.9984e-14` | 196 MiB |
+
+Every process and scientific-success field passed; input descriptions matched at
+initial inspection, immediately before launch, and after execution; run-artifact
+hashes verified; CPU offload was disabled; GPU offload was mandatory; exact
+device assignment and GPU-process observation were present; and monitoring was
+complete.  The combined schema-v2 manifest is
+`reports/phaseb_n2_h2o_correctness_manifest.json`, SHA-256
+`fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`.
+An immediate identical builder invocation reported the output unchanged.
+
+This PASS applies only to combined input hashes
+`6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb`
+(N₂) and
+`ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d`
+(H₂O).  Larger upstream lists and any derived prefixes require their own exact
+CPU/GPU validation before timing.
 
 ## Stop conditions
 

@@ -6,9 +6,9 @@ This is an internal, traceable evidence report. It is not an abstract, submissio
 
 ## Outcome
 
-Stages 2–4 and the current single-family Stage 5 evaluation are complete. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records. Stage 4 contributes repeated eligible timing; corrected Stage 5 artifacts provide grouped held-out evaluation and selector-overhead evidence.
+Stages 2–4 and the current single-family Stage 5 evaluation are complete. Phase B1 provenance, unchanged-input compatibility, and smallest-case N₂/H₂O CPU/GPU correctness also pass. The single-run and sequential sweep harnesses produce atomic, immutable schema-v2 JSON records; enforce official AMD source/build provenance and node safety; distinguish process success from scientific success; and resume exact trials without rewriting raw records. Stage 4 contributes repeated eligible Fe₄S₄ timing; corrected Stage 5 artifacts provide grouped size-held-out evaluation and selector-overhead evidence. N₂/H₂O timing and multifamily evaluation remain pending.
 
-The standard-library suite passes all 123 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, and inference-overhead accounting.
+The standard-library suite passes all 128 tests. Coverage includes strict config loading, feature extraction, workload preparation, SBD parsing, process-group timeout cleanup, telemetry failure modes, schema-v1 compatibility, schema-v2 identity validation, stale claim recovery, node-lock contention, input mutation, artifact hashing, exact resume/new attempts, official upstream/binary rejection, multi-input validation, calibration-manifest timing gates, deterministic aggregation, grouped evaluation, corrected threshold candidates, unique-policy artifacts, inference-overhead accounting, strict Phase B input provenance/structure validation, and density-length enforcement.
 
 The mock smoke sweep exercises five terminal behaviors: one success, one scientific nonconvergence, one nonzero process failure, one timeout with child cleanup, and one simulated OOM. Re-running the same sweep reuses all five immutable trial IDs.
 
@@ -46,6 +46,24 @@ Machine-readable comparison: `reports/stage2_amd_correctness.json`. Hash-linked 
 The durations above are correctness-smoke diagnostics, not benchmark results. These trials had zero warmups, protocol purpose `correctness`, and were executed against an uncommitted Stage 2 worktree before the correctness manifest was linked as prior protocol evidence. Schema v2 therefore records `timing_eligible=false` for both.
 
 No final CPU/GPU speedup, crossover, selector benefit, or headline performance claim can be derived from this pair alone. The separately gated pilot and repeated Stage 4 protocol provide the timing evidence reported below; they do not retroactively change this pair's ineligible status.
+
+## Phase B1 authentic N₂/H₂O correctness
+
+The exact smallest complete N₂/6-31G and H₂O/cc-pVDZ datasets retained from `r-ccs-cms/sbd` tag `v1.3.0` were consumed unchanged by the same official `AMD-HPC/amd-sbd` commit and existing NVIDIA HPC SDK 26.5 CPU16/GPU artifacts used elsewhere in this project. The RIKEN checkout supplied licensed data only; no RIKEN executable was built or run. Both CPU/GPU pairs used identical solver settings and exact matching input descriptions.
+
+| Family | Configurations | Iterations | CPU/GPU energy (Ha) | CPU/GPU residual | Energy relative difference | Density max abs difference | Peak host RSS CPU/GPU (MiB) | Peak GPU allocation (MiB) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| N₂ / 6-31G | 57,121 | 18 | `-109.0415109298453 / -109.0415109298453` | `9.7461579e-9 / 9.7462004e-9` | `0` | `3.1974e-14` | `35.324 / 131.488` | `194` |
+| H₂O / cc-pVDZ | 75,625 | 19 | `-76.23593762863838 / -76.23593762863834` | `6.3507189e-9 / 6.3507321e-9` | `5.5922e-16` | `1.9984e-14` | `41.410 / 138.066` | `196` |
+
+All four records are terminal successes from clean project commit `b0324dd011b87c13a0902ada46f5a44f62a543a6`. Each residual is at most `1e-8`; iteration counts match exactly within a family; density lengths equal `NORB` (18 and 24); energy and density differences are below `1e-10`; inputs are unchanged across initial, before-launch, and after-run checks; and stdout, stderr, and resource artifacts verify against their recorded hashes. Both GPU trials required target offload, printed the exact device-assignment evidence, were observed allocating on the L4, and have complete host/GPU telemetry. The L4 was idle at every preflight.
+
+The four immutable record IDs are:
+
+- N₂ CPU `16cda11507164d29f1528889b61d9a1560105fe96791edf75e2187922c36f0a8` and GPU `3c190b275f4c7521631b333a22dad44249d57b7f13ca1715a4e4644e2670af23`;
+- H₂O CPU `52b394f95cad7a1fca0d929ef1e099780ffb730c3156b48afa8d2270fef748d0` and GPU `15c1e429c88423849e587e132bbf588caa1545cc9e27270a63f4a23d2d0de716`.
+
+The deterministic combined gate is `reports/phaseb_n2_h2o_correctness_manifest.json`, SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`. An immediate identical builder invocation reported `status=unchanged`. These trials used zero warmups, one repetition, and purpose `correctness`; all have `timing_eligible=false`. Their diagnostic wall fields are excluded from performance analysis. The manifest validates only these two exact input hashes, not larger lists or future derived prefixes.
 
 ## Definitive five-size correctness calibration
 

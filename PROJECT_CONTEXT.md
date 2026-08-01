@@ -4,7 +4,7 @@ Status date: 2026-08-01
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stages 0–4 and the current single-family Stage 5 evaluation are complete. The frozen Stage 4 protocol produced 48 immutable records, including 38 timing-eligible measurements, through the official AMD CPU16 and NVIDIA OpenMP-offload L4 executables built from the same unmodified commit with NVIDIA HPC SDK 26.5. Corrected Stage 5 artifacts evaluate six unique policies with grouped, training-only fits and no invalid selection or failure; hot and diagnostic cold inference overhead are measured separately. Phase B is approval-gated. If authorized, pinned N₂/H₂O files may be checked only as data inputs to the same official AMD binaries; the RIKEN executable remains historical and is not a primary or comparison backend.
+Current phase: Stages 0–4 and the current single-family Stage 5 evaluation are complete. The frozen Stage 4 protocol produced 48 immutable records, including 38 timing-eligible measurements, through the official AMD CPU16 and NVIDIA OpenMP-offload L4 executables built from the same unmodified commit with NVIDIA HPC SDK 26.5. Corrected Stage 5 artifacts evaluate six unique policies with grouped, training-only fits and no invalid selection or failure; hot and diagnostic cold inference overhead are measured separately. Phase B1 is complete: exact licensed N₂/H₂O inputs passed provenance, unchanged-format, and smallest-case identical-input AMD CPU/GPU correctness gates. Phase B2 derived-size preparation and all multifamily timing/evaluation remain pending. The RIKEN checkout supplied data only; its executable remains historical and is not a primary or comparison backend.
 
 ## Implementation and evidence status
 
@@ -12,7 +12,7 @@ The primary upstream is the official `AMD-HPC/amd-sbd` repository at commit `729
 
 The harness now supports strict configuration validation, deterministic pre-execution features, exact provenance admission, fail-closed GPU-idle and memory checks, a node-wide single-run lock, monitored process-group timeouts, atomic immutable records, resumable sweeps, and distinct logical/attempt identities. Schema v2 re-hashes inputs before launch and after execution, hashes the three run artifacts, preserves failures and orphan evidence, and requires a hash-linked correctness manifest plus protocol conditions before marking any record timing-eligible.
 
-The current suite passes all 123 tests. Coverage extends from strict configuration, feature extraction, parsing, process cleanup, telemetry, immutable records, provenance admission, correctness manifests, resume, and deterministic timing aggregation through grouped selector evaluation, explicit static-threshold sentinels and geometric boundaries, unique-policy artifacts, and inference-overhead accounting. The definitive five-size calibration validates ten clean CPU/GPU correctness records. Stage 4 preserves 48 raw records and aggregates only its 38 eligible measurements; Stage 5 deliberately uses a balanced 30-measurement view for held-out evaluation.
+The current suite passes all 128 tests. Coverage extends from strict configuration, feature extraction, parsing, process cleanup, telemetry, immutable records, provenance admission, correctness manifests, resume, and deterministic timing aggregation through grouped selector evaluation, explicit static-threshold sentinels and geometric boundaries, unique-policy artifacts, inference-overhead accounting, strict N₂/H₂O input inventory validation, and per-record density/orbital consistency. The definitive Fe₄S₄ five-size calibration validates ten clean CPU/GPU correctness records; the Phase B1 manifest validates four additional clean N₂/H₂O records. Stage 4 preserves 48 raw records and aggregates only its 38 eligible measurements; Stage 5 deliberately uses a balanced 30-measurement view for held-out evaluation.
 
 ## Research objective
 
@@ -90,7 +90,7 @@ Required metrics are end-to-end runtime, geometric-mean speedup, selection accur
 - Stage 3: complete—workload preparation, five-size correctness calibration, CPU16/GPU crossover pilot, CPU-thread pruning, and Stage 4 protocol freeze.
 - Stage 4: complete—48 immutable records, including 10 warmups and 38 eligible repeated measurements, audited and deterministically aggregated.
 - Stage 5 Phase A: complete—corrected six-policy grouped evaluation plus hot and diagnostic cold inference-overhead measurement.
-- Phase B: approval-gated—inventory and test additional authentic data only through the same official AMD CPU/GPU executables; no new workload run is authorized by Phase A completion.
+- Phase B: B1 complete—pinned N₂/H₂O data inventory, static unchanged-input compatibility, and exact smallest-case CPU/GPU correctness pass through the same official AMD executables. B2 family schema, derived sizes, and any timing sweep remain pending and separately gated.
 - Stage 6: in progress—maintain traceable internal reports, tables, and figures and audit claims and reproducibility.
 - Stages 7–8 submission authorship: reserved for the student. Codex may organize evidence and checklists, but must not write or generate the abstract, summary, poster, or other submission content.
 

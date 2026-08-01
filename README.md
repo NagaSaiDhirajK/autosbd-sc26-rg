@@ -15,7 +15,7 @@ Exact source, compiler, flags, binary hashes, and license provenance are recorde
 
 ## Current status
 
-Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated sizes; and the schema-v2 single-run/resumable-sweep harness is implemented. The frozen Stage 4 campaign produced 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 123 tests, including corrected threshold semantics, six-policy evaluation artifacts, and hot/cold inference-overhead coverage.
+Stages 0–4 and the current single-family Stage 5 evaluation are complete. The machine and official AMD builds are documented; identical-input CPU/GPU correctness passes at all five calibrated Fe₄S₄ sizes and for the exact smallest upstream N₂/H₂O cases; and the schema-v2 single-run/resumable-sweep harness is implemented. The frozen Stage 4 campaign produced 48 immutable records—10 excluded warmups and 38 timing-eligible measurements—with no failure, timeout, OOM, skip, or correctness error. The current suite passes all 128 tests, including corrected threshold semantics, six-policy evaluation artifacts, inference-overhead coverage, strict Phase B input provenance, and density-length enforcement.
 
 The hardened runner provides:
 
@@ -28,7 +28,7 @@ The hardened runner provides:
 
 The schema-v2 Fe₄S₄ CPU and GPU runs converged and agreed in energy, density, and iteration count at all five determinant-prefix sizes. Every calibration record has `timing_eligible=false`; its wall time is diagnostic only and is not a final performance result. See [`reports/RESULTS.md`](reports/RESULTS.md) and [`reports/LIMITATIONS.md`](reports/LIMITATIONS.md).
 
-The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These are size-held-out results from one Fe₄S₄ family, not cross-family evidence. A Phase B compatibility/correctness extension is approval-gated and has not started.
+The repeated Stage 4 medians preserve the observed CPU16/GPU winner flip between 1,024 and 3,025 configurations. In the strict largest-size holdout, the corrected static threshold and both trees select the GPU with zero normalized regret; fixed CPU16 has normalized regret `3.542081714297355`. Across the five leave-one-instance-out sensitivity folds, the full and size-only trees have identical `0.8` selection accuracy and geometric selected/oracle runtime `1.0472132783479557`; the corrected geometric-midpoint threshold has `0.6` accuracy and geometric selected/oracle runtime `1.078390418002942`. There are no invalid selections or failures. These remain size-held-out timing results from one Fe₄S₄ family, not cross-family performance evidence. Phase B1 now validates exact smallest N₂/H₂O inputs on the same official AMD CPU/GPU binaries; those four correctness records have zero warmups and remain timing-ineligible. Derived sizes, repeated timing, and cross-family evaluation are still pending.
 
 ## Reproduce the engineering checks
 
@@ -79,6 +79,9 @@ Use `scripts/run_sweep.py` for a sequential resumable configuration sweep. The r
 - [`results/processed/stage3_candidate_pilot.json`](results/processed/stage3_candidate_pilot.json): combined CPU-thread/CPU16/GPU pruning evidence
 - [`reports/stage4_protocol.json`](reports/stage4_protocol.json): frozen final shard hashes, counts, and analysis rules
 - [`reports/stage4_completion.json`](reports/stage4_completion.json): completed-campaign integrity and correctness audit
+- [`reports/phase_b_input_inventory.json`](reports/phase_b_input_inventory.json): exact licensed N₂/H₂O data inventory and hashes
+- [`reports/PHASE_B_COMPATIBILITY.md`](reports/PHASE_B_COMPATIBILITY.md): unchanged-input static and smallest-pair runtime gate
+- [`reports/phaseb_n2_h2o_correctness_manifest.json`](reports/phaseb_n2_h2o_correctness_manifest.json): exact four-record N₂/H₂O CPU/GPU correctness manifest
 - [`results/processed/stage4_final.json`](results/processed/stage4_final.json): deterministic repeated-timing aggregation
 - [`configs/stage5_size_heldout.yaml`](configs/stage5_size_heldout.yaml): leakage-safe single-family evaluation protocol
 - [`results/processed/stage5/evaluation.json`](results/processed/stage5/evaluation.json): corrected held-out predictions, metrics, models, and claim boundary

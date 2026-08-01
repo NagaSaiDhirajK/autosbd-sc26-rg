@@ -1702,3 +1702,58 @@ git -C external/riken-sbd status --porcelain=v1 --untracked-files=all
 ```
 
 Outcome: 128/128 tests passed in 11.232 seconds; dependencies were consistent; the inventory validator passed; each Phase B config expanded to exactly two ordered templates, CPU then GPU; diff hygiene passed; and both upstream checkouts were clean. The first extra loader assertion mistakenly called nonexistent `SweepConfig.trials()` and exited `1` after all tests and inventory validation had already passed. Source inspection identified the public `trial_templates(randomize=False)` API; the corrected assertion exited `0`, and no project file changed because of the audit-command error.
+
+## 2026-08-01 — Run the Phase B1 smallest N₂/H₂O correctness pairs
+
+Preparation was checkpointed at clean project commit `b0324dd011b87c13a0902ada46f5a44f62a543a6`. Before every solver launch, `scripts/validate_phase_b_inputs.py` passed; project and both upstream source trees were clean apart from the runner's narrow allowance for newly generated raw JSON; `nvidia-smi` reported no compute process, 0 MiB used, 22,564 MiB free, 0% utilization, 34 C, and approximately 16.5 W; host memory availability was 122 GiB; and one-minute load was recorded. Project-native `extract_input_features` and `estimate_source_memory` reported:
+
+```text
+N2:  combined input 6976b0d5793326781b16b53b6ff8d7c76068bdd016bdd29aa4cbee3e6aab0deb
+     57,121 configurations; 16,970,806 host-known bytes;
+     2,159,488 GPU-known bytes; 603,979,776-byte host/GPU guard
+H2O: combined input ee17c38802ca7e869797f014dbc4957e7b589cc2cb8e2f2068c37fc2af1a150d
+     75,625 configurations; 25,070,256 host-known bytes;
+     3,699,192 GPU-known bytes; 603,979,776-byte host/GPU guard
+```
+
+The guarded GPU totals of 606,139,264 and 607,678,968 bytes were below the contemporaneous `18,928,055,091`-byte admission limit. CPU ran first and each family stopped at its inspection gate before GPU launch:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py \
+  configs/phaseb_n2_correctness.yaml \
+  --no-randomize --max-trials 1 --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py \
+  configs/phaseb_n2_correctness.yaml \
+  --no-randomize --max-trials 2 --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py \
+  configs/phaseb_h2o_correctness.yaml \
+  --no-randomize --max-trials 1 --require-all-success
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py \
+  configs/phaseb_h2o_correctness.yaml \
+  --no-randomize --max-trials 2 --require-all-success
+```
+
+All four invocations exited `0`. Each first invocation launched one CPU record; each second invocation reused that CPU record and launched exactly one GPU record. Record IDs and SHA-256 values are:
+
+- N₂ CPU `16cda11507164d29f1528889b61d9a1560105fe96791edf75e2187922c36f0a8`, record SHA `8c48f052a8453a75003de33df7427161fb8b7772b1e3d92374fac56f4a6e6eff`;
+- N₂ GPU `3c190b275f4c7521631b333a22dad44249d57b7f13ca1715a4e4644e2670af23`, record SHA `7de8a685ac198d4811cb4e2eb98e53fab56ed8b025b78900d40838d6de72d593`;
+- H₂O CPU `52b394f95cad7a1fca0d929ef1e099780ffb730c3156b48afa8d2270fef748d0`, record SHA `1809e64ae9634ec0db6d396f36ad5783cd2822e1558e34f2a6467f577a490d81`;
+- H₂O GPU `15c1e429c88423849e587e132bbf588caa1545cc9e27270a63f4a23d2d0de716`, record SHA `fabb943bba3fe20fbf49c71a96ff49d8fbd9da9052803ae5753f16e3fdd41fcb`.
+
+Record inspection and independent `sha256sum` checks confirmed exact official AMD build hashes, CPU `OMP_TARGET_OFFLOAD=DISABLED`, GPU `OMP_TARGET_OFFLOAD=MANDATORY`, explicit device 0, complete monitoring, positive GPU allocations, stable three-stage input descriptions, and matching stdout/stderr/resource hashes. One compact `jq` inspection initially queried nonexistent aliases `peak_host_memory_mb` and `input_stable`, which returned null. A corrected read of schema fields `peak_host_rss_mb` and `input_integrity` succeeded; no record changed.
+
+Pairwise and combined manifests were built with:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/build_calibration_manifest.py \
+  results/raw/16cda11507164d29f1528889b61d9a1560105fe96791edf75e2187922c36f0a8.json \
+  results/raw/3c190b275f4c7521631b333a22dad44249d57b7f13ca1715a4e4644e2670af23.json \
+  results/raw/52b394f95cad7a1fca0d929ef1e099780ffb730c3156b48afa8d2270fef748d0.json \
+  results/raw/15c1e429c88423849e587e132bbf588caa1545cc9e27270a63f4a23d2d0de716.json \
+  --output reports/phaseb_n2_h2o_correctness_manifest.json
+# Immediate identical second invocation.
+```
+
+Outcome: the combined builder exited `0`, validated two inputs, reported `written` then `unchanged`, and produced SHA-256 `fc73db40f756384e86852e8a7a12ec00fe8838db25683681aa12eceb9bdf38c5`. N₂ energy relative error was zero and density max difference was `3.1974e-14`; H₂O energy relative error was `5.5922e-16` and density max difference was `1.9984e-14`. Residuals were below `1e-8`, iteration counts matched exactly, and density lengths equaled `NORB`. All four records remain `timing_eligible=false`. No RIKEN solver ran.
+
+Final B1 integration verification used the complete 128-test suite, `pip check`, the Phase B input validator, strict JSON parsing and explicit success/clean/timing-ineligible/input-stable assertions for all four raw records, combined-manifest regeneration, `git diff --check`, exact SHA-256 recomputation, post-run GPU telemetry, and both upstream cleanliness checks. Outcome: exit `0`; 128/128 tests passed in 11.250 seconds; dependencies were consistent; the 20-artifact inventory passed; all record assertions passed; manifest regeneration reported `unchanged`; hashes matched; the L4 returned to 0 MiB used, 0% utilization, 22,564 MiB free, 34 C, and no compute process; and both upstream trees were clean.
