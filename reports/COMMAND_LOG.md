@@ -650,3 +650,230 @@ rm \
 git -C external/amd-sbd status --short --branch
 git -C external/riken-sbd status --short --branch
 ```
+
+## 2026-07-31T23:18Z — Install the pinned Stage 2 Python dependency
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: Installed only `PyYAML==6.0.2` into the project-local virtual environment from `requirements-lock.txt`; the wheel download was 751.2 kB. Full output: `logs/stage2_pyyaml_install.log`.
+- Provenance note: the durable pip log preserves the requested version and outcome, but not the exact short-versus-long spelling of the original pip option. The dependency request itself is exactly:
+
+```text
+PyYAML==6.0.2
+```
+
+## 2026-07-31T23:18Z–23:40Z — Implement and exercise the Stage 2 harness
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0 for the completed test and smoke-test runs
+- Outcome: Added strict YAML configuration, streamed FCIDUMP/determinant features, memory feasibility, process monitoring, immutable JSON records, AMD output parsing, one-trial and sequential-sweep CLIs, and a five-outcome mock fixture. The first two complete mock smoke iterations passed 47 and 48 unit tests respectively. Each launched five trials with statuses `success=1`, `failed=2`, `timeout=1`, and `oom=1`; the immediate resume launched zero and reused all five records.
+- Smoke roots: `/tmp/autosbd-stage2-smoke.4cDvC2`, `/tmp/autosbd-stage2-smoke.ePZCXD`.
+- Focused runner log: `logs/test_runner.log`; 8/8 tests passed in 1.061 s.
+
+```bash
+bash scripts/smoke_test.sh
+```
+
+The smoke script executes the following commands and validates every resulting record:
+
+```bash
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
+.venv/bin/python scripts/run_sweep.py configs/smoke.yaml --project-root "$repository_root" --results-dir "$results_dir" --logs-dir "$trial_logs_dir" --no-randomize
+.venv/bin/python scripts/run_sweep.py configs/smoke.yaml --project-root "$repository_root" --results-dir "$results_dir" --logs-dir "$trial_logs_dir" --no-randomize
+```
+
+## 2026-07-31T23:40Z — Audit the pinned AMD command-line surface
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: Confirmed that pinned AMD commit `729cfa3a5011fb805eb9e686a7711f6919836dcb` accepts `--carryover_ratio`, accepts only `--adetfile` for this determinant input, and does not parse `--init`. Stage 2 therefore emits no `--init` and no `--bdetfile`; unknown flags must not be silently passed to the application.
+
+```bash
+rg -n -- '--init|--carryover_ratio|--adetfile|--bdetfile' external/amd-sbd/applications/selected_basis_diagonalization/src
+```
+
+## 2026-07-31T23:46Z — Run the first immutable Stage 2 AMD CPU correctness trial
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Duration: 78.53774263899686 s wall; 75.87626 s reported solver time
+- Outcome: Schema-v1 record `3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1` converged in 50 iteration records to residual `8.931146441578446e-09` and energy `-326.6982536731583 Ha`; peak host RSS was 47.640625 MiB. Preflight saw an idle L4 with 22,564 MiB free and applied the 80%-free/20-GiB cap.
+- Record: `results/raw/3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1.json`.
+- Exact solver argv is preserved in that immutable record; the original outer `run_one.py` option ordering was not separately retained:
+
+```bash
+build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu \
+  --fcidump external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt \
+  --adetfile external/amd-sbd/samples/selected_basis_diagonalization/AlphaDets.txt \
+  --method 0 --iteration 6 --block 10 --tolerance 1e-08 --max_time 240 \
+  --bit_length 20 --shuffle 0 --carryover_ratio 0.5 --rdm 0 \
+  --adet_comm_size 1 --bdet_comm_size 1 --task_comm_size 1
+```
+
+## 2026-07-31T23:47Z — Run the first immutable Stage 2 AMD L4 correctness trial
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Duration: 17.13973771200108 s wall; 15.494857 s reported solver time
+- Outcome: Schema-v1 record `0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5` converged in 50 iteration records to residual `8.931494922593578e-09` and energy `-326.6982536731581 Ha`. Mandatory target offload and device 0 were observed; 114 resource samples recorded 198 MiB peak GPU memory and 145.04296875 MiB peak host RSS.
+- Record: `results/raw/0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5.json`.
+- Exact solver argv differs from the CPU command only in its executable:
+
+```bash
+build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu \
+  --fcidump external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt \
+  --adetfile external/amd-sbd/samples/selected_basis_diagonalization/AlphaDets.txt \
+  --method 0 --iteration 6 --block 10 --tolerance 1e-08 --max_time 240 \
+  --bit_length 20 --shuffle 0 --carryover_ratio 0.5 --rdm 0 \
+  --adet_comm_size 1 --bdet_comm_size 1 --task_comm_size 1
+```
+
+## 2026-07-31T23:48Z — Compare and resume the schema-v1 AMD pair
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: CPU/GPU residual, energy, and 36-value density checks passed. Energy relative error was `6.959745663982201e-16`; density maximum absolute error was `2.7017277304253184e-13`. Exact reruns reported `launched=false` and `reused=true` for both records.
+- Integrity correction: schema v1 set `timing_eligible=true` even though the project tree was dirty and the protocol had zero warmups. The records remain byte-for-byte immutable, but that field is superseded and none of their timings are eligible for analysis.
+
+## 2026-08-01T00:01Z–00:03Z — Exercise schema and telemetry hardening
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Intermediate outcome: A full 61-test integration run exited 1 with 10 errors after stricter manifest and identity gates invalidated stale test assumptions. This expected integration failure is preserved in `logs/telemetry_harden_full_tests.log`; the failing command was not repeated unchanged.
+- Final focused outcomes: schema/claim tests 11/11 passed in 0.031 s; process/system telemetry tests 17/17 passed in 0.864 s.
+- Logs: `logs/stage2_schema_harden_tests.log`, `logs/telemetry_harden_tests.log`.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest tests.test_records -v > logs/stage2_schema_harden_tests.log 2>&1
+PYTHONPATH=src .venv/bin/python -m unittest tests.test_process tests.test_system -v > logs/telemetry_harden_tests.log 2>&1
+```
+
+## 2026-08-01T00:16Z–00:17Z — Validate the integrated schema-v2 runner
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: The hardened runner suite passed 13/13 tests in 2.373 s, including node-lock contention, input mutation, artifact hashing, logical-identity self-verification, official-source/binary rejection, and timing-gate coverage. The complete suite then passed 67/67 in 4.325 s.
+- Logs: `logs/test_runner_v2.log`, `logs/test_full_v2.log`.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_runner.py' -v > logs/test_runner_v2.log 2>&1
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v > logs/test_full_v2.log 2>&1
+```
+
+## 2026-08-01T00:17Z — Run the hardened mock smoke and resume test
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Duration: 2.954 s for 62 tests plus bounded mock trials
+- Outcome: `/tmp/autosbd-stage2-smoke.4XQRJS` launched five schema-v2 mock trials with statuses `success=1`, `failed=2`, `timeout=1`, and `oom=1`; its immediate resume launched zero and reused all five immutable records.
+
+```bash
+bash scripts/smoke_test.sh
+```
+
+## 2026-08-01T00:17Z–00:19Z — Run hardened schema-v2 AMD CPU/GPU correctness trials
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0 for both sequential runs
+- CPU outcome: trial `9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d`; 78.72754408099718 s wall, 76.066536 s solver, 47.6484375 MiB peak RSS, residual `8.931146441578446e-09`, energy `-326.6982536731583 Ha`.
+- GPU outcome: trial `1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125`; 17.221985976000724 s wall, 15.509004 s solver, 198 MiB peak GPU memory, 145.0859375 MiB peak RSS, residual `8.931494922593578e-09`, energy `-326.6982536731581 Ha`.
+- Safety/evidence: both preflights found no GPU compute process and 22,564 MiB free. Input hashes matched initially, immediately before launch, and after completion. The GPU monitor was complete and observed the trial process. Every stdout, stderr, and resource log is size/hash-linked in its record.
+- Eligibility: both records say `purpose=correctness`, `warmups=0`, `correctness_validated=false`, and `project_git_dirty=true`; therefore both correctly record `timing_eligible=false`.
+- Toolchain: both exact binaries are from official `AMD-HPC/amd-sbd` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`, built with NVIDIA HPC SDK `nvc++ 26.5-0`; the GPU build targets `cc89` using bundled CUDA 13.2.
+- The exact solver argv is the same backend-specific argv recorded in the two schema-v1 sections above. The schema-v2 records additionally bind it to compiler identity, build flags, executable hash, semantic input hash, protocol, environment, and attempt index.
+
+```bash
+sha256sum external/amd-sbd/samples/selected_basis_diagonalization/fcidump_Fe4S4.txt external/amd-sbd/samples/selected_basis_diagonalization/AlphaDets.txt
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage2_amd_smoke.yaml --no-randomize --require-all-success
+```
+
+## 2026-08-01T00:20Z–00:21Z — Revalidate AMD numerical agreement and seal evidence manifest
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: An inline record verifier recomputed all artifact hashes, schema identities, energy agreement, and the 36-value density comparison. `reports/stage2_amd_correctness.json` passed all four criteria for the schema-v2 pair: both residuals at most `1e-8`, energy relative error `6.959745663982201e-16`, and density maximum absolute error `2.7017277304253184e-13`. The two report files were then updated with `apply_patch`; no comparison command silently rewrote an immutable record. A second inline verifier checked all 19 manifest-linked files and exercised the runner's real manifest validator for both candidates. Manifest SHA-256: `aeb470c55e23ff9b71c946e38b25bc83193584ca2654e7a8cd2f8fca2aef6493`.
+
+```bash
+PYTHONPATH=src .venv/bin/python - <<'PY'
+import json
+from pathlib import Path
+from autosbd.records import validate_record
+
+paths = [
+    Path("results/raw/9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d.json"),
+    Path("results/raw/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.json"),
+]
+records = [json.loads(path.read_text()) for path in paths]
+for record in records:
+    validate_record(record)
+by_backend = {record["backend"]: record for record in records}
+cpu = by_backend["cpu"]
+gpu = by_backend["gpu"]
+cpu_density = [float(value) for value in cpu["upstream_output"]["density"]]
+gpu_density = [float(value) for value in gpu["upstream_output"]["density"]]
+density_max_abs = max(abs(a - b) for a, b in zip(cpu_density, gpu_density))
+energy_rel = abs(cpu["energy_or_eigenvalue"] - gpu["energy_or_eigenvalue"]) / abs(cpu["energy_or_eigenvalue"])
+assert density_max_abs <= 1e-10
+assert energy_rel <= 1e-10
+print({"density_max_absolute_error": density_max_abs, "energy_relative_error": energy_rel})
+PY
+PYTHONPATH=src .venv/bin/python scripts/run_sweep.py configs/stage2_amd_smoke.yaml --no-randomize --require-all-success
+jq empty reports/stage2_amd_correctness.json reports/stage2_amd_validation_manifest.json
+sha256sum reports/stage2_amd_correctness.json reports/stage2_amd_validation_manifest.json
+```
+
+The exact rerun summary was `launched=0`, `reused=2`, `statuses={"success": 2}`.
+
+## 2026-08-01 — Reconcile and validate the Stage 2 durable logs
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0
+- Outcome: Appended the Stage 2 command, experiment, and decision evidence without modifying earlier entries. Whitespace, merge-marker, carriage-return, required-term, heading, and three-file scope checks passed. The report-only diff contains 233 inserted lines before this audit entry.
+
+```bash
+git diff --check -- reports/COMMAND_LOG.md reports/EXPERIMENT_LOG.md reports/DECISIONS.md
+! rg -n '^(<<<<<<<|=======|>>>>>>>)' reports/COMMAND_LOG.md reports/EXPERIMENT_LOG.md reports/DECISIONS.md
+! rg -n $'\r' reports/COMMAND_LOG.md reports/EXPERIMENT_LOG.md reports/DECISIONS.md
+rg -n 'Stage 2|schema-v2|schema v2|timing_eligible=false|AMD-HPC/amd-sbd|NVIDIA HPC SDK 26\.5|9f903114|1b7be4e3|3d550a26|0aa87a7d|67/67' reports/COMMAND_LOG.md reports/EXPERIMENT_LOG.md reports/DECISIONS.md
+rg -n '^## D-[0-9]{3}' reports/DECISIONS.md
+git diff --stat -- reports/COMMAND_LOG.md reports/EXPERIMENT_LOG.md reports/DECISIONS.md
+git status --short -- reports/COMMAND_LOG.md reports/EXPERIMENT_LOG.md reports/DECISIONS.md
+```
+
+## 2026-08-01 — Record non-mutating diagnostic invocation failures
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Outcome: The two inspection batches below exited 1 without changing project files. The first stopped immediately because `pytest` is intentionally absent from the minimal environment. The second omitted `PYTHONPATH=src`, so discovery found seven test modules and all seven imports failed with `ModuleNotFoundError: No module named 'autosbd'`; its saved exit status was returned after the subsequent read-only help/file inspections completed. Both were corrected by using standard-library `unittest` with `PYTHONPATH=src`; neither failed command was repeated unchanged.
+
+```bash
+.venv/bin/python -m pytest -q && .venv/bin/python scripts/run_one.py --help && .venv/bin/python scripts/run_sweep.py --help && sed -n '1,240p' pyproject.toml && sed -n '1,260p' configs/stage2_amd_smoke.yaml && sed -n '1,220p' configs/smoke.yaml && jq '{schema_version,passed,checks,metrics,cpu,gpu}' reports/stage2_amd_correctness.json && jq '{trial_id,status,correct,timing_eligible,wall_time_s,solver_time_s,peak_gpu_memory_mb,iterations,result,resource_monitoring,input_integrity,run_artifacts,upstream,build,compiler}' results/raw/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.json
+```
+
+```bash
+.venv/bin/python -m unittest discover -s tests -v; test_status=$?; .venv/bin/python scripts/run_one.py --help; .venv/bin/python scripts/run_sweep.py --help; sed -n '1,240p' pyproject.toml; sed -n '1,260p' configs/stage2_amd_smoke.yaml; sed -n '1,220p' configs/smoke.yaml; jq '{schema_version,passed,checks,metrics,cpu,gpu}' reports/stage2_amd_correctness.json; jq '{trial_id,status,correct,timing_eligible,wall_time_s,solver_time_s,peak_gpu_memory_mb,iterations,result,resource_monitoring,input_integrity,run_artifacts,upstream,build,compiler}' results/raw/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.json; exit "$test_status"
+```
+
+- Additional short inline probes initially used the unavailable `python` alias (exit 127), then omitted `PYTHONPATH=src`, and then guessed obsolete API names `load_config` and `ExperimentRunner`. Each was a read-only introspection failure. The corrected APIs are `load_sweep_config`, `TrialRunner`, and `_detect_nvhpc_compiler_identity`, invoked with `.venv/bin/python` and `PYTHONPATH=src`.
+
+## 2026-08-01 — Remove legacy RIKEN targets from the active build entry point
+
+- Working directory: `/home/nagan/autosbd-sc26-rg`
+- Exit code: 0 for validation; the deliberately invalid `riken-cpu` request returned the required exit code 2.
+- Outcome: `scripts/build_upstream.sh` now exposes only `amd-all`, `amd-cpu`, and `amd-gpu`; it also rejects a non-official origin, a commit other than `729cfa3a5011fb805eb9e686a7711f6919836dcb`, or a dirty official checkout before compilation. No binary was rebuilt. The historical RIKEN submodule/header/logs remain preserved but have no active build target.
+
+```bash
+bash -n scripts/build_upstream.sh
+set +e
+scripts/build_upstream.sh riken-cpu >/tmp/autosbd-invalid-target.stdout 2>/tmp/autosbd-invalid-target.stderr
+status=$?
+set -e
+test "$status" -eq 2
+test ! -s /tmp/autosbd-invalid-target.stdout
+rg -n '^Usage: .*amd-all\|amd-cpu\|amd-gpu' /tmp/autosbd-invalid-target.stderr
+if rg -ni 'riken' scripts/build_upstream.sh
+then
+  exit 1
+fi
+test "$(git -C external/amd-sbd rev-parse HEAD)" = "729cfa3a5011fb805eb9e686a7711f6919836dcb"
+test "$(git -C external/amd-sbd remote get-url origin)" = "https://github.com/AMD-HPC/amd-sbd.git"
+test -z "$(git -C external/amd-sbd status --porcelain)"
+```

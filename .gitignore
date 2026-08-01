@@ -2,9 +2,17 @@
 .venv/
 __pycache__/
 *.py[cod]
+*.egg-info/
+.eggs/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
 
 # Build products
 build/
@@ -14,8 +22,12 @@ build-*/
 *.so
 
 # Full command/build/runtime logs are local; durable summaries live in reports/.
-logs/*.log
-logs/*.csv
+logs/**
+!logs/.gitkeep
+
+# Runtime coordination files are ephemeral. Immutable records remain under
+# results/raw/ and are intentionally not ignored.
+.autosbd/
 
 # Editor and operating-system noise
 .vscode/

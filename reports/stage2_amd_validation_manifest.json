@@ -1,0 +1,192 @@
+{
+  "candidate_artifacts": [
+    {
+      "backend": "cpu",
+      "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu",
+      "sha256": "190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07",
+      "size_bytes": 797304
+    },
+    {
+      "backend": "gpu",
+      "path": "build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu",
+      "sha256": "8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07",
+      "size_bytes": 2021216
+    }
+  ],
+  "comparison": {
+    "checks": {
+      "cpu_residual": true,
+      "density_max_absolute_error": true,
+      "energy_relative_error": true,
+      "gpu_residual": true
+    },
+    "density_max_absolute_error": 2.7017277304253184e-13,
+    "energy_relative_error": 6.959745663982201e-16,
+    "path": "reports/stage2_amd_correctness.json",
+    "sha256": "cdeda3ebbdb5a188e97e1c2799569dec282b21b77c2b30c7029389e710dee0c5",
+    "size_bytes": 1572
+  },
+  "criteria": {
+    "density_max_absolute_tolerance": 1e-10,
+    "energy_relative_tolerance": 1e-10,
+    "residual_tolerance": 1e-8
+  },
+  "evidence_records": [
+    {
+      "artifacts": {
+        "resources": {
+          "path": "logs/trials/3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1.resources.csv",
+          "sha256": "db9f060be32250ebab5b11a66714de0199061b9f68db149d8426d599c291c074",
+          "size_bytes": 21852
+        },
+        "stderr": {
+          "path": "logs/trials/3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout": {
+          "path": "logs/trials/3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1.stdout.log",
+          "sha256": "b9517420568496c8e24605213483bf10e01f1d28ca622d315b4c32b46935bf4f",
+          "size_bytes": 9454
+        }
+      },
+      "backend": "cpu",
+      "evidence_role": "historical_schema_v1",
+      "energy_hartree": -326.6982536731583,
+      "final_residual": 8.931146441578446e-9,
+      "iteration_records": 50,
+      "path": "results/raw/3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1.json",
+      "project_git_dirty": true,
+      "record_schema_version": 1,
+      "sha256": "91c6ae3176e4940dfe67005b5b9265b36cd5a8c4b9e23cc6bb1e130f89665013",
+      "size_bytes": 12036,
+      "trial_id": "3d550a2669c8c2d2b7cdc6f824d08f94c6d424c954160e3aa2fee18f9cd96bc1"
+    },
+    {
+      "artifacts": {
+        "resources": {
+          "path": "logs/trials/0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5.resources.csv",
+          "sha256": "1ebb419d4b4cb41d9b7c2a53df5a528cd4c67083be206a558586de2e856cff81",
+          "size_bytes": 6493
+        },
+        "stderr": {
+          "path": "logs/trials/0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout": {
+          "path": "logs/trials/0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5.stdout.log",
+          "sha256": "416b37a30ba61242cba2d3d156348087ad22f23ced43269ec430fb6e025f4503",
+          "size_bytes": 9486
+        }
+      },
+      "backend": "gpu",
+      "evidence_role": "historical_schema_v1",
+      "device_assignment_seen": true,
+      "energy_hartree": -326.6982536731581,
+      "final_residual": 8.931494922593578e-9,
+      "iteration_records": 50,
+      "mandatory_target_offload": true,
+      "path": "results/raw/0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5.json",
+      "project_git_dirty": true,
+      "record_schema_version": 1,
+      "sha256": "795781ac4cfb17264b741a9aace0ae74316dc55a122279ec03ce77e7fea170b2",
+      "size_bytes": 12146,
+      "trial_id": "0aa87a7deb05704f0dea7afc3d3ec382214d4d68c7ba4666fd6c7e89a8203ca5"
+    },
+    {
+      "artifacts": {
+        "resources": {
+          "path": "logs/trials/9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d.resources.csv",
+          "sha256": "cb2fcfdbd180a332638284d01ec73c26d21645681ecdd0cf1fd5242f91a74bed",
+          "size_bytes": 21908
+        },
+        "stderr": {
+          "path": "logs/trials/9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout": {
+          "path": "logs/trials/9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d.stdout.log",
+          "sha256": "c150f8ea2b18862777f7065c834a98aaf5e86e8913788245703570da0c9aaf4e",
+          "size_bytes": 9465
+        }
+      },
+      "backend": "cpu",
+      "correct": true,
+      "energy_hartree": -326.6982536731583,
+      "evidence_role": "hardened_schema_v2",
+      "final_residual": 8.931146441578446e-09,
+      "input_integrity_unchanged": true,
+      "iteration_records": 50,
+      "path": "results/raw/9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d.json",
+      "project_git_dirty": true,
+      "record_schema_version": 2,
+      "sha256": "50c6f4d8e83b096931617f5ea407a9687fa466206783e1c527072e7f5bdf09a0",
+      "size_bytes": 19489,
+      "timing_eligible": false,
+      "trial_id": "9f9031146690fe8afd04b94fced38551c7863ea95d62ff35404f022895055d1d"
+    },
+    {
+      "artifacts": {
+        "resources": {
+          "path": "logs/trials/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.resources.csv",
+          "sha256": "1f881f9219cc5747dff07b4d12bcdbe50246887debe370bc4c8e7bfa7425fb0e",
+          "size_bytes": 6542
+        },
+        "stderr": {
+          "path": "logs/trials/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout": {
+          "path": "logs/trials/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.stdout.log",
+          "sha256": "e0ebf90a01bf86db773074542aaf6823bee06e19743579543a19b44323acc6b1",
+          "size_bytes": 9488
+        }
+      },
+      "backend": "gpu",
+      "correct": true,
+      "device_assignment_seen": true,
+      "energy_hartree": -326.6982536731581,
+      "evidence_role": "hardened_schema_v2",
+      "final_residual": 8.931494922593578e-09,
+      "gpu_process_observed": true,
+      "input_integrity_unchanged": true,
+      "iteration_records": 50,
+      "mandatory_target_offload": true,
+      "path": "results/raw/1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125.json",
+      "project_git_dirty": true,
+      "record_schema_version": 2,
+      "sha256": "ec12b536be1cfecd346a7c811d398344cd24259c0bde9e4979e9cdcc862c1bbd",
+      "size_bytes": 19713,
+      "timing_eligible": false,
+      "trial_id": "1b7be4e302c4b8185d7960e04af7bf42abc4b41c49dfb0d3727a790383de6125"
+    }
+  ],
+  "generated_at_utc": "2026-08-01T00:20:49Z",
+  "input_sha256": "cca24426f5786ff5b669dd5de6a90a6a813dc9d6f72e5a787156b707db549e03",
+  "limitations": [
+    "Both historical schema-v1 and hardened schema-v2 evidence trials used an uncommitted Stage 2 harness and are correctness smoke only.",
+    "The hardened schema-v2 trials used zero warmups and are explicitly timing_eligible=false.",
+    "This manifest validates exact binaries, input, convergence, energy, density, iteration count, mandatory offload, and evidence-file hashes; it does not validate final benchmark timing protocol."
+  ],
+  "passed": true,
+  "schema_version": 1,
+  "solver": {
+    "adet_comm_size": 1,
+    "bdet_comm_size": 1,
+    "bit_length": 20,
+    "block": 10,
+    "carryover_ratio": 0.5,
+    "iteration": 6,
+    "max_time": 240.0,
+    "method": 0,
+    "rdm": 0,
+    "shuffle": 0,
+    "task_comm_size": 1,
+    "tolerance": 1e-8
+  },
+  "upstream_git_commit": "729cfa3a5011fb805eb9e686a7711f6919836dcb",
+  "upstream_url": "https://github.com/AMD-HPC/amd-sbd"
+}

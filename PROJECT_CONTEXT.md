@@ -1,10 +1,18 @@
 # AutoSBD project context
 
-Status date: 2026-07-31
+Status date: 2026-08-01
 
 Submission deadline supplied by the handoff: 2026-08-08
 
-Current phase: Stage 1 upstream reproduction is complete and Stage 2 harness implementation is next. Both upstream repositories are pinned. NVIDIA HPC SDK 26.5 builds official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified commit, and identical-input Fe₄S₄ residual, energy, and density validation passes. Earlier RIKEN builds and a CPU smoke run remain historical fallback evidence, not the primary pipeline.
+Current phase: Stage 2 harness implementation and hardening are complete; Stage 3 workload preparation and bounded pilot execution are next. NVIDIA HPC SDK 26.5 builds the official AMD-HPC `sc26-artifacts` CPU and L4 GPU executables from the same unmodified pinned commit, and the final schema-v2 identical-input Fe₄S₄ residual, energy, iteration, and density validation passes. Earlier RIKEN builds and a CPU smoke run remain historical fallback evidence only and are not used by the primary pipeline.
+
+## Stage 2 implementation status
+
+The primary upstream is the official `AMD-HPC/amd-sbd` repository at commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`. Both the CPU and NVIDIA OpenMP-offload GPU binaries come from this exact AMD source and a single NVIDIA HPC SDK 26.5 compiler/MPI/CUDA path. RIKEN `v1.3.0` is not a second active backend.
+
+The harness now supports strict configuration validation, deterministic pre-execution features, exact provenance admission, fail-closed GPU-idle and memory checks, a node-wide single-run lock, monitored process-group timeouts, atomic immutable records, resumable sweeps, and distinct logical/attempt identities. Schema v2 re-hashes inputs before launch and after execution, hashes the three run artifacts, preserves failures and orphan evidence, and requires a hash-linked correctness manifest plus protocol conditions before marking any record timing-eligible.
+
+The full standard-library test suite passes: 67 tests cover configuration, features, output parsing, process termination and telemetry, record validation/claims, runner admission and timing gates, input mutation, and resume behavior. The authentic schema-v2 AMD Fe₄S₄ CPU/GPU correctness pair also passes. Both records deliberately have `timing_eligible=false` because they were zero-warmup correctness trials executed while the Stage 2 worktree was uncommitted; their durations must not be presented as final benchmark evidence.
 
 ## Research objective
 
@@ -31,7 +39,7 @@ Parameter names and meanings must be verified from the exact checked-out source 
 - Walkup et al., *Scaling Sample-Based Quantum Diagonalization on GPU-Accelerated Systems using OpenMP Offload*, arXiv:2601.16169: https://arxiv.org/abs/2601.16169
 - Doi et al., *GPU-Accelerated Selected Basis Diagonalization with Thrust for SQD-based Algorithms*, arXiv:2601.16637: https://arxiv.org/abs/2601.16637
 - Robledo-Moreno et al., *Chemistry Beyond the Scale of Exact Diagonalization on a Quantum-Centric Supercomputer*, arXiv:2405.05068: https://arxiv.org/abs/2405.05068
-- AMD-HPC SBD, primary implementation pinned to official `sc26-artifacts`: https://github.com/AMD-HPC/amd-sbd
+- AMD-HPC SBD, primary implementation pinned to official `sc26-artifacts` commit `729cfa3a5011fb805eb9e686a7711f6919836dcb`: https://github.com/AMD-HPC/amd-sbd
 - RIKEN/IBM SBD, secondary historical fallback pinned to tag `v1.3.0`: https://github.com/r-ccs-cms/sbd
 - Qiskit SQD addon: https://github.com/Qiskit/qiskit-addon-sqd
 - Qiskit HPC-ready SQD addon: https://github.com/Qiskit/qiskit-addon-sqd-hpc
@@ -78,8 +86,8 @@ Required metrics are end-to-end runtime, geometric-mean speedup, selection accur
 
 - Stage 0: audit and durable context; stop for installation/Stage 1 approval.
 - Stage 1: pin/inspect both upstreams, reproduce authentic CPU/GPU correctness, and record build provenance.
-- Stage 2: implement/test immutable single-run and resumable sweep harnesses.
-- Stage 3: catalog authentic workloads and run an approved geometric pilot.
+- Stage 2: complete—implemented and tested immutable single-run and resumable sweep harnesses, schema-v2 provenance/safety hardening, and authentic AMD CPU/GPU correctness evidence.
+- Stage 3: catalog and prepare authentic workloads, then run an approved bounded geometric pilot.
 - Stage 4: freeze configuration and collect approved final data.
 - Stage 5: train and evaluate the leakage-safe tuner and baselines.
 - Stage 6: generate traceable engineering/scientific reports, tables, and figures; audit claims and reproducibility.

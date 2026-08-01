@@ -1,4 +1,6 @@
-# Stage 0 environment audit
+# Environment and toolchain record
+
+This report preserves the initial Stage 0 audit below and appends the installed Stage 1/2 state. Statements that a dependency was initially missing are historical observations, not the current environment.
 
 Audit time: 2026-07-31 around 22:04 UTC
 
@@ -105,7 +107,7 @@ APT metadata refresh downloaded 49.0 MB. The transaction installed 83 new packag
 | system Python pip | 22.0.2 |
 | Python venv metapackage | 3.10.6-1~22.04.1 |
 
-The project-local `.venv` uses Python 3.10.12 with bootstrap packages `pip==26.2`, `setuptools==83.0.0`, `wheel==0.47.0`, and `packaging==26.2`. The scientific Python dependencies remain intentionally uninstalled until the benchmark/tuner package definition is written.
+The project-local `.venv` uses Python 3.10.12 with bootstrap packages `pip==26.2`, `setuptools==83.0.0`, `wheel==0.47.0`, and `packaging==26.2`. At this point in Stage 1, scientific Python dependencies remained intentionally uninstalled; the Stage 2 package state is recorded below.
 
 The standard build environment is ready. The statement above that NVIDIA OpenMP target offload was unavailable describes the initial audit and was superseded by the user-authorized SDK installation below.
 
@@ -125,3 +127,30 @@ The official NVIDIA APT package `nvhpc-26-5` version `26.5-0` installed successf
 | L4 target support | `-gpu=cc89` accepted by `nvc++` and verified in the built cubin |
 
 The NVHPC compiler-bin and MPI-bin directories must both be in `PATH` when invoking the bundled MPI wrapper. `scripts/build_upstream.sh` supplies that environment itself. NVIDIA OpenMP target offload is now available; Clang is not required for the selected build.
+
+## Stage 2 Python and harness environment
+
+Update date: 2026-08-01
+
+The Stage 2 package metadata is in `pyproject.toml`, and the runtime dependency is pinned as `PyYAML==6.0.2` in `requirements-lock.txt`. The harness otherwise uses the Python 3.10 standard library. `pytest` is not required or installed; the verified source-layout test command is:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q
+```
+
+It completed 67 tests successfully in 4.310 seconds on this node. The tests use mock processes for success, scientific nonconvergence, nonzero exit, timeout/process-group cleanup, and simulated OOM; they do not launch a GPU kernel.
+
+The project currently runs directly from `src/` through `PYTHONPATH=src`; an editable package installation is not required for the documented scripts. Runtime commands are available through `scripts/run_one.py` and `scripts/run_sweep.py`, with corresponding package entry points declared as `autosbd-run-one` and `autosbd-run-sweep` for an installed package.
+
+## Selected primary compiler path
+
+There is one primary NVIDIA HPC SDK path, not separate RIKEN and AMD toolchains. The official AMD CPU and GPU executables are both compiled from commit `729cfa3a5011fb805eb9e686a7711f6919836dcb` using NVIDIA HPC SDK 26.5:
+
+- compiler: `/opt/nvidia/hpc_sdk/Linux_x86_64/26.5/compilers/bin/nvc++`;
+- MPI wrapper: `/opt/nvidia/hpc_sdk/Linux_x86_64/26.5/comm_libs/mpi/bin/mpic++` with the same `nvc++` backend;
+- GPU compilation: SDK-bundled CUDA 13.2 targeting the L4's `sm_89`/`cc89`;
+- CPU compilation: NVHPC OpenMP with `-tp=native` from the same AMD source checkout.
+
+The system CUDA 12.9 toolkit remains installed but is not the compiler path used for the primary AMD GPU binary. The older RIKEN CUDA/Thrust probe is historical fallback evidence only and contributes no executable, workload, or measurement to the Stage 2 primary runner result.
+
+Before every authentic run, the runner rechecks the GPU query, idleness, free VRAM, temperature, power, CPU load, core availability, and estimated memory. GPU admission uses `min(20 GiB, 80% of current free VRAM)`. A node-wide lock prevents CPU and GPU candidates from overlapping, and final timings must remain sequential.

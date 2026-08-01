@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autosbd"
+version = "0.1.0"
+description = "Reproducible CPU/GPU runtime-selection experiments for Selected-Basis Diagonalization"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = [
+  "PyYAML==6.0.2",
+]
+
+[project.scripts]
+autosbd-run-one = "autosbd.cli_run_one:main"
+autosbd-run-sweep = "autosbd.cli_run_sweep:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
