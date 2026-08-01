@@ -1632,3 +1632,73 @@ PYTHONPATH=src .venv/bin/python scripts/evaluate_tuner.py \
 ```
 
 Outcome: exit `0`; 123/123 tests passed, dependencies were consistent, all JSON parsed, Markdown/diff hygiene passed, every audit size/hash matched, all train/test record overlaps were zero, the official AMD checkout remained clean at `729cfa3a5011fb805eb9e686a7711f6919836dcb`, and the final evaluator reported `changed=false` for all eight deterministic artifacts. The reviewed local checkpoint scope contains the unchanged completion handoff, Phase A code/tests/config, internal reports/logs, ten processed Stage 5 files, and one immutable overhead raw record. Nothing has been pushed.
+
+## 2026-08-01 — Prepare the Phase B1 N₂/H₂O provenance and correctness gate
+
+The uploaded completion handoff was read without modification and retained at SHA-256 `8a0cbc219aff2de04698767b7d085186f850d351ffdaf1791e789553d8f5a203`. Read-only repository, source, format, and artifact inspection used:
+
+```bash
+git status --short
+git -C external/riken-sbd remote get-url origin
+git -C external/riken-sbd rev-parse HEAD
+git -C external/riken-sbd describe --tags --exact-match HEAD
+git -C external/riken-sbd status --porcelain=v1 --untracked-files=all
+git -C external/amd-sbd remote get-url origin
+git -C external/amd-sbd rev-parse HEAD
+git -C external/amd-sbd status --porcelain=v1 --untracked-files=all
+rg --files external/riken-sbd/data/n2 external/riken-sbd/data/h2o | sort
+sha256sum external/riken-sbd/LICENSE.txt \
+  $(rg --files external/riken-sbd/data/n2 external/riken-sbd/data/h2o | sort)
+wc -cl $(rg --files external/riken-sbd/data/n2 external/riken-sbd/data/h2o | sort)
+sha256sum external/amd-sbd/LICENSE.txt \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_cpu \
+  build/upstream/amd-729cfa3a-nvhpc-26.5/diag_gpu
+rg -n -i "phase b|density|N2|H2O|NORB|correctness manifest|compatib" \
+  AutoSBD_SC26_Completion_Handoff_v2.md
+rg -n "density|residual|iteration|energy|git_dirty|timing_eligible|monitor|offload|device" \
+  scripts/build_calibration_manifest.py tests -g '*.py'
+```
+
+Outcome: exit `0`. The retained RIKEN checkout is clean at exact tag `v1.3.0`, commit `b71e1c3ed857fcb4fb05731dc285831c1afe9ebd`, origin `https://github.com/r-ccs-cms/sbd.git`, with Apache-2.0 license SHA-256 `b2bd772f0613e47353e1e4391f953d3de1958a12d0759f5cda48395f6f5ea759`. It is authorized as an input-data source only. Both retained FCIDUMPs and all 15 determinant files passed static structural inspection. The active solver artifacts remain the same official AMD CPU/GPU binaries, with SHA-256 values `190525bd05ff0b453e02e1762f7f221bac3e5da713e5d1d2999def3b0290ef07` and `8f1481b6bcb4ddf3326453fd3a7c03dc36e29034629f46c5e982a4c17e43bc07`. One delegated read-only probe initially addressed `external/riken-sbd/LICENSE` instead of `LICENSE.txt`; the corrected path succeeded, no file changed, and the unchanged failing probe was not repeated.
+
+Created `reports/phase_b_input_inventory.json`, `scripts/validate_phase_b_inputs.py`, `tests/test_phase_b_inputs.py`, `reports/PHASE_B_COMPATIBILITY.md`, and the two smallest-input correctness configs. Hardened `scripts/build_calibration_manifest.py` so every record must have a positive integer orbital count and a density vector of exactly that length. Preparation validation used:
+
+```bash
+.venv/bin/python -m json.tool reports/phase_b_input_inventory.json
+.venv/bin/python -m py_compile \
+  scripts/validate_phase_b_inputs.py tests/test_phase_b_inputs.py \
+  scripts/build_calibration_manifest.py tests/test_calibration_manifest.py
+PYTHONPATH=src .venv/bin/python scripts/validate_phase_b_inputs.py
+PYTHONPATH=src .venv/bin/python -m unittest \
+  tests.test_phase_b_inputs tests.test_calibration_manifest tests.test_config
+git diff --check -- . ':(exclude)AutoSBD_SC26_Completion_Handoff_v2.md'
+sha256sum reports/phase_b_input_inventory.json \
+  scripts/validate_phase_b_inputs.py tests/test_phase_b_inputs.py \
+  reports/PHASE_B_COMPATIBILITY.md \
+  configs/phaseb_n2_correctness.yaml configs/phaseb_h2o_correctness.yaml
+```
+
+The first validator run failed closed before any solver execution because README `wc -l` values had been recorded as logical line counts. Both upstream README files lack a terminal newline: `awk` and strict byte decoding showed 17 N₂ logical lines and 15 H₂O logical lines. Only those two manifest integers were corrected; source sizes and hashes were unchanged. The corrected invocation exited `0`, reported 20 verified artifacts and 15 determinant files, and 19/19 focused tests passed, including full-validation hash tampering, structure tampering with recomputed metadata, duplicate-key/float/unknown-key rejection, and density-length tampering. Final preparation hashes are:
+
+- input inventory: `0105bc73dea01e31f8a4230ec7c69f0bb903d8f53763eb5270b4f4bbaf0b9fc1`;
+- validator: `2edc75749f9fb8740ba6880ff8d21ce315fe9a6201d030dd469ae54e69f97687`;
+- validator tests: `98af6cd40f52faa6824ab4f55d4ac210c3641536456ddbf0208acd3491fab537`;
+- compatibility report: `f168430bf31848e7fb225b707711d0271109e4debdd3cebdacfbc5d642662e23`;
+- N₂ config: `63ad99fc22094b59c6617ff1aa35c16a410d263fcb15bd3b60530aa1f37ed891`;
+- H₂O config: `73e0806e07e177eedbd97432b724ead36a784a342cbdca164667f6724da197b9`.
+
+No solver, GPU kernel, RIKEN executable, build, download, package installation, or performance timing ran during this preparation block.
+
+Full repository validation used:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -q
+.venv/bin/python -m pip check
+PYTHONPATH=src .venv/bin/python scripts/validate_phase_b_inputs.py
+# Load both YAML files and call trial_templates(randomize=False).
+git diff --check -- . ':(exclude)AutoSBD_SC26_Completion_Handoff_v2.md'
+git -C external/amd-sbd status --porcelain=v1 --untracked-files=all
+git -C external/riken-sbd status --porcelain=v1 --untracked-files=all
+```
+
+Outcome: 128/128 tests passed in 11.232 seconds; dependencies were consistent; the inventory validator passed; each Phase B config expanded to exactly two ordered templates, CPU then GPU; diff hygiene passed; and both upstream checkouts were clean. The first extra loader assertion mistakenly called nonexistent `SweepConfig.trials()` and exited `1` after all tests and inventory validation had already passed. Source inspection identified the public `trial_templates(randomize=False)` API; the corrected assertion exited `0`, and no project file changed because of the audit-command error.

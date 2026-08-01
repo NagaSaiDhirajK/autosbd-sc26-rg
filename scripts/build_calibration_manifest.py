@@ -380,6 +380,18 @@ def _validate_record_evidence(
         _finite_number(value, f"{label} density[{index}]")
         for index, value in enumerate(density)
     ]
+    n_orbitals = record.get("n_orbitals")
+    if (
+        isinstance(n_orbitals, bool)
+        or not isinstance(n_orbitals, int)
+        or n_orbitals <= 0
+    ):
+        raise CalibrationError(f"{label} n_orbitals must be a positive integer")
+    if len(verified_density) != n_orbitals:
+        raise CalibrationError(
+            f"{label} density length {len(verified_density)} does not match "
+            f"n_orbitals {n_orbitals}"
+        )
 
     _validate_node_preflight(record, label)
     if backend == "cpu":

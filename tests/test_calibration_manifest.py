@@ -95,6 +95,7 @@ class CalibrationManifestTests(unittest.TestCase):
         attempt_index: int = 0,
         solver: dict[str, object] | None = None,
         n_configurations: int = 16,
+        n_orbitals: object = 2,
         iterations: int = 7,
         energy: float = -10.0,
         density: list[float] | None = None,
@@ -227,8 +228,8 @@ class CalibrationManifestTests(unittest.TestCase):
             "problem_instance": instance,
             "input_sha256": input_sha256,
             "seed": 1729,
-            "n_orbitals": 4,
-            "n_spin_orbitals": 8,
+            "n_orbitals": n_orbitals,
+            "n_spin_orbitals": 4,
             "n_alpha_strings": 4,
             "n_beta_strings": 4,
             "n_configurations": n_configurations,
@@ -446,6 +447,47 @@ class CalibrationManifestTests(unittest.TestCase):
         for instance, gpu_options, expected in failures:
             with self.subTest(instance=instance):
                 cpu_path, gpu_path = self._write_pair(instance, gpu=gpu_options)
+                with self.assertRaisesRegex(MODULE.CalibrationError, expected):
+                    MODULE.make_calibration_manifest([cpu_path, gpu_path])
+
+    def test_refuses_density_length_or_invalid_orbital_count(self) -> None:
+        failures = (
+            (
+                "cpu-density-length",
+                {"density": [2.0]},
+                {},
+                "density length 1 does not match n_orbitals 2",
+            ),
+            (
+                "gpu-density-length",
+                {},
+                {"density": [0.25, 0.75, 1.0]},
+                "density length 3 does not match n_orbitals 2",
+            ),
+            (
+                "zero-orbitals",
+                {},
+                {"n_orbitals": 0},
+                "n_orbitals must be a positive integer",
+            ),
+            (
+                "boolean-orbitals",
+                {"n_orbitals": True},
+                {},
+                "n_orbitals must be a positive integer",
+            ),
+            (
+                "noninteger-orbitals",
+                {},
+                {"n_orbitals": 2.0},
+                "n_orbitals must be a positive integer",
+            ),
+        )
+        for instance, cpu_options, gpu_options, expected in failures:
+            with self.subTest(instance=instance):
+                cpu_path, gpu_path = self._write_pair(
+                    instance, cpu=cpu_options, gpu=gpu_options
+                )
                 with self.assertRaisesRegex(MODULE.CalibrationError, expected):
                     MODULE.make_calibration_manifest([cpu_path, gpu_path])
 

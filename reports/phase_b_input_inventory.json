@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "purpose": "phase_b_input_provenance_and_integrity",
+  "source_repository": {
+    "path": "external/riken-sbd",
+    "origin_url": "https://github.com/r-ccs-cms/sbd.git",
+    "tag": "v1.3.0",
+    "commit": "b71e1c3ed857fcb4fb05731dc285831c1afe9ebd",
+    "checkout_clean_required": true,
+    "allowed_use": "input_data_only"
+  },
+  "license": {
+    "path": "external/riken-sbd/LICENSE.txt",
+    "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/LICENSE.txt",
+    "spdx": "Apache-2.0",
+    "size_bytes": 11420,
+    "sha256": "b2bd772f0613e47353e1e4391f953d3de1958a12d0759f5cda48395f6f5ea759"
+  },
+  "families": [
+    {
+      "family_id": "n2",
+      "molecule": "N2",
+      "basis": "6-31G",
+      "source_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/n2",
+      "norb": 18,
+      "nelec": 14,
+      "ms2": 0,
+      "smallest_complete_pair": {
+        "fcidump_path": "external/riken-sbd/data/n2/fcidump.txt",
+        "alpha_determinants_path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+        "n_alpha_strings": 239,
+        "n_configurations": 57121
+      },
+      "files": [
+        {
+          "path": "external/riken-sbd/data/n2/README.md",
+          "role": "readme",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/README.md",
+          "size_bytes": 1866,
+          "sha256": "57756a678caecf73c8a10548a5755ac6f0f6bd367b4a1a750c21be6ded10fa12",
+          "line_count": 17
+        },
+        {
+          "path": "external/riken-sbd/data/n2/fcidump.txt",
+          "role": "fcidump",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/fcidump.txt",
+          "size_bytes": 437951,
+          "sha256": "dee67eb5e8aee2f099953a52d7910db59bc7b284ad03a8fa7ffd2a4ba8efcf33",
+          "line_count": 10329,
+          "integral_record_count": 10325,
+          "norb": 18,
+          "nelec": 14,
+          "ms2": 0
+        },
+        {
+          "path": "external/riken-sbd/data/n2/1em3-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em3-alpha.txt",
+          "size_bytes": 4541,
+          "sha256": "73a28f6e6a26b06fbf4accf704f4112dca36ea53fe52ec40ed6379644b218dd2",
+          "row_count": 239,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/3em4-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/3em4-alpha.txt",
+          "size_bytes": 12198,
+          "sha256": "ec1d6671a0d79d1b0048f793836ea6275055cc67301407b2b07ac102bf02a33b",
+          "row_count": 642,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/1em4-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em4-alpha.txt",
+          "size_bytes": 26353,
+          "sha256": "af57b2cbe07b028cd20fc44ada3444bcc4f4df5ab56db55879754be8811f1fd6",
+          "row_count": 1387,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/3em5-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/3em5-alpha.txt",
+          "size_bytes": 49077,
+          "sha256": "011b327a48061258803d7aca63fb025684881cc03125166d362d05b41b3ae99e",
+          "row_count": 2583,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/1em5-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em5-alpha.txt",
+          "size_bytes": 76779,
+          "sha256": "a2c060a4bf7f749a08e79a69eed3d42916be57c682253c7cb2500c6f452f0761",
+          "row_count": 4041,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/3em6-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/3em6-alpha.txt",
+          "size_bytes": 131670,
+          "sha256": "8da55d78979f9c35ff7ccbd7535165be91b1bb75807d512328255a8e718f2bc6",
+          "row_count": 6930,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/1em6-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em6-alpha.txt",
+          "size_bytes": 177308,
+          "sha256": "c7a6bc2adb95bac26e8d65f1512e5a621edd4c8c6e7ed8708f76f05391838d92",
+          "row_count": 9332,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/3em7-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/3em7-alpha.txt",
+          "size_bytes": 255626,
+          "sha256": "7082e1bf4141b9251ddcff822eea53bdf9e501faa4b98b6c3859348fc80eed1a",
+          "row_count": 13454,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        },
+        {
+          "path": "external/riken-sbd/data/n2/1em7-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/n2/1em7-alpha.txt",
+          "size_bytes": 333602,
+          "sha256": "398aa918232b7a0b5f0e7611f81d80915fdd0aff735de13ab976a19ed650d00f",
+          "row_count": 17558,
+          "string_width": 18,
+          "occupied_orbitals": 7
+        }
+      ]
+    },
+    {
+      "family_id": "h2o",
+      "molecule": "H2O",
+      "basis": "cc-pVDZ",
+      "source_tree_url": "https://github.com/r-ccs-cms/sbd/tree/v1.3.0/data/h2o",
+      "norb": 24,
+      "nelec": 10,
+      "ms2": 0,
+      "smallest_complete_pair": {
+        "fcidump_path": "external/riken-sbd/data/h2o/fcidump.txt",
+        "alpha_determinants_path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+        "n_alpha_strings": 275,
+        "n_configurations": 75625
+      },
+      "files": [
+        {
+          "path": "external/riken-sbd/data/h2o/README.md",
+          "role": "readme",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/README.md",
+          "size_bytes": 2073,
+          "sha256": "29c1d93fbf7699ea2718e07f38dbf44289802cb026e81729004f18cf208fa386",
+          "line_count": 15
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/fcidump.txt",
+          "role": "fcidump",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/fcidump.txt",
+          "size_bytes": 1124056,
+          "sha256": "a3c2302834a33dce7260e8050a3f5180e05dbba1bb748f3e2f6410a7eacbd94d",
+          "line_count": 26651,
+          "integral_record_count": 26647,
+          "norb": 24,
+          "nelec": 10,
+          "ms2": 0
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/h2o-1em3-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em3-alpha.txt",
+          "size_bytes": 6875,
+          "sha256": "ea94906047a1d081d493066478e9f009c07cb4286541f1781060081205fd5a67",
+          "row_count": 275,
+          "string_width": 24,
+          "occupied_orbitals": 5
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/h2o-1em4-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em4-alpha.txt",
+          "size_bytes": 38575,
+          "sha256": "858c1ef9d430aafe0c325281c7257c2e6cb0e77310a707c1109c55747db02139",
+          "row_count": 1543,
+          "string_width": 24,
+          "occupied_orbitals": 5
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/h2o-1em5-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em5-alpha.txt",
+          "size_bytes": 137850,
+          "sha256": "40b29271726daa2be5a5b181535647164e915646710c2641e46dd1ed078a2ee6",
+          "row_count": 5514,
+          "string_width": 24,
+          "occupied_orbitals": 5
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/h2o-1em6-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em6-alpha.txt",
+          "size_bytes": 345550,
+          "sha256": "c36920e57507d27dd49d2b729662cbb5a92afce26d61fb0e044e2691599eb804",
+          "row_count": 13822,
+          "string_width": 24,
+          "occupied_orbitals": 5
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/h2o-1em7-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em7-alpha.txt",
+          "size_bytes": 626550,
+          "sha256": "1f7af972b56143a9ae6862c02288668656a5bd3fb561337c430e0e478f7cb716",
+          "row_count": 25062,
+          "string_width": 24,
+          "occupied_orbitals": 5
+        },
+        {
+          "path": "external/riken-sbd/data/h2o/h2o-1em8-alpha.txt",
+          "role": "alpha_determinants",
+          "source_url": "https://github.com/r-ccs-cms/sbd/blob/v1.3.0/data/h2o/h2o-1em8-alpha.txt",
+          "size_bytes": 975700,
+          "sha256": "3c4643898b9d5aec4fde159a2cd56d51fd82eed5b240111bd48e3413ee6e6060",
+          "row_count": 39028,
+          "string_width": 24,
+          "occupied_orbitals": 5
+        }
+      ]
+    }
+  ]
+}
