@@ -1,0 +1,962 @@
+--- /mnt/data/submission_figures.py	2026-08-06 23:50:39.084003354 +0000
++++ /mnt/data/submission_figures_v2.py	2026-08-06 23:55:34.236003354 +0000
+@@ -257,13 +257,15 @@
+     return result
+ 
+ 
++
+ def _style_context() -> dict[str, Any]:
++    """Compact, poster-ready styling with no in-figure titles."""
+     return {
+         "font.family": "DejaVu Sans",
+-        "font.size": 10.5,
+-        "axes.titlesize": 12.5,
++        "font.size": 11.0,
++        "axes.titlesize": 12.0,
+         "axes.titleweight": "semibold",
+-        "axes.labelsize": 10.5,
++        "axes.labelsize": 11.0,
+         "axes.labelcolor": "#111827",
+         "axes.edgecolor": "#9CA3AF",
+         "axes.linewidth": 0.8,
+@@ -276,17 +278,16 @@
+         "legend.fontsize": 9.5,
+         "grid.color": COLORS["grid"],
+         "grid.linewidth": 0.7,
+-        "grid.alpha": 0.55,
++        "grid.alpha": 0.45,
+         "figure.facecolor": COLORS["background"],
+         "axes.facecolor": COLORS["background"],
+         "savefig.facecolor": COLORS["background"],
+         "pdf.fonttype": 42,
+         "ps.fonttype": 42,
+         "svg.fonttype": "none",
+-        "svg.hashsalt": "autosbd-sc26-submission-figures-v1",
++        "svg.hashsalt": "autosbd-sc26-submission-figures-v2",
+     }
+ 
+-
+ def _atomic_write(path: Path, payload: bytes) -> bool:
+     destination = Path(path)
+     destination.parent.mkdir(parents=True, exist_ok=True)
+@@ -818,48 +819,58 @@
+     return parsed
+ 
+ 
++
+ def render_architecture(output_stem: Path) -> dict[str, bool]:
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+     from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+ 
+     with mpl.rc_context(_style_context()):
+-        figure, axis = plt.subplots(figsize=(13.6, 4.0), constrained_layout=True)
+-        axis.set_xlim(0, 13.6)
+-        axis.set_ylim(0, 4.0)
++        figure, axis = plt.subplots(figsize=(13.8, 3.7), constrained_layout=True)
++        axis.set_xlim(0, 14.0)
++        axis.set_ylim(0, 3.7)
+         axis.axis("off")
+ 
+-        def box(x: float, y: float, w: float, h: float, title: str, lines: Sequence[str], color: str) -> None:
++        def stage(x: float, w: float, number: str, heading: str, detail: str, edge: str) -> None:
+             patch = FancyBboxPatch(
+-                (x, y), w, h,
+-                boxstyle="round,pad=0.03,rounding_size=0.08",
+-                linewidth=1.2,
+-                edgecolor=color,
+-                facecolor=color + "12",
++                (x, 1.05), w, 1.75,
++                boxstyle="round,pad=0.035,rounding_size=0.08",
++                linewidth=1.25,
++                edgecolor=edge,
++                facecolor="#FFFFFF",
+             )
+             axis.add_patch(patch)
+-            axis.text(x + 0.18, y + h - 0.28, title, fontsize=11.2, fontweight="semibold", color=color, va="top")
+-            axis.text(x + 0.18, y + h - 0.72, "\n".join(lines), fontsize=8.9, va="top", linespacing=1.35, color="#374151")
+-
+-        def arrow(x1: float, y1: float, x2: float, y2: float, label: str | None = None) -> None:
+-            axis.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle="-|>", mutation_scale=13, linewidth=1.15, color="#6B7280"))
+-            if label:
+-                axis.text((x1 + x2) / 2, (y1 + y2) / 2 + 0.13, label, ha="center", va="bottom", fontsize=8.1, color="#6B7280")
+-
+-        box(0.15, 1.05, 2.15, 2.05, "Authentic SBD input", ("FCIDUMP", "determinant list", "family metadata"), "#4F46E5")
+-        box(2.75, 1.05, 2.25, 2.05, "Pre-execution analysis", ("size + work proxy", "graph-density features", "memory estimates"), "#7C3AED")
+-        box(5.45, 1.05, 2.20, 2.05, "Feasibility guard", ("host-memory cap", "GPU-memory cap", "fail-closed admission"), "#B45309")
+-        box(8.10, 1.05, 2.20, 2.05, "Runtime selector", ("shallow decision tree", "predict CPU16 and L4", "choose feasible minimum"), COLORS["autosbd_full_tree"])
+-        box(10.75, 2.10, 2.55, 1.22, "CPU16 SBD", ("official AMD-HPC build",), COLORS["cpu"])
+-        box(10.75, 0.50, 2.55, 1.22, "NVIDIA L4 SBD", ("OpenMP target offload",), COLORS["gpu"])
+-
+-        arrow(2.30, 2.08, 2.75, 2.08)
+-        arrow(5.00, 2.08, 5.45, 2.08)
+-        arrow(7.65, 2.08, 8.10, 2.08)
+-        arrow(10.30, 2.08, 10.75, 2.70)
+-        arrow(10.30, 2.08, 10.75, 1.10)
+-        axis.text(6.80, 3.67, "AutoSBD: correctness-gated CPU–GPU runtime selection", ha="center", fontsize=15.2, fontweight="bold")
+-        axis.text(6.80, 0.08, "Every solver invocation produces an immutable, hash-linked record; held-out evaluation never uses post-execution features.", ha="center", fontsize=8.8, color="#4B5563")
++            axis.text(x + 0.16, 2.57, number, fontsize=16, fontweight="bold", color=edge, va="top")
++            axis.text(x + 0.52, 2.52, heading, fontsize=11.2, fontweight="semibold", va="top")
++            axis.text(x + 0.18, 2.02, detail, fontsize=9.2, color="#4B5563", va="top", linespacing=1.28)
++
++        def arrow(x1: float, x2: float, y: float = 1.92) -> None:
++            axis.add_patch(FancyArrowPatch(
++                (x1, y), (x2, y), arrowstyle="-|>", mutation_scale=13,
++                linewidth=1.15, color="#9CA3AF"
++            ))
++
++        stage(0.15, 2.05, "1", "Read workload", "FCIDUMP\nα/β determinants", "#4F46E5")
++        stage(2.55, 2.25, "2", "Extract features", "size + work proxy\nconnectivity + cache", "#7C3AED")
++        stage(5.15, 2.10, "3", "Check feasibility", "host/GPU memory\nfail-closed admission", "#B45309")
++        stage(7.60, 2.25, "4", "Predict runtime", "CPU16 and L4\npre-execution only", COLORS["autosbd_full_tree"])
++        stage(10.20, 3.55, "5", "Run selected backend", "same official AMD-HPC solver\nimmutable hash-linked record", "#374151")
++        arrow(2.20, 2.55)
++        arrow(4.80, 5.15)
++        arrow(7.25, 7.60)
++        arrow(9.85, 10.20)
++
++        # Direct backend split inside the final stage.
++        axis.text(11.00, 1.39, "CPU16", fontsize=10.4, fontweight="semibold", color=COLORS["cpu"])
++        axis.text(12.32, 1.39, "or", fontsize=9.0, color="#6B7280", ha="center")
++        axis.text(12.73, 1.39, "L4 GPU", fontsize=10.4, fontweight="semibold", color=COLORS["gpu"])
++        axis.plot([10.98, 11.75], [1.27, 1.27], color=COLORS["cpu"], linewidth=3.0, solid_capstyle="round")
++        axis.plot([12.72, 13.55], [1.27, 1.27], color=COLORS["gpu"], linewidth=3.0, solid_capstyle="round")
++        axis.text(
++            7.0, 0.42,
++            "No circuit execution, solver modification, or post-execution feature is used in the decision.",
++            ha="center", fontsize=9.0, color="#4B5563"
++        )
+         return _save_figure_bundle(
+             figure,
+             output_stem,
+@@ -872,7 +883,7 @@
+     import matplotlib.pyplot as plt
+ 
+     with mpl.rc_context(_style_context()):
+-        figure, axes = plt.subplots(1, 3, figsize=(13.8, 4.25), sharey=True, constrained_layout=True)
++        figure, axes = plt.subplots(1, 3, figsize=(13.8, 4.15), sharey=True, constrained_layout=True)
+         for axis, family in zip(axes, FAMILY_ORDER):
+             family_rows = [row for row in runtime_rows if row["family_id"] == family]
+             if len(family_rows) != 10:
+@@ -891,16 +902,15 @@
+                 q1 = [row["wall_q1_s"] for row in rows]
+                 q3 = [row["wall_q3_s"] for row in rows]
+                 backend = _candidate_backend(candidate)
+-                axis.fill_between(x, q1, q3, color=COLORS[backend], alpha=0.14, linewidth=0)
++                axis.fill_between(x, q1, q3, color=COLORS[backend], alpha=0.13, linewidth=0)
+                 axis.plot(
+-                    x,
+-                    median,
+-                    marker=marker,
+-                    markersize=5.8,
+-                    linewidth=2.0,
+-                    color=COLORS[backend],
+-                    label=_candidate_label(candidate),
+-                    zorder=3,
++                    x, median, marker=marker, markersize=6.2, linewidth=2.1,
++                    color=COLORS[backend], zorder=3
++                )
++                axis.annotate(
++                    _candidate_label(candidate),
++                    xy=(x[-1], median[-1]), xytext=(6, 0), textcoords="offset points",
++                    va="center", fontsize=9.0, fontweight="semibold", color=COLORS[backend]
+                 )
+             cpu_rows = by_candidate[CPU_CANDIDATE]
+             gpu_rows = by_candidate[GPU_CANDIDATE]
+@@ -908,41 +918,31 @@
+                 CPU_CANDIDATE if cpu["wall_median_s"] <= gpu["wall_median_s"] else GPU_CANDIDATE
+                 for cpu, gpu in zip(cpu_rows, gpu_rows)
+             ]
+-            flip_pairs = [
+-                (cpu_rows[index]["n_configurations"], cpu_rows[index + 1]["n_configurations"])
+-                for index in range(len(winners) - 1)
+-                if winners[index] != winners[index + 1]
+-            ]
+-            for lower, upper in flip_pairs:
++            for index in range(len(winners) - 1):
++                if winners[index] == winners[index + 1]:
++                    continue
++                lower = cpu_rows[index]["n_configurations"]
++                upper = cpu_rows[index + 1]["n_configurations"]
+                 axis.axvspan(lower, upper, color="#9CA3AF", alpha=0.10, zorder=0)
+                 axis.text(
+-                    math.sqrt(lower * upper),
+-                    0.965,
+-                    "observed\nflip bracket",
+-                    transform=axis.get_xaxis_transform(),
+-                    ha="center",
+-                    va="top",
+-                    fontsize=7.4,
+-                    color="#6B7280",
++                    math.sqrt(lower * upper), 0.94, "winner flips",
++                    transform=axis.get_xaxis_transform(), ha="center", va="top",
++                    fontsize=7.8, color="#6B7280"
+                 )
+             axis.set_xscale("log")
+             axis.set_yscale("log")
+             axis.grid(True, which="major")
+-            axis.grid(True, which="minor", alpha=0.20)
+-            axis.set_title(_family_label(family))
++            axis.grid(True, which="minor", alpha=0.15)
+             axis.set_xlabel("Configurations")
+-            axis.margins(x=0.07)
++            axis.text(
++                0.03, 0.97, _family_label(family), transform=axis.transAxes,
++                ha="left", va="top", fontsize=11.2, fontweight="semibold"
++            )
++            axis.margins(x=0.08, y=0.12)
+         axes[0].set_ylabel("Median end-to-end runtime (s)")
+-        handles, labels = axes[0].get_legend_handles_labels()
+-        figure.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 1.035), ncol=2)
+-        figure.suptitle("Repeated CPU16 and L4 runtime scaling across held-out families", y=1.08, fontsize=15, fontweight="bold")
+         figure.text(
+-            0.5,
+-            -0.025,
+-            "Lines show medians; bands show IQR. Shaded intervals mark sampled winner flips only—no fitted crossover is claimed.",
+-            ha="center",
+-            fontsize=8.6,
+-            color="#4B5563",
++            0.995, 0.01, "Median line · IQR band · measured points only",
++            ha="right", fontsize=8.2, color="#6B7280"
+         )
+         return _save_figure_bundle(
+             figure,
+@@ -954,6 +954,7 @@
+ def render_pooled_policy_performance(summary_rows: Sequence[Mapping[str, Any]], output_stem: Path) -> dict[str, bool]:
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
++    from matplotlib.patches import FancyBboxPatch
+ 
+     pooled = {row["policy"]: row for row in summary_rows if row["scope"] == "pooled"}
+     if set(pooled) != set(POLICY_ORDER):
+@@ -970,53 +971,68 @@
+     overhead = [(pooled[policy]["geometric_mean_selected_over_oracle"] - 1.0) * 100.0 for policy in order]
+     accuracy = [pooled[policy]["selection_accuracy"] * 100.0 for policy in order]
+     colors = [COLORS[policy] for policy in order]
++    autosbd = pooled["autosbd_full_tree"]
++    time_reduction = (1.0 - 1.0 / autosbd["speedup_vs_gpu"]) * 100.0
++    saved_per_1000 = 10.0 * time_reduction
+ 
+     with mpl.rc_context(_style_context()):
+-        figure, (left, right) = plt.subplots(1, 2, figsize=(11.8, 4.8), gridspec_kw={"width_ratios": [1.35, 1.0]}, constrained_layout=True)
++        figure = plt.figure(figsize=(13.4, 4.75), constrained_layout=True)
++        grid = figure.add_gridspec(1, 3, width_ratios=(1.48, 1.05, 0.95))
++        left = figure.add_subplot(grid[0, 0])
++        middle = figure.add_subplot(grid[0, 1])
++        right = figure.add_subplot(grid[0, 2])
+         y = list(range(len(order)))
++
+         left.hlines(y, 0, overhead, color="#D1D5DB", linewidth=3.0, zorder=1)
+-        left.scatter(overhead, y, s=88, color=colors, edgecolor="white", linewidth=1.0, zorder=3)
++        left.scatter(overhead, y, s=92, color=colors, edgecolor="white", linewidth=1.0, zorder=3)
+         for yi, value, policy in zip(y, overhead, order):
+-            left.text(value + max(overhead) * 0.025 + 0.2, yi, f"{value:.1f}%", va="center", fontsize=9.0, fontweight="semibold" if policy == "autosbd_full_tree" else "normal")
++            left.text(
++                value + max(overhead) * 0.02 + 0.25, yi, f"{value:.1f}%",
++                va="center", fontsize=9.2,
++                fontweight="bold" if policy == "autosbd_full_tree" else "normal"
++            )
+         left.set_yticks(y, labels)
+         left.invert_yaxis()
+-        left.set_xlabel("Geometric runtime overhead vs measured oracle (%)  ↓")
+-        left.set_title("Held-out runtime efficiency")
++        left.set_xlabel("Runtime overhead vs measured oracle (%)  ↓")
+         left.grid(True, axis="x")
+         left.grid(False, axis="y")
+         left.axvline(0, color="#4B5563", linewidth=0.9)
+ 
+-        right.barh(y, accuracy, color=colors, height=0.58, edgecolor="white", linewidth=0.8)
++        middle.barh(y, accuracy, color=colors, height=0.58, edgecolor="white", linewidth=0.8)
+         for yi, value, policy in zip(y, accuracy, order):
+-            right.text(min(value + 1.8, 98), yi, f"{int(round(value))}%", va="center", ha="left" if value < 94 else "right", color="#111827", fontsize=9.0, fontweight="semibold" if policy == "autosbd_full_tree" else "normal")
+-        right.set_yticks(y, [""] * len(y))
+-        right.invert_yaxis()
+-        right.set_xlim(0, 103)
+-        right.set_xlabel("Exact backend-selection accuracy  ↑")
+-        right.set_title("15 out-of-family decisions")
+-        right.grid(True, axis="x")
+-        right.grid(False, axis="y")
+-        figure.suptitle("Pooled leave-one-family-out policy performance", y=1.04, fontsize=15, fontweight="bold")
+-        autosbd = pooled["autosbd_full_tree"]
+-        autosbd_correct = int(round(autosbd["selection_accuracy"] * autosbd["requested_instances"]))
+-        autosbd_overhead = (autosbd["geometric_mean_selected_over_oracle"] - 1.0) * 100.0
+-        figure.text(
+-            0.5,
+-            -0.025,
+-            (
+-                f"AutoSBD: {autosbd_correct}/{autosbd['requested_instances']} exact selections, "
+-                f"{autosbd_overhead:.2f}% geometric overhead, "
+-                f"{autosbd['speedup_vs_gpu']:.3f}× speedup over fixed GPU. "
+-                "All policies had zero invalid selections and failures."
+-            ),
+-            ha="center",
+-            fontsize=8.7,
+-            color="#374151",
+-        )
++            correct = int(round(pooled[policy]["selection_accuracy"] * pooled[policy]["requested_instances"]))
++            middle.text(
++                min(value - 2.5, 97.0), yi, f"{correct}/15",
++                va="center", ha="right", fontsize=9.2,
++                fontweight="bold" if policy == "autosbd_full_tree" else "normal",
++                color="white" if value > 55 else "#111827"
++            )
++        middle.set_yticks(y, [""] * len(y))
++        middle.invert_yaxis()
++        middle.set_xlim(0, 102)
++        middle.set_xlabel("Exact backend selections  ↑")
++        middle.grid(True, axis="x")
++        middle.grid(False, axis="y")
++
++        right.set_xlim(0, 1)
++        right.set_ylim(0, 1)
++        right.axis("off")
++        card = FancyBboxPatch(
++            (0.04, 0.12), 0.92, 0.76,
++            boxstyle="round,pad=0.035,rounding_size=0.04",
++            linewidth=1.3, edgecolor=COLORS["autosbd_full_tree"], facecolor="#FFFFFF"
++        )
++        right.add_patch(card)
++        right.text(0.50, 0.73, f"{saved_per_1000:.1f}", ha="center", va="center", fontsize=31, fontweight="bold", color=COLORS["autosbd_full_tree"])
++        right.text(0.50, 0.57, "hours recovered", ha="center", fontsize=12.2, fontweight="semibold")
++        right.text(0.50, 0.45, "per 1,000 fixed-GPU hours", ha="center", fontsize=10.0, color="#374151")
++        right.text(0.50, 0.29, f"Measured portfolio reduction: {time_reduction:.2f}%", ha="center", fontsize=9.1, color="#4B5563")
++        right.text(0.50, 0.19, "same workload mix + same hardware", ha="center", fontsize=8.2, color="#6B7280")
++
+         return _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Pooled held-out policy overhead and exact selection accuracy",
++            description="Pooled held-out policy efficiency, accuracy, and measured portfolio impact",
+         )
+ 
+ 
+@@ -1026,8 +1042,7 @@
+     import numpy as np
+ 
+     selected = [
+-        row
+-        for row in summary_rows
++        row for row in summary_rows
+         if row["scope"] == "heldout_family" and row["policy"] in LEARNED_POLICY_ORDER
+     ]
+     lookup = {(row["heldout_family_id"], row["policy"]): row for row in selected}
+@@ -1037,35 +1052,34 @@
+         [(lookup[(family, policy)]["geometric_mean_selected_over_oracle"] - 1.0) * 100.0 for family in FAMILY_ORDER]
+         for policy in LEARNED_POLICY_ORDER
+     ])
+-    accuracy = np.array([
+-        [lookup[(family, policy)]["selection_accuracy"] * 100.0 for family in FAMILY_ORDER]
+-        for policy in LEARNED_POLICY_ORDER
+-    ])
+ 
+     with mpl.rc_context(_style_context()):
+-        figure, axes = plt.subplots(1, 2, figsize=(10.8, 4.25), constrained_layout=True)
+-        matrices = ((overhead, "Geometric overhead vs oracle (%)", "magma_r", 0, max(5.0, float(overhead.max()))), (accuracy, "Exact selection accuracy (%)", "YlGn", 0, 100))
+-        for axis, (matrix, title, cmap, vmin, vmax) in zip(axes, matrices):
+-            image = axis.imshow(matrix, aspect="auto", cmap=cmap, vmin=vmin, vmax=vmax)
+-            axis.set_xticks(range(3), [_family_label(family) for family in FAMILY_ORDER])
+-            axis.set_yticks(range(3), [POLICY_LABELS[policy] for policy in LEARNED_POLICY_ORDER])
+-            axis.set_title(title)
+-            for row_index in range(3):
+-                for column_index in range(3):
+-                    value = matrix[row_index, column_index]
+-                    text = f"{value:.1f}%" if title.startswith("Geometric") else f"{int(round(value))}%"
+-                    midpoint = (vmin + vmax) / 2
+-                    axis.text(column_index, row_index, text, ha="center", va="center", color="white" if value > midpoint else "#111827", fontsize=9.2, fontweight="semibold")
+-            figure.colorbar(image, ax=axis, fraction=0.046, pad=0.035)
+-        figure.suptitle("Generalization to a completely held-out chemistry family", y=1.04, fontsize=15, fontweight="bold")
+-        figure.text(0.5, -0.02, "Each cell summarizes five test instances; all candidates and repetitions from that family were excluded from training.", ha="center", fontsize=8.6, color="#4B5563")
++        figure, axis = plt.subplots(figsize=(9.6, 4.3), constrained_layout=True)
++        vmax = max(8.0, float(overhead.max()))
++        image = axis.imshow(overhead, aspect="auto", cmap="magma_r", vmin=0, vmax=vmax)
++        axis.set_xticks(range(3), [_family_label(family) for family in FAMILY_ORDER])
++        axis.set_yticks(range(3), [POLICY_LABELS[policy] for policy in LEARNED_POLICY_ORDER])
++        axis.tick_params(axis="both", length=0, pad=9)
++        for row_index, policy in enumerate(LEARNED_POLICY_ORDER):
++            for column_index, family_id in enumerate(FAMILY_ORDER):
++                row = lookup[(family_id, policy)]
++                correct = int(round(row["selection_accuracy"] * row["requested_instances"]))
++                value = overhead[row_index, column_index]
++                color = "white" if value > vmax * 0.45 else "#111827"
++                axis.text(column_index, row_index - 0.08, f"{correct}/5 correct", ha="center", va="center", color=color, fontsize=10.2, fontweight="bold")
++                axis.text(column_index, row_index + 0.19, f"{value:.1f}% overhead", ha="center", va="center", color=color, fontsize=8.7)
++        for edge in range(4):
++            axis.axhline(edge - 0.5, color="white", linewidth=2)
++            axis.axvline(edge - 0.5, color="white", linewidth=2)
++        cbar = figure.colorbar(image, ax=axis, fraction=0.035, pad=0.03)
++        cbar.set_label("Runtime overhead vs oracle (%)  ↓")
++        axis.set_xlabel("Completely held-out chemistry family")
+         return _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Per-family held-out overhead and selection accuracy for learned policies",
++            description="Per-family held-out exact selections and runtime overhead",
+         )
+ 
+-
+ def _instance_order(predictions: Sequence[Mapping[str, Any]]) -> list[tuple[str, str, int]]:
+     unique = {
+         (row["family_id"], row["instance_id"], row["n_configurations"])
+@@ -1074,57 +1088,57 @@
+     return sorted(unique, key=lambda item: (FAMILY_ORDER.index(item[0]), item[2], item[1]))
+ 
+ 
++
+ def render_decision_map(predictions: Sequence[Mapping[str, Any]], output_stem: Path) -> dict[str, bool]:
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+-    from matplotlib.patches import Rectangle
++    from matplotlib.patches import Patch, Rectangle
+ 
+-    policies = LEARNED_POLICY_ORDER
++    policies = ("measured_feasible_oracle",) + LEARNED_POLICY_ORDER
+     instances = _instance_order(predictions)
+     lookup = {(row["policy"], row["instance_id"]): row for row in predictions}
+     if len(instances) != 15:
+         raise SubmissionFigureError("decision map requires 15 distinct instances")
++    for policy in policies:
++        for _family, instance_id, _size in instances:
++            if (policy, instance_id) not in lookup:
++                raise SubmissionFigureError(f"decision map is missing {policy}/{instance_id}")
+ 
+     with mpl.rc_context(_style_context()):
+-        figure, axis = plt.subplots(figsize=(13.2, 3.65), constrained_layout=True)
++        figure, axis = plt.subplots(figsize=(13.5, 4.0), constrained_layout=True)
+         for y, policy in enumerate(policies):
+             for x, (_family, instance_id, _size) in enumerate(instances):
+                 row = lookup[(policy, instance_id)]
+                 backend = row["selected_backend"]
+-                face = COLORS[backend]
+-                axis.add_patch(Rectangle((x - 0.46, y - 0.42), 0.92, 0.84, facecolor=face, edgecolor="white", linewidth=1.4))
+-                axis.text(x, y, "CPU" if backend == "cpu" else "GPU", ha="center", va="center", color="white", fontsize=8.0, fontweight="semibold")
+-                if not row["selection_correct"]:
+-                    axis.plot([x - 0.30, x + 0.30], [y - 0.27, y + 0.27], color=COLORS["error"], linewidth=2.3)
+-                    axis.plot([x - 0.30, x + 0.30], [y + 0.27, y - 0.27], color=COLORS["error"], linewidth=2.3)
++                edge = COLORS["error"] if policy != "measured_feasible_oracle" and not row["selection_correct"] else "white"
++                linewidth = 2.4 if edge == COLORS["error"] else 1.2
++                axis.add_patch(Rectangle(
++                    (x - 0.46, y - 0.39), 0.92, 0.78,
++                    facecolor=COLORS[backend], edgecolor=edge, linewidth=linewidth
++                ))
++                axis.text(x, y, "CPU" if backend == "cpu" else "GPU", ha="center", va="center", color="white", fontsize=8.2, fontweight="bold")
+         for separator in (4.5, 9.5):
+-            axis.axvline(separator, color="#6B7280", linewidth=1.1)
++            axis.axvline(separator, color="#9CA3AF", linewidth=1.0)
+         axis.set_xlim(-0.6, len(instances) - 0.4)
+-        axis.set_ylim(len(policies) - 0.5, -0.5)
++        axis.set_ylim(len(policies) - 0.55, -0.75)
+         axis.set_yticks(range(len(policies)), [POLICY_LABELS[policy] for policy in policies])
+-        axis.set_xticks(
+-            range(len(instances)),
+-            [f"{size:,}" for _, _, size in instances],
+-            rotation=45,
+-            ha="right",
+-        )
+-        axis.set_xlabel("Configurations within each held-out family")
+-        axis.set_title("Which backend did each policy select?  Red × = not the measured oracle")
++        axis.set_xticks(range(len(instances)), [f"{size:,}" for _, _, size in instances], rotation=45, ha="right")
++        axis.set_xlabel("Configurations")
+         axis.grid(False)
+-        axis.spines["left"].set_visible(False)
+-        axis.spines["bottom"].set_visible(False)
+-        for start, end, family in ((0, 4, "fe4s4"), (5, 9, "n2"), (10, 14, "h2o")):
+-            axis.text((start + end) / 2, -0.78, _family_label(family), ha="center", va="bottom", fontsize=10.3, fontweight="semibold", clip_on=False)
+-        legend_handles = [
+-            mpl.patches.Patch(facecolor=COLORS["cpu"], label="CPU16 selected"),
+-            mpl.patches.Patch(facecolor=COLORS["gpu"], label="L4 GPU selected"),
+-            mpl.lines.Line2D([0], [0], marker="x", color=COLORS["error"], linestyle="None", markersize=8, markeredgewidth=2, label="Incorrect selection"),
++        for spine in axis.spines.values():
++            spine.set_visible(False)
++        for start, end, family_id in ((0, 4, "fe4s4"), (5, 9, "n2"), (10, 14, "h2o")):
++            axis.text((start + end) / 2, -0.66, _family_label(family_id), ha="center", va="bottom", fontsize=10.6, fontweight="semibold", clip_on=False)
++        legend = [
++            Patch(facecolor=COLORS["cpu"], label="CPU16"),
++            Patch(facecolor=COLORS["gpu"], label="L4 GPU"),
++            Patch(facecolor="white", edgecolor=COLORS["error"], linewidth=2.4, label="missed measured oracle"),
+         ]
+-        figure.legend(handles=legend_handles, loc="upper center", bbox_to_anchor=(0.5, 1.08), ncol=3)
++        axis.legend(handles=legend, loc="lower center", bbox_to_anchor=(0.5, -0.34), ncol=3)
+         return _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Held-out backend decision matrix for threshold, size-only tree, and AutoSBD",
++            description="Instance-level backend decisions compared directly with the measured oracle",
+         )
+ 
+ 
+@@ -1133,71 +1147,74 @@
+     import matplotlib.pyplot as plt
+ 
+     policies = LEARNED_POLICY_ORDER
++    misses = [
++        row for row in predictions
++        if row["policy"] in policies and row["normalized_regret"] > 0
++    ]
++    misses.sort(key=lambda row: (policies.index(row["policy"]), row["normalized_regret"], row["family_id"], row["n_configurations"]))
++    if not misses:
++        raise SubmissionFigureError("regret figure requires at least one nonzero-regret decision")
++
++    labels = [
++        f"{POLICY_LABELS[row['policy']]}  ·  {_family_label(row['family_id'])}  ·  {row['n_configurations']:,}"
++        for row in misses
++    ]
++    values = [row["normalized_regret"] * 100.0 for row in misses]
++    low_values = [value for value in values if value < 100.0]
++    high_values = [value for value in values if value >= 100.0]
++    low_max = max(10.0, (max(low_values) if low_values else 10.0) * 1.22)
++
+     with mpl.rc_context(_style_context()):
+-        figure, axis = plt.subplots(figsize=(8.7, 4.55), constrained_layout=True)
+-        x_positions = {policy: index for index, policy in enumerate(policies)}
+-        offsets = {"fe4s4": -0.16, "n2": 0.0, "h2o": 0.16}
+-        markers = {"fe4s4": "o", "n2": "s", "h2o": "^"}
+-        for policy in policies:
+-            rows = [row for row in predictions if row["policy"] == policy]
+-            if len(rows) != 15:
+-                raise SubmissionFigureError(f"regret distribution requires 15 rows for {policy}")
+-            for family in FAMILY_ORDER:
+-                values = [row["normalized_regret"] * 100.0 for row in rows if row["family_id"] == family]
+-                axis.scatter(
+-                    [x_positions[policy] + offsets[family]] * len(values),
+-                    values,
+-                    marker=markers[family],
+-                    s=42,
+-                    color=COLORS[policy],
+-                    alpha=0.78,
+-                    edgecolor="white",
+-                    linewidth=0.55,
+-                    zorder=3,
+-                )
+-            median = sorted(row["normalized_regret"] * 100.0 for row in rows)[7]
+-            axis.plot([x_positions[policy] - 0.28, x_positions[policy] + 0.28], [median, median], color="#111827", linewidth=2.0, zorder=4)
+-        axis.set_yscale("symlog", linthresh=1.0, linscale=0.8)
+-        axis.set_ylabel("Normalized regret (%)  ↓")
+-        axis.set_xticks(range(len(policies)), [POLICY_LABELS[policy] for policy in policies])
+-        axis.set_title("Per-instance regret reveals costly mistakes hidden by accuracy")
+-        axis.grid(True, axis="y", which="both")
+-        axis.grid(False, axis="x")
+-        legend_handles = [
+-            mpl.lines.Line2D([0], [0], marker=markers[family], linestyle="None", color="#4B5563", markerfacecolor="#4B5563", label=_family_label(family))
+-            for family in FAMILY_ORDER
+-        ]
+-        axis.legend(handles=legend_handles, loc="upper left", ncol=3)
+-        worst = max(
+-            (row for row in predictions if row["policy"] in policies),
+-            key=lambda row: row["normalized_regret"],
+-        )
+-        worst_x = x_positions[worst["policy"]] + offsets[worst["family_id"]]
+-        worst_y = worst["normalized_regret"] * 100.0
+-        if worst_y > 25.0:
+-            axis.annotate(
+-                (
+-                    f"Largest miss: {_family_label(worst['family_id'])}, "
+-                    f"{worst['n_configurations']:,} configurations\n"
+-                    f"{worst_y:.1f}% regret"
+-                ),
+-                xy=(worst_x, worst_y),
+-                xytext=(worst_x + 0.30, worst_y / 2.4),
+-                textcoords="data",
+-                fontsize=8.2,
+-                color=COLORS["error"],
+-                arrowprops={"arrowstyle": "->", "color": COLORS["error"], "lw": 1.0},
+-                ha="left",
+-                va="center",
++        if high_values:
++            figure, (left, right) = plt.subplots(
++                1, 2, figsize=(12.6, max(3.8, 0.52 * len(misses) + 1.3)),
++                sharey=True, gridspec_kw={"width_ratios": (4.3, 1.25)}, constrained_layout=True
+             )
+-        figure.text(0.5, -0.02, "Black horizontal marks are medians. Zero-regret points are exact oracle selections.", ha="center", fontsize=8.6, color="#4B5563")
++            axes = (left, right)
++        else:
++            figure, left = plt.subplots(figsize=(11.2, max(3.8, 0.52 * len(misses) + 1.3)), constrained_layout=True)
++            right = None
++            axes = (left,)
++        y = list(range(len(misses)))
++        for yi, row, value in zip(y, misses, values):
++            color = COLORS[row["policy"]]
++            if value < 100.0:
++                left.hlines(yi, 0, value, color=color, linestyle=":", linewidth=2.1)
++                left.scatter(value, yi, s=100, color=color, edgecolor="white", linewidth=1.0, zorder=3)
++                left.text(value + low_max * 0.02, yi, f"{value:.1f}%", va="center", fontsize=9.1, fontweight="semibold")
++            elif right is not None:
++                right.hlines(yi, min(high_values) * 0.97, value, color=color, linestyle=":", linewidth=2.1)
++                right.scatter(value, yi, s=115, color=color, edgecolor="white", linewidth=1.0, zorder=3)
++                right.text(value + max(high_values) * 0.006, yi, f"{value:.1f}%", va="center", fontsize=9.1, fontweight="semibold")
++        left.set_xlim(0, low_max)
++        left.set_yticks(y, labels)
++        left.invert_yaxis()
++        left.set_xlabel("Normalized regret (%)  ↓")
++        left.grid(True, axis="x")
++        left.grid(False, axis="y")
++        if right is not None:
++            lower = min(high_values) * 0.97
++            upper = max(high_values) * 1.04
++            right.set_xlim(lower, upper)
++            right.set_xlabel("outlier")
++            right.grid(True, axis="x")
++            right.grid(False, axis="y")
++            right.tick_params(labelleft=False)
++            # Broken-axis marks.
++            d = 0.012
++            kwargs = dict(transform=left.transAxes, color="#4B5563", clip_on=False, linewidth=1.0)
++            left.plot((1 - d, 1 + d), (-d, +d), **kwargs)
++            left.plot((1 - d, 1 + d), (1 - d, 1 + d), **kwargs)
++            kwargs.update(transform=right.transAxes)
++            right.plot((-d, +d), (-d, +d), **kwargs)
++            right.plot((-d, +d), (1 - d, 1 + d), **kwargs)
++        figure.text(0.995, 0.01, "Only nonzero-regret decisions are shown; larger is worse.", ha="right", fontsize=8.3, color="#6B7280")
+         return _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Per-instance held-out normalized regret for learned policies",
++            description="Visible lollipop comparison of every nonzero held-out regret event",
+         )
+ 
+-
+ def _tree_positions(nodes: Sequence[Mapping[str, Any]]) -> tuple[dict[int, tuple[float, int]], int]:
+     by_id = {_integer(node["node_id"], "node_id", minimum=0): node for node in nodes}
+     positions: dict[int, tuple[float, int]] = {}
+@@ -1247,6 +1264,7 @@
+     return labels.get(name, name.replace("_", " "))
+ 
+ 
++
+ def render_deployment_tree(model: Mapping[str, Any], output_stem: Path) -> tuple[dict[str, bool], list[dict[str, Any]]]:
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+@@ -1257,49 +1275,81 @@
+     positions, max_depth = _tree_positions(nodes)
+     by_id = {int(node["node_id"]): node for node in nodes}
+     leaf_count = sum(node.get("type") == "leaf" for node in nodes)
+-    width = max(10.5, leaf_count * 2.1)
+-    height = max(4.8, (max_depth + 1) * 1.45)
++    width = max(11.5, leaf_count * 2.45)
++    height = max(5.2, (max_depth + 1) * 1.75)
+     trace_rows: list[dict[str, Any]] = []
+ 
++    def human_split(feature_name: str, threshold: float) -> str:
++        if feature_name == "log1p_n_configurations":
++            return f"Configurations ≤ {int(round(math.expm1(threshold))):,}?"
++        if feature_name == "backend_gpu":
++            return "GPU candidate?"
++        if feature_name == "log1p_method0_work_proxy":
++            return f"Work proxy ≤ {math.expm1(threshold):.2g}?"
++        if feature_name == "log1p_determinant_cache_bytes":
++            return f"Determinant cache ≤ {math.expm1(threshold) / MIB:.1f} MiB?"
++        if feature_name == "log1p_gpu_guard_bytes":
++            return f"GPU guard ≤ {math.expm1(threshold) / MIB:.1f} MiB?"
++        if feature_name == "cpu_threads":
++            return f"CPU threads ≤ {threshold:.1f}?"
++        if "density" in feature_name:
++            return f"{_feature_display(feature_name)} ≤ {threshold:.3g}?"
++        return f"{_feature_display(feature_name)} ≤ {threshold:.3g}?"
++
+     with mpl.rc_context(_style_context()):
+         figure, axis = plt.subplots(figsize=(width, height), constrained_layout=True)
+-        axis.set_xlim(-0.75, max(leaf_count - 1, 0) + 0.75)
+-        axis.set_ylim(max_depth + 0.75, -0.75)
++        axis.set_xlim(-0.95, max(leaf_count - 1, 0) + 0.95)
++        axis.set_ylim(max_depth + 0.85, -0.95)
+         axis.axis("off")
+         for node_id, node in by_id.items():
++            if node.get("type") != "split":
++                continue
+             x, depth = positions[node_id]
+-            if node.get("type") == "split":
+-                for child_key, edge_label in (("left_child", "≤"), ("right_child", ">")):
+-                    child_id = int(node[child_key])
+-                    child_x, child_depth = positions[child_id]
+-                    axis.add_patch(FancyArrowPatch((x, depth + 0.19), (child_x, child_depth - 0.22), arrowstyle="-|>", mutation_scale=10, linewidth=1.0, color="#9CA3AF", zorder=1))
+-                    axis.text((x + child_x) / 2, (depth + child_depth) / 2 - 0.03, edge_label, fontsize=8, color="#6B7280", ha="center")
++            for child_key, edge_label in (("left_child", "YES"), ("right_child", "NO")):
++                child_id = int(node[child_key])
++                child_x, child_depth = positions[child_id]
++                axis.add_patch(FancyArrowPatch(
++                    (x, depth + 0.26), (child_x, child_depth - 0.29),
++                    arrowstyle="-|>", mutation_scale=11, linewidth=1.2,
++                    color="#9CA3AF", zorder=1
++                ))
++                axis.text(
++                    (x + child_x) / 2, (depth + child_depth) / 2 - 0.03,
++                    edge_label, fontsize=7.8, color="#6B7280", ha="center", fontweight="bold"
++                )
+         for node_id, node in by_id.items():
+             x, depth = positions[node_id]
+             sample_count = _integer(node.get("sample_count"), "sample_count", minimum=1)
+             if node.get("type") == "split":
+                 feature_name = _text(node.get("feature_name"), "feature_name")
+                 threshold = _number(node.get("threshold"), "tree threshold")
+-                label = f"{_feature_display(feature_name)}\n≤ {threshold:.3g}\n(n={sample_count})"
++                label = human_split(feature_name, threshold)
+                 edge = COLORS["autosbd_full_tree"]
+-                face = "#ECFDF5"
++                face = "#FFFFFF"
+                 trace_rows.append({"node_id": node_id, "type": "split", "feature_name": feature_name, "threshold": threshold, "sample_count": sample_count, "predicted_runtime_s": None})
+             else:
+                 value = _number(node.get("value_log1p_median_wall_time_s"), "leaf value")
+                 runtime = math.expm1(value)
+-                label = f"Predicted runtime\n≈ {runtime:.3g} s\n(n={sample_count})"
++                label = f"Predicted runtime\n{runtime:.3g} s"
+                 edge = "#4B5563"
+                 face = "#F9FAFB"
+                 trace_rows.append({"node_id": node_id, "type": "leaf", "feature_name": None, "threshold": None, "sample_count": sample_count, "predicted_runtime_s": runtime})
+-            patch = FancyBboxPatch((x - 0.65, depth - 0.23), 1.30, 0.46, boxstyle="round,pad=0.03,rounding_size=0.04", linewidth=1.15, edgecolor=edge, facecolor=face, zorder=2)
++            patch = FancyBboxPatch(
++                (x - 0.83, depth - 0.29), 1.66, 0.58,
++                boxstyle="round,pad=0.035,rounding_size=0.05",
++                linewidth=1.3, edgecolor=edge, facecolor=face, zorder=2
++            )
+             axis.add_patch(patch)
+-            axis.text(x, depth, label, ha="center", va="center", fontsize=7.7, zorder=3)
+-        axis.set_title("Interpretable deployment tree", pad=12, fontsize=14.5, fontweight="bold")
+-        figure.text(0.5, -0.015, "Trained on all 15 balanced instances for deployment and overhead timing only; this tree is explicitly excluded from held-out metrics.", ha="center", fontsize=8.4, color="#4B5563")
++            axis.text(x, depth - 0.035, label, ha="center", va="center", fontsize=8.5, fontweight="semibold" if node.get("type") == "split" else "normal", zorder=3)
++            axis.text(x, depth + 0.19, f"n={sample_count}", ha="center", va="center", fontsize=7.2, color="#6B7280", zorder=3)
++        axis.text(
++            0.99, 0.02, "Deployment-only reconstruction · excluded from held-out metrics",
++            transform=axis.transAxes, ha="right", va="bottom", fontsize=8.4, color="#6B7280"
++        )
+         outputs = _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="AutoSBD full-feature deployment decision tree excluded from held-out metrics",
++            description="Manually reconstructed AutoSBD deployment decision tree",
+         )
+     return outputs, sorted(trace_rows, key=lambda row: row["node_id"])
+ 
+@@ -1308,32 +1358,41 @@
+     import matplotlib as mpl
+     import matplotlib.pyplot as plt
+ 
+-    order = ("hot_selection", "cold_load_plus_selection")
+     lookup = {row["measurement"]: row for row in rows}
+-    labels = ("Hot loaded-model\nselection", "Object-cold load\n+ selection")
++    hot = lookup["hot_selection"]
++    cold = lookup["cold_load_plus_selection"]
++    hot_percent = hot["hot_percent_of_shortest_sbd"]
++    if hot_percent is None or hot_percent <= 0:
++        raise SubmissionFigureError("hot selector row must report percent of shortest SBD runtime")
++    shortest_sbd_us = hot["median_us"] / (hot_percent / 100.0)
++    labels = ("Hot selection", "Load + selection", "Shortest SBD run")
++    values = (hot["median_us"], cold["median_us"], shortest_sbd_us)
++    colors = (COLORS["autosbd_full_tree"], "#4F46E5", "#6B7280")
++
+     with mpl.rc_context(_style_context()):
+-        figure, axis = plt.subplots(figsize=(8.6, 3.65), constrained_layout=True)
+-        y = [1, 0]
+-        for yi, measurement, label, color in zip(y, order, labels, (COLORS["autosbd_full_tree"], "#4F46E5")):
+-            row = lookup[measurement]
+-            axis.hlines(yi, row["minimum_us"], row["maximum_us"], color="#CBD5E1", linewidth=4, zorder=1)
+-            axis.hlines(yi, row["median_us"], row["p95_us"], color=color, linewidth=8, zorder=2)
+-            axis.scatter([row["median_us"]], [yi], s=90, color=color, edgecolor="white", linewidth=1.0, zorder=3)
+-            axis.text(row["median_us"], yi + 0.20, f"median {row['median_us']:.1f} µs", ha="center", fontsize=8.8, fontweight="semibold")
+-        axis.set_xscale("log")
+-        axis.set_yticks(y, labels)
+-        axis.set_xlabel("Latency (µs, logarithmic scale)")
+-        axis.set_title("Selector overhead is negligible relative to SBD runtime")
+-        axis.grid(True, axis="x", which="both")
+-        axis.grid(False, axis="y")
+-        hot_percent = lookup["hot_selection"]["hot_percent_of_shortest_sbd"]
+-        if hot_percent is not None:
+-            axis.text(0.98, 0.05, f"Hot median = {hot_percent:.5f}% of\nthe shortest measured SBD median", transform=axis.transAxes, ha="right", va="bottom", fontsize=8.5, color="#374151")
+-        figure.text(0.5, -0.02, "Thick segment: median to p95; thin segment: minimum to maximum. Object-cold timing does not control OS page-cache state.", ha="center", fontsize=8.3, color="#4B5563")
++        figure, axis = plt.subplots(figsize=(8.8, 4.25), constrained_layout=True)
++        bars = axis.bar(range(3), values, width=0.62, color=colors, edgecolor="white", linewidth=0.9)
++        axis.set_yscale("log")
++        axis.set_xticks(range(3), labels)
++        axis.set_ylabel("Median latency (µs, log scale)")
++        axis.grid(True, axis="y", which="both")
++        axis.grid(False, axis="x")
++        for bar, value in zip(bars, values):
++            label = f"{value:.1f} µs" if value < 1000 else f"{value / 1000:.1f} ms"
++            axis.text(bar.get_x() + bar.get_width() / 2, value * 1.17, label, ha="center", va="bottom", fontsize=9.3, fontweight="semibold")
++        ratio = shortest_sbd_us / hot["median_us"]
++        axis.annotate(
++            f"{ratio:,.0f}× smaller than\nthe shortest SBD median",
++            xy=(0, hot["median_us"]), xytext=(0.55, math.sqrt(hot["median_us"] * shortest_sbd_us)),
++            textcoords="data", fontsize=9.3, color=COLORS["autosbd_full_tree"],
++            arrowprops={"arrowstyle": "->", "color": COLORS["autosbd_full_tree"], "lw": 1.2},
++            ha="left", va="center"
++        )
++        axis.margins(y=0.25)
+         return _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Hot and object-cold AutoSBD selector latency distributions",
++            description="Selector latency compared directly with the shortest measured SBD runtime",
+         )
+ 
+ 
+@@ -1356,61 +1415,46 @@
+             caps = {float(row["gpu_admission_cap_mib"]) for row in group}
+             if len(guards) != 1:
+                 raise SubmissionFigureError(f"memory guard changed within {family}/{size}")
+-            summaries.append(
+-                {
+-                    "family_id": family,
+-                    "n_configurations": size,
+-                    "median_peak_gpu_mib": median_peak,
+-                    "estimated_guard_mib": next(iter(guards)),
+-                    "minimum_admission_cap_mib": min(caps),
+-                    "repetitions": len(group),
+-                }
+-            )
++            summaries.append({
++                "family_id": family,
++                "n_configurations": size,
++                "median_peak_gpu_mib": median_peak,
++                "estimated_guard_mib": next(iter(guards)),
++                "minimum_admission_cap_mib": min(caps),
++                "repetitions": len(group),
++            })
+ 
+     with mpl.rc_context(_style_context()):
+-        figure, axes = plt.subplots(1, 3, figsize=(13.2, 4.15), sharey=True, constrained_layout=True)
+-        for axis, family in zip(axes, FAMILY_ORDER):
++        figure, axes = plt.subplots(1, 3, figsize=(13.6, 4.15), constrained_layout=True)
++        for family in FAMILY_ORDER:
+             family_summary = [row for row in summaries if row["family_id"] == family]
+             x = [row["n_configurations"] for row in family_summary]
+             peak = [row["median_peak_gpu_mib"] for row in family_summary]
+             guard = [row["estimated_guard_mib"] for row in family_summary]
+-            cap = min(row["minimum_admission_cap_mib"] for row in family_summary)
+-            axis.plot(x, peak, marker="o", linewidth=2.0, color=COLORS["gpu"], label="Measured median peak")
+-            axis.plot(x, guard, marker="s", linewidth=1.8, color="#E69F00", label="Conservative guard")
+-            axis.axhline(cap, color="#4B5563", linestyle="--", linewidth=1.4, label="Minimum admission cap")
++            ratio = [row["minimum_admission_cap_mib"] / row["median_peak_gpu_mib"] for row in family_summary]
++            axes[0].plot(x, peak, marker="o", markersize=5.8, linewidth=2.0, label=_family_label(family))
++            axes[1].plot(x, guard, marker="s", markersize=5.8, linewidth=2.0, label=_family_label(family))
++            axes[2].plot(x, ratio, marker="D", markersize=5.5, linewidth=2.0, label=_family_label(family))
++            for axis, series in ((axes[0], peak), (axes[1], guard), (axes[2], ratio)):
++                axis.annotate(_family_label(family), xy=(x[-1], series[-1]), xytext=(5, 0), textcoords="offset points", va="center", fontsize=8.2)
++        for axis in axes:
+             axis.set_xscale("log")
+-            axis.set_yscale("log")
+             axis.set_xlabel("Configurations")
+-            axis.set_title(_family_label(family))
+-            axis.grid(True, which="both")
+-            largest = family_summary[-1]
+-            headroom = largest["minimum_admission_cap_mib"] / largest["median_peak_gpu_mib"]
+-            axis.text(
+-                0.97,
+-                0.05,
+-                f"largest peak {largest['median_peak_gpu_mib']:.0f} MiB\n{headroom:.0f}× below cap",
+-                transform=axis.transAxes,
+-                ha="right",
+-                va="bottom",
+-                fontsize=8.0,
+-                color="#374151",
+-            )
+-        axes[0].set_ylabel("GPU memory (MiB, logarithmic scale)")
+-        handles, labels = axes[0].get_legend_handles_labels()
+-        figure.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 1.04), ncol=3)
+-        figure.suptitle("GPU memory guard remained far below the admission cap", y=1.11, fontsize=14.8, fontweight="bold")
+-        figure.text(
+-            0.5,
+-            -0.025,
+-            "Final repeated records only. The measured range validates conservative admission; it does not validate near-cap estimates or demonstrate an avoided OOM.",
+-            ha="center",
+-            fontsize=8.3,
+-            color="#4B5563",
+-        )
++            axis.grid(True, which="major")
++            axis.grid(True, which="minor", alpha=0.12)
++            axis.margins(x=0.08, y=0.14)
++        axes[0].set_ylabel("Measured peak GPU memory (MiB)")
++        axes[1].set_ylabel("Conservative guard estimate (MiB)")
++        axes[2].set_ylabel("Admission cap / measured peak (×, log scale)")
++        axes[2].set_yscale("log")
++        axes[0].text(0.03, 0.97, "A  measured", transform=axes[0].transAxes, ha="left", va="top", fontweight="bold")
++        axes[1].text(0.03, 0.97, "B  guarded", transform=axes[1].transAxes, ha="left", va="top", fontweight="bold")
++        axes[2].text(0.03, 0.97, "C  headroom", transform=axes[2].transAxes, ha="left", va="top", fontweight="bold")
++        figure.text(0.995, 0.01, "A and B use linear y-axes; C uses a logarithmic y-axis.", ha="right", fontsize=8.3, color="#6B7280")
+         outputs = _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Cross-family measured GPU peaks, conservative guards, and admission caps",
++            description="Measured memory, conservative guard, and logarithmic admission headroom",
+         )
+     return outputs, summaries
+ 
+@@ -1425,42 +1469,52 @@
+             values = [row["relative_error"] for row in rows if row["family_id"] == family and row["backend"] == backend]
+             if not values:
+                 continue
+-            summaries.append({"family_id": family, "backend": backend, "maximum_relative_energy_error": max(values), "record_count": len(values)})
++            summaries.append({
++                "family_id": family,
++                "backend": backend,
++                "maximum_relative_energy_error": max(values),
++                "record_count": len(values),
++            })
+     tolerance = 1e-10
+-    floor = 1e-18
++    family_worst: list[dict[str, Any]] = []
++    for family in FAMILY_ORDER:
++        values = [row["maximum_relative_energy_error"] for row in summaries if row["family_id"] == family]
++        if not values:
++            raise SubmissionFigureError(f"energy figure lacks values for {family}")
++        worst = max(values)
++        display_error = max(worst, 1e-18)
++        margin_orders = math.log10(tolerance / display_error)
++        family_worst.append({"family_id": family, "worst_error": worst, "margin_orders": margin_orders})
++
+     with mpl.rc_context(_style_context()):
+-        figure, axis = plt.subplots(figsize=(8.3, 4.15), constrained_layout=True)
+-        positions = {family: index for index, family in enumerate(FAMILY_ORDER)}
+-        for backend, offset, marker in (("cpu", -0.13, "o"), ("gpu", 0.13, "s")):
+-            subset = [row for row in summaries if row["backend"] == backend]
+-            axis.scatter(
+-                [positions[row["family_id"]] + offset for row in subset],
+-                [max(row["maximum_relative_energy_error"], floor) for row in subset],
+-                s=80,
+-                marker=marker,
+-                color=COLORS[backend],
+-                edgecolor="white",
+-                linewidth=0.9,
+-                label="CPU16" if backend == "cpu" else "L4 GPU",
+-                zorder=3,
++        figure, axis = plt.subplots(figsize=(8.7, 4.15), constrained_layout=True)
++        bars = axis.barh(
++            range(len(family_worst)),
++            [row["margin_orders"] for row in family_worst],
++            height=0.58,
++            color=[COLORS["autosbd_full_tree"]] * len(family_worst),
++            edgecolor="white", linewidth=0.9
++        )
++        axis.set_yticks(range(len(family_worst)), [_family_label(row["family_id"]) for row in family_worst])
++        axis.invert_yaxis()
++        axis.set_xlabel("Orders of magnitude inside the 1×10⁻¹⁰ acceptance tolerance  ↑")
++        axis.set_xlim(0, max(row["margin_orders"] for row in family_worst) * 1.30)
++        axis.grid(True, axis="x")
++        axis.grid(False, axis="y")
++        for bar, row in zip(bars, family_worst):
++            axis.text(
++                row["margin_orders"] + 0.08, bar.get_y() + bar.get_height() / 2,
++                f"{row['margin_orders']:.1f} orders   (max error {row['worst_error']:.1e})",
++                va="center", fontsize=9.3, fontweight="semibold"
+             )
+-        axis.axhline(tolerance, color=COLORS["error"], linestyle="--", linewidth=1.5, label="Acceptance tolerance (1×10⁻¹⁰)")
+-        axis.set_yscale("log")
+-        axis.set_xticks(range(3), [_family_label(family) for family in FAMILY_ORDER])
+-        axis.set_ylabel("Maximum recorded relative energy error")
+-        axis.set_title("Numerical agreement remains orders of magnitude inside tolerance")
+-        axis.grid(True, axis="y", which="both")
+-        axis.grid(False, axis="x")
+-        axis.legend(loc="upper left", ncol=3)
+-        figure.text(0.5, -0.02, "Values aggregate tracked correct raw records; exact zeros are displayed at 10⁻¹⁸ for logarithmic visibility.", ha="center", fontsize=8.3, color="#4B5563")
+-        outputs = _save_figure_bundle(
++        axis.axvline(0, color="#4B5563", linewidth=0.9)
++        return _save_figure_bundle(
+             figure,
+             output_stem,
+-            description="Maximum recorded relative energy error by family and backend",
++            description="Numerical correctness shown as orders-of-magnitude safety margin",
+         )
+     return outputs, summaries
+ 
+-
+ def generate_submission_figure_suite(
+     *,
+     stage4_aggregate: Path,
